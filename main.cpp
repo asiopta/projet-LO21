@@ -4,7 +4,7 @@ using namespace std;
 #include "game.h"
 
 int main(){
-    RessourcePrimaire ressource1 = RessourcePrimaire::Pierre;
+    RessourcePrimaire ressource1 = RessourcePrimaire::Bois;
     cout<< "ressource 1 :" << static_cast<int>(ressource1) << endl ;
     cout<< "hello" ; 
     return 0;
