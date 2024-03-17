@@ -1,2 +1,2 @@
 # projet-LO21
-7 wonders duel
+création du jeu de société 7 wonders duel dans le cadre de l'UV LO21
