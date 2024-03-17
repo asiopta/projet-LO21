@@ -1,0 +1,266 @@
+@startuml Model 3
+
+
+'les differentes cartes : 
+
+'Cette classe rassemble les elements commun à chaques cartes 
+class Carte{
+    -age : int {1, 2, 3}
+    -materiauxconstruction : [[RassourcePrimaire[4], RessourceSecondaire[2]]
+    -coutconstruction : unsigned int
+}
+'Notes : J'ai compté pour les listes 4 et 2 en longueurs suffisent
+'Age est une enumeration
+
+
+'-----------------------------LES AUTRES CARTES--------------------'
+'Hérite tous de la classe carte carte
+
+'Une Merveille est techniquement une carte
+class Merveille{
+    -capacite : Capacite
+    -ptVictoire : unsigned int
+    -production : RessourceSecondaire[3]
+}
+'Les Merveille Grand Phare et Piree peuvent produire une ressource
+
+'Les autres types de cartes
+
+'Cartes marrons 
+class CarteRessourcePrimaire{
+    -production : RessourcePrimaire[2]
+}
+
+'Cartes gris
+class CarteRessourceSecondaire{
+    -production : RessourceSecondaire[2]
+}
+
+'Cartes Jaunes
+class CarteCommerce{
+    -production : RessourcePrimaire[2]
+    -symboleChainage : SymboleChainage
+    -choix : boolean 
+    -contrpartie : int 
+    -ptVictoire : unsigned int
+}
+'Choix defini si la production doit etre choisi entre differentes ressources ou non
+'Contrepartie defini si il faut "acheter" la ressource produite ou non, on notera 0 si ce n'est pas le cas
+
+'Cartes Verts
+class CarteScience{
+    -symboleScience : SymboleScience
+    -symboleChainage : SymboleChainage
+    -ptVictoire : unsigned int
+}
+'SymboleScience est une enumerations des symboles Science disponible dans le jeu
+'SymboleChainage est une enumerations des symboles Science disponible dans le jeu
+
+'Cartes Rouges
+class CarteMilitaire{
+    -militaire : Capacite:avancemilitaire
+}
+
+'Cartes Bleu
+class CartePrestige{
+    -symboleChainage : SymboleChainage
+    -ptVictoire : unsigned int
+}
+
+'Cartes Violets
+class CarteGuilde{
+    -effetGuilde : EffetGuilde
+}
+'EffetGuilde est un enumération defini après
+
+CarteMilitaire --|> Carte
+CarteCommerce --|> Carte
+CarteScience --|> Carte
+CartePrestige --|> Carte
+CarteGuilde --|> Carte
+CarteRessourcePrimaire --|> Carte
+CarteRessourceSecondaire --|> Carte
+Merveille --|> Carte
+
+
+'-----------------------------------------ATTENTION !!!-----------------------------------------------------'
+'Tout elements se déclanchant qu'une seul fois, à la création de la carte est considéré comme une capacitée 
+'Il existe une enumération capacité, définie plus loin
+
+'---------------------------------------ENUMERATIONS LIE AUX CARTES-----------------------------------------'
+
+
+
+'Permet de ne pas payer une carte si elle comporte le meme symbole qu'une carte déja construite par le joueur
+enum SymboleChainage{
+    Jarre 
+    toneau
+    masque 
+    temple 
+    soleil 
+    goute 
+    lune 
+    pilier 
+    cible 
+    casque 
+    feracheval 
+    epee 
+    tour 
+    lyre 
+    engrenage 
+    livre 
+    lampe 
+}
+
+CarteBleu "*" *-- "*" SymboleChainage
+CarteMilitaire "*" *-- "*" SymboleChainage
+CarteScience "*" *-- "*" SymboleChainage
+CarteCommerce "*" *-- "*" SymboleChainage
+
+'Symbole se trouvant sur les cartes sciences, 
+'2 symbole similaire entraine la prise d'une jeton science pour le joueur, 
+'6 symbole different entraine une victoire scientifique
+enum SymboleScience{
+    roue 
+    plume 
+    pilon 
+    balance 
+    globeterrestre 
+    filaplomb
+    bateau 
+}
+
+CarteScience "*" *-- "*" SymboleScience
+
+'Enumerations contenant les differents effets de Guilde (cartes violettes)
+enum EffetGuilde{
+    GuildeArmateurs
+    GuildeBâtisseurs
+    GuildeCommerçants
+    GuildeMagistrats
+    GuildeDesTacticiens
+    GuildeDesScientifiques
+    GuildeUsuriers
+}
+'Se referer à la fiche dans le docs pour les effets de chaques guides
+
+CarteGuilde "*" *-- "*" EffetGuilde
+
+'Les differentes capacité retrouvables sur certaines cartes, notement sur les cartes Merveille, militaire et de commerce
+enum Capacite{
+    rejouer
+    detruirecartemarron
+    detruirecartegrise
+    jouercartedefausse
+    gagnermonnaie
+    avanceemilitaire
+    choisirjetonscience
+}
+'Je pense que les noms sont suffisement explicites, mais n'hésitez pas à poser des question si ce n'est pas clair
+
+Capacite "*"  --* "*" CarteCommerce
+Capacite "*"  --* "*" CarteMilitaire
+Capacite "*"  --* "*" Merveille
+
+
+'Les Ressources sont utilisé par les joureurs pour construir des batiments
+'Elles sont produites par certaines cartes
+enum RessourcePrimaire{
+    pierre
+    bois
+    brique
+}
+
+CarteRessourcePrimaire "*" *-- "*" RessourcePrimaire
+CarteCommerce "*" *-- "*" RessourcePrimaire
+
+
+enum RessourceSecondaire{
+    verre
+    parchemin
+}
+
+CarteRessourceSecondaire "*" *-- "*" RessourceSecondaire
+CarteCommerce "*" *-- "*" RessourceSecondaire
+Merveille "*" *-- "*" RessourceSecondaire
+
+
+
+'-------------------------LES JETONS SCIENCES------------------------'
+'Il sont au nombre de 10 avec des effets uniques
+
+class JetonScience{
+    -capacite : CapaciteScience
+}
+'CapaciteScience est une enumération des effets de chaques jetons, voir ci dessous
+
+'Capacité déclanchées par les jetons sciences
+enum CapaciteScience{
+    Agriculture
+    Architecture
+    Economie
+    Loi
+    Maconnerie
+    Urbanisme
+    Théologie
+    Stratégie
+    Philosophie
+    Mathématique
+}
+'Ce référer à la fiche pour les detailles de chaques capacitées
+JetonScience "1" *-- "1" CapaciteScience
+
+
+
+'-------------------------------GESTION DU PLATEAU DE JEU------------------------
+
+
+'Cette classe decrit l'etat du plateau de jeu à chaque instant
+class Joueur{
+    -carteconstruite : Carte[60]
+    -monnaie : unsigned int 
+
+    +effectuerAction(Carte, Plateau)
+}
+'60 car 20*3 = 60 le nombre de carte max qu'un joueur vera dans sa partie
+'La fonction Verifie que la carte est accessible sur le Plateau (probablement via une méthode implémenté dans Plateau),
+'Et effetue l'Action choisit par le joueur
+
+'Si l'action choisit est construir ou merveille, alors le fonction vérifira que la carte ou la merveille est construissable puis l'ajoutera aux carte construites
+'Si l'action chosit est de défausser la carte, la carte sera ajouté à la défausse du Plateau, et le joueur gagnera de la monnaie, 
+'Dans tout les cas, la carte sera suprimé des cartes accésibles du plateau
+
+Joueur "2" -- Carte
+
+
+
+class Plateau{
+    -age : int {1, 2, 3}
+    -listecarteenjeu : (carte : Carte, position : int, accessible : bool, facevisible : bool)[20]
+    -plateaumilitaire : (int, Joueur)
+    -nbmerveilles : int
+    -defausse : Cartes[60]
+    -jetonsscience : JetonScience[5]
+}
+'plateaumilitaire decrit l'avancé militaire d'un joueur vers le camps adverse, 
+'nbmerveilles renseigne le nombre de merveilles déjà construites, pour rappel, on ne peut construire que 7 merveille dans une partie
+Carte "*" *-- "1" Plateau
+Joueur "2" -- "1" Plateau
+JetonScience "0..6" --"2" Joueur
+JetonScience "10" *-- "1" Plateau
+
+class Controleur{
+}
+'Represente la classe de départ, classe sans attribut qui represente le code
+
+Controleur "1" *-- "2" Joueur
+Controleur "1" *-- "1" Plateau
+
+
+
+
+
+
+
+
+@enduml
