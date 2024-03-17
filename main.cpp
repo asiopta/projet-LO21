@@ -4,10 +4,11 @@ using namespace std;
 #include "game.h"
 
 int main(){
-    RessourcePrimaire ressource1 = RessourcePrimaire::Bois;
+    RessourcePrimaire ressource1 = RessourcePrimaire::bois;
     cout<< "ressource 1 :" << static_cast<int>(ressource1) << endl ;
     cout<< "hello" ; 
     return 0;
 };
+
 
 

@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <string>
-using namespace std;
 
 
 //les différente classes d'énumération 
@@ -91,28 +90,29 @@ private:
 
 
 public:
-    void setAge(int newAge) {
-        if (newAge >= 1 && newAge <= 3) {
-            age = newAge;
-        } else {
-            cout<< "Error: Age must be 1, 2, or 3." << endl;
-        }
-    }
 
-    int getAge() const {
-        return age;
-    }
+    //constructeur
 
-    string gettype();
+
+    //methodes
+    void setAge(int newAge);
+    int getAge() const;
+
+
+    //methode virtuelle pure, cad est appelable uniquement par les classes filles, et à definir pour chaques classes filles
+    virtual string gettype() const = 0;
+
+    //destructeur
+    virtual ~Carte();
 };
 /*pour la classe carte, c'est compliqué de faire la variable cout de production qui est une liste de 
 RessourcesPrimaires et RessourcesSecondaires à la fois. 
 Vaut mieux pt étre créer deux variable materiauxPrim et materiauxSecond
 */
+//REPONSE : je suis d'accord avec toi sur ce point
 
-class Merveille{
+class Merveille : public Carte{
 private:
-    Carte c;
     unsigned int pt_victoire;
     RessourceSecondaire productionSecondaire[3];
     RessourcePrimaire productionPrimaire[3];
@@ -120,26 +120,30 @@ private:
 
 public:
     //void execCapacite(list Capacite);
+    string gettype() const override;
 };
 
 //cartes Marrons
-class CarteRessourcePrimaire{
+class CarteRessourcePrimaire : public Carte{
 private:
     RessourcePrimaire production[2]; //certaines cartes peuvent produire 2 ressources
 
 public:
+    string gettype() const override;
+
 };
 
 //cartes Grises
-class CarteRessourceSecondaire{
+class CarteRessourceSecondaire : public Carte{
 private:
     RessourceSecondaire production;  //Pas de liste car produit toujours 1 seul ressource
 
 public:
+    string gettype() const override;
 };
 
 //cartes Jaunes
-class CarteCommerce{
+class CarteCommerce : public Carte{
 private:
     RessourcePrimaire productionPrimaire[3];
     RessourceSecondaire productionSecondaire[2];
@@ -150,12 +154,13 @@ private:
 
 public:
     void execCapacite();
+    string gettype() const override;
 
 };
 
 
 //Cartes Vertes
-class CarteScience{
+class CarteScience : public Carte{
 private:
     SymboleScience symbole_science;
     SymboleChainage symbole_chainage;
@@ -163,36 +168,40 @@ private:
     //Capacite capacite; //il faut pt étre pas rajouter ca ici. On déclence la capacite ssi il ya deux cartes avec meme symbole scientifique
 public:
     void execCapacite();
+    string gettype() const override;
 
 };
 
 //carte Rouges
-class CarteMilitaire{
+class CarteMilitaire : public Carte{
 private:
     Capacite capacite;
     SymboleChainage symbole_chainage;
 
 public:
     void execCapacite();
+    string gettype() const override;
 };
 
 //cartes Bleues
-class CartePrestige{
+class CartePrestige : public Carte{
 private:
     unsigned int pt_victoire;
     SymboleChainage symbole_chainage;
 
 public:
+    string gettype() const override;
 
 };
 
 //cartes Violets
-class CarteGuilde{
+class CarteGuilde : public Carte{
 private:
     EffetGuilde effet_guilde;
 
 public:
     void execEffetGuilde();
+    string gettype() const override;
 };
 
 //__________________________________________________________________________________________________________________//
@@ -286,5 +295,6 @@ public:
     // tirerjeton() -> JetonScience[3]
     // retirerJeton(unsigned int : position) -> None
 };
+
 
 
