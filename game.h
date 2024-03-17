@@ -3,7 +3,18 @@
 #include <string>
 using namespace std;
 
-class carte{
+enum class RessourcePrimaire {
+    Pierre,
+    Bois,
+    Brique
+};
+
+enum class RessourceSecondaire {
+    verre,
+    parchemin
+};
+
+class Carte{
 private:
     unsigned int age;
     unsigned int coutconstruction;
@@ -22,4 +33,14 @@ public:
     int getAge() const {
         return age;
     }
+};
+
+class Merveille{
+private:
+    Carte c;
+    unsigned int ptVictoire;
+    RessourceSecondaire production[3];
+
+public:
+
 };
