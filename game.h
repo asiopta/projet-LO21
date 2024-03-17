@@ -6,9 +6,9 @@ using namespace std;
 
 //les différente classes d'énumération 
 enum class RessourcePrimaire {
-    Pierre,
-    Bois,
-    Brique
+    pierre,
+    bois,
+    brique
 };
 
 enum class RessourceSecondaire {
@@ -17,7 +17,7 @@ enum class RessourceSecondaire {
 };
 
 enum class SymboleChainage{
-    Jarre,
+    jarre,
     toneau,
     masque,
     temple, 
@@ -27,7 +27,7 @@ enum class SymboleChainage{
     pilier, 
     cible, 
     casque, 
-    feracheval, 
+    fer_a_cheval, 
     epee, 
     tour, 
     lyre, 
@@ -41,43 +41,43 @@ enum class SymboleScience{
     plume, 
     pilon,
     balance, 
-    globeterrestre, 
-    filaplomb,
+    globe_terrestre, 
+    fil_a_plomb,
     bateau, 
 };
 
 enum class EffetGuilde{
-    GuildeArmateurs,
-    GuildeBatisseurs,
-    GuildeCommercants,
-    GuildeMagistrats,
-    GuildeDesTacticiens,
-    GuildeDesScientifiques,
-    GuildeUsuriers
+    guilde_Armateurs,
+    guilde_Batisseurs,
+    guilde_Commercants,
+    guilde_Magistrats,
+    guilde_Tacticiens,
+    guilde_Scientifiques,
+    guilde_Usuriers
 };
 
 enum class Capacite{
     rejouer,
-    detruirecartemarron,
-    detruirecartegrise,
-    jouercartedefausse,
-    gagnermonnaie,
-    avanceemilitaire,
-    choisirjetonscience,
-    ajoutersymbolescience    
+    detruire_carte_marron,
+    detruire_carte_grise,
+    jouer_carte_defausse,
+    gagner_monnaie,
+    avancee_militaire,
+    choisir_jeton_science,
+    ajouter_symbole_science    
 };
 
 enum class CapaciteScience{
-    Agriculture,
-    Architecture,
-    Economie,
-    Loi,
-    Maconnerie,
-    Urbanisme,
-    Theologie,
-    Strategie,
-    Philosophie,
-    Mathematique
+    agriculture,
+    architecture,
+    economie,
+    loi,
+    maconnerie,
+    urbanisme,
+    theologie,
+    strategie,
+    philosophie,
+    mathematique
 };
 
 //______________________________________________________________________________________________________________________________//
@@ -85,9 +85,9 @@ enum class CapaciteScience{
 class Carte{
 private:
     unsigned int age;
-    unsigned int coutconstruction;
-    RessourcePrimaire MateriauxPrimaires[4];
-    RessourceSecondaire MaterieuxSecondaires[2];
+    unsigned int cout_construction;
+    RessourcePrimaire materiauxPrimaires[4];
+    RessourceSecondaire materieuxSecondaires[2];
 
 
 public:
@@ -113,7 +113,7 @@ Vaut mieux pt étre créer deux variable materiauxPrim et materiauxSecond
 class Merveille{
 private:
     Carte c;
-    unsigned int ptVictoire;
+    unsigned int pt_victoire;
     RessourceSecondaire productionSecondaire[3];
     RessourcePrimaire productionPrimaire[3];
     Capacite capacite[3];
@@ -146,7 +146,7 @@ private:
     Capacite capacite;
     bool choix;
     bool contrepartie;
-    unsigned int ptVictoire;
+    unsigned int pt_victoire;
 
 public:
     void execCapacite();
@@ -159,7 +159,7 @@ class CarteScience{
 private:
     SymboleScience symbole_science;
     SymboleChainage symbole_chainage;
-    unsigned int ptVictoire;
+    unsigned int pt_victoire;
     //Capacite capacite; //il faut pt étre pas rajouter ca ici. On déclence la capacite ssi il ya deux cartes avec meme symbole scientifique
 public:
     void execCapacite();
@@ -179,7 +179,7 @@ public:
 //cartes Bleues
 class CartePrestige{
 private:
-    unsigned int ptVictoire;
+    unsigned int pt_victoire;
     SymboleChainage symbole_chainage;
 
 public:
@@ -207,8 +207,8 @@ public:
 
 class Joueur{
 private:
-    Carte cartesconstruite[60];
-    JetonScience jetonsscience[6];
+    Carte cartes_construite[60];
+    JetonScience jetons_science[6];
     unsigned int piece;
 
 public:
@@ -228,7 +228,7 @@ public:
 class JetonMilitaire{
 private:
     Capacite capacite;
-    Joueur joueurCible;
+    Joueur joueur_cible;
 
 public:
     void execCapacite();
@@ -240,7 +240,7 @@ public:
 class PLateauMilitaire{
 private:
     unsigned int avance;
-    JetonMilitaire listJetonsMilitaire[4];
+    JetonMilitaire liste_JetonMilitaire[4];
     Joueur deriere; //le joueur perdant militairement
 
 public:
