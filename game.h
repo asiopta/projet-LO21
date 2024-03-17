@@ -205,6 +205,26 @@ private:
 public:
 };
 
+class Joueur{
+private:
+    Carte cartesconstruite[60];
+    JetonScience jetonsscience[6];
+    unsigned int piece;
+
+public:
+/*
+    + updatemonnaie(int)
+    + getproduction() -> Production
+    + getcout(Carte) -> unsigned int (monnaie)
+    + estconstructible(Carte, PlateauCarte) -> bool
+    + construireCarte(Carte, PlateauCarte) -> None
+    + construireMerveille(Merveille, Carte, PlateauCarte) -> None
+    + getptdevictoire()
+    + choisirAction(Carte)
+    */
+};
+
+
 class JetonMilitaire{
 private:
     Capacite capacite;
@@ -267,22 +287,4 @@ public:
     // retirerJeton(unsigned int : position) -> None
 };
 
-class Joueur{
-private:
-    Carte cartesconstruite[60];
-    JetonScience jetonsscience[6];
-    unsigned int piece;
-
-public:
-/*
-    + updatemonnaie(int)
-    + getproduction() -> Production
-    + getcout(Carte) -> unsigned int (monnaie)
-    + estconstructible(Carte, PlateauCarte) -> bool
-    + construireCarte(Carte, PlateauCarte) -> None
-    + construireMerveille(Merveille, Carte, PlateauCarte) -> None
-    + getptdevictoire()
-    + choisirAction(Carte)
-    */
-};
 
