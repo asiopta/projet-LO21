@@ -82,11 +82,11 @@ enum class CapaciteScience{
 //______________________________________________________________________________________________________________________________//
 //les classes des cartes
 class Carte{
-private:
+protected:
     unsigned int age;
     unsigned int cout_construction;
-    RessourcePrimaire materiauxPrimaires[4];
-    RessourceSecondaire materiauxSecondaires[2];
+    RessourcePrimaire* materiauxPrimaires;
+    RessourceSecondaire* materiauxSecondaires;
 
 
 public:
@@ -115,12 +115,14 @@ class Merveille : public Carte{
 
 private:
     unsigned int pt_victoire;
-    RessourceSecondaire productionSecondaire[3];
-    RessourcePrimaire productionPrimaire[3];
-    Capacite capacite[3];
+    RessourcePrimaire* productionPrimaire;
+    RessourceSecondaire* productionSecondaire;
+    Capacite* capacite;
 
 public:
     //constructeur 
+    Merveille(int age, RessourcePrimaire* matiere_primaire, RessourceSecondaire* matiere_secondaire, 
+    unsigned int pt_victoire, RessourcePrimaire* prod_primaire, RessourceSecondaire* prod_secondaire);
     //void execCapacite(list Capacite);
     string gettype() const override;
 

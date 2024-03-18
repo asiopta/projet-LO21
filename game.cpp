@@ -14,7 +14,7 @@ using namespace std;
 //Definitions des methodes pour la classe Carte
 
 //defconstructeur
-Carte::Carte() : age(0), cout_construction(0), materiauxSecondaires({RessourceSecondaire::parchemin, RessourceSecondaire::parchemin}){}
+// MANQUE LE CONSTUCTEUR DE CARTE
 //Constructeur par défaut
 //La classe Carte n'est de toute manière pas crée tel quelle carte c'est une classe abstraite, cad, tout les objets sont des les classes filles,
 //il n'existe aucun objet n'appartenant pas a une fille
@@ -36,6 +36,20 @@ int Carte::getAge() const {
 Carte::~Carte(){};
 
 //defintion de la fonction gettype() pour les classes carte polymorphiques
+
+/*-------------------------------------MERVEILLE-------------------------------------*/
+Merveille::Merveille(int age, RessourcePrimaire* matiere_primaire, RessourceSecondaire* matiere_secondaire, 
+unsigned int pt_victoire, RessourcePrimaire* prod_primaire, RessourceSecondaire* prod_secondaire){
+    this->age = age;
+    this->pt_victoire = pt_victoire;
+    this->materiauxPrimaires=matiere_primaire;
+    this->materiauxSecondaires=matiere_secondaire;
+    this->productionPrimaire=prod_primaire;
+    this->productionSecondaire=prod_secondaire;
+}
+
+Merveille::~Merveille(){};
+
 
 string CarteCommerce::gettype() const {
     return "CarteCommerce";
