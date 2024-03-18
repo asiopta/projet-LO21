@@ -119,8 +119,13 @@ private:
     Capacite capacite[3];
 
 public:
+    //constructeur 
+
     //void execCapacite(list Capacite);
     string gettype() const override;
+
+    //destructeur
+    ~Merveille();
 };
 
 //cartes Marrons
@@ -129,8 +134,13 @@ private:
     RessourcePrimaire production[2]; //certaines cartes peuvent produire 2 ressources
 
 public:
+    //constructeur
+
+    //methodes
     string gettype() const override;
 
+    //destructeur
+    ~CarteRessourcePrimaire();
 };
 
 //cartes Grises
@@ -140,6 +150,9 @@ private:
 
 public:
     string gettype() const override;
+
+    //destructeur
+    ~CarteRessourceSecondaire();
 };
 
 //cartes Jaunes
@@ -156,6 +169,9 @@ public:
     void execCapacite();
     string gettype() const override;
 
+    //destructeur
+    ~CarteCommerce();
+
 };
 
 
@@ -170,6 +186,9 @@ public:
     void execCapacite();
     string gettype() const override;
 
+    //destructeur
+    ~CarteScience();
+
 };
 
 //carte Rouges
@@ -181,6 +200,9 @@ private:
 public:
     void execCapacite();
     string gettype() const override;
+
+    //destructeur
+    ~CarteMilitaire();
 };
 
 //cartes Bleues
@@ -192,6 +214,9 @@ private:
 public:
     string gettype() const override;
 
+
+    //destructeur
+    ~CartePrestige();
 };
 
 //cartes Violets
@@ -202,6 +227,9 @@ private:
 public:
     void execEffetGuilde();
     string gettype() const override;
+    
+    //destructeur
+    ~CarteGuilde();
 };
 
 //__________________________________________________________________________________________________________________//
@@ -212,6 +240,9 @@ private:
     CapaciteScience capacite;
 
 public:
+
+    //destructeur
+    ~JetonScience();
 };
 
 class Joueur{
@@ -231,6 +262,9 @@ public:
     + getptdevictoire()
     + choisirAction(Carte)
     */
+
+   //destructeur
+   ~Joueur();
 };
 
 
@@ -241,6 +275,9 @@ private:
 
 public:
     void execCapacite();
+
+    //destructeur
+    ~JetonMilitaire();
 };
 
 //__________________________________________________________________________________________________________________//
@@ -255,6 +292,9 @@ private:
 public:
 //updateavance(unsigned int, Joueur)
 //retirerjeton(Jeton in JetonMalus)
+
+    //destructeur
+    ~PLateauMilitaire();
 };
 
 class CarteEnJeu{
@@ -265,6 +305,8 @@ private:
     bool visible;
 
 public:
+    ~CarteEnJeu();
+
 
 };
 
@@ -283,6 +325,9 @@ public:
     + getcartevisible()
     + getcarteaccessibles()
     */
+
+   //destructeur
+   ~PlateauCartes();
 };
 
 class PLateauScience{
@@ -294,6 +339,7 @@ public:
 
     // tirerjeton() -> JetonScience[3]
     // retirerJeton(unsigned int : position) -> None
+    ~PLateauScience();
 };
 
 
