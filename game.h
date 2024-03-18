@@ -86,20 +86,20 @@ private:
     unsigned int age;
     unsigned int cout_construction;
     RessourcePrimaire materiauxPrimaires[4];
-    RessourceSecondaire materieuxSecondaires[2];
+    RessourceSecondaire materiauxSecondaires[2];
 
 
 public:
 
     //constructeur
-
+    Carte();
 
     //methodes
     void setAge(int newAge);
     int getAge() const;
 
-
     //methode virtuelle pure, cad est appelable uniquement par les classes filles, et à definir pour chaques classes filles
+    //permet d'activer le polymorphisme pour toutes les classes filles 
     virtual string gettype() const = 0;
 
     //destructeur
