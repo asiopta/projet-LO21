@@ -247,7 +247,7 @@ public:
 
 class Joueur{
 private:
-    Carte cartes_construite[60];
+    Carte* cartes_construite[60];
     JetonScience jetons_science[6];
     unsigned int piece;
 
@@ -299,7 +299,7 @@ public:
 
 class CarteEnJeu{
 private:
-    Carte carte;
+    Carte& carte;
     int position;
     bool accessible;
     bool visible;
@@ -315,7 +315,7 @@ private:
     unsigned int age;
     CarteEnJeu carte_en_jeu[20]; 
     unsigned int nb_merveilles_constr;
-    Carte defausses[60];
+    Carte* defausses[60];
 public:
 /*
     + addage()
