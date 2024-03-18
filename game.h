@@ -112,6 +112,7 @@ Vaut mieux pt étre créer deux variable materiauxPrim et materiauxSecond
 //REPONSE : je suis d'accord avec toi sur ce point
 
 class Merveille : public Carte{
+
 private:
     unsigned int pt_victoire;
     RessourceSecondaire productionSecondaire[3];
@@ -120,7 +121,6 @@ private:
 
 public:
     //constructeur 
-
     //void execCapacite(list Capacite);
     string gettype() const override;
 

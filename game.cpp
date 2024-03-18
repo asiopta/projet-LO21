@@ -17,7 +17,7 @@ using namespace std;
 Carte::Carte() : age(0), cout_construction(0), materiauxSecondaires({RessourceSecondaire::parchemin, RessourceSecondaire::parchemin}){}
 //Constructeur par défaut
 //La classe Carte n'est de toute manière pas crée tel quelle carte c'est une classe abstraite, cad, tout les objets sont des les classes filles,
-//il n'existe aucun objet n'appartenant pas à une classe fille (ex: CarteScience, CarteMilitaire...)
+//il n'existe aucun objet n'appartenant pas a une fille
 
 //methodes
 void Carte::setAge(int newAge) {
@@ -33,7 +33,7 @@ int Carte::getAge() const {
 }
 
 //destructeur
-Carte::~Carte(){}
+Carte::~Carte(){};
 
 //defintion de la fonction gettype() pour les classes carte polymorphiques
 
