@@ -125,7 +125,7 @@ public:
     string gettype() const override;
 
     //destructeur
-    ~Merveille();
+    virtual ~Merveille();
 };
 
 //cartes Marrons
@@ -140,7 +140,7 @@ public:
     string gettype() const override;
 
     //destructeur
-    ~CarteRessourcePrimaire();
+    virtual ~CarteRessourcePrimaire();
 };
 
 //cartes Grises
@@ -152,7 +152,7 @@ public:
     string gettype() const override;
 
     //destructeur
-    ~CarteRessourceSecondaire();
+   virtual  ~CarteRessourceSecondaire();
 };
 
 //cartes Jaunes
@@ -170,7 +170,7 @@ public:
     string gettype() const override;
 
     //destructeur
-    ~CarteCommerce();
+    virtual ~CarteCommerce();
 
 };
 
@@ -187,7 +187,7 @@ public:
     string gettype() const override;
 
     //destructeur
-    ~CarteScience();
+    virtual ~CarteScience();
 
 };
 
@@ -202,7 +202,7 @@ public:
     string gettype() const override;
 
     //destructeur
-    ~CarteMilitaire();
+    virtual ~CarteMilitaire();
 };
 
 //cartes Bleues
@@ -216,7 +216,7 @@ public:
 
 
     //destructeur
-    ~CartePrestige();
+    virtual ~CartePrestige();
 };
 
 //cartes Violets
@@ -229,7 +229,7 @@ public:
     string gettype() const override;
     
     //destructeur
-    ~CarteGuilde();
+    virtual ~CarteGuilde();
 };
 
 //__________________________________________________________________________________________________________________//
