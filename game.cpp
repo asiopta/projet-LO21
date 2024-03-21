@@ -46,10 +46,20 @@ unsigned int pt_victoire, RessourcePrimaire* prod_primaire, RessourceSecondaire*
     this->materiauxSecondaires=matiere_secondaire;
     this->productionPrimaire=prod_primaire;
     this->productionSecondaire=prod_secondaire;
+    // cout de construction à rajouter/ à calculer
 }
 
 Merveille::~Merveille(){};
 
+/*------------------------------Cartes marrons---------------------------------------*/
+CarteRessourcePrimaire::CarteRessourcePrimaire(int age, int cout_construction, RessourcePrimaire* prod_primaire){
+    this->age = age;
+    this->cout_construction = cout_construction;
+    //this->production = prod_primaire; //erreur que j'ai pas compris!!
+    this->materiauxPrimaires = NULL;
+    this->materiauxSecondaires = NULL;
+    
+}
 
 string CarteCommerce::gettype() const {
     return "CarteCommerce";
@@ -67,7 +77,7 @@ string CartePrestige::gettype() const {
     return "CartePrestige";
 }
 
-string CarteRessourcePrimaire::gettype() const {
+string CarteRessourcePrimaire::gettype() const{
     return "CarteRessourcePrimaire";
 }
 
