@@ -84,7 +84,12 @@ enum class CapaciteScience{
 class Carte{
 protected:
     unsigned int age;
+    /*on peut pt étre enlever age de la classe carte car la classe merveille est une de ses filles 
+    alors que ces dernières n'ont pas d'age. La solution????
+    OU bien, on peut tout simplement mettre l'age des cartes merveilles à 0 pour les distinguer 
+    des autres cartes. Vous pensez quoi?*/
     unsigned int cout_construction;
+    //comment distinguer le cout de construction pour chaque joueur?
     RessourcePrimaire* materiauxPrimaires;
     RessourceSecondaire* materiauxSecondaires;
 
@@ -103,13 +108,9 @@ public:
     virtual string gettype() const = 0;
 
     //destructeur
-    virtual ~Carte();
+    virtual ~Carte() = default;
 };
-/*pour la classe carte, c'est compliqué de faire la variable cout de production qui est une liste de 
-RessourcesPrimaires et RessourcesSecondaires à la fois. 
-Vaut mieux pt étre créer deux variable materiauxPrim et materiauxSecond
-*/
-//REPONSE : je suis d'accord avec toi sur ce point
+
 
 class Merveille : public Carte{
 
@@ -121,13 +122,14 @@ private:
 
 public:
     //constructeur 
+    //!!!il faut regarder quels entrées mettre comme const et quand utiliser des références ou pas
     Merveille(int age, RessourcePrimaire* matiere_primaire, RessourceSecondaire* matiere_secondaire, 
     unsigned int pt_victoire, RessourcePrimaire* prod_primaire, RessourceSecondaire* prod_secondaire);
     //void execCapacite(list Capacite);
     string gettype() const override;
 
     //destructeur
-    virtual ~Merveille();
+    virtual ~Merveille() = default;
 };
 
 //cartes Marrons
@@ -137,7 +139,8 @@ private:
 
 public:
     //constructeur
-
+    CarteRessourcePrimaire(int age, int cout_construction, RessourcePrimaire* prod_primaire);
+    // les cartes marron ne peuvent étre construites qu'avec la monnaie
     //methodes
     string gettype() const override;
 
@@ -151,6 +154,10 @@ private:
     RessourceSecondaire production;  //Pas de liste car produit toujours 1 seul ressource
 
 public:
+    //constructeur
+    CarteRessourceSecondaire(int age, int cout_construction, RessourceSecondaire prod_secondaire);
+
+    //méthodes
     string gettype() const override;
 
     //destructeur
@@ -168,7 +175,7 @@ private:
     unsigned int pt_victoire;
 
 public:
-    void execCapacite();
+    void execCapacite(); //pt étre à mettre comme méthode privée?
     string gettype() const override;
 
     //destructeur
@@ -252,6 +259,7 @@ private:
     Carte* cartes_construite[60];
     JetonScience jetons_science[6];
     unsigned int piece;
+    unsigned int ptVictoire; 
 
 public:
 /*
@@ -332,10 +340,12 @@ public:
    ~PlateauCartes();
 };
 
+//Dans le jeu, il n'y a pas un plateau scientifique. C'est considéré comme une partie du plateau militaire
+// Do we do the same maybe?
 class PLateauScience{
 private:
     JetonScience jeton_in_game[5];
-    JetonScience jeton_out_game[30];
+    JetonScience jeton_out_game[3];
 
 public:
 
