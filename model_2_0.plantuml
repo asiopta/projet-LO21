@@ -93,7 +93,7 @@ class CarteScience{
 class CarteMilitaire{
     - militaire : Capacite:avance_militaire
 
-    + const exec_capacite()
+    + const exec_capacite_militaire()
 }
 
 'Cartes Bleu
@@ -263,11 +263,11 @@ class JetonMalus{
 class PlateauMilitaire{
     avance : unsigned int 
     liste_jetons_malus : *JetonMalus[4]
-    joueur_derriere : Joueur
+    joueur_derriere : &Joueur
     
 
-    +update_avance(unsigned int, Joueur)
-    +retirer_jeton(JetonMalus)
+    +update_avance(unsigned int, &Joueur)
+    +retirer_jeton(const &JetonMalus)
 }
 
 PlateauMilitaire "1" *-- "4" JetonMalus
@@ -282,17 +282,16 @@ PlateauMilitaire "1" *-- "4" JetonMalus
 'Utiliser la fonction appliquerCapacite de JetonMalus
 
 class PlateauCarte{
-    - age : int {1, 2, 3}
-    - liste_carte_en_jeu : &Carte[20] ][20]
+    - age : unsigned int {1, 2, 3}
+    - liste_carte_en_jeu : &Carte[20]
     - nb_merveilles_construites : unsigned int
     - defausse : &Cartes[60]
 
-    + set_age(int)
-    + rend_accessible(&Carte)
-    + rend_face_visible(&Carte)
+    + set_age(unsigned int)
+    + const rend_accessible(&Carte)
+    + const rend_face_visible(&Carte)
     + prendre(&Carte)
     + defausser(&Carte)
-
     + const get_cartes_visibles() -> &Carte[]
     + const get_cartes_accessibles() -> &Carte[]
 }
@@ -312,7 +311,7 @@ class PlateauScience{
     liste_position : unsigned int[5] 
     jeton_out_game: *JetonScience[5]
 
-    + tirer_jeton() -> JetonScience[3]
+    + tirer_jeton() -> *JetonScience[3]
     + retirer_jeton(unsigned int)
 
 }
@@ -350,11 +349,11 @@ class Joueur{
 
     + update_monnaie(int)
     + get_production() -> Production
-    + get_cout(&Carte) -> unsigned int
-    + est_constructible(&Carte, &PlateauCarte) -> bool
+    + const get_cout(const &Carte) -> unsigned int
+    + const est_constructible(const &Carte, const &PlateauCarte) -> bool
     + construire_carte(&Carte, &PlateauCarte) -> None
     + construire_merveille(&Merveille, &Carte, &PlateauCarte) -> None
-    + get_pt_victoire()
+    + const get_pt_victoire()
     + choisir_action(&Carte)
 }
 '60 car 20*3 = 60 le nombre de carte max qu'un joueur vera dans sa partie
