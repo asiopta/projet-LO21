@@ -4,17 +4,30 @@
 
 'Cette classe rassemble les elements commun à chaques cartes 
 abstract class Carte{
-    - materiauxconstruction : [[RassourcePrimaire[4], RessourceSecondaire[2]]
-    - coutconstruction : unsigned int
+    - materiaux_construction_primaires : *RassourcePrimaire[4]
+    - materiaux_construction_secondaires : *RessourceSecondaire[2]
+    - cout_construction : unsigned int
+
+    -position : unsigned int
+    -accessible : bool
+    -face_visible : bool
     
-    + gettype() -> string
+    + const get_type() -> string
+    + const get_position() -> unsigned int
+    + const est_accessible() -> bool
+    + const est_face_visible -> bool
+
+    + out()
+    + rend_accessible(bool)
+    + rend_face_visible(bool)
 }
 
 'Notes : J'ai compté pour les listes 4 et 2 en longueurs suffisent
 'Age est une enumeration
 
 'La methode gettype renvoie le type de la carte ("Science", "Militaire", "Commerce"...)
-'Cela est faissable en faisant des dynamic_cast<......>(Carte) pour chaque types de cartes
+
+'out met tous les arguments d'etat de la carte a None, (position, facevisible et accessible)
 
 
 
@@ -25,11 +38,11 @@ abstract class Carte{
 
 'Une Merveille est techniquement une carte
 class Merveille{
-    - capacite : Capacite[3]
-    - ptVictoire : unsigned int
-    - production : RessourceSecondaire[3]
+    - capacite : *Capacite[3]
+    - pt_victoire : unsigned int
+    - production : *RessourceSecondaire[3]
 
-    + execCapacite(list Capacite)
+    + const exec_capacite()
 }
 'Les Merveille Grand Phare et Piree peuvent produire une ressource
 
@@ -37,7 +50,7 @@ class Merveille{
 
 'Cartes marrons 
 class CarteRessourcePrimaire{
-    - production : RessourcePrimaire[2]
+    - production : *RessourcePrimaire[2]
 }
 
 'Cartes gris
@@ -48,29 +61,30 @@ class CarteRessourceSecondaire{
 
 'Cartes Jaunes
 class CarteCommerce{
-    - production : (RessourcePrimaire[2], RessourceSecondaire[2])
+    - production_primaire : *RessourcePrimaire[2]
+    - production_secondaire : *RessourceSecondaire[2])
     - capacite : Capacite
-    - symboleChainage : SymboleChainage
+    - symbole_chainage : SymboleChainage
     - choix : boolean 
     - contrpartie : int 
-    - ptVictoire : unsigned int
+    - pt_victoire : unsigned int
 
-    + execCapacite()
+    + const exec_capacite()
 }
 'Choix defini si la production doit etre choisi entre differentes ressources ou non
 'Contrepartie defini si il faut "acheter" la ressource produite ou non, on notera 0 si ce n'est pas le cas
 
-'execCapacite() regarde l'attribut "capacite", et execute la fonction correspondante
+'exec_capacite() regarde l'attribut "capacite", et execute la fonction correspondante
 'on rajoutera un méssage d'erreur si la capacite n'est pas possible
 
 'Cartes Verts
 class CarteScience{
-    - symboleScience : SymboleScience
-    - symboleChainage : SymboleChainage
-    - ptVictoire : unsigned int
-    - Capacite : ajoutersymbolescience
+    - symbole_science : SymboleScience
+    - symbole_chainage : SymboleChainage
+    - pt_victoire : unsigned int
+    - capacite : Capacite:ajoutersymbolescience
 
-    + execCapacite()
+    + const exec_capacite()
 }
 'SymboleScience est une enumerations des symboles Science disponible dans le jeu
 'SymboleChainage est une enumerations des symboles Science disponible dans le jeu
@@ -79,20 +93,20 @@ class CarteScience{
 class CarteMilitaire{
     - militaire : Capacite:avancemilitaire
 
-    + execCapacite()
+    + const exec_capacite()
 }
 
 'Cartes Bleu
 class CartePrestige{
-    - symboleChainage : SymboleChainage
-    - ptVictoire : unsigned int
+    - symbole_chainage : SymboleChainage
+    - pt_victoire : unsigned int
 }
 
 'Cartes Violets
 class CarteGuilde{
-    - effetGuilde : EffetGuilde
+    - effet_guilde : EffetGuilde
 
-    + execEffetGuilde()
+    + const exec_effet_guilde()
 }
 'EffetGuilde est un enumération defini après
 
@@ -119,7 +133,7 @@ Merveille --|> Carte
 
 'Permet de ne pas payer une carte si elle comporte le meme symbole qu'une carte déja construite par le joueur
 enum SymboleChainage{
-    Jarre 
+    jarre 
     toneau
     masque 
     temple 
@@ -156,38 +170,38 @@ enum SymboleScience{
     bateau 
 }
 
-CarteScience "*" *-- "*" SymboleScience
+CarteScience "*" -- "*" SymboleScience
 
 'Enumerations contenant les differents effets de Guilde (cartes violettes)
 enum EffetGuilde{
-    GuildeArmateurs
-    GuildeBâtisseurs
-    GuildeCommerçants
-    GuildeMagistrats
-    GuildeDesTacticiens
-    GuildeDesScientifiques
-    GuildeUsuriers
+    guilde_armateurs
+    guilde_batisseurs
+    guilde_commerçants
+    guilde_magistrats
+    guilde_tacticiens
+    guilde_scientifiques
+    guilde_usuriers
 }
 'Se referer à la fiche dans le docs pour les effets de chaques guides
-CarteGuilde "*" *-- "*" EffetGuilde
+CarteGuilde "*" -- "*" EffetGuilde
 
 'Les differentes capacité retrouvables sur certaines cartes, notement sur les cartes Merveille, militaire et de commerce
 enum Capacite{
     rejouer
-    detruirecartemarron
-    detruirecartegrise
-    jouercartedefausse
-    gagnermonnaie
-    avanceemilitaire
-    choisirjetonscience
-    ajoutersymbolescience
+    detruire_carte_marron
+    detruire_carte_grise
+    jouer_carte_defausse
+    gagner_monnaie
+    avancee_militaire
+    choisir_jeton_science
+    ajouter_symbole_science
 }
 'Je pense que les noms sont suffisement explicites, mais n'hésitez pas à poser des question si ce n'est pas clair
 
-Capacite "*"  --* "*" CarteCommerce
-Capacite "*"  --* "*" CarteMilitaire
-Capacite "*"  --* "*" Merveille
-Capacite "*" --* "*" CarteScience
+Capacite "*"  -- "*" CarteCommerce
+Capacite "0..1"  -- "*" CarteMilitaire
+Capacite "*"  -- "*" Merveille
+Capacite "0..1" -- "*" CarteScience
 
 
 'Les Ressources sont utilisé par les joureurs pour construir des batiments
@@ -217,41 +231,43 @@ Merveille "*" *-- "*" RessourceSecondaire
 'Il sont au nombre de 10 avec des effets uniques
 
 class JetonScience{
-    - capacite : CapaciteScience
+    - capacite_science : CapaciteScience
+
+    +const exec_capacite_science()
 }
 'CapaciteScience est une enumération des effets de chaques jetons, voir ci dessous
 
 'Capacité déclanchées par les jetons sciences
 enum CapaciteScience{
-    Agriculture
-    Architecture
-    Economie
-    Loi
-    Maconnerie
-    Urbanisme
-    Théologie
-    Stratégie
-    Philosophie
-    Mathématique
+    agriculture
+    architecture
+    economie
+    loi
+    maconnerie
+    urbanisme
+    theologie
+    strategie
+    philosophie
+    mathematique
 }
 'Ce référer à la fiche pour les detailles de chaques capacitées
 JetonScience "1" *-- "1" CapaciteScience
 
 class JetonMalus{
-    Capacite : perdreArgent
-    joueurcible : Joueur
+    capacite : Capacite: perdreArgent
+    joueur_cible : Joueur
 
-    +execCapacite()
+    +const exec_capacite()
 }
 
 class PlateauMilitaire{
     avance : unsigned int 
-    listeJetonsMalus : JetonMalus[4]
-    Jderiere : Joueur
+    liste_jetons_malus : *JetonMalus[4]
+    joueur_derriere : Joueur
     
 
-    +updateavance(unsigned int, Joueur)
-    +retirerjeton(Jeton in JetonMalus)
+    +update_avance(unsigned int, Joueur)
+    +retirer_jeton(JetonMalus)
 }
 
 PlateauMilitaire "1" *-- "4" JetonMalus
@@ -262,25 +278,29 @@ PlateauMilitaire "1" *-- "4" JetonMalus
 'updateavance(unsigned int, Joueur) permet d'avancer 
 'le jeton d'un certain nombre de case en faveur du Joueur donnée en argument, (modifie avance et Jderiere si necessaire)
 
-'retirerjeton permet de retirer le jeton d'une case alors le joueur le moins avancé militairement subit un malus, 
+'retirer_jeton permet de retirer le jeton d'une case alors le joueur le moins avancé militairement subit un malus, 
 'Utiliser la fonction appliquerCapacite de JetonMalus
 
 class PlateauCarte{
     - age : int {1, 2, 3}
-    - listecarteenjeu : [carte : Carte, position : int, accessible : bool, facevisible : bool][20]
-    - nbmerveillesconstruites : unsigned int
-    - defausse : Cartes[60]
+    - liste_carte_en_jeu : &Carte[20] ][20]
+    - nb_merveilles_construites : unsigned int
+    - defausse : &Cartes[60]
 
-    + addage()
-    + estaccessible(Carte in listecarteenjeu)
-    + estprise(Carte in listecarteenjeu)
-    + estdefausse(Carte in listrecarteenjeu)
-    + getcartevisible()
-    + getcarteaccessibles()
+    + set_age(int)
+    + rend_accessible(&Carte)
+    + rend_face_visible(&Carte)
+    + prendre(&Carte)
+    + defausser(&Carte)
+
+    + const get_cartes_visibles() -> &Carte[]
+    + const get_cartes_accessibles() -> &Carte[]
 }
-'La methode estaccessible(Carte) permet de rendre FaceVisible et Accessible la carte Carte
-'La methode estprise(Carte) permet de supprimer la carte de la liste carte en Jeu
-'La methode estdefausse(Carte) permet de mettre en defausse la carte et de la suprimmer de la liste des cartes en jeu
+
+'set_age modifie l'age du plateau carte
+'La methode rendaccessible(&Carte) permet de rendre FaceVisible et Accessible la carte Carte
+'La methode prendre(&Carte) permet de supprimer la carte de la liste carte en Jeu
+'La methode deffausser(&Carte) permet de mettre en defausse la carte et de la suprimmer de la liste des cartes en jeu
 'getcartevisible() renvoie la liste des cartes faces visibles
 'getcarteaccessible() renvoie la liste des cartes accessibles et donc face visible
 
@@ -288,11 +308,12 @@ class PlateauCarte{
 
 'Le plateau Scientifique permet de gerer les jetons scientifique
 class PlateauScience{
-    jetonInGame: (JetonScience[5], unsigned int : position)
-    jetonOutGame:JetonScience[5]
+    jeton_in_game: *JetonScience[5]
+    liste_position : unsigned int[5] 
+    jeton_out_game: *JetonScience[5]
 
-    + tirerjeton() -> JetonScience[3]
-    + retirerJeton(unsigned int : position) -> None
+    + tirer_jeton() -> JetonScience[3]
+    + retirer_jeton(unsigned int)
 
 }
 
@@ -323,18 +344,18 @@ Joueur "2" -- "1" PlateauMilitaire
 
 'Cette classe decrit l'etat du plateau de jeu à chaque instant
 class Joueur{
-    - carteconstruite : Carte[60]
-    - jetonconstruit : JetonScience[6]
+    - carte_construite : *Carte[60]
+    - jeton_construit : *JetonScience[6]
     - monnaie : unsigned int
 
-    + updatemonnaie(int)
-    + getproduction() -> Production
-    + getcout(Carte) -> unsigned int (monnaie)
-    + estconstructible(Carte, PlateauCarte) -> bool
-    + construireCarte(Carte, PlateauCarte) -> None
-    + construireMerveille(Merveille, Carte, PlateauCarte) -> None
-    + getptdevictoire()
-    + choisirAction(Carte)
+    + update_monnaie(int)
+    + get_production() -> Production
+    + get_cout(&Carte) -> unsigned int
+    + est_constructible(&Carte, &PlateauCarte) -> bool
+    + construire_carte(&Carte, &PlateauCarte) -> None
+    + construire_merveille(&Merveille, &Carte, &PlateauCarte) -> None
+    + get_pt_victoire()
+    + choisir_action(&Carte)
 }
 '60 car 20*3 = 60 le nombre de carte max qu'un joueur vera dans sa partie
 'La fonction Verifie que la carte est accessible sur le Plateau (probablement via une méthode implémenté dans Plateau),
@@ -359,35 +380,5 @@ class Joueur{
 
 'Choisir action Carte, demande au joueur de Choisir une carte ACCESSIBLE, une fois la carte choisit elle est soit defaussé, soit construite, soit elle construit une merveille
 Joueur "2" -- "*" Carte
-
-
-
-'Represente la classe de départ, classe sans attribut qui represente le code
-
-
-'///////////////////IMPORTANT\\\\\\\\\\\\\\\\\\\\\\\\
-
-'Concernant CAPACITE : 
-'Le mieux est je pense de créer une fonction  void execCapacite(Carte)
-'Qui pour la carte donnée, si elle a une capacité, fait un elefet en fonction de la capacite
-'Si l'attribut capacité de la fonction n'existe pas il ne se passe rien,
-'Si l'atribut de capacité est une liste, tout les effets sont executé
-
-'Idée d'algorithme : 
-
-'void execCapacite(Carte, Joueur) :  // a voir quel arguments il manque ?
-'Si la carte a une capacite
-'   Si la Carte.capacite est une liste : 
-'       for c in Carte.capacite{
-            ' if capacite = "Rejouer" :
-            '     Le joueur rejouer
-            ' if capacite = choisirjetonsscience : 
-
-
-                
-'           
-'}
-
-'ATTENTION !!! Les elements dans les enumérations sont tous des CONSTANTES
 
 @enduml

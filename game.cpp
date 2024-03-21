@@ -81,3 +81,7 @@ string CarteScience::gettype() const {
 string Merveille::gettype() const {
     return "Merveille";
 }
+ 
+
+
+ 
