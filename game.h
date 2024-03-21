@@ -83,7 +83,9 @@ enum class CapaciteScience{
 //les classes des cartes
 class Carte{
 private:
-    unsigned int age;
+    unsigned int age; 
+    /*il faut pt étre enlever age d'ici comme les merveilles n'ont pas d'age, alors que c'est 
+    une classe fille de la classe carte. */
     unsigned int cout_construction;
     RessourcePrimaire materiauxPrimaires[4];
     RessourceSecondaire materiauxSecondaires[2];
@@ -103,7 +105,7 @@ public:
     virtual string gettype() const = 0;
 
     //destructeur
-    virtual ~Carte();
+    virtual ~Carte()=default;
 };
 /*pour la classe carte, c'est compliqué de faire la variable cout de production qui est une liste de 
 RessourcesPrimaires et RessourcesSecondaires à la fois. 
