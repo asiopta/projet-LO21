@@ -62,7 +62,7 @@ class CarteRessourceSecondaire{
 'Cartes Jaunes
 class CarteCommerce{
     - production_primaire : *RessourcePrimaire[2]
-    - production_secondaire : *RessourceSecondaire[2])
+    - production_secondaire : *RessourceSecondaire[2]
     - capacite : Capacite
     - symbole_chainage : SymboleChainage
     - choix : boolean 
@@ -82,7 +82,7 @@ class CarteScience{
     - symbole_science : SymboleScience
     - symbole_chainage : SymboleChainage
     - pt_victoire : unsigned int
-    - capacite : Capacite:ajoutersymbolescience
+    - capacite : Capacite:ajouter_symbole_science
 
     + const exec_capacite()
 }
@@ -91,7 +91,7 @@ class CarteScience{
 
 'Cartes Rouges
 class CarteMilitaire{
-    - militaire : Capacite:avancemilitaire
+    - militaire : Capacite:avance_militaire
 
     + const exec_capacite()
 }
@@ -117,7 +117,7 @@ CarteMilitaire --|> Carte
 CarteCommerce --|> Carte
 CarteScience --|> Carte
 CartePrestige --|> Carte
-CarteGuilde --|> Carte
+Carte <|-- CarteGuilde
 CarteRessourcePrimaire --|> Carte
 CarteRessourceSecondaire --|> Carte
 Merveille --|> Carte
@@ -152,10 +152,10 @@ enum SymboleChainage{
     lampe 
 }
 
-CartePrestige "*" *-- "*" SymboleChainage
-CarteMilitaire "*" *-- "*" SymboleChainage
-CarteScience "*" *-- "*" SymboleChainage
-CarteCommerce "*" *-- "*" SymboleChainage
+SymboleChainage "*" -- "*" CartePrestige
+SymboleChainage "*" -- "*" CarteMilitaire
+SymboleChainage "*" -- "*" CarteScience
+SymboleChainage "*" -- "*" CarteCommerce
 
 'Symbole se trouvant sur les cartes sciences, 
 '2 symbole similaire entraine la prise d'une jeton science pour le joueur, 
@@ -170,7 +170,7 @@ enum SymboleScience{
     bateau 
 }
 
-CarteScience "*" -- "*" SymboleScience
+SymboleScience "*" -- "*" CarteScience
 
 'Enumerations contenant les differents effets de Guilde (cartes violettes)
 enum EffetGuilde{
@@ -183,7 +183,7 @@ enum EffetGuilde{
     guilde_usuriers
 }
 'Se referer à la fiche dans le docs pour les effets de chaques guides
-CarteGuilde "*" -- "*" EffetGuilde
+EffetGuilde "*" - "*" CarteGuilde
 
 'Les differentes capacité retrouvables sur certaines cartes, notement sur les cartes Merveille, militaire et de commerce
 enum Capacite{
@@ -212,8 +212,8 @@ enum RessourcePrimaire{
     brique
 }
 
-CarteRessourcePrimaire "*" *-- "*" RessourcePrimaire
-CarteCommerce "*" *-- "*" RessourcePrimaire
+RessourcePrimaire  "*" -- "*" CarteRessourcePrimaire
+RessourcePrimaire  "*" -- "*" CarteCommerce
 
 
 enum RessourceSecondaire{
@@ -221,9 +221,9 @@ enum RessourceSecondaire{
     parchemin
 }
 
-CarteRessourceSecondaire "*" *-- "*" RessourceSecondaire
-CarteCommerce "*" *-- "*" RessourceSecondaire
-Merveille "*" *-- "*" RessourceSecondaire
+RessourceSecondaire "*" -- "*" CarteRessourceSecondaire
+RessourceSecondaire "*" -- "*" CarteCommerce
+RessourceSecondaire "*" -- "*" Merveille
 
 
 
@@ -317,7 +317,7 @@ class PlateauScience{
 
 }
 
-JetonScience "5" --* "1" PlateauScience
+PlateauScience  "1" *-- "5" JetonScience
 
 'JetonInGame represente les jetons visibles et recupérables par les joueurs
 'JetonsOutGame sont les jetons non tiré pour la partie, qui sont quand meme récuperables grace à des merveilles
