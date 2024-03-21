@@ -254,15 +254,15 @@ enum CapaciteScience{
 JetonScience "1" *-- "1" CapaciteScience
 
 class JetonMalus{
-    capacite : Capacite: perdreArgent
-    joueur_cible : Joueur
+    malus : unsigned int 
+    joueur_cible : &Joueur
 
-    +const exec_capacite()
+    +const exec_malus()
 }
 
 class PlateauMilitaire{
     avance : unsigned int 
-    liste_jetons_malus : *JetonMalus[4]
+    liste_jetons_malus : &JetonMalus[4]
     joueur_derriere : &Joueur
     
 
@@ -284,16 +284,19 @@ PlateauMilitaire "1" *-- "4" JetonMalus
 class PlateauCarte{
     - age : unsigned int {1, 2, 3}
     - liste_carte_en_jeu : &Carte[20]
-    - nb_merveilles_construites : unsigned int
+    - merveille_j1 : &Merveille[4]
+    - merveille_j2 : &Mervielle[4]
     - defausse : &Cartes[60]
 
     + set_age(unsigned int)
     + const rend_accessible(&Carte)
     + const rend_face_visible(&Carte)
     + prendre(&Carte)
+    + prendre(&Merveille)
     + defausser(&Carte)
     + const get_cartes_visibles() -> &Carte[]
     + const get_cartes_accessibles() -> &Carte[]
+    + const nb_merveilles_restantes() -> unsigned int 
 }
 
 'set_age modifie l'age du plateau carte
@@ -343,14 +346,16 @@ Joueur "2" -- "1" PlateauMilitaire
 
 'Cette classe decrit l'etat du plateau de jeu à chaque instant
 class Joueur{
-    - carte_construite : *Carte[60]
-    - jeton_construit : *JetonScience[6]
+    - carte_construite : &Carte[60]
+    - merveille_construite : &Merveille[4]
+    - jeton_construit : &JetonScience[6]
     - monnaie : unsigned int
 
-    + update_monnaie(int)
+    + set_monnaie(int)
     + get_production() -> Production
     + const get_cout(const &Carte) -> unsigned int
     + const est_constructible(const &Carte, const &PlateauCarte) -> bool
+    + const est_constructible(const &Merveille, const &PlateauCarte) -> bool
     + construire_carte(&Carte, &PlateauCarte) -> None
     + construire_merveille(&Merveille, &Carte, &PlateauCarte) -> None
     + const get_pt_victoire()
