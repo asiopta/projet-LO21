@@ -93,5 +93,13 @@ string Merveille::gettype() const {
 }
  
 
-
+int getCout(const Carte& carte, const Joueur& joueur, const Joueur& adversaire){
+    if(carte.getMateriauxPrimaires()==NULL && carte.getMateriauxSecondaires()==NULL)
+        return carte.getPrix();
+    else{
+        //créer une méthode qui retourne le nombre de cartes produisant une ressource donnée dans la classe joueur
+        
+    }
+    
+}
  

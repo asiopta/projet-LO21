@@ -102,6 +102,10 @@ public:
     //methodes
     void setAge(int newAge);
     int getAge() const;
+    RessourcePrimaire* getMateriauxPrimaires()const{return materiauxPrimaires;} ;
+    RessourceSecondaire* getMateriauxSecondaires()const{return materiauxSecondaires;};
+    unsigned int getPrix() const{return cout_construction;};
+
 
     //methode virtuelle pure, cad est appelable uniquement par les classes filles, et à definir pour chaques classes filles
     //permet d'activer le polymorphisme pour toutes les classes filles 
@@ -272,6 +276,10 @@ public:
     + getptdevictoire()
     + choisirAction(Carte)
     */
+    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole);
+    unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole);
+    //ces deux méthodes renvoient combien de ressources sont produites d'un symbole donné
+    //par ex: 2 bois ou 3 verres
 
    //destructeur
    ~Joueur();
@@ -355,4 +363,4 @@ public:
 };
 
 
-
+int getCout(const Carte& carte, const Joueur& joueur, const Joueur& adversaire);
