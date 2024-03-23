@@ -92,7 +92,7 @@ string Merveille::gettype() const {
     return "Merveille";
 }
  
-int getCout(const Carte& carte, const Joueur& joueur, const Joueur& adversaire){
+int getCout(const Carte& carte, const Joueur joueur, const Joueur adversaire){
     if(carte.getMateriauxPrimaires()==NULL && carte.getMateriauxSecondaires()==NULL)
         return carte.getPrix();
     else{
@@ -111,7 +111,7 @@ int getCout(const Carte& carte, const Joueur& joueur, const Joueur& adversaire){
         //une méthode qui renvoie cmbien de ressourcesPrim (et second) sont produites par une carte
         RessourcePrimaire* tab_prim = carte.getMateriauxPrimaires();
         while(tab_prim!=nullptr){
-            
+            //if(*tab_prim )
 
             tab_prim++;
         }

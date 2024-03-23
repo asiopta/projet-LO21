@@ -92,6 +92,16 @@ protected:
     //comment distinguer le cout de construction pour chaque joueur?
     RessourcePrimaire* materiauxPrimaires;
     RessourceSecondaire* materiauxSecondaires;
+    /* ils peuvent étre une liste chainée sous la forme:
+    struct materiaux{
+        RessourcePrimaire ressource;
+        int quantité;
+        materiaux* suivant;
+    }
+
+    cela facilitera beaucoup le calcul du cout des cartes
+    */
+
 
 
 public:
@@ -387,4 +397,4 @@ public:
 };
 
 
-int getCout(const Carte& carte, const Joueur& joueur, const Joueur& adversaire);
+int getCout(const Carte& carte, const Joueur joueur, const Joueur adversaire);
