@@ -105,6 +105,7 @@ public:
     RessourcePrimaire* getMateriauxPrimaires()const{return materiauxPrimaires;} ;
     RessourceSecondaire* getMateriauxSecondaires()const{return materiauxSecondaires;};
     unsigned int getPrix() const{return cout_construction;};
+    unsigned int getNbMateriauxPrimaires()const{};
 
 
     //methode virtuelle pure, cad est appelable uniquement par les classes filles, et à definir pour chaques classes filles
@@ -260,11 +261,11 @@ public:
 
 class Joueur{
 private:
-    Carte* cartes_construite[60];
+    Carte* cartes_construite[60]; //diviser en sous tableaux pr cartes marrons/grises construites??
+    //utiliser plutot qu'un tableau une liste chainée? pour faciliter le parcours des cartes sans connaitre la taille??
     JetonScience jetons_science[6];
     unsigned int piece;
     unsigned int ptVictoire; 
-
 public:
 /*
     + updatemonnaie(int)
@@ -276,8 +277,31 @@ public:
     + getptdevictoire()
     + choisirAction(Carte)
     */
-    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole);
-    unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole);
+
+    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole){
+        Carte* constr = *cartes_construite;
+        unsigned int res=0;
+        for(int i=0; i<60; i++){
+            RessourcePrimaire* tab = constr->getMateriauxPrimaires();
+            while(tab != nullptr){
+                if(*tab == symbole) res++;
+                tab++;
+            }
+        }
+        return res;
+    };
+    unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole){
+        Carte* constr = *cartes_construite;
+        unsigned int res=0;
+        for(int i=0; i<60; i++){
+            RessourceSecondaire* tab = constr->getMateriauxSecondaires();
+            while(tab != nullptr){
+                if(*tab == symbole) res++;
+                tab++;
+            }
+        }
+        return res;
+    };
     //ces deux méthodes renvoient combien de ressources sont produites d'un symbole donné
     //par ex: 2 bois ou 3 verres
 

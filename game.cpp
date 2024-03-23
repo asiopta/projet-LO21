@@ -92,14 +92,29 @@ string Merveille::gettype() const {
     return "Merveille";
 }
  
-
 int getCout(const Carte& carte, const Joueur& joueur, const Joueur& adversaire){
     if(carte.getMateriauxPrimaires()==NULL && carte.getMateriauxSecondaires()==NULL)
         return carte.getPrix();
     else{
         //créer une méthode qui retourne le nombre de cartes produisant une ressource donnée dans la classe joueur
-        
+        /*
+        petit algo:
+        cout = carte.monnaie
+        pour chaque ressource nécessaires pour construire la carte:
+            si le joueur produit la ressource:
+                pass
+            sinon:
+                nb = cmbien de fois l'adversaire l'a produit //can be 0 or 1 or 2, etc
+                cout+= 2+ nb;
+        */
+        unsigned int res = carte.getPrix();
+        //une méthode qui renvoie cmbien de ressourcesPrim (et second) sont produites par une carte
+        RessourcePrimaire* tab_prim = carte.getMateriauxPrimaires();
+        while(tab_prim!=nullptr){
+            
+
+            tab_prim++;
+        }
     }
-    
 }
  
