@@ -118,3 +118,14 @@ int getCout(const Carte& carte, const Joueur joueur, const Joueur adversaire){
     }
 }
  
+
+void Carte::rend_accessible(){
+    if (not(est_accessible())) accessible = true;
+    else cout<< "rend_carte_accessible : La carte est déjà accessible." << endl;
+}
+
+void Carte::rend_face_visible(){
+    if (not(est_facevisible())) facevisible = true;
+    else cout<< "rend_carte_accessible : La carte est déjà face visible." << endl;
+}
+

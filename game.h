@@ -83,10 +83,7 @@ enum class CapaciteScience{
 //les classes des cartes
 class Carte{
 protected:
-    //dans la dernière version de l'UML, seul Plateau carte donne l'age.
     unsigned int cout_construction;
-    //comment distinguer le cout de construction pour chaque joueur? //pour moi, on l'obtient avec le joueur donnée en effectuant getcout(&Joueur)
-    //cout_construction désigne uniquement le cout initial de la carte, auquel va venir s'ajouter des couts supplémentaires
     RessourcePrimaire* materiauxPrimaires;
     RessourceSecondaire* materiauxSecondaires;
     bool accessible;
@@ -103,17 +100,18 @@ public:
     Carte();
     //constructeur de recopie 
     Carte(const Carte &c);
+
     //methodes
-    void setAge(int newAge);
-    int getAge() const;
-    RessourcePrimaire* getMateriauxPrimaires()const{return materiauxPrimaires;} ;
-    RessourceSecondaire* getMateriauxSecondaires()const{return materiauxSecondaires;};
-    unsigned int getPrix() const{return cout_construction;};
+    unsigned int get_position() const {return position;}
+    bool est_facevisible() const {return facevisible;}
+    bool est_accessible() const {return accessible;}
+    RessourcePrimaire* getMateriauxPrimaires()const{return materiauxPrimaires;}
+    RessourceSecondaire* getMateriauxSecondaires()const{return materiauxSecondaires;}
+    unsigned int getPrix() const{return cout_construction;}
+
+    void rend_accessible(); //def in cpp
+    void rend_face_visible(); //def in cpp
     unsigned int getNbMateriauxPrimaires()const{};
-
-
-    //methode virtuelle pure, cad est appelable uniquement par les classes filles, et à definir pour chaques classes filles
-    //permet d'activer le polymorphisme pour toutes les classes filles 
     virtual string gettype() const = 0;
 
     //destructeur

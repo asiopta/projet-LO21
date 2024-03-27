@@ -28,3 +28,11 @@ DANS class Carte :
     
     //!!!!!!!!! pour moi, on l'obtient avec le joueur donnée en effectuant getcout(&Joueur)
     //cout_construction désigne uniquement le cout initial de la carte, auquel va venir s'ajouter des couts supplémentaires
+
+
+
+DANS code : 
+    ??????? Je propose qu'on définisse dans le .h les fonction de types get (quand elle sont vraiement simple), pour eviter de surcharger les .cpp
+
+DANS code : 
+    ?????? Il faudrai bien revoir le TD4 afin de s'en inspirer
