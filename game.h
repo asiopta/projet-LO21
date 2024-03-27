@@ -83,11 +83,7 @@ enum class CapaciteScience{
 //les classes des cartes
 class Carte{
 protected:
-    unsigned int age;
-    /*on peut pt étre enlever age de la classe carte car la classe merveille est une de ses filles 
-    alors que ces dernières n'ont pas d'age. La solution????
-    OU bien, on peut tout simplement mettre l'age des cartes merveilles à 0 pour les distinguer 
-    des autres cartes. Vous pensez quoi?*/
+    //dans la dernière version de l'UML, seul Plateau carte donne l'age.
     unsigned int cout_construction;
     //comment distinguer le cout de construction pour chaque joueur?
     RessourcePrimaire* materiauxPrimaires;
