@@ -85,26 +85,24 @@ class Carte{
 protected:
     //dans la dernière version de l'UML, seul Plateau carte donne l'age.
     unsigned int cout_construction;
-    //comment distinguer le cout de construction pour chaque joueur?
+    //comment distinguer le cout de construction pour chaque joueur? //pour moi, on l'obtient avec le joueur donnée en effectuant getcout(&Joueur)
+    //cout_construction désigne uniquement le cout initial de la carte, auquel va venir s'ajouter des couts supplémentaires
     RessourcePrimaire* materiauxPrimaires;
     RessourceSecondaire* materiauxSecondaires;
-    /* ils peuvent étre une liste chainée sous la forme:
-    struct materiaux{
-        RessourcePrimaire ressource;
-        int quantité;
-        materiaux* suivant;
-    }
-
-    cela facilitera beaucoup le calcul du cout des cartes
-    */
-
+    bool accessible;
+    bool facevisible;
+    unsigned int position; //Je propose qu'on mette la position de la carte directement dans la classCarte, 
+    //on met à 0 si elle n'est pas sur le plateau, et sinon, on commence à 1.
+    //c'est interessent parceque du coup on peut faire une méthode qui verifie directement si la carte est dans le plateau
+    //en faissant un if position:
 
 
 public:
 
     //constructeur
     Carte();
-
+    //constructeur de recopie 
+    Carte(const Carte &c);
     //methodes
     void setAge(int newAge);
     int getAge() const;

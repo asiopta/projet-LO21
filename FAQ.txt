@@ -1,0 +1,30 @@
+CE FICHIER A POUR BUT DE RASSEMBLER TOUTES LES QUESTIONS QU'ON POSE AUX AUTRES SUR LE CODE.
+cela évitera de le mettre en commentaire du code et encombrer le code. 
+Dés que quelqu'un voit une question en commentaire, il copie colle dans ce fichier 
+avec la ligne de code correspondant et y repond si possible. 
+
+
+DANS class Carte : 
+    RessourcePrimaire* materiauxPrimaires;
+    RessourceSecondaire* materiauxSecondaires;
+
+    /* ???????? ils peuvent étre une liste chainée sous la forme:
+    struct materiaux{
+        RessourcePrimaire ressource;
+        int quantité;
+        materiaux* suivant;
+    }
+    cela facilitera beaucoup le calcul du cout des cartes
+    */
+
+   //!!!!!!!!!! dans ce cas autant créer directement des listes chainé via des vecteurs ? 
+    // https://h-deb.clg.qc.ca/Sujets/AuSecours/Utiliser--vecteur.html si tu veux en savoir plus
+
+
+DANS class Carte : 
+    unsigned int cout_construction;
+
+    //?????? comment distinguer le cout de construction pour chaque joueur? 
+    
+    //!!!!!!!!! pour moi, on l'obtient avec le joueur donnée en effectuant getcout(&Joueur)
+    //cout_construction désigne uniquement le cout initial de la carte, auquel va venir s'ajouter des couts supplémentaires
