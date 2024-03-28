@@ -239,6 +239,7 @@ public:
     CarteRessourcePrimaire(unsigned int cout, RessourcePrimaire* production, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos);
     CarteRessourcePrimaire(const CarteRessourcePrimaire &c);
     RessourcePrimaire* get_production() const {return production;}
+    void set_production(RessourcePrimaire r); //def in cpp
     // les cartes marron ne peuvent étre construites qu'avec la monnaie
     std::string gettype() const override;
     //destructeur

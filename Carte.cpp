@@ -54,7 +54,7 @@ void Carte::set_materiaux_construction_primaire(RessourcePrimaire r){
             materiaux_construction_primaires[i] = r;
             break;
         }
-        if (i==3){throw "set_materiaux_construction_primaire : le tableau de ressource est déjà plein";}
+        if (i==3){throw "From Carte, set_materiaux_construction_primaire : le tableau de ressource est déjà plein";}
     }
 } //cherche un emplacement ressource vide (none) puis le remplace, sort alors du for. 
 //si on est pas sorti du for, cela veut dire que le tableau etait deja plein et ce n'est pas possible d'ajouter de nouvelles ressources nécéssaires
@@ -65,7 +65,7 @@ void Carte::set_materiaux_construction_secondaire(RessourceSecondaire r){
             materiaux_construction_secondaires[i] = r;
             break;
         }
-        if (i==3){throw "set_materiaux_construction_secondaire : le tableau de ressource est déjà plein";}
+        if (i==3){throw "From Carte, set_materiaux_construction_secondaire : le tableau de ressource est déjà plein";}
     }
 } //cherche un emplacement ressource vide (none) puis le remplace, sort alors du for. 
 //si on est pas sorti du for, cela veut dire que le tableau etait deja plein et ce n'est pas possible d'ajouter de nouvelles ressources nécéssaires
@@ -137,11 +137,17 @@ CarteRessourcePrimaire::~CarteRessourcePrimaire(){
      delete[] production; // pas besoin de delete les autres tableau, car le destructeur de la class mère Carte va s'appeler et delete pour cette class
 }
 
-
+void CarteRessourcePrimaire::set_production(RessourcePrimaire r){
+    for(int i=0; i<2; i++){
+        if (production[i] == RessourcePrimaire::none){
+            production[i] = r;
+            break;
+        }
+        if (i==3){throw "From CarteRessourcePrimaire, set_production : le tableau de production est déjà plein";}
+    }
+}
 
 /*--------------------------------------------------------------------------*/
-
-
 
 /*------------------------------------Carte Ressource Secondaire--------------------------------------*/
 
