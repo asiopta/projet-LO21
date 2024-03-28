@@ -105,9 +105,9 @@ public:
     unsigned int get_position() const {return position;}
     bool est_facevisible() const {return facevisible;}
     bool est_accessible() const {return accessible;}
-    RessourcePrimaire* getMateriauxPrimaires()const{return materiauxPrimaires;}
-    RessourceSecondaire* getMateriauxSecondaires()const{return materiauxSecondaires;}
-    unsigned int getPrix() const{return cout_construction;}
+    RessourcePrimaire* getMateriauxPrimaires()const {return materiauxPrimaires;}
+    RessourceSecondaire* getMateriauxSecondaires()const {return materiauxSecondaires;}
+    unsigned int getPrix() const {return cout_construction;}
 
     void rend_accessible(); //def in cpp
     void rend_face_visible(); //def in cpp
