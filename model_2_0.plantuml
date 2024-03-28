@@ -12,14 +12,20 @@ abstract class Carte{
     -accessible : bool
     -face_visible : bool
     
-    + const get_type() -> string
-    + const get_position() -> unsigned int
-    + const est_accessible() -> bool
-    + const est_face_visible -> bool
+    +void set_position(unsigned int pos);
+    +void set_materiaux_construction_primaire(RessourcePrimaire r); 
+    +void set_materiaux_construction_secondaire(RessourceSecondaire r);
+    +void set_accessible();
+    +void set_face_visible(); 
 
-    + out()
-    + rend_accessible(bool)
-    + rend_face_visible(bool)
+    +unsigned int get_position() const;
+    +unsigned int getPrix() const;
+    +bool est_facevisible() const;
+    +bool est_accessible() const;
+    +RessourcePrimaire* getMateriauxPrimaires() const;
+    +RessourceSecondaire* getMateriauxSecondaires() const;
+
+    +virtual std::string gettype() const = 0;
 }
 
 'Notes : J'ai compté pour les listes 4 et 2 en longueurs suffisent
@@ -51,11 +57,19 @@ class Merveille{
 'Cartes marrons 
 class CarteRessourcePrimaire{
     - production : *RessourcePrimaire[2]
+
+    +RessourcePrimaire* get_production() const;
+    +void set_production(RessourcePrimaire r); 
+    +std::string gettype() const override;
 }
 
 'Cartes gris
 class CarteRessourceSecondaire{
     - production : RessourceSecondaire
+
+    +RessourceSecondaire get_production() const;
+    +string gettype() const override;
+    +void set_production(RessourceSecondaire r);
 }
 'Pas de liste car produit toujours 1 seul ressource
 
@@ -69,7 +83,23 @@ class CarteCommerce{
     - contrpartie : int 
     - pt_victoire : unsigned int
 
-    + const exec_capacite()
+    +RessourcePrimaire* get_production_primaire() const;
+    +RessourceSecondaire* get_production_second() const;
+    +bool get_choix() const;
+    +bool get_contrepatrie() const;
+    +Capacite get_capacite() const;
+    +unsigned int get_pt_victoire() const;
+    +SymboleChainage get_symbole_chainage() const;
+
+    +void set_symbole_chainage(SymboleChainage s);
+    +void set_choix(bool c);
+    +void set_contrepartie(bool c);
+    +void set_pt_victoire(unsigned int n);
+    +void set_capacite(Capacite c);
+    +void set_production_primaire(RessourcePrimaire* pt);
+    +void set_production_secondaire(RessourceSecondaire* pt);
+
+    +string gettype() const override;
 }
 'Choix defini si la production doit etre choisi entre differentes ressources ou non
 'Contrepartie defini si il faut "acheter" la ressource produite ou non, on notera 0 si ce n'est pas le cas
@@ -133,6 +163,7 @@ Merveille --|> Carte
 
 'Permet de ne pas payer une carte si elle comporte le meme symbole qu'une carte déja construite par le joueur
 enum SymboleChainage{
+    none
     jarre 
     toneau
     masque 
@@ -187,6 +218,7 @@ EffetGuilde "*" - "*" CarteGuilde
 
 'Les differentes capacité retrouvables sur certaines cartes, notement sur les cartes Merveille, militaire et de commerce
 enum Capacite{
+    none
     rejouer
     detruire_carte_marron
     detruire_carte_grise
@@ -207,6 +239,7 @@ Capacite "0..1" -- "*" CarteScience
 'Les Ressources sont utilisé par les joureurs pour construir des batiments
 'Elles sont produites par certaines cartes
 enum RessourcePrimaire{
+    none
     pierre
     bois
     brique
@@ -217,6 +250,7 @@ RessourcePrimaire  "*" -- "*" CarteCommerce
 
 
 enum RessourceSecondaire{
+    none
     eau
     parchemin
 }

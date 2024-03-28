@@ -282,13 +282,13 @@ public:
     CarteCommerce(RessourcePrimaire* prod_primaire, RessourceSecondaire*prod_secondaire, Capacite capa, SymboleChainage symb, bool choix, bool contrepartie, unsigned int pt_victoire, unsigned int cout,RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos);
     CarteCommerce(const CarteCommerce& c);
 
-    RessourcePrimaire* get_production_primaire(){return production_primaire;}
-    RessourceSecondaire* get_production_secon(){return production_secondaire;}
-    bool get_choix(){return choix;}
-    bool get_contrepatrie(){return contrepartie;}
-    Capacite get_capacite(){return capacite;}
-    unsigned int get_pt_victoire(){return pt_victoire;}
-    SymboleChainage get_symbole_chainage(){return symbole;}
+    RessourcePrimaire* get_production_primaire()const {return production_primaire;}
+    RessourceSecondaire* get_production_secondaire()const {return production_secondaire;}
+    bool get_choix()const {return choix;}
+    bool get_contrepatrie()const {return contrepartie;}
+    Capacite get_capacite()const {return capacite;}
+    unsigned int get_pt_victoire()const {return pt_victoire;}
+    SymboleChainage get_symbole_chainage()const {return symbole;}
 
     void set_symbole_chainage(SymboleChainage s){symbole = s;}
     void set_choix(bool c){choix = c;}
