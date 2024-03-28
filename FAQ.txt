@@ -36,3 +36,7 @@ DANS code :
 
 DANS code : 
     ?????? Il faudrai bien revoir le TD4 afin de s'en inspirer
+
+
+DANS Class : 
+    ???? je propose que chaque class ai une fonction affichage qui permet d'afficher ces attribut, ca nous servira pour les testes. 

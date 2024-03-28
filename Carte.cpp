@@ -84,6 +84,29 @@ Carte::~Carte(){
      delete[] materiaux_construction_secondaires;
 }
 
+std::ostream& Carte::operator<<(std::ostream f) const{
+    std::cout << "--------Carte--------"<< std::endl;
+    std::cout << "Cout construction : " << cout_construction << std::endl; 
+
+    std::cout << "materiaux_construction_primaire : ";
+    for(int i=0; i<4; i++){ 
+        std::cout << materiaux_construction_primaires[i] << " ";
+    }
+    std::cout << "materiaux_construction_secondaire : ";
+    for(int i=0; i<2; i++){
+        std::cout << materiaux_construction_secondaires[i] << " ";
+    }
+
+    std::cout << "accessible : "<< accessible << std::endl; 
+    std::cout << "face_visible" << face_visible << std::endl; 
+    std::cout << "position" << position << std::endl; 
+    
+    RessourcePrimaire* materiaux_construction_primaires;
+    RessourceSecondaire* materiaux_construction_secondaires;
+    return f;
+
+}
+
 /*--------------------------------------------------------------------------*/
 
 
