@@ -223,12 +223,11 @@ public:
     bool est_accessible() const {return accessible;}
     RessourcePrimaire* getMateriauxPrimaires()const {return materiaux_construction_primaires;}
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
-    
+
     virtual std::string gettype() const = 0; //pas encore définie
     //destructeur
     virtual ~Carte();
 };
-
 
 class CarteRessourcePrimaire : public Carte{
 private:
@@ -240,7 +239,6 @@ public:
     CarteRessourcePrimaire(unsigned int cout, RessourcePrimaire* production, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos);
     CarteRessourcePrimaire(const CarteRessourcePrimaire &c);
     RessourcePrimaire* get_production() const {return production;}
-    std::ostream& operator<<(std::ostream f) const;
     // les cartes marron ne peuvent étre construites qu'avec la monnaie
     std::string gettype() const override;
     //destructeur
