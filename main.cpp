@@ -2,14 +2,18 @@
 #include <iostream>
 #include <string>
 using namespace std;
-#include "game.h"
+#include "Carte.h"
+//#include "Joueur.h"
+//#include "Plateau.h"
+
 
 int main(){
-    RessourcePrimaire ressource1 = RessourcePrimaire::bois;
-    cout<< "ressource 1 :" << static_cast<int>(ressource1) << endl ;
-    cout<< "hello" ; 
     return 0;
-};
+}
+
+
+
+
 
 
 

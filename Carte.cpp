@@ -65,7 +65,7 @@ void Carte::set_materiaux_construction_secondaire(RessourceSecondaire r){
             materiaux_construction_secondaires[i] = r;
             break;
         }
-        if (i==3){throw "From Carte, set_materiaux_construction_secondaire : le tableau de ressource est déjà plein";}
+        if (i==1){throw "From Carte, set_materiaux_construction_secondaire : le tableau de ressource est déjà plein";}
     }
 } //cherche un emplacement ressource vide (none) puis le remplace, sort alors du for. 
 //si on est pas sorti du for, cela veut dire que le tableau etait deja plein et ce n'est pas possible d'ajouter de nouvelles ressources nécéssaires
@@ -143,11 +143,100 @@ void CarteRessourcePrimaire::set_production(RessourcePrimaire r){
             production[i] = r;
             break;
         }
-        if (i==3){throw "From CarteRessourcePrimaire, set_production : le tableau de production est déjà plein";}
+        if (i==1){throw "From CarteRessourcePrimaire, set_production : le tableau de production est déjà plein";}
     }
 }
 
 /*--------------------------------------------------------------------------*/
 
 /*------------------------------------Carte Ressource Secondaire--------------------------------------*/
+
+CarteRessourceSecondaire::CarteRessourceSecondaire(unsigned int cout,RessourceSecondaire prod, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos)
+: Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+    production=prod;
+}
+
+CarteRessourceSecondaire::CarteRessourceSecondaire()
+: Carte(){
+    production=RessourceSecondaire::none;
+}
+
+//constructeur de recopie 
+CarteRessourceSecondaire::CarteRessourceSecondaire(const CarteRessourceSecondaire &c)
+: Carte(c){
+    production= c.production;
+}
+
+
+void CarteRessourceSecondaire::set_production(RessourceSecondaire r){
+    if (production == RessourceSecondaire::none){
+        production = r;
+    }
+    else {throw "From CarteRessourceSecondaire, set_production : la production est renseignée";}
+}
+
+
+
+/*--------------------------------------------------------------------------*/
+
+/*------------------------------------Cartes Commerce--------------------------------------*/
+
+CarteCommerce::CarteCommerce()
+:Carte(){
+    production_primaire = new RessourcePrimaire[3];
+    production_secondaire = new RessourceSecondaire[2];
+    for(int i =0; i<3; i++){production_primaire[i]=RessourcePrimaire::none;}
+    for(int i =0; i<2; i++){production_secondaire[i]=RessourceSecondaire::none;}
+
+    capacite = Capacite::none;
+    symbole = SymboleChainage::none;
+    choix = false;
+    contrepartie = false;
+    pt_victoire = 0;
+}
+
+CarteCommerce::CarteCommerce(RessourcePrimaire* prod_primaire, RessourceSecondaire*prod_secondaire, Capacite capa, SymboleChainage symb, bool ch, bool cont, unsigned int pt_vict, unsigned int cout,RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos)
+:Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+    production_primaire = new RessourcePrimaire[3];
+    production_secondaire = new RessourceSecondaire[2];
+    for(int i =0; i<3; i++){production_primaire[i]=prod_primaire[i];}
+    for(int i =0; i<2; i++){production_secondaire[i]=prod_secondaire[i];}
+
+    capacite = capa;
+    symbole = symb;
+    choix = ch;
+    contrepartie = cont;
+    pt_victoire = pt_vict;
+}
+
+CarteCommerce::CarteCommerce(const CarteCommerce& c)
+:Carte(c){
+    production_primaire = new RessourcePrimaire[3];
+    production_secondaire = new RessourceSecondaire[2];
+    for(int i =0; i<3; i++){production_primaire[i]=c.production_primaire[i];}
+    for(int i =0; i<2; i++){production_secondaire[i]=c.production_secondaire[i];}
+
+    capacite = c.capacite;
+    symbole = c.symbole;
+    choix = c.choix;
+    contrepartie = c.contrepartie;
+    pt_victoire = c.pt_victoire;
+}
+
+void CarteCommerce::set_production_primaire(RessourcePrimaire* pt){
+    for(int i=0; i<3; i++){production_primaire[i]=pt[i];}
+}
+void CarteCommerce::set_production_secondaire(RessourceSecondaire* pt){
+    for(int i=0; i<2; i++){production_secondaire[i]=pt[i];}
+}
+
+CarteCommerce::~CarteCommerce(){
+    delete[] production_primaire;
+    delete[] production_secondaire;
+}
+
+
+/*--------------------------------------------------------------------------*/
+
+/*-------------------------------------Prochaine classe-------------------------------------*/
 

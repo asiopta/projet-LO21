@@ -35,6 +35,7 @@ std::ostream& operator<<(std::ostream& f, const RessourceSecondaire& r){
 }
 
 enum class SymboleChainage{
+    none,
     jarre,
     toneau,
     masque,
@@ -56,6 +57,7 @@ enum class SymboleChainage{
 
 std::ostream& operator<<(std::ostream& f, const SymboleChainage& symbole) {
     switch (symbole) {
+        case SymboleChainage::none:f << "Pas de symbole Chainage";
         case SymboleChainage::jarre:f << "Jarre"; break;
         case SymboleChainage::toneau:f << "Tonneau"; break;
         case SymboleChainage::masque:f << "Masque"; break;
@@ -132,6 +134,7 @@ std::ostream& operator<<(std::ostream& f, const EffetGuilde& effet) {
 }
 
 enum class Capacite{
+    none, 
     rejouer,
     detruire_carte_marron,
     detruire_carte_grise,
@@ -144,6 +147,7 @@ enum class Capacite{
 
 std::ostream& operator<<(std::ostream& f, const Capacite& capacite) {
     switch (capacite) {
+        case Capacite::none: f<<"Pas de capacité"; break;
         case Capacite::rejouer: f << "Rejouer"; break;
         case Capacite::detruire_carte_marron: f << "Détruire une carte marron"; break;
         case Capacite::detruire_carte_grise: f << "Détruire une carte grise"; break;
@@ -188,8 +192,6 @@ std::ostream& operator<<(std::ostream& f, const CapaciteScience& capacite) {
     }
     return f;
 }
-
-
 class Carte{
 protected:
     unsigned int cout_construction;
@@ -245,6 +247,64 @@ public:
     //destructeur
     virtual ~CarteRessourcePrimaire();
 };
+
+class CarteRessourceSecondaire : public Carte{
+private:
+    RessourceSecondaire production;  //Pas de liste car produit toujours 1 seul ressource
+
+public:
+    //constructeur
+    CarteRessourceSecondaire();
+    CarteRessourceSecondaire(unsigned int cout, RessourceSecondaire production, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos);
+    CarteRessourceSecondaire(const CarteRessourceSecondaire &c);
+
+    //méthodes
+    RessourceSecondaire get_production() const {return production;}
+    std::string gettype() const override;
+    void set_production(RessourceSecondaire r); //def in cpp
+
+    //destructeur
+    virtual  ~CarteRessourceSecondaire(){};
+};
+
+class CarteCommerce : public Carte{
+private:
+    RessourcePrimaire* production_primaire; //taille3
+    RessourceSecondaire* production_secondaire; //taille 2
+    Capacite capacite;
+    SymboleChainage symbole;
+    bool choix;
+    bool contrepartie;
+    unsigned int pt_victoire;
+
+public:
+    CarteCommerce();
+    CarteCommerce(RessourcePrimaire* prod_primaire, RessourceSecondaire*prod_secondaire, Capacite capa, SymboleChainage symb, bool choix, bool contrepartie, unsigned int pt_victoire, unsigned int cout,RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos);
+    CarteCommerce(const CarteCommerce& c);
+
+    RessourcePrimaire* get_production_primaire(){return production_primaire;}
+    RessourceSecondaire* get_production_secon(){return production_secondaire;}
+    bool get_choix(){return choix;}
+    bool get_contrepatrie(){return contrepartie;}
+    Capacite get_capacite(){return capacite;}
+    unsigned int get_pt_victoire(){return pt_victoire;}
+    SymboleChainage get_symbole_chainage(){return symbole;}
+
+    void set_symbole_chainage(SymboleChainage s){symbole = s;}
+    void set_choix(bool c){choix = c;}
+    void set_contrepartie(bool c){contrepartie = c;}
+    void set_pt_victoire(unsigned int n){pt_victoire =n;}
+    void set_capacite(Capacite c){capacite = c;}
+    void set_production_primaire(RessourcePrimaire* pt);
+    void set_production_secondaire(RessourceSecondaire* pt);
+
+    std::string gettype() const override;
+    //destructeur
+    virtual ~CarteCommerce();
+
+};
+
+
 
 
 
