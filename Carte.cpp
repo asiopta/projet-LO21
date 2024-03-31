@@ -244,12 +244,14 @@ CarteCommerce::~CarteCommerce(){
         symbole_chainage = SymboleChainage::none;
         symbole_science = SymboleScience::balance;
         pt_victoire = 0;
+        capacite = Capacite::ajouter_symbole_science;
     }
     CarteScience::CarteScience(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict)
     :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
         symbole_chainage = symb_chain;
         symbole_science = symb_science;
-        pt_vict = pt_vict;
+        pt_victoire = pt_vict;
+        capacite = Capacite::ajouter_symbole_science;
 
     }
     //constructeur de recopie 
@@ -258,5 +260,6 @@ CarteCommerce::~CarteCommerce(){
         symbole_chainage = c.symbole_chainage;
         symbole_science = c.symbole_science;
         pt_victoire = c.pt_victoire;
+        capacite = Capacite::ajouter_symbole_science;
     }
 

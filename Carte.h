@@ -309,6 +309,7 @@ class CarteScience : public Carte{
 private:
     SymboleScience symbole_science;
     SymboleChainage symbole_chainage;
+    Capacite capacite;
     unsigned int pt_victoire;
     //Capacite capacite; //il faut pt étre pas rajouter ca ici. On déclence la capacite ssi il ya deux cartes avec meme symbole scientifique
 public:
@@ -320,16 +321,20 @@ public:
     unsigned int get_pt_victoire()const {return pt_victoire;}
     SymboleChainage get_symbole_chainage() const  {return symbole_chainage;}
     SymboleScience get_symbole_science() const {return symbole_science;}
+    Capacite get_capacite() const {return capacite;}
 
     void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
     void set_symbole_science(SymboleScience s){symbole_science = s;}
+    
 
     std::string gettype() const override;
     //destructeur
     virtual ~CarteScience();
 
 };
+
+
 
 
 

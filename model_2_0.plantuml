@@ -112,9 +112,19 @@ class CarteScience{
     - symbole_science : SymboleScience
     - symbole_chainage : SymboleChainage
     - pt_victoire : unsigned int
-    - capacite : Capacite:ajouter_symbole_science
+    - capacite : Capacite::ajouter_symbole_science
 
-    + const exec_capacite()
+    +unsigned int get_pt_victoire()const;
+    +SymboleChainage get_symbole_chainage() const;
+    +SymboleScience get_symbole_science() const;
+    +Capacite get_capacite() const;
+
+    +void set_symbole_chainage(SymboleChainage s);
+    +void set_pt_victoire(unsigned int n);
+    +void set_symbole_science(SymboleScience s);
+
+    +gettype() const override;
+
 }
 'SymboleScience est une enumerations des symboles Science disponible dans le jeu
 'SymboleChainage est une enumerations des symboles Science disponible dans le jeu
