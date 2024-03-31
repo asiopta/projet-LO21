@@ -240,13 +240,13 @@ CarteCommerce::~CarteCommerce(){
 
 /*-------------------------------------CarteScience-------------------------------------*/
 
-    CarteScience::CarteScience() : Carte(){
+CarteScience::CarteScience() : Carte(){
         symbole_chainage = SymboleChainage::none;
         symbole_science = SymboleScience::balance;
         pt_victoire = 0;
         capacite = Capacite::ajouter_symbole_science;
     }
-    CarteScience::CarteScience(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict)
+CarteScience::CarteScience(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict)
     :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
         symbole_chainage = symb_chain;
         symbole_science = symb_science;
@@ -255,7 +255,7 @@ CarteCommerce::~CarteCommerce(){
 
     }
     //constructeur de recopie 
-    CarteScience::CarteScience(const CarteScience &c)
+CarteScience::CarteScience(const CarteScience &c)
     :Carte(c){
         symbole_chainage = c.symbole_chainage;
         symbole_science = c.symbole_science;
@@ -263,3 +263,51 @@ CarteCommerce::~CarteCommerce(){
         capacite = Capacite::ajouter_symbole_science;
     }
 
+/*--------------------------------------------------------------------------*/
+
+
+/*-------------------------------------CartePrestige-------------------------------------*/
+
+CartePrestige::CartePrestige()
+    :Carte(){
+        symbole_chainage = SymboleChainage::none;
+        pt_victoire = 0;
+    }
+CartePrestige::CartePrestige(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int pt_vict)
+    :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+        symbole_chainage=symb_chain;
+        pt_victoire=pt_vict;
+    }
+
+CartePrestige::CartePrestige(const CartePrestige& c)
+    :Carte(c){
+        symbole_chainage=c.symbole_chainage;
+        pt_victoire=c.pt_victoire;
+    }
+
+/*--------------------------------------------------------------------------*/
+
+
+/*-------------------------------------CarteMilitaire-------------------------------------*/
+
+CarteMilitaire::CarteMilitaire()
+    :Carte(){
+    symbole_chainage = SymboleChainage::none;
+    nb_symbole_militaire = 0;
+    capacite = Capacite::avancee_militaire;
+}
+CarteMilitaire::CarteMilitaire(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire)
+    :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+    symbole_chainage=symb_chain;
+    nb_symbole_militaire=nb_militaire;
+    capacite = Capacite::avancee_militaire;
+}
+
+CarteMilitaire::CarteMilitaire(const CarteMilitaire& c)
+    :Carte(c){
+        symbole_chainage=c.symbole_chainage;
+        nb_symbole_militaire=c.nb_symbole_militaire;
+        capacite = c.capacite;
+}
+
+/*--------------------------------------------------------------------------*/

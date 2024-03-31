@@ -334,6 +334,54 @@ public:
 
 };
 
+class CartePrestige : public Carte{
+private:
+    unsigned int pt_victoire;
+    SymboleChainage symbole_chainage;
+
+public:
+    CartePrestige();
+    CartePrestige(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int pt_vict);
+    CartePrestige(const CartePrestige& c);
+    unsigned int get_pt_victoire()const {return pt_victoire;}
+    SymboleChainage get_symbole_chainage() const  {return symbole_chainage;}
+    void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
+    void set_pt_victoire(unsigned int n){pt_victoire =n;}
+
+    std::string gettype() const override;
+    //destructeur
+    virtual ~CartePrestige();
+};
+
+
+class CarteMilitaire : public Carte{
+private:
+    unsigned int nb_symbole_militaire;
+    Capacite capacite;
+    SymboleChainage symbole_chainage;
+
+public:
+
+    CarteMilitaire();
+    CarteMilitaire(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire);
+    CarteMilitaire(const CarteMilitaire& c);
+
+    Capacite get_capacite() const {return capacite;}
+    unsigned int get_nb_symbole_militaire() const {return nb_symbole_militaire;}
+    SymboleChainage get_symbole_chainage() const  {return symbole_chainage;}
+
+    void set_nb_symbole_militaire(unsigned int nb){nb_symbole_militaire=nb;}
+    void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
+
+    std::string gettype() const override;
+
+    //destructeur
+    virtual ~CarteMilitaire();
+};
+
+
+
+
 
 
 

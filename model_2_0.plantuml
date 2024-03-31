@@ -131,15 +131,32 @@ class CarteScience{
 
 'Cartes Rouges
 class CarteMilitaire{
-    - militaire : Capacite:avance_militaire
+    -unsigned int nb_symbole_militaire;
+    -Capacite capacite = avance_militaire;
+    -SymboleChainage symbole_chainage;
 
-    + const exec_capacite_militaire()
+
+    +Capacite get_capacite() const;
+    +unsigned int get_nb_symbole_militaire() const;
+    +SymboleChainage get_symbole_chainage() const;
+
+    +void set_nb_symbole_militaire(unsigned int nb);
+    +void set_symbole_chainage(SymboleChainage s);
+
+    +string gettype() const override;
 }
 
 'Cartes Bleu
 class CartePrestige{
     - symbole_chainage : SymboleChainage
     - pt_victoire : unsigned int
+
+    +unsigned int get_pt_victoire()const;
+    +SymboleChainage get_symbole_chainage() const;
+    +void set_symbole_chainage(SymboleChainage s);
+    +void set_pt_victoire(unsigned int n);
+
+    +string gettype() const override;
 }
 
 'Cartes Violets
