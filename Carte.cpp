@@ -84,7 +84,7 @@ Carte::~Carte(){
      delete[] materiaux_construction_secondaires;
 }
 
-std::ostream& Carte::operator<<(std::ostream f) const{
+std::ostream& Carte::operator<<(std::ostream& f) const{
     std::cout << "--------Carte--------"<< std::endl;
     std::cout << "Cout construction : " << cout_construction << std::endl; 
 
