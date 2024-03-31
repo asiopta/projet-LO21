@@ -238,5 +238,25 @@ CarteCommerce::~CarteCommerce(){
 
 /*--------------------------------------------------------------------------*/
 
-/*-------------------------------------Prochaine classe-------------------------------------*/
+/*-------------------------------------CarteScience-------------------------------------*/
+
+    CarteScience::CarteScience() : Carte(){
+        symbole_chainage = SymboleChainage::none;
+        symbole_science = SymboleScience::balance;
+        pt_victoire = 0;
+    }
+    CarteScience::CarteScience(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict)
+    :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+        symbole_chainage = symb_chain;
+        symbole_science = symb_science;
+        pt_vict = pt_vict;
+
+    }
+    //constructeur de recopie 
+    CarteScience::CarteScience(const CarteScience &c)
+    :Carte(c){
+        symbole_chainage = c.symbole_chainage;
+        symbole_science = c.symbole_science;
+        pt_victoire = c.pt_victoire;
+    }
 

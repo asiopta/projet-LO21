@@ -200,7 +200,9 @@ private:
     //Capacite capacite; //il faut pt étre pas rajouter ca ici. On déclence la capacite ssi il ya deux cartes avec meme symbole scientifique
 public:
     void execCapacite();
-    string gettype() const override;
+
+    
+    std::string gettype() const override;
 
     //destructeur
     virtual ~CarteScience();

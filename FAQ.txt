@@ -40,3 +40,9 @@ DANS code :
 
 DANS Class : 
     ???? je propose que chaque class ai une fonction affichage qui permet d'afficher ces attribut, ca nous servira pour les testes. 
+
+POUR LES CLASSES AYANT DES CAPACITE : 
+
+Pourquoi ne pas plustot faire une fonction exec_capacite qui prend en argument un reférence vers une carte, qui effectue get_capacite
+et fait les action de la carte. On poourrai egalement verifier que le type de la carte correspond a la capacite.
+Je pense donc que c'est mieux de pas la mettre comme méthode de class, mais comme une fonction directement.

@@ -218,7 +218,7 @@ public:
     void set_accessible(); //def in cpp
     void set_face_visible(); //def in cpp
 
-    std::ostream& operator<<(std::ostream f) const;
+    std::ostream& operator<<(std::ostream& f) const;
     unsigned int get_position() const {return position;}
     unsigned int getPrix() const {return cout_construction;}
     bool est_facevisible() const {return face_visible;}
@@ -305,6 +305,31 @@ public:
 };
 
 
+class CarteScience : public Carte{
+private:
+    SymboleScience symbole_science;
+    SymboleChainage symbole_chainage;
+    unsigned int pt_victoire;
+    //Capacite capacite; //il faut pt étre pas rajouter ca ici. On déclence la capacite ssi il ya deux cartes avec meme symbole scientifique
+public:
+    CarteScience();
+    CarteScience(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict);
+    //constructeur de recopie 
+    CarteScience(const CarteScience &c);
+
+    unsigned int get_pt_victoire()const {return pt_victoire;}
+    SymboleChainage get_symbole_chainage() const  {return symbole_chainage;}
+    SymboleScience get_symbole_science() const {return symbole_science;}
+
+    void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
+    void set_pt_victoire(unsigned int n){pt_victoire =n;}
+    void set_symbole_science(SymboleScience s){symbole_science = s;}
+
+    std::string gettype() const override;
+    //destructeur
+    virtual ~CarteScience();
+
+};
 
 
 
