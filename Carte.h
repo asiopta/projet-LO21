@@ -226,7 +226,7 @@ public:
     RessourcePrimaire* getMateriauxPrimaires()const {return materiaux_construction_primaires;}
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
 
-    virtual std::string gettype() const = 0; //pas encore définie
+    virtual std::string get_type() const = 0; //pas encore définie
     //destructeur
     virtual ~Carte();
 };
@@ -243,7 +243,7 @@ public:
     RessourcePrimaire* get_production() const {return production;}
     void set_production(RessourcePrimaire r); //def in cpp
     // les cartes marron ne peuvent étre construites qu'avec la monnaie
-    std::string gettype() const override;
+    std::string get_type() const override {return "CarteRessourcePrimaire";};
     //destructeur
     virtual ~CarteRessourcePrimaire();
 };
@@ -260,11 +260,11 @@ public:
 
     //méthodes
     RessourceSecondaire get_production() const {return production;}
-    std::string gettype() const override;
+    std::string get_type() const override {return "CarteRessourceSecondaire";}
     void set_production(RessourceSecondaire r); //def in cpp
 
     //destructeur
-    virtual  ~CarteRessourceSecondaire(){};
+    virtual  ~CarteRessourceSecondaire();
 };
 
 class CarteCommerce : public Carte{
@@ -298,7 +298,7 @@ public:
     void set_production_primaire(RessourcePrimaire* pt);
     void set_production_secondaire(RessourceSecondaire* pt);
 
-    std::string gettype() const override;
+    std::string get_type() const override {return "CarteCommerce";};
     //destructeur
     virtual ~CarteCommerce();
 
@@ -328,7 +328,7 @@ public:
     void set_symbole_science(SymboleScience s){symbole_science = s;}
     
 
-    std::string gettype() const override;
+    std::string get_type() const override {return "CarteScience";}
     //destructeur
     virtual ~CarteScience();
 
@@ -348,7 +348,7 @@ public:
     void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
 
-    std::string gettype() const override;
+    std::string get_type() const override {return "CartePrestige";}
     //destructeur
     virtual ~CartePrestige();
 };
@@ -373,13 +373,49 @@ public:
     void set_nb_symbole_militaire(unsigned int nb){nb_symbole_militaire=nb;}
     void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
 
-    std::string gettype() const override;
+    std::string get_type() const override {return "CarteMilitaire";}
 
     //destructeur
     virtual ~CarteMilitaire();
 };
 
 
+class CarteGuilde : public Carte{
+private:
+    EffetGuilde effet_guilde;
+public:
+    CarteGuilde();
+    CarteGuilde(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, EffetGuilde effet);
+    CarteGuilde(const CarteGuilde& c);
+    
+    EffetGuilde get_effet_guilde(){return effet_guilde;}
+    void set_effet_guilde(EffetGuilde& effet){effet_guilde = effet;}
+    //void applique_effet_guilde(Joueur& joueur1, Joueur& joueur2);//fonction et arguement a définir plus tard
+    std::string get_type() const override {return "CarteGuilde";};
+    
+    //destructeur
+    virtual ~CarteGuilde();
+};
+
+
+class Merveille : public Carte{
+private:
+    unsigned int pt_victoire;
+    unsigned int avance_militaire;
+    RessourcePrimaire* production_primaire;
+    RessourceSecondaire* production_secondaire;
+    Capacite* capacite;
+
+public:
+    Merveille();
+    Merveille(RessourcePrimaire* prod_primaire, RessourceSecondaire* prod_secondaire, Capacite* capa, unsigned int pt_victoire, unsigned int av_milit, unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos);
+    Merveille(const Merveille& c);
+
+    std::string get_type() const override {return "Merveille";};
+
+    //destructeur
+    virtual ~Merveille();
+};
 
 
 

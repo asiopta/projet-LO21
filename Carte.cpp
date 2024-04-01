@@ -311,3 +311,71 @@ CarteMilitaire::CarteMilitaire(const CarteMilitaire& c)
 }
 
 /*--------------------------------------------------------------------------*/
+
+
+/*-------------------------------------Carte Guilde-------------------------------------*/
+
+CarteGuilde::CarteGuilde()
+:Carte(){
+    effet_guilde = EffetGuilde::guilde_armateurs;
+}
+CarteGuilde::CarteGuilde(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, EffetGuilde effet)
+:Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+    effet_guilde = effet;
+}
+CarteGuilde::CarteGuilde(const CarteGuilde& c)
+:Carte(c){
+    effet_guilde = c.effet_guilde;
+}
+
+
+/*--------------------------------------------------------------------------*/
+
+/*------------------------------------MERVEILLE--------------------------------------*/
+
+Merveille::Merveille()
+:Carte(){
+    production_primaire = new RessourcePrimaire[3];
+    production_secondaire = new RessourceSecondaire[2];
+    capacite = new Capacite[3];
+
+    for(int i=0; i<3; i++){production_primaire[i] = RessourcePrimaire::none;}
+    for(int i=0; i<2; i++){production_secondaire[i] = RessourceSecondaire::none;}
+    for(int i=0; i<3; i++){capacite[i] = Capacite::none;}
+
+    pt_victoire = 0;
+    avance_militaire = 0;
+}
+    Merveille::Merveille(RessourcePrimaire* prod_primaire, RessourceSecondaire* prod_secondaire, Capacite* capa, unsigned int pt_vict, unsigned int av_milit, unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos)
+    :Carte(){
+        production_primaire = new RessourcePrimaire[3];
+        production_secondaire = new RessourceSecondaire[2];
+        capacite = new Capacite[3];
+
+        for(int i=0; i<3; i++){production_primaire[i] = prod_primaire[i];}
+        for(int i=0; i<2; i++){production_secondaire[i] = prod_secondaire[i];}
+        for(int i=0; i<3; i++){capacite[i] = capa[i];}
+
+        pt_victoire = pt_vict;
+        avance_militaire = av_milit;
+    }
+    Merveille::Merveille(const Merveille& c)
+    :Carte(c){
+        production_primaire = new RessourcePrimaire[3];
+        production_secondaire = new RessourceSecondaire[2];
+        capacite = new Capacite[3];
+
+        for(int i=0; i<3; i++){production_primaire[i] = c.production_primaire[i];}
+        for(int i=0; i<2; i++){production_secondaire[i] = c.production_secondaire[i];}
+        for(int i=0; i<3; i++){capacite[i] = c.capacite[i];}
+
+        pt_victoire = c.pt_victoire;
+        avance_militaire = c.avance_militaire;
+
+    }
+
+    Merveille::~Merveille(){
+        delete[] production_primaire;
+        delete[] production_secondaire;
+        delete[] capacite;
+    }

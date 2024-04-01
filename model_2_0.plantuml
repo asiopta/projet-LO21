@@ -25,7 +25,7 @@ abstract class Carte{
     +RessourcePrimaire* getMateriauxPrimaires() const;
     +RessourceSecondaire* getMateriauxSecondaires() const;
 
-    +virtual std::string gettype() const = 0;
+    +virtual std::string get_type() const = 0;
 }
 
 'Notes : J'ai compté pour les listes 4 et 2 en longueurs suffisent
@@ -60,7 +60,7 @@ class CarteRessourcePrimaire{
 
     +RessourcePrimaire* get_production() const;
     +void set_production(RessourcePrimaire r); 
-    +std::string gettype() const override;
+    +std::string get_type() const override;
 }
 
 'Cartes gris
@@ -68,7 +68,7 @@ class CarteRessourceSecondaire{
     - production : RessourceSecondaire
 
     +RessourceSecondaire get_production() const;
-    +string gettype() const override;
+    +string get_type() const override;
     +void set_production(RessourceSecondaire r);
 }
 'Pas de liste car produit toujours 1 seul ressource
@@ -99,7 +99,7 @@ class CarteCommerce{
     +void set_production_primaire(RessourcePrimaire* pt);
     +void set_production_secondaire(RessourceSecondaire* pt);
 
-    +string gettype() const override;
+    +string get_type() const override;
 }
 'Choix defini si la production doit etre choisi entre differentes ressources ou non
 'Contrepartie defini si il faut "acheter" la ressource produite ou non, on notera 0 si ce n'est pas le cas
@@ -123,7 +123,7 @@ class CarteScience{
     +void set_pt_victoire(unsigned int n);
     +void set_symbole_science(SymboleScience s);
 
-    +gettype() const override;
+    +get_type() const override;
 
 }
 'SymboleScience est une enumerations des symboles Science disponible dans le jeu
@@ -143,7 +143,7 @@ class CarteMilitaire{
     +void set_nb_symbole_militaire(unsigned int nb);
     +void set_symbole_chainage(SymboleChainage s);
 
-    +string gettype() const override;
+    +string get_type() const override;
 }
 
 'Cartes Bleu
@@ -156,14 +156,18 @@ class CartePrestige{
     +void set_symbole_chainage(SymboleChainage s);
     +void set_pt_victoire(unsigned int n);
 
-    +string gettype() const override;
+    +string get_type() const override;
 }
 
 'Cartes Violets
 class CarteGuilde{
     - effet_guilde : EffetGuilde
 
-    + const exec_effet_guilde()
+    +EffetGuilde get_effet_guilde();
+    +void set_effet_guilde(EffetGuilde& effet);
+    +void applique_effet_guilde(Joueur& joueur1, Joueur& joueur2);
+    +string get_type() const override;
+
 }
 'EffetGuilde est un enumération defini après
 
