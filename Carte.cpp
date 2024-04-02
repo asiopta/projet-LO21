@@ -379,3 +379,25 @@ Merveille::Merveille()
         delete[] production_secondaire;
         delete[] capacite;
     }
+
+
+
+// void exec_capacite(Carte& carte, PlateauMilitaire& plateau_militaire, PlateauScience& plateau_science, PlateauCarte& plateau_carte, Joueur& joueur){
+//     std::string type_carte = carte.get_type();
+
+//     if (type_carte == "Merveille"){
+
+//     }
+//     if (type_carte == "CarteScience"){
+
+//     }
+//     if (type_carte == "CarteMilitaire"){
+//         int militaire = carte.get_nb_symbole_militaire();
+        
+
+
+//     }
+//     if (type_carte == "CarteCommerce"){
+
+//     }
+// }
