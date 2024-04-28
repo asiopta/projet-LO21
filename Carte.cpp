@@ -114,7 +114,6 @@ std::ostream& operator<<(std::ostream& f, const CapaciteScience& capacite) {
 
 
 
-
 /*-------------------------------------CARTE-------------------------------------*/
 Carte::Carte(){
     cout_construction =0;
