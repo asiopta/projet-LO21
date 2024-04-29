@@ -1,4 +1,4 @@
-#include Plateau.h
+#include "Plateau.h"
 
 JetonScience::JetonScience(CapaciteScience capacite) : capacite(capacite) {}
 void JetonScience::exec_capacite_science() {
@@ -57,4 +57,13 @@ void exec_philosophie() {
 void exec_mathematique() {
     // implementation of exec_mathematique
 }
+
+
+//Jetons Malus
+JetonMalus::JetonMalus(int malus) : malus(malus) {}
+
+void exec_malus() {
+    // implementation of exec_malus
+}
+
 

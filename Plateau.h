@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <string>
+#include "Joueur.h"
 enum class CapaciteScience{
     agriculture,
     architecture,
@@ -41,3 +42,16 @@ public:
     void exec_capacite_science();
 
 };
+
+
+class JetonMalus{
+private:
+    unsigned int malus;
+    &Joueur joueur;
+
+public:
+    JetonMalus(unsigned int malus, &Joueur joueur);
+    void exec_malus();
+};
+
+
