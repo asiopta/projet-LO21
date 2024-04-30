@@ -346,12 +346,17 @@ PlateauMilitaire "1" *-- "4" JetonMalus
 'retirer_jeton permet de retirer le jeton d'une case alors le joueur le moins avancé militairement subit un malus, 
 'Utiliser la fonction appliquerCapacite de JetonMalus
 
+
+'    - merveille_j1 : &Merveille[4]
+'    - merveille_j2 : &Mervielle[4]
+' il y'a une redondance ici parceque les merveilles construites appartiennent à la classe Joueur
+'j'ai donc enlevé
+
 class PlateauCarte{
     - age : unsigned int {1, 2, 3}
-    - liste_carte_en_jeu : &Carte[20]
-    - merveille_j1 : &Merveille[4]
-    - merveille_j2 : &Mervielle[4]
-    - defausse : &Cartes[60]
+    - cartes_en_jeu : &Carte[20]
+    - nb_merveilles_constr : unsigned int
+    - defausses : &Cartes[60]
 
     + set_age(unsigned int)
     + const rend_accessible(&Carte)
@@ -415,6 +420,7 @@ class Joueur{
     - merveille_construite : &Merveille[4]
     - jeton_construit : &JetonScience[6]
     - monnaie : unsigned int
+    - pt_victoire: unsigned int
 
     + set_monnaie(int)
     + get_production() -> Production
