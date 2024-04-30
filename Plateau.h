@@ -49,11 +49,13 @@ public:
 class JetonMalus{
 private:
     unsigned int malus;
-    Joueur& joueur;
+    Joueur& joueur; // je pense que c'est mieux de passer joueur comme pointeur. (ou meme int 1 ou 2)
+    // on a besoin que d'identifier de quel joueur il s'agit et pas vraiment de ttes les infos 
+    // que contient la classe Joueur. jsp
 
 public:
     JetonMalus();
-    JetonMalus(unsigned int malus, Joueur& joueur);
+    JetonMalus(unsigned int m, Joueur& j);
     void exec_malus();
 };
 

@@ -4,14 +4,15 @@
 #include <random>
 #include <algorithm>
 
+
 //constructeurs de JetonScience
-JetonScience::JetonScience() : capacite(CapaciteScience::none) {}
+JetonScience::JetonScience() : capacite(CapaciteScience::none) {} //mon IDE n'arrive pas à lire le "none". jsp prq
 JetonScience::JetonScience(CapaciteScience capacite) : capacite(capacite) {}
 
 //fonction d'execution de la capacite du jeton science
 void JetonScience::exec_capacite_science() {
     switch (capacite) {
-        exec_agriculture(); break;
+        case CapaciteScience::agriculture: exec_agriculture(); break; //t'as oublié de mettre le case. jsp si c'est exprès ou pas.
         case CapaciteScience::architecture: exec_architecture(); break;
         case CapaciteScience::economie: exec_economie(); break;
         case CapaciteScience::loi: exec_loi(); break;
@@ -69,7 +70,8 @@ void exec_mathematique() {
 
 //Jetons Malus
 JetonMalus::JetonMalus() : malus(0) {}
-JetonMalus::JetonMalus(int malus) : malus(malus) {}
+JetonMalus::JetonMalus(unsigned int m,Joueur& j): malus(m), joueur(j) {} //ici, il y'a une faute. t'as oublié le Joueur
+// j'ai corrigé la faute tqt.
 
 void exec_malus() {
     // implementation of exec_malus
@@ -109,7 +111,7 @@ PlateauScience::PlateauScience(JetonScience *in_game, JetonScience *out_game){
 
 void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
     for (int i = 0; i < Dim_jetons_in_game; i++) {
-        if (jeton_in_game[i].capacite == CapaciteScience::none) {
+        if (jeton_in_game[i].capacite == CapaciteScience::none) { //la capacité de JetonScience est inacessible directement. Comme c'est privé
             jeton_in_game[i] = jeton;
             liste_position[i] = i+1;
         }
@@ -119,7 +121,7 @@ void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
 
 void PlateauScience::ajouter_jeton_out_game(JetonScience& jeton) {
     for (int i = 0; i < Dim_jetons_out_game; i++) {
-        if (jeton_out_game[i].capacite == CapaciteScience::none) {
+        if (jeton_out_game[i].capacite == CapaciteScience::none) { //meme remarque ici pr capacité
             jeton_out_game[i] = jeton;
             liste_position[i] = i+1;
         }
@@ -127,7 +129,7 @@ void PlateauScience::ajouter_jeton_out_game(JetonScience& jeton) {
     }
 }
 
-void PlateauScience::retirer_jeton_in_game(JetonScience& jeton) {
+void PlateauScience::retirer_jeton_in_game(JetonScience& jeton) { //cette fonction n'existe pas dans le fichier plateau.h
     for (int i = 0; i < Dim_jetons_in_game; i++) {
         if (jeton_in_game[i].capacite == jeton.capacite) {
             jeton_in_game[i] = JetonScience();
@@ -137,7 +139,7 @@ void PlateauScience::retirer_jeton_in_game(JetonScience& jeton) {
     }
 }
 
-void PlateauScience::retirer_jeton_out_game(JetonScience& jeton) {
+void PlateauScience::retirer_jeton_out_game(JetonScience& jeton) { //meme chose ici
     for (int i = 0; i < Dim_jetons_out_game; i++) {
         if (jeton_out_game[i].capacite == jeton.capacite) {
             jeton_out_game[i] = JetonScience();
@@ -147,8 +149,8 @@ void PlateauScience::retirer_jeton_out_game(JetonScience& jeton) {
     }
 }
 
-JetonScience* PlateauScience::tirer_jeton(){
-    const Dim_resultat = 3;
+JetonScience* PlateauScience::tirer_jeton(){ //pt étre faire la meme chose pour jetons_in_game??
+    const unsigned int Dim_resultat = 3;
     JetonScience* resultat = new JetonScience[Dim_resultat]; //génère un tableau de 3 jetons science
     std::vector<int> liste = {1, 2, 3, 4, 5};
     // Initialisation du générateur de nombres aléatoires
