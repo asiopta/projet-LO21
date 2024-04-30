@@ -1,8 +1,11 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <string.h>
 #include "Carte.h"
+#include "Plateau.h"
 #include "game.h"
+
 //Amen: j'ai des erreurs partt parceque mon IDE ne reconnait pas "string".
 //C'est le cas pr tt le monde ou juste moi?
 
@@ -40,6 +43,10 @@ public:
     //getteur de monnaie et pt_victoire
     unsigned int getMonnaie(){ return monnaie; };
     unsigned int getPtVictoire(){ return pt_victoire; };
+    //getteur des tailles de listes
+    unsigned int getNbCartesConstruites() { return 60; };
+    unsigned int getNbMerveillesConstruites() {return 4; };
+    unsigned int getNbJetonsScience() {return 6;};
 
 
 
