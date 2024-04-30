@@ -3,6 +3,7 @@
 #include <string>
 #include "Joueur.h"
 enum class CapaciteScience{
+    none,
     agriculture,
     architecture,
     economie,
@@ -38,6 +39,7 @@ private:
     CapaciteScience capacite;
 
 public:
+    JetonScience();
     JetonScience(CapaciteScience capacite);
     void exec_capacite_science();
 
@@ -47,11 +49,31 @@ public:
 class JetonMalus{
 private:
     unsigned int malus;
-    &Joueur joueur;
+    Joueur& joueur;
 
 public:
-    JetonMalus(unsigned int malus, &Joueur joueur);
+    JetonMalus();
+    JetonMalus(unsigned int malus, Joueur& joueur);
     void exec_malus();
 };
 
+
+class PlateauScience{
+private:
+    const int Dim_jetons_in_game = 5; //est la dimension du tableau jeton_in_game
+    const int Dim_liste_position = 5; //est la dimension du tableau liste_position
+    const int Dim_jetons_out_game = 5; //est la dimension du tableau jeton_out_game
+    JetonScience *jeton_in_game;
+    unsigned int *liste_position;
+    JetonScience *jeton_out_game;
+
+public:
+    PlateauScience();
+    PlateauScience(JetonScience *in_game, JetonScience *out_game);
+    JetonScience* tirer_jeton();
+    void retirer_jeton(JetonScience& jeton);
+    void ajouter_jeton_in_game(JetonScience& jeton);
+    void ajouter_jeton_out_game(JetonScience& jeton);
+    ~PlateauScience();
+};
 

@@ -3,6 +3,8 @@
 #include <string>
 #include "Joueur.h"
 #include "Plateau.h"
+#include "Carte.h"
+
 
 //génération des jetons science
 JetonScience jetonAgriculture(CapaciteScience::agriculture);

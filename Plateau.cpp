@@ -1,6 +1,14 @@
 #include "Plateau.h"
+#include <iostream>
+#include <vector>
+#include <random>
+#include <algorithm>
 
+//constructeurs de JetonScience
+JetonScience::JetonScience() : capacite(CapaciteScience::none) {}
 JetonScience::JetonScience(CapaciteScience capacite) : capacite(capacite) {}
+
+//fonction d'execution de la capacite du jeton science
 void JetonScience::exec_capacite_science() {
     switch (capacite) {
         exec_agriculture(); break;
@@ -60,10 +68,113 @@ void exec_mathematique() {
 
 
 //Jetons Malus
+JetonMalus::JetonMalus() : malus(0) {}
 JetonMalus::JetonMalus(int malus) : malus(malus) {}
 
 void exec_malus() {
     // implementation of exec_malus
+    //! ATTENTION : AJOUTER DEFINITION
+}
+
+PlateauScience::PlateauScience() {
+    jeton_in_game = new JetonScience[Dim_jetons_in_game];
+    liste_position = new unsigned int[Dim_liste_position];
+    jeton_out_game = new JetonScience[Dim_jetons_out_game];
+    for (int i = 0; i < Dim_jetons_in_game; i++) {
+        jeton_in_game[i] = JetonScience();
+    }
+    for (int i = 0; i < Dim_jetons_out_game; i++) {
+        jeton_out_game[i] = JetonScience();
+    }
+    for (int i = 0; i < Dim_liste_position; i++) {
+        liste_position[i] = i+1;
+    }
+}
+
+PlateauScience::PlateauScience(JetonScience *in_game, JetonScience *out_game){
+    jeton_in_game = new JetonScience[Dim_jetons_in_game];
+    liste_position = new unsigned int[Dim_liste_position];
+    jeton_out_game = new JetonScience[Dim_jetons_out_game];
+    for (int i = 0; i < Dim_jetons_in_game; i++) {
+        jeton_in_game[i] = in_game[i];
+    }
+    for (int i = 0; i < Dim_jetons_out_game; i++) {
+        jeton_out_game[i] = out_game[i];
+    }
+    for (int i = 0; i < Dim_liste_position; i++) {
+        liste_position[i] = i+1; //va de 1 à 5, 0 designe l'absence de jeton
+    }
 }
 
 
+void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
+    for (int i = 0; i < Dim_jetons_in_game; i++) {
+        if (jeton_in_game[i].capacite == CapaciteScience::none) {
+            jeton_in_game[i] = jeton;
+            liste_position[i] = i+1;
+        }
+        else {throw("Erreur : pas de place pour ajouter un jeton");}
+    }
+}
+
+void PlateauScience::ajouter_jeton_out_game(JetonScience& jeton) {
+    for (int i = 0; i < Dim_jetons_out_game; i++) {
+        if (jeton_out_game[i].capacite == CapaciteScience::none) {
+            jeton_out_game[i] = jeton;
+            liste_position[i] = i+1;
+        }
+        else {throw("Erreur : pas de place pour ajouter un jeton");}
+    }
+}
+
+void PlateauScience::retirer_jeton_in_game(JetonScience& jeton) {
+    for (int i = 0; i < Dim_jetons_in_game; i++) {
+        if (jeton_in_game[i].capacite == jeton.capacite) {
+            jeton_in_game[i] = JetonScience();
+            liste_position[i] = 0;
+        }
+        else {throw("Erreur : jeton non présent");}
+    }
+}
+
+void PlateauScience::retirer_jeton_out_game(JetonScience& jeton) {
+    for (int i = 0; i < Dim_jetons_out_game; i++) {
+        if (jeton_out_game[i].capacite == jeton.capacite) {
+            jeton_out_game[i] = JetonScience();
+            liste_position[i] = 0;
+        }
+        else {throw("Erreur : jeton non présent");}
+    }
+}
+
+JetonScience* PlateauScience::tirer_jeton(){
+    const Dim_resultat = 3;
+    JetonScience* resultat = new JetonScience[Dim_resultat]; //génère un tableau de 3 jetons science
+    std::vector<int> liste = {1, 2, 3, 4, 5};
+    // Initialisation du générateur de nombres aléatoires
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // Mélangez la liste pour faciliter la sélection aléatoire sans remise
+    std::shuffle(liste.begin(), liste.end(), gen);
+
+    // Choix de 3 indices distincts aléatoires
+    std::vector<int> indices_choisis;
+    while(indices_choisis.size() < 3) {
+        int indice_aleatoire = std::uniform_int_distribution<>(0, liste.size() - 1)(gen);
+        if(std::find(indices_choisis.begin(), indices_choisis.end(), indice_aleatoire) == indices_choisis.end()) {
+            indices_choisis.push_back(indice_aleatoire);
+        }
+    }
+
+    for (int i = 0; i < Dim_resultat; i++) {
+        resultat[i] = jeton_out_game[liste[indices_choisis[i]]];
+    }
+    return resultat;
+}
+
+PlateauScience::~PlateauScience() {
+    delete[] jeton_in_game;
+    delete[] liste_position;
+    delete[] jeton_out_game;
+}
