@@ -321,20 +321,26 @@ enum CapaciteScience{
 JetonScience "1" *-- "1" CapaciteScience
 
 class JetonMalus{
-    malus : unsigned int 
-    joueur_cible : Joueur*
+    -malus : unsigned int 
+    -position : unsigned int < Dim_plateau_militaire
+    -joueur_cible : Joueur*
 
-    +const exec_malus()
+    +unsigned int get_positon()const;
+    +unsigned int get_malus()const;
+    +Joueur* get_joueur()const;
+    +void exec_malus();
+
 }
 
 class PlateauMilitaire{
-    avance : unsigned int 
-    liste_jetons_malus : &JetonMalus[4]
-    joueur_derriere : &Joueur
+    -avance : unsigned int 
+    -liste_jetons_malus : &JetonMalus[4]
+    -joueur_derriere : &Joueur
     
 
-    +update_avance(unsigned int, &Joueur)
-    +retirer_jeton(const &JetonMalus)
+    +void update_avance(unsigned int a, Joueur& joueur_cible);
+    +void retirer_jeton_malus(JetonMalus& jeton);
+    +JetonMalus& jeton_malus_ici() const;
 }
 
 PlateauMilitaire "1" *-- "4" JetonMalus
