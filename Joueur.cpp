@@ -13,15 +13,15 @@ Joueur::Joueur(): pt_victoire(0), monnaie(7) {
 
 //destructeur
 Joueur::~Joueur(){
-    for(int i=0; i< get_nb_cartes_construites(); i++) free(cartes_construite[i]);
-    for(int i=0; i< get_nb_merveilles_construites(); i++) free(merveille_construite[i]);
-    for(int i=0; i< get_nb_jetons_science(); i++) free(jetons_science[i]);
+    for(int i=0; i< getNbCartesConstruites(); i++) free(cartes_construite[i]);
+    for(int i=0; i< getNbMerveillesConstruites(); i++) free(merveille_construite[i]);
+    for(int i=0; i< getNbJetonsScience(); i++) free(jetons_science[i]);
 }
 
 // _____les getteurs_____//
 
 //getteur de Nb de Cartes / jetons
-unsigned int Joueur::getNbCartesConstruites(){
+unsigned int Joueur::getNbCartesConstruites() const{
     unsigned int i = 0;
     while(i<60 && cartes_construite[i]!= NULL){
         i++;
@@ -29,7 +29,7 @@ unsigned int Joueur::getNbCartesConstruites(){
     return i;
 }
 
-unsigned int Joueur::getNbMerveillesConstruites(){
+unsigned int Joueur::getNbMerveillesConstruites() const {
     unsigned int i = 0;
     while(i<4 && merveille_construite[i]!= NULL){
         i++;
@@ -37,7 +37,7 @@ unsigned int Joueur::getNbMerveillesConstruites(){
     return i;
 }
 
-unsigned int Joueur::getNbJetonsScience(){
+unsigned int Joueur::getNbJetonsScience()const{
     unsigned int i = 0;
     while(i<6 && jetons_science[i]!= NULL){
         i++;
@@ -47,16 +47,16 @@ unsigned int Joueur::getNbJetonsScience(){
 
 
 
-unsigned int Joueur::getNbSymbolesScience(){
+unsigned int Joueur::getNbSymbolesScience()const{
     unsigned int i = 0;
-    while(i<6 && SymboleScience[i]!= NULL){
+    while(i<6 && symboles_science[i] != NULL){
         i++;
     }
     return i;
 }
 
 //les getteurs de ressources
-unsigned int Joueur::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole){
+unsigned int Joueur::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const {
         Carte* constr = *cartes_construite;
         unsigned int res=0;
         for(int i=0; i<60; i++){
@@ -69,7 +69,7 @@ unsigned int Joueur::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& sym
         return res;
     };
 
-unsigned int Joueur::get_quantite_ressource_secondaire(const RessourceSecondaire& symbole) const{
+unsigned int Joueur::getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const{
         Carte* constr = *cartes_construite;
         unsigned int res=0;
         for(int i=0; i<60; i++){
@@ -97,8 +97,8 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 }
 
 //méthodes de vérification
-bool Joueur::estConstructible(const Carte& carte, const PlateauCartes& p){
-    if(this->getCout(carte) < this->getMonnaie()) return true;
+bool Joueur::estConstructible(const Carte& carte, const PlateauCartes& p){ // je comprends pas l'erreur
+    if(getCout(carte) < getMonnaie()) return true;
     return false;
 
 }

@@ -31,7 +31,7 @@ private:
     Carte* cartes_construite[60]; //diviser en sous tableaux pr cartes marrons/grises construites?? //je pense que c'est mieux de les laisser comme ça
     Merveille* merveille_construite[4];
     JetonScience* jetons_science[6];
-    SymboleScience symboles_science[6]; //techniquement, il y a 7 symboles différents. mais, si on a 6, la game est finie.
+    SymboleScience* symboles_science[6]; //techniquement, il y a 7 symboles différents. mais, si on a 6, la game est finie.
     unsigned int monnaie;
     unsigned int pt_victoire; 
     //je suis en train de penser à créer une nouvelle classe qui englobe les ressources 
@@ -55,16 +55,16 @@ public:
 
     /* ------les getteurs ----*/
     //getteur de monnaie et pt_victoire
-    unsigned int getMonnaie(){ return monnaie; };
-    unsigned int getPtVictoire(){ return pt_victoire; };
+    unsigned int getMonnaie() const { return monnaie; };
+    unsigned int getPtVictoire()const { return pt_victoire; };
     //getteur de Nb de Cartes / jetons
-    unsigned int getNbCartesConstruites();
-    unsigned int getNbMerveillesConstruites();
-    unsigned int getNbJetonsScience();
-    unsigned int getNbSymbolesScience();
+    unsigned int getNbCartesConstruites() const;
+    unsigned int getNbMerveillesConstruites()const;
+    unsigned int getNbJetonsScience() const;
+    unsigned int getNbSymbolesScience() const;
     //getteur de ressources produites. par ex: 2 bois ou 3 verres
-    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole);
-    unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole);
+    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const ;
+    unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ;
 
     //setteurs
     void setMonnaie(unsigned int argent){ monnaie = argent; };
@@ -76,7 +76,7 @@ public:
 
     //méthodes de vérification
     bool estConstructible(const Carte& carte, const PlateauCartes& p);
-    bool estConstructible(const Merveille& merveille, const PlateauCartes& p); // pt étre inutile
+    //bool estConstructible(const Merveille& merveille, const PlateauCartes& p); // pt étre inutile
     //Merveille est sous-classe de Carte donc normalement cette dernière méthode est inutile
 
     
