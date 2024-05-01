@@ -89,9 +89,14 @@ JetonMalus::JetonMalus(unsigned int m, unsigned int position, Joueur* j) : malus
 
 
 
-void exec_malus(){
+void JetonMalus::exec_malus(){
     // implementation of exec_malus
-    
+    if (malus < joueur->get_monnaie()){
+        joueur->set_monnaie(joueur->get_monnaie() - malus); //on retire le malus de la monnaie du joueur
+    }
+    else {
+        joueur->set_monnaie(0); //si le malus est superieur à la monnaie du joueur, on met la monnaie à 0
+    }
 }
 
 /*--------------------------------------------------------------------------*/

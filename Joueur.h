@@ -37,15 +37,18 @@ public:
 
     /* ------les getteurs ----*/
     //getteur de ressources produites. par ex: 2 bois ou 3 verres
-    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole);
-    unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole);
+    //? J'ai mis les getters en methode const
+    unsigned int get_quantite_ressource_primaire(const RessourcePrimaire& symbole) const;
+    unsigned int get_quantite_ressource_secondaire(const RessourceSecondaire& symbole) const;
     //getteur de monnaie et pt_victoire
-    unsigned int getMonnaie(){ return monnaie; };
-    unsigned int getPtVictoire(){ return pt_victoire; };
+    unsigned int get_monnaie() const{ return monnaie; };
+    unsigned int get_pt_victoire() const{ return pt_victoire; };
     //getteur des tailles de listes
-    unsigned int getNbCartesConstruites() { return 60; };
-    unsigned int getNbMerveillesConstruites() {return 4; };
-    unsigned int getNbJetonsScience() {return 6;};
+    unsigned int get_nb_cartes_construites() const{return 60; };
+    unsigned int get_nb_merveilles_construites() const{return 4; };
+    unsigned int get_nb_jetons_science() const {return 6;};
+
+    void set_monnaie(unsigned int m) { monnaie = m; };
 
 
 

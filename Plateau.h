@@ -64,7 +64,7 @@ public:
     unsigned int get_positon()const{return position;}
     unsigned int get_malus()const{return malus;}
     Joueur* get_joueur()const{return joueur;}
-    void exec_malus();
+    void exec_malus(); //applique le malus pour le joueur
     ~JetonMalus() = default;
 };
 

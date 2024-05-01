@@ -10,13 +10,13 @@ Joueur::Joueur(): pt_victoire(0), monnaie(7) {
 
 //destructeur
 Joueur::~Joueur(){
-    for(int i=0; i< getNbCartesConstruites(); i++) free(cartes_construite[i]);
-    for(int i=0; i< getNbMerveillesConstruites(); i++) free(merveille_construite[i]);
-    for(int i=0; i< getNbJetonsScience(); i++) free(jetons_science[i]);
+    for(int i=0; i< get_nb_cartes_construites(); i++) free(cartes_construite[i]);
+    for(int i=0; i< get_nb_merveilles_construites(); i++) free(merveille_construite[i]);
+    for(int i=0; i< get_nb_jetons_science(); i++) free(jetons_science[i]);
 }
 
 //les getteurs
-unsigned int Joueur::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole){
+unsigned int Joueur::get_quantite_ressource_primaire(const RessourcePrimaire& symbole) const{
         Carte* constr = *cartes_construite;
         unsigned int res=0;
         for(int i=0; i<60; i++){
@@ -29,7 +29,7 @@ unsigned int Joueur::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& sym
         return res;
     };
 
-unsigned int Joueur::getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole){
+unsigned int Joueur::get_quantite_ressource_secondaire(const RessourceSecondaire& symbole) const{
         Carte* constr = *cartes_construite;
         unsigned int res=0;
         for(int i=0; i<60; i++){
