@@ -54,20 +54,21 @@ public:
 
 /*
     des méthodes à rajouter:
-    + updatemonnaie(int)
-    + getproduction() -> Production
-    + getcout(Carte) -> unsigned int (monnaie)
-    + estconstructible(Carte, PlateauCarte) -> bool
-    + construireCarte(Carte, PlateauCarte) -> None
-    + construireMerveille(Merveille, Carte, PlateauCarte) -> None
-    + getptdevictoire()
-    + choisirAction(Carte)
+    + updatemonnaie(int) //!equivalent de la fonction set_monnaie que j'ai ajouté 
+    + get_production() -> Production //? c'est ce que tu as fait avec les get_quantite_ressource_primaire et get_quantite_ressource_secondaire ?
+    ? pour moi c'est mieux comme tu as fait avec ces fonction parceque ca permet de pas tout tester a chaque fois qu'on doit construir une carte
+    + get_cout(Carte) -> unsigned int (monnaie) //** existe deja dans carte ? 
+    + est_constructible(Carte, PlateauCarte) -> bool 
+    + construire_carte(Carte, PlateauCarte) -> None
+    + construire_merveille(Merveille, Carte, PlateauCarte) -> None
+    ////+ get_pt_victoire()
+    + choisir_action(Carte)
     */
 };
 
 class PlateauCartes{
 private:
-    unsigned int age;
+    unsigned int age =1;
     CarteEnJeu* cartes_en_jeu[20]; 
     unsigned int nb_merveilles_constr;
     Carte* defausses[60];
