@@ -46,6 +46,9 @@ private:
 public:
     //constructeurs
     Joueur();
+    /** 
+     *Todo: rajotuer operator: = , ==, and constructeur par recopie
+      */
 
     //destructeur
     ~Joueur();

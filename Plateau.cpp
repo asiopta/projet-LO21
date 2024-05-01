@@ -185,6 +185,7 @@ JetonScience* PlateauScience::tirer_jeton_in_game(JetonScience& jeton){
 JetonScience* PlateauScience::tirer_jeton_out_game(){ ////pt étre faire la meme chose pour jetons_in_game??
                                                     //? Oui mais en precisant le jeton à tirer parceque c'est le joueur qui choisit, ce n'est pas aléatoire
                                                     //! JSP si il faut renvoyer un pointeur, ou carément un JetonScience ou un JetonScience&
+                                                    // je pense que c'est mieux de renvoyer un JetonScience&
     const unsigned int Dim_resultat = 3;
     JetonScience* resultat = new JetonScience[Dim_resultat]; //génère un tableau de 3 jetons science
     std::vector<int> liste = {1, 2, 3, 4, 5};
