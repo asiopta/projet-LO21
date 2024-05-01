@@ -91,7 +91,7 @@ JetonMalus::JetonMalus(unsigned int m, unsigned int position, Joueur* j) : malus
 
 void exec_malus(){
     // implementation of exec_malus
-    //! ATTENTION : AJOUTER DEFINITION
+    
 }
 
 /*--------------------------------------------------------------------------*/

@@ -13,10 +13,10 @@ enum class Age{ one , two , three }; //pt étre on peut faire ca?
 // classe pour gérer les exceptions
 class SetException {
 public:
-	SetException(const string& i) :info(i) {}
-	string getInfo() const { return info; }
+	SetException(const std::string& i) :info(i) {} //j'ai rajouté des std:: devant les string
+	std::string getInfo() const { return info; }
 private:
-	string info;
+	std::string info;
 };
 
 
