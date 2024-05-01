@@ -299,11 +299,13 @@ class JetonScience{
     - capacite_science : CapaciteScience
 
     +const exec_capacite_science()
+    +CapaciteScience get_capacite_science() const
 }
 'CapaciteScience est une enumération des effets de chaques jetons, voir ci dessous
 
 'Capacité déclanchées par les jetons sciences
 enum CapaciteScience{
+    none
     agriculture
     architecture
     economie
@@ -320,7 +322,7 @@ JetonScience "1" *-- "1" CapaciteScience
 
 class JetonMalus{
     malus : unsigned int 
-    joueur_cible : &Joueur
+    joueur_cible : Joueur*
 
     +const exec_malus()
 }
@@ -380,12 +382,19 @@ class PlateauCarte{
 
 'Le plateau Scientifique permet de gerer les jetons scientifique
 class PlateauScience{
-    jeton_in_game: *JetonScience[5]
-    liste_position : unsigned int[5] 
-    jeton_out_game: *JetonScience[5]
+    -const int Dim_jetons_in_game = 5;
+    -const int Dim_liste_position = 5;
+    -const int Dim_jetons_out_game = 5;
+    -JetonScience *jeton_in_game;
+    -unsigned int *liste_position;
+    -JetonScience *jeton_out_game;
 
-    + tirer_jeton() -> *JetonScience[3]
-    + retirer_jeton(unsigned int)
+    +JetonScience* tirer_jeton_out_game();
+    +JetonScience* tirer_jeton_in_game(JetonScience& jeton);
+    +void retirer_jeton_out_game(JetonScience& jeton);
+    +void retirer_jeton_in_game(JetonScience& jeton);
+    +void ajouter_jeton_in_game(JetonScience& jeton);
+    +void ajouter_jeton_out_game(JetonScience& jeton);
 
 }
 

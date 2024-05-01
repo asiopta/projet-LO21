@@ -16,7 +16,7 @@ enum class CapaciteScience{
     mathematique
 };
 
-
+//surcharge de l'opérateur << pour afficher CapaciteScience
 std::ostream& operator<<(std::ostream& f, const CapaciteScience& capacite) {
     switch (capacite) {
         case CapaciteScience::agriculture: f << "Agriculture"; break;
@@ -34,6 +34,8 @@ std::ostream& operator<<(std::ostream& f, const CapaciteScience& capacite) {
     }
     return f;
 }
+
+/*-------------------------------------JetonScience-------------------------------------*/
 class JetonScience {
 private:
     CapaciteScience capacite;
@@ -41,22 +43,21 @@ private:
 public:
     JetonScience();
     JetonScience(CapaciteScience capacite);
-    void exec_capacite_science();
-
+    void exec_capacite_science() const;
+    CapaciteScience get_capacite() const;
+    ~JetonScience() = default;
 };
 
 
 class JetonMalus{
 private:
     unsigned int malus;
-    Joueur& joueur; // je pense que c'est mieux de passer joueur comme pointeur. (ou meme int 1 ou 2)
-    // on a besoin que d'identifier de quel joueur il s'agit et pas vraiment de ttes les infos 
-    // que contient la classe Joueur. jsp
-
+    Joueur* joueur; //// je pense que c'est mieux de passer joueur comme pointeur. (ou meme int 1 ou 2)
+    //! OK
 public:
-    JetonMalus();
-    JetonMalus(unsigned int m, Joueur& j);
+    JetonMalus(unsigned int m, Joueur* j);
     void exec_malus();
+    ~JetonMalus() = default;
 };
 
 
@@ -72,8 +73,10 @@ private:
 public:
     PlateauScience();
     PlateauScience(JetonScience *in_game, JetonScience *out_game);
-    JetonScience* tirer_jeton();
-    void retirer_jeton(JetonScience& jeton);
+    JetonScience* tirer_jeton_out_game();
+    JetonScience* tirer_jeton_in_game(JetonScience& jeton);
+    void retirer_jeton_out_game(JetonScience& jeton);
+    void retirer_jeton_in_game(JetonScience& jeton);
     void ajouter_jeton_in_game(JetonScience& jeton);
     void ajouter_jeton_out_game(JetonScience& jeton);
     ~PlateauScience();

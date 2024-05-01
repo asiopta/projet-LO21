@@ -5,14 +5,17 @@
 #include <algorithm>
 
 
-//constructeurs de JetonScience
-JetonScience::JetonScience() : capacite(CapaciteScience::none) {} //mon IDE n'arrive pas à lire le "none". jsp prq
-JetonScience::JetonScience(CapaciteScience capacite) : capacite(capacite) {}
+/*-------------------------------------JetonScience-------------------------------------*/
+
+JetonScience::JetonScience() : capacite(CapaciteScience::none) {} //si vous n'arrivez pas à lire le none, verifier qu'il y est bien dans le enum de CapaciteScience
+JetonScience::JetonScience(CapaciteScience capacite) : capacite(capacite) {} //rafrechir la memoire si vous ne voyez pas le enum CapaciteScience
+
+CapaciteScience JetonScience::get_capacite() const{return capacite;}
 
 //fonction d'execution de la capacite du jeton science
-void JetonScience::exec_capacite_science() {
+void JetonScience::exec_capacite_science() const{
     switch (capacite) {
-        case CapaciteScience::agriculture: exec_agriculture(); break; //t'as oublié de mettre le case. jsp si c'est exprès ou pas.
+        case CapaciteScience::agriculture: exec_agriculture(); break;
         case CapaciteScience::architecture: exec_architecture(); break;
         case CapaciteScience::economie: exec_economie(); break;
         case CapaciteScience::loi: exec_loi(); break;
@@ -67,17 +70,25 @@ void exec_mathematique() {
     // implementation of exec_mathematique
 }
 
+/*--------------------------------------------------------------------------*/
 
-//Jetons Malus
-JetonMalus::JetonMalus() : malus(0) {}
-JetonMalus::JetonMalus(unsigned int m,Joueur& j): malus(m), joueur(j) {} //ici, il y'a une faute. t'as oublié le Joueur
-// j'ai corrigé la faute tqt.
 
-void exec_malus() {
+/*-------------------------------------JetonMalus-------------------------------------*/
+
+//constructeur de JetonMalus
+JetonMalus::JetonMalus(unsigned int m,Joueur* j): malus(m), joueur(j) {} 
+
+
+void exec_malus(){
     // implementation of exec_malus
     //! ATTENTION : AJOUTER DEFINITION
 }
 
+/*--------------------------------------------------------------------------*/
+
+/*-------------------------------------PlateauScience-------------------------------------*/
+
+//constructeur par defaut de PlateauScience
 PlateauScience::PlateauScience() {
     jeton_in_game = new JetonScience[Dim_jetons_in_game];
     liste_position = new unsigned int[Dim_liste_position];
@@ -93,6 +104,7 @@ PlateauScience::PlateauScience() {
     }
 }
 
+//constructeur de PlateauScience
 PlateauScience::PlateauScience(JetonScience *in_game, JetonScience *out_game){
     jeton_in_game = new JetonScience[Dim_jetons_in_game];
     liste_position = new unsigned int[Dim_liste_position];
@@ -108,10 +120,11 @@ PlateauScience::PlateauScience(JetonScience *in_game, JetonScience *out_game){
     }
 }
 
-
+//ajoute un jeton science dans le tableau jeton_in_game
 void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
     for (int i = 0; i < Dim_jetons_in_game; i++) {
-        if (jeton_in_game[i].capacite == CapaciteScience::none) { //la capacité de JetonScience est inacessible directement. Comme c'est privé
+        if (jeton_in_game[i].get_capacite() == CapaciteScience::none) { ////la capacité de JetonScience est inacessible directement. Comme c'est privé 
+                                                                        // Erreur corrigé en rajoutant une méthode get_capacite() dans la classe JetonScience
             jeton_in_game[i] = jeton;
             liste_position[i] = i+1;
         }
@@ -121,7 +134,7 @@ void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
 
 void PlateauScience::ajouter_jeton_out_game(JetonScience& jeton) {
     for (int i = 0; i < Dim_jetons_out_game; i++) {
-        if (jeton_out_game[i].capacite == CapaciteScience::none) { //meme remarque ici pr capacité
+        if (jeton_out_game[i].get_capacite() == CapaciteScience::none) {
             jeton_out_game[i] = jeton;
             liste_position[i] = i+1;
         }
@@ -131,7 +144,7 @@ void PlateauScience::ajouter_jeton_out_game(JetonScience& jeton) {
 
 void PlateauScience::retirer_jeton_in_game(JetonScience& jeton) { //cette fonction n'existe pas dans le fichier plateau.h
     for (int i = 0; i < Dim_jetons_in_game; i++) {
-        if (jeton_in_game[i].capacite == jeton.capacite) {
+        if (jeton_in_game[i].get_capacite() == jeton.get_capacite()) {
             jeton_in_game[i] = JetonScience();
             liste_position[i] = 0;
         }
@@ -141,7 +154,7 @@ void PlateauScience::retirer_jeton_in_game(JetonScience& jeton) { //cette foncti
 
 void PlateauScience::retirer_jeton_out_game(JetonScience& jeton) { //meme chose ici
     for (int i = 0; i < Dim_jetons_out_game; i++) {
-        if (jeton_out_game[i].capacite == jeton.capacite) {
+        if (jeton_out_game[i].get_capacite() == jeton.get_capacite()) {
             jeton_out_game[i] = JetonScience();
             liste_position[i] = 0;
         }
@@ -149,7 +162,14 @@ void PlateauScience::retirer_jeton_out_game(JetonScience& jeton) { //meme chose 
     }
 }
 
-JetonScience* PlateauScience::tirer_jeton(){ //pt étre faire la meme chose pour jetons_in_game??
+JetonScience* PlateauScience::tirer_jeton_in_game(JetonScience& jeton){
+    retirer_jeton_in_game(jeton); //On retire le jeton du plateau
+    return &jeton; //on renvoie le jeton retiré, pour eventuellement faire son effet
+}
+
+JetonScience* PlateauScience::tirer_jeton_out_game(){ ////pt étre faire la meme chose pour jetons_in_game??
+                                                    //? Oui mais en precisant le jeton à tirer parceque c'est le joueur qui choisit, ce n'est pas aléatoire
+                                                    //! JSP si il faut renvoyer un pointeur, ou carément un JetonScience ou un JetonScience&
     const unsigned int Dim_resultat = 3;
     JetonScience* resultat = new JetonScience[Dim_resultat]; //génère un tableau de 3 jetons science
     std::vector<int> liste = {1, 2, 3, 4, 5};
@@ -180,3 +200,9 @@ PlateauScience::~PlateauScience() {
     delete[] liste_position;
     delete[] jeton_out_game;
 }
+
+/*--------------------------------------------------------------------------*/
+
+
+/*-------------------------------------PlateauMilitaire-------------------------------------*/
+
