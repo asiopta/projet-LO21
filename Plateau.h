@@ -58,6 +58,7 @@ private:
     unsigned int position;
     Joueur* joueur; 
     //! OK
+    
 public:
     JetonMalus();
     JetonMalus(unsigned int m, unsigned int position, Joueur* j);

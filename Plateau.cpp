@@ -91,11 +91,11 @@ JetonMalus::JetonMalus(unsigned int m, unsigned int position, Joueur* j) : malus
 
 void JetonMalus::exec_malus(){
     // implementation of exec_malus
-    if (malus < joueur->get_monnaie()){
-        joueur->set_monnaie(joueur->get_monnaie() - malus); //on retire le malus de la monnaie du joueur
+    if (malus < joueur->getMonnaie()){
+        joueur->setMonnaie(joueur->getMonnaie() - malus); //on retire le malus de la monnaie du joueur
     }
     else {
-        joueur->set_monnaie(0); //si le malus est superieur à la monnaie du joueur, on met la monnaie à 0
+        joueur->setMonnaie(0); //si le malus est superieur à la monnaie du joueur, on met la monnaie à 0
     }
 }
 
@@ -185,6 +185,7 @@ JetonScience* PlateauScience::tirer_jeton_in_game(JetonScience& jeton){
 JetonScience* PlateauScience::tirer_jeton_out_game(){ ////pt étre faire la meme chose pour jetons_in_game??
                                                     //? Oui mais en precisant le jeton à tirer parceque c'est le joueur qui choisit, ce n'est pas aléatoire
                                                     //! JSP si il faut renvoyer un pointeur, ou carément un JetonScience ou un JetonScience&
+                                                    // je pense que c'est mieux de renvoyer un JetonScience&
     const unsigned int Dim_resultat = 3;
     JetonScience* resultat = new JetonScience[Dim_resultat]; //génère un tableau de 3 jetons science
     std::vector<int> liste = {1, 2, 3, 4, 5};

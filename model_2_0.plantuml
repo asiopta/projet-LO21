@@ -434,18 +434,36 @@ class Joueur{
     - carte_construite : &Carte[60]
     - merveille_construite : &Merveille[4]
     - jeton_construit : &JetonScience[6]
+    - symboles_science: &SymboleScience[6]
     - monnaie : unsigned int
     - pt_victoire: unsigned int
 
-    + set_monnaie(int)
-    + get_production() -> Production
-    + const get_cout(const &Carte) -> unsigned int
-    + const est_constructible(const &Carte, const &PlateauCarte) -> bool
+    +Joueur() -> None
+    +~Joueur() -> None
+
+    + getMonnaie() -> unsigned int
+    + getPtVcitoire() -> unsigned int
+    + getNbCartesConstruites() -> int
+    + getNbMerveillesConstruites() -> int
+    + getNbJetonsScience() -> int
+    + getNbSymbolesScience() -> int
+    + getQuantiteDeRessourcePrimaire(const RessourcePrimaire&) -> int
+    + getQuantiteDeRessourceSecondaire(const RessourceSecondaire& ) -> int
+    + getCout(const Carte&) -> int
+
+    + setMonnaie(unsigned int ) -> None
+    + setPtVictoire(unsigned int ) -> None
+    + gagnerArgent(unsigned int) -> None
+    + gagnerPtVictoire(unsigned int) -> None
+
+    + estConstructible(const Carte&, const PlateauCartes&) -> bool
+    
+    + construireCarte(Carte& , PlateauCartes& ) -> None
+    + choisir_action(PlateauCartes& ) -> None
+
+
     + const est_constructible(const &Merveille, const &PlateauCarte) -> bool
-    + construire_carte(&Carte, &PlateauCarte) -> None
     + construire_merveille(&Merveille, &Carte, &PlateauCarte) -> None
-    + const get_pt_victoire()
-    + choisir_action(&Carte)
 }
 '60 car 20*3 = 60 le nombre de carte max qu'un joueur vera dans sa partie
 'La fonction Verifie que la carte est accessible sur le Plateau (probablement via une méthode implémenté dans Plateau),
