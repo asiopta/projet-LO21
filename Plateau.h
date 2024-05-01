@@ -2,6 +2,9 @@
 #include <iostream>
 #include <string>
 #include "Joueur.h"
+
+const unsigned int LargeurPlateauMilitaire = 9; //la largeur maxe du plateau militaire
+
 enum class CapaciteScience{
     none,
     agriculture,
@@ -52,15 +55,21 @@ public:
 class JetonMalus{
 private:
     unsigned int malus;
-    Joueur* joueur; //// je pense que c'est mieux de passer joueur comme pointeur. (ou meme int 1 ou 2)
+    unsigned int position;
+    Joueur* joueur; 
     //! OK
 public:
-    JetonMalus(unsigned int m, Joueur* j);
+    JetonMalus();
+    JetonMalus(unsigned int m, unsigned int position, Joueur* j);
+    unsigned int get_positon()const{return position;}
+    unsigned int get_malus()const{return malus;}
+    Joueur* get_joueur()const{return joueur;}
     void exec_malus();
     ~JetonMalus() = default;
 };
 
 
+/*-------------------------------------PlateauScience-------------------------------------*/
 class PlateauScience{
 private:
     const int Dim_jetons_in_game = 5; //est la dimension du tableau jeton_in_game
@@ -80,5 +89,21 @@ public:
     void ajouter_jeton_in_game(JetonScience& jeton);
     void ajouter_jeton_out_game(JetonScience& jeton);
     ~PlateauScience();
+};
+
+
+/*-------------------------------------PlateauMilitaire-------------------------------------*/
+class PlateauMilitaire{
+    private:
+        unsigned int avance;
+        const int Dim_jetons_malus = 4;
+        JetonMalus *liste_jetons_malus;
+        Joueur& joueur_derriere;
+    public:
+        PlateauMilitaire(unsigned int a, Joueur& joueur_derr, JetonMalus* liste_jetons);
+        void update_avance(unsigned int a, Joueur& joueur_cible);
+        void retirer_jeton_malus(JetonMalus& jeton);
+        JetonMalus& jeton_malus_ici() const; //renvoie un jeton malus vide si il n'y en a pas, et le jeton malus sinon
+        ~PlateauMilitaire();
 };
 

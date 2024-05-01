@@ -76,7 +76,17 @@ void exec_mathematique() {
 /*-------------------------------------JetonMalus-------------------------------------*/
 
 //constructeur de JetonMalus
-JetonMalus::JetonMalus(unsigned int m,Joueur* j): malus(m), joueur(j) {} 
+JetonMalus::JetonMalus() : malus(0), position(0), joueur(nullptr) {}
+JetonMalus::JetonMalus(unsigned int m, unsigned int position, Joueur* j) : malus(m), joueur(j) {
+    if (position > LargeurPlateauMilitaire) {
+        throw("Erreur JetonMilitaire : position invalide, en dehors du PlateauMilitaire"); //si on defini une position en dehors du plateau militaire, on renvoie une erreur
+    }
+    else {
+        this->position = position;
+    }
+}
+
+
 
 
 void exec_malus(){
@@ -205,4 +215,53 @@ PlateauScience::~PlateauScience() {
 
 
 /*-------------------------------------PlateauMilitaire-------------------------------------*/
+
+//constructeur de PlateauMilitaire
+PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur& joueur_derr, JetonMalus* liste_jetons){ //! erreur normale car il manque l'operateur = pour Joueur
+    unsigned int avance = a;
+    Joueur& joueur_derriere = joueur_derr;
+    JetonMalus* liste_jetons_malus = new JetonMalus[Dim_jetons_malus];
+    for (int i = 0; i < Dim_jetons_malus; i++) {
+        liste_jetons_malus[i] = liste_jetons[i];
+    }
+}
+
+void PlateauMilitaire::update_avance(unsigned int ajout, Joueur& joueur_cible){
+    //ajoute l'avancé militaire ajout en direction du joueur_cible
+    if (joueur_cible == joueur_derriere) { //! erreur normale car il manque l'operateur == pour Joueur
+        avance += ajout; //si je joueur cible est le joueur le plus derriere, on avance le pion dans sa direction et c'est tout
+    }
+    else {
+        avance -= ajout;
+        if (avance < 0) { // si le joueur cible n'est pas le joueur le plus derriere, on avance le pion en direction de l'autre joueur
+            avance = abs(avance); //si avance < 0, on le rend positif et on change le joueur derriere
+            joueur_derriere = joueur_cible;
+        }
+    }
+}
+
+JetonMalus& PlateauMilitaire::jeton_malus_ici() const{
+    for(int i = 0; i < Dim_jetons_malus; i++){
+        if (liste_jetons_malus[i].get_malus() != 0 and liste_jetons_malus[i].get_positon() == avance  and liste_jetons_malus[i].get_joueur() == &joueur_derriere) {
+            return liste_jetons_malus[i];
+        }
+    }
+}
+
+void PlateauMilitaire::retirer_jeton_malus(JetonMalus& jeton) { 
+    unsigned int compteur_teste = 0;
+    for (int i = 0; i < Dim_jetons_malus; i++) {
+        if (liste_jetons_malus[i] == jeton) { //! erreur normale car il manque l'operateur == pour JetonMalus
+            liste_jetons_malus[i] = JetonMalus(); //on retire le jeton de la liste en ajoutant une jeton "neutre"
+            jeton.exec_malus(); //on execute l'effet du jeton 
+            compteur_teste += 1; //on incremente le compteur de jeton retiré
+        }
+    }
+}
+
+
+//destructeur de PlateauMilitaire
+PlateauMilitaire::~PlateauMilitaire() {
+    delete[] liste_jetons_malus;
+}
 

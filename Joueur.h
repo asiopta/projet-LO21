@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <string.h>
 #include "Carte.h"
 #include "Plateau.h"
 #include "game.h"
@@ -23,7 +22,7 @@ private:
 
 class Joueur{
 private:
-    Carte* cartes_construite[60]; //diviser en sous tableaux pr cartes marrons/grises construites??
+    Carte* cartes_construite[60]; //diviser en sous tableaux pr cartes marrons/grises construites?? //je pense que c'est mieux de les laisser comme ça
     Merveille* merveille_construite[4];
     JetonScience* jetons_science[6];
     unsigned int monnaie;
