@@ -97,7 +97,7 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 }
 
 //méthodes de vérification
-bool Joueur::estConstructible(const Carte& carte, const PlateauCartes& p){ // je comprends pas l'erreur
+bool Joueur::estConstructible(const Carte& carte, const PlateauCartes& p){ 
     if(getCout(carte) < getMonnaie()) return true;
     return false;
 
