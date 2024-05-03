@@ -119,7 +119,7 @@ public:
     RessourcePrimaire* getMateriauxPrimaires()const {return materiaux_construction_primaires;}
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
 
-    virtual std::string get_type() const = 0; //pas encore définie
+    // virtual std::string get_type() const = 0; //pas encore définie
     //destructeur
     virtual ~Carte();
 };

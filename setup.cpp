@@ -7,6 +7,13 @@
 
 
 //génération des cartes
+//? Carte(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
+//CarteRessourcePrimaire(std::string nom, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> production, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0)
+CarteRessourcePrimaire chantier = CarteRessourcePrimaire("Chantier", 1, 0, {RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, false, false, 0);
+//c'est un exemple 
+//des que vous voulez mettre des tableau mettez des {element1, element2 ...}
+//! Ne pas depasser la taille du tableau !!
+//! Vous pouvez donner un tableau plus petit que la taille max mais c'est pas recommendé, c'est pour ca que j'ai mis des none
 
 
 //génération des jetons science
