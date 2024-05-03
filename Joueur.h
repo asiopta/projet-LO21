@@ -15,16 +15,7 @@ private:
 };
 
 
-class Ressource{
-private:
-    unsigned int bois;
-    unsigned int pierre;
-    unsigned int brique;
-    unsigned int verre;
-    unsigned int parchemin;
-public:
-    //bla bla bla
-};
+
 
 class Joueur{
 private:
@@ -33,23 +24,33 @@ private:
     JetonScience* jetons_science[6];
     SymboleScience* symboles_science[6]; //techniquement, il y a 7 symboles différents. mais, si on a 6, la game est finie.
     unsigned int monnaie;
-    unsigned int pt_victoire; 
-    //je suis en train de penser à créer une nouvelle classe qui englobe les ressources 
-    //genre "Ressource* ressources" comme attribut
-    //et la classe aura comme attributs: verre, bois, etc..
-    // avec chaque truc int. Ca facilitera beaucoup tracking les ressources du joueur mais aussi des cartes
-    //On peut appliquer ca au lieu d'un tableau de ressources qu'on doit parcourir à chaque fois
-    // au pire, on garde la classe Carte comme elle est comme y'a très peu de ressources produites de tte facon
-    // Mais, on applique ca pour la classe Joueur pour étre tranquil plus tard
-    // Cela remplacera les méthodes getteur de ressources produites par un simple getteur de classe Joueur
+    unsigned int pt_victoire;
+    class Ressource{
+    private:
+        unsigned int bois = 0;
+        unsigned int pierre = 0;
+        unsigned int brique = 0;
+        unsigned int verre = 0;
+        unsigned int parchemin = 0;
+    public:
+        Ressource() = default;
+        Ressource(const Ressource& r) = default;
+        ~Ressource() = default;
+        void ajouterRessource(RessourcePrimaire rp);
+        void ajouterRessource(RessourceSecondaire rs);
+        void retirerRessource(RessourcePrimaire rp);
+        void retirerRessource(RessourceSecondaire rs);
+
+    };
+    Ressource ressources;
+
 
 public:
     //constructeurs
     Joueur();
     Joueur(const Joueur& j);
-    /** 
-     *Todo: rajotuer operator: = , ==, and constructeur par recopie
-      */
+    Joueur& operator=(const Joueur& j);
+    bool operator==(const Joueur& j);
 
     //destructeur
     ~Joueur();
@@ -64,8 +65,9 @@ public:
     unsigned int getNbJetonsScience() const;
     unsigned int getNbSymbolesScience() const;
     //getteur de ressources produites. par ex: 2 bois ou 3 verres
-    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const ;
+    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const;
     unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ;
+    Ressource getRessources(){return ressources;}; //?est ce que c'est mieux de retourner Ressource ou Ressource& ou Ressource*?
 
     //setteurs
     void setMonnaie(unsigned int argent){ monnaie = argent; };
@@ -76,45 +78,29 @@ public:
     void gagnerPtVictoire(unsigned int p);
 
     //méthodes de vérification
-    bool estConstructible(const Carte& carte, const PlateauCartes& p); //! en gros est ce qu'on a les ressources necessaires pour construire la carte
-    //bool estConstructible(const Merveille& merveille, const PlateauCartes& p); // pt étre inutile
-    //Merveille est sous-classe de Carte donc normalement cette dernière méthode est inutile
-
-    
+    bool estConstructible(const Carte& carte) const; //! en gros est ce qu'on a les ressources necessaires pour construire la carte
 
     //autres fonctions importantes
-    unsigned int getCout(const Carte& carte); //à faire
-    unsigned int getCout(const Merveille& merveille); // à faire, pt étre inutile et que celle dessus suffit
+    unsigned int getCout(const Carte& carte); //à faire bientot
     void construireCarte(Carte& carte, PlateauCartes& p); //à faire
-    void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
-    void choisir_action(PlateauCartes& p);
+    //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
+    void choisir_action(PlateauCartes& p); // à faire plus tard
 
-
-<<<<<<< HEAD
 
 /*
-    des méthodes à rajouter:
-    + updatemonnaie(int) //!equivalent de la fonction set_monnaie que j'ai ajouté 
-    + get_production() -> Production //? c'est ce que tu as fait avec les get_quantite_ressource_primaire et get_quantite_ressource_secondaire ?
-    ? pour moi c'est mieux comme tu as fait avec ces fonction parceque ca permet de pas tout tester a chaque fois qu'on doit construir une carte
-    + get_cout(Carte) -> unsigned int (monnaie) //** existe deja dans carte ? 
-    + est_constructible(Carte, PlateauCarte) -> bool 
-    + construire_carte(Carte, PlateauCarte) -> None
-    + construire_merveille(Merveille, Carte, PlateauCarte) -> None
-    ////+ get_pt_victoire()
-    + choisir_action(Carte)
+    + get_cout(Carte) -> unsigned int (monnaie) //** existe deja dans carte ?
+    //** on doit décider si getCout() est une fonction de joueur ou carte. parcequ'on a besoin des deux classes.
+    //** on peut aussi la considérer comme une fonction à part qui prend les deux classes comme entrées
+    //** je pense meme que c'est pt étre une fonction de controleur
     */
-=======
->>>>>>> refs/remotes/origin/getCout()
 };
 
 class PlateauCartes{
 private:
     unsigned int age =1;
     CarteEnJeu* cartes_en_jeu[20]; 
-    unsigned int nb_merveilles_constr; // je pense que ce n'est pas le bon lieu de cet attribut. Mieux en controlleur?
-    //Ou peut étre totalement inutile, on peut calculer le nombre de merveille construite par chaque Joueur
     Carte* defausses[60];
+
 public:
 /*
     + addAge()
@@ -139,6 +125,12 @@ public:
 
    //destructeur
    ~PlateauCartes();
+
+
+   //méthodes en lien avec construireCarte() de la classe Joueur
+   CarteEnJeu* trouverCarteDansPlateau(Carte& carte); 
+   // retourne NULL si la carte n'est pas dans le tableau, et le pointeur sinon.
+   void enleverCarteDuPlateau(CarteEnJeu* carte_plateau); //appelle trouverCarteDansPlateau()
 };
 
 

@@ -3,12 +3,75 @@
 #include <string>
 
 
+/*--------------------classe Ressource--------------*/
+void Joueur::Ressource::ajouterRessource(RessourcePrimaire rp){
+    switch (rp){
+        case RessourcePrimaire::bois: bois++; break;
+        case RessourcePrimaire::pierre: pierre++; break;
+        case RessourcePrimaire::brique: brique++; break;
+        case RessourcePrimaire::none: break;
+    }
+}
+
+void Joueur::Ressource::ajouterRessource(RessourceSecondaire rs){
+    switch (rs){
+        case RessourceSecondaire::verre: verre++; break;
+        case RessourceSecondaire::parchemin: parchemin++; break;
+        case RessourceSecondaire::none: break;
+    }
+}
+
+void Joueur::Ressource::retirerRessource(RessourcePrimaire rp){
+    switch (rp){
+        case RessourcePrimaire::bois: bois--; break;
+        case RessourcePrimaire::pierre: pierre--; break;
+        case RessourcePrimaire::brique: brique--; break;
+        case RessourcePrimaire::none: break;
+    }
+}
+
+void Joueur::Ressource::retirerRessource(RessourceSecondaire rs){
+    switch (rs){
+        case RessourceSecondaire::verre: verre--; break;
+        case RessourceSecondaire::parchemin: parchemin--; break;
+        case RessourceSecondaire::none: break;
+    }
+}
+
+
+
+
+
+
 /*------------------classe Joueur----------------------*/
-//constructeur
-Joueur::Joueur(): pt_victoire(0), monnaie(7) {
+//constructeurs
+Joueur::Joueur(): pt_victoire(0), monnaie(7), ressources() {
     for(int i=0; i<60; i++) cartes_construite[i] = nullptr;
     for(int i=0; i<4; i++) merveille_construite[i] = nullptr;
     for(int i=0; i<6; i++) jetons_science[i] = nullptr;
+}
+
+Joueur::Joueur(const Joueur& j): monnaie(j.monnaie), pt_victoire(j.pt_victoire), 
+ressources(j.ressources){
+    for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
+    for(int i=0; i<4; i++) merveille_construite[i] = j.merveille_construite[i];
+    for(int i=0; i<6; i++) jetons_science[i] = j.jetons_science[i];
+}
+
+Joueur& Joueur::operator=(const Joueur& j){
+    if(this != &j){
+        monnaie = j.monnaie;
+        pt_victoire = j.pt_victoire;
+        ressources = j.ressources;
+        for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
+        for(int i=0; i<4; i++) merveille_construite[i] = j.merveille_construite[i];
+        for(int i=0; i<6; i++) jetons_science[i] = j.jetons_science[i];
+    }
+    return *this;
+}
+
+bool Joueur::operator==(const Joueur& j){
+    return this == &j;
 }
 
 //destructeur
@@ -44,8 +107,6 @@ unsigned int Joueur::getNbJetonsScience()const{
     }
     return i;
 }
-
-
 
 unsigned int Joueur::getNbSymbolesScience()const{
     unsigned int i = 0;
@@ -83,6 +144,7 @@ unsigned int Joueur::getQuantiteDeRessourceSecondaire(const RessourceSecondaire&
     };
 
 
+
 //d'autres méthodes utiles
 void Joueur::gagnerArgent(unsigned int argent){
     unsigned int res = this->getMonnaie();
@@ -96,8 +158,21 @@ void Joueur::gagnerPtVictoire(unsigned int p){
     this->setPtVictoire(res);
 }
 
+void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
+    CarteEnJeu* c = p.trouverCarteDansPlateau(carte);
+    if((c != NULL) && estConstructible(carte)){
+        monnaie -= getCout(carte);
+        p.enleverCarteDuPlateau(c);
+        unsigned int nb = getNbCartesConstruites();
+        cartes_construite[nb] = &carte;
+    }
+    else{
+        SetException("Impossible de construire la carte!");
+    }
+}
+
 //méthodes de vérification
-bool Joueur::estConstructible(const Carte& carte, const PlateauCartes& p){ 
+bool Joueur::estConstructible(const Carte& carte) const{ 
     if(getCout(carte) < getMonnaie()) return true;
     return false;
 
