@@ -129,7 +129,7 @@ private:
 public:
     //constructeur
     CarteRessourcePrimaire();
-    CarteRessourcePrimaire(unsigned int cout, std::initializer_list<RessourcePrimaire> production, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
+    CarteRessourcePrimaire(unsigned int cout, std::initializer_list<RessourcePrimaire> production, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0);
     CarteRessourcePrimaire(const CarteRessourcePrimaire &c);
     RessourcePrimaire* get_production() const {return production;}
     void set_production(RessourcePrimaire r); //def in cpp
