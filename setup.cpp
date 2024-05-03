@@ -6,6 +6,9 @@
 #include "Carte.h"
 
 
+//génération des cartes
+
+
 //génération des jetons science
 JetonScience jetonAgriculture(CapaciteScience::agriculture);
 JetonScience jetonArchitecture(CapaciteScience::architecture);

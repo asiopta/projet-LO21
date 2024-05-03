@@ -111,7 +111,7 @@ Carte::Carte(){
     position = 0;
 }
 
-Carte::Carte(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos){
+Carte::Carte(std::string n, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos){
     cout_construction = cout;
     materiaux_construction_primaires = new RessourcePrimaire[Taille_cout_primaire];
     materiaux_construction_secondaires = new RessourceSecondaire[Taille_cout_secondaire];
@@ -140,6 +140,7 @@ Carte::Carte(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_prim
 }
 
 Carte::Carte(const Carte &c){
+    nom = c.nom;
     cout_construction = c.cout_construction;
     materiaux_construction_primaires = new RessourcePrimaire[Taille_cout_primaire];
     materiaux_construction_secondaires = new RessourceSecondaire[Taille_cout_secondaire];
@@ -223,8 +224,8 @@ std::ostream& Carte::operator<<(std::ostream& f) const{
 /*-------------------------------------CarteRessourcePrimaire-------------------------------------*/
 
 //constructeur 
-CarteRessourcePrimaire::CarteRessourcePrimaire(unsigned int cout,std::initializer_list<RessourcePrimaire> prod, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
-: Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteRessourcePrimaire::CarteRessourcePrimaire(std::string n, unsigned int cout,std::initializer_list<RessourcePrimaire> prod, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
+: Carte(n, cout, pt_primaire, pt_secondaire, acc, fv, pos){
     production = new RessourcePrimaire[Taille_prod_primaire]; //alloaction dynamique
     int i = 0;
     for (const auto& prod : prod){
@@ -267,8 +268,8 @@ void CarteRessourcePrimaire::set_production(RessourcePrimaire r){
 
 /*------------------------------------Carte Ressource Secondaire--------------------------------------*/
 
-CarteRessourceSecondaire::CarteRessourceSecondaire(unsigned int cout,RessourceSecondaire prod, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
-: Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteRessourceSecondaire::CarteRessourceSecondaire(std::string n, unsigned int cout,RessourceSecondaire prod, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
+: Carte(n, cout, pt_primaire, pt_secondaire, acc, fv, pos){
     production=prod;
 }
 
@@ -311,8 +312,8 @@ CarteCommerce::CarteCommerce()
     pt_victoire = 0;
 }
 
-CarteCommerce::CarteCommerce(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, Capacite capa, SymboleChainage symb, bool ch, bool cont, unsigned int pt_vict, unsigned int cout,std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
-:Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteCommerce::CarteCommerce(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, Capacite capa, SymboleChainage symb, bool ch, bool cont, unsigned int pt_vict,std::string n, unsigned int cout,std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
+:Carte(n, cout, pt_primaire, pt_secondaire, acc, fv, pos){
     production_primaire = new RessourcePrimaire[Taille_prod_primaire];
     production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
 
@@ -373,8 +374,8 @@ CarteScience::CarteScience() : Carte(){
         pt_victoire = 0;
         capacite = Capacite::ajouter_symbole_science;
     }
-CarteScience::CarteScience(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict)
-    :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteScience::CarteScience(std::string n, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict)
+    :Carte(n, cout, pt_primaire, pt_secondaire, acc, fv, pos){
         symbole_chainage = symb_chain;
         symbole_science = symb_science;
         pt_victoire = pt_vict;
@@ -400,8 +401,8 @@ CartePrestige::CartePrestige()
         symbole_chainage = SymboleChainage::none;
         pt_victoire = 0;
     }
-CartePrestige::CartePrestige(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int pt_vict)
-    :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CartePrestige::CartePrestige(std::string n, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int pt_vict)
+    :Carte(n, cout, pt_primaire, pt_secondaire, acc, fv, pos){
         symbole_chainage=symb_chain;
         pt_victoire=pt_vict;
     }
@@ -423,8 +424,8 @@ CarteMilitaire::CarteMilitaire()
     nb_symbole_militaire = 0;
     capacite = Capacite::avancee_militaire;
 }
-CarteMilitaire::CarteMilitaire(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire)
-    :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteMilitaire::CarteMilitaire(std::string n,unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire)
+    :Carte(n, cout, pt_primaire, pt_secondaire, acc, fv, pos){
     symbole_chainage=symb_chain;
     nb_symbole_militaire=nb_militaire;
     capacite = Capacite::avancee_militaire;
@@ -446,8 +447,8 @@ CarteGuilde::CarteGuilde()
 :Carte(){
     effet_guilde = EffetGuilde::guilde_armateurs;
 }
-CarteGuilde::CarteGuilde(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, EffetGuilde effet)
-:Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteGuilde::CarteGuilde(std::string n,unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, EffetGuilde effet)
+:Carte(n, cout, pt_primaire, pt_secondaire, acc, fv, pos){
     effet_guilde = effet;
 }
 CarteGuilde::CarteGuilde(const CarteGuilde& c)
@@ -473,8 +474,8 @@ Merveille::Merveille()
     pt_victoire = 0;
     avance_militaire = 0;
 }
-    Merveille::Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_vict, unsigned int av_milit, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
-    :Carte(){
+    Merveille::Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_vict, unsigned int av_milit,std::string n, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
+    :Carte(n, cout, pt_primaire, pt_secondaire, acc, fv, pos){
         production_primaire = new RessourcePrimaire[Taille_prod_primaire];
         production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
         capacite = new Capacite[Taille_capacite];
