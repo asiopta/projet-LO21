@@ -8,7 +8,7 @@
 // classe pour gérer les exceptions
 class SetException {
 public:
-	SetException(const std::string& i) :info(i) {} //j'ai rajouté des std:: devant les string
+	SetException(const std::string& i) :info(i) {}
 	std::string getInfo() const { return info; }
 private:
 	std::string info;
@@ -46,6 +46,7 @@ private:
 public:
     //constructeurs
     Joueur();
+    Joueur(const Joueur& j);
     /** 
      *Todo: rajotuer operator: = , ==, and constructeur par recopie
       */
@@ -146,6 +147,10 @@ public:
 * ? je suis aussi pas sur de quand utiliser le singleton
 * * en tout cas, je crois qu'on a pas à utiliser un iterator en ce moment.
 */
+
+
+//gérer age et distribuer les cartes
+//piocher cartes, tt ce qui n'est pas dans les autres classes
 class Controleur {
 private:
 	//Pioche* pioche=nullptr;
@@ -178,6 +183,7 @@ public:
 * TODO: Action* actionsLégales(Controleur& c, Joueur& j);
  * --> retourne un tableau contenant ttes les actions légales pour un joueur donné à cet instant du jeu
 
+// action est un tuple (carte, défausser/construire)
 * 
 */
 
