@@ -2,6 +2,14 @@
 #include <iostream>
 #include <string>
 
+
+/*-------------------------------------CONSTANTES DE L'ENVIRONEMENT-------------------------------------*/
+const unsigned int Taille_cout_primaire = 3;
+const unsigned int Taille_cout_secondaire = 2;
+const unsigned int Taille_prod_primaire = 3;
+const unsigned int Taille_prod_secondaire = 2;
+const unsigned int Taille_capacite = 3;
+
 enum class RessourcePrimaire {
     none,
     pierre,
@@ -90,7 +98,7 @@ protected:
 public:
     //constructeur
     Carte();
-    Carte(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos);
+    Carte(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
     //constructeur de recopie 
     Carte(const Carte &c);
 
@@ -121,12 +129,12 @@ private:
 public:
     //constructeur
     CarteRessourcePrimaire();
-    CarteRessourcePrimaire(unsigned int cout, RessourcePrimaire* production, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos);
+    CarteRessourcePrimaire(unsigned int cout, std::initializer_list<RessourcePrimaire> production, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
     CarteRessourcePrimaire(const CarteRessourcePrimaire &c);
     RessourcePrimaire* get_production() const {return production;}
     void set_production(RessourcePrimaire r); //def in cpp
     // les cartes marron ne peuvent étre construites qu'avec la monnaie
-    std::string get_type() const override {return "CarteRessourcePrimaire";};
+    // std::string get_type() const override {return "CarteRessourcePrimaire";};
     //destructeur
     virtual ~CarteRessourcePrimaire();
 };
@@ -138,12 +146,12 @@ private:
 public:
     //constructeur
     CarteRessourceSecondaire();
-    CarteRessourceSecondaire(unsigned int cout, RessourceSecondaire production, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos);
+    CarteRessourceSecondaire(unsigned int cout, RessourceSecondaire production, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
     CarteRessourceSecondaire(const CarteRessourceSecondaire &c);
 
     //méthodes
     RessourceSecondaire get_production() const {return production;}
-    std::string get_type() const override {return "CarteRessourceSecondaire";}
+    // std::string get_type() const override {return "CarteRessourceSecondaire";}
     void set_production(RessourceSecondaire r); //def in cpp
 
     //destructeur
@@ -162,7 +170,7 @@ private:
 
 public:
     CarteCommerce();
-    CarteCommerce(RessourcePrimaire* prod_primaire, RessourceSecondaire*prod_secondaire, Capacite capa, SymboleChainage symb, bool choix, bool contrepartie, unsigned int pt_victoire, unsigned int cout,RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos);
+    CarteCommerce(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, Capacite capa, SymboleChainage symb, bool choix, bool contrepartie, unsigned int pt_victoire, unsigned int cout,std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
     CarteCommerce(const CarteCommerce& c);
 
     RessourcePrimaire* get_production_primaire()const {return production_primaire;}
@@ -181,7 +189,7 @@ public:
     void set_production_primaire(RessourcePrimaire* pt);
     void set_production_secondaire(RessourceSecondaire* pt);
 
-    std::string get_type() const override {return "CarteCommerce";};
+    // std::string get_type() const override {return "CarteCommerce";};
     //destructeur
     virtual ~CarteCommerce();
 
@@ -197,7 +205,7 @@ private:
     //Capacite capacite; //il faut pt étre pas rajouter ca ici. On déclence la capacite ssi il ya deux cartes avec meme symbole scientifique
 public:
     CarteScience();
-    CarteScience(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict);
+    CarteScience(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict);
     //constructeur de recopie 
     CarteScience(const CarteScience &c);
 
@@ -211,7 +219,7 @@ public:
     void set_symbole_science(SymboleScience s){symbole_science = s;}
     
 
-    std::string get_type() const override {return "CarteScience";}
+    // std::string get_type() const override {return "CarteScience";}
     //destructeur
     virtual ~CarteScience(){};
 
@@ -224,14 +232,14 @@ private:
 
 public:
     CartePrestige();
-    CartePrestige(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int pt_vict);
+    CartePrestige(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int pt_vict);
     CartePrestige(const CartePrestige& c);
     unsigned int get_pt_victoire()const {return pt_victoire;}
     SymboleChainage get_symbole_chainage() const  {return symbole_chainage;}
     void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
 
-    std::string get_type() const override {return "CartePrestige";}
+    // std::string get_type() const override {return "CartePrestige";}
     //destructeur
     virtual ~CartePrestige(){};
 };
@@ -246,7 +254,7 @@ private:
 public:
 
     CarteMilitaire();
-    CarteMilitaire(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire);
+    CarteMilitaire(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire);
     CarteMilitaire(const CarteMilitaire& c);
 
     Capacite get_capacite() const {return capacite;}
@@ -256,7 +264,7 @@ public:
     void set_nb_symbole_militaire(unsigned int nb){nb_symbole_militaire=nb;}
     void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
 
-    std::string get_type() const override {return "CarteMilitaire";}
+    // std::string get_type() const override {return "CarteMilitaire";}
 
     //destructeur
     virtual ~CarteMilitaire(){};
@@ -268,13 +276,13 @@ private:
     EffetGuilde effet_guilde;
 public:
     CarteGuilde();
-    CarteGuilde(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, EffetGuilde effet);
+    CarteGuilde(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, EffetGuilde effet);
     CarteGuilde(const CarteGuilde& c);
     
     EffetGuilde get_effet_guilde(){return effet_guilde;}
     void set_effet_guilde(EffetGuilde& effet){effet_guilde = effet;}
     //void applique_effet_guilde(Joueur& joueur1, Joueur& joueur2);//fonction et arguement a définir plus tard
-    std::string get_type() const override {return "CarteGuilde";};
+    // std::string get_type() const override {return "CarteGuilde";};
     
     //destructeur
     virtual ~CarteGuilde(){};
@@ -291,10 +299,10 @@ private:
 
 public:
     Merveille();
-    Merveille(RessourcePrimaire* prod_primaire, RessourceSecondaire* prod_secondaire, Capacite* capa, unsigned int pt_victoire, unsigned int av_milit, unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos);
+    Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_victoire, unsigned int av_milit, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
     Merveille(const Merveille& c);
 
-    std::string get_type() const override {return "Merveille";};
+    // std::string get_type() const override {return "Merveille";};
 
     //destructeur
     virtual ~Merveille();

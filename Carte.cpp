@@ -100,24 +100,39 @@ std::ostream& operator<<(std::ostream& f, const Capacite& capacite) {
 /*-------------------------------------CARTE-------------------------------------*/
 Carte::Carte(){
     cout_construction =0;
-    materiaux_construction_primaires = new RessourcePrimaire[4];
-    materiaux_construction_secondaires = new RessourceSecondaire[2];
+    materiaux_construction_primaires = new RessourcePrimaire[Taille_cout_primaire];
+    materiaux_construction_secondaires = new RessourceSecondaire[Taille_cout_secondaire];
 
-    for(int i=0; i<4; i++){materiaux_construction_primaires[i]=RessourcePrimaire::none;}
-    for(int i=0; i<2; i++){materiaux_construction_secondaires[i]=RessourceSecondaire::none;}
+    for(int i=0; i<Taille_cout_primaire; i++){materiaux_construction_primaires[i]=RessourcePrimaire::none;}
+    for(int i=0; i<Taille_cout_secondaire; i++){materiaux_construction_secondaires[i]=RessourceSecondaire::none;}
 
     accessible = false;
     face_visible = false;
     position = 0;
 }
 
-Carte::Carte(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos){
+Carte::Carte(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos){
     cout_construction = cout;
-    materiaux_construction_primaires = new RessourcePrimaire[4];
-    materiaux_construction_secondaires = new RessourceSecondaire[2];
+    materiaux_construction_primaires = new RessourcePrimaire[Taille_cout_primaire];
+    materiaux_construction_secondaires = new RessourceSecondaire[Taille_cout_secondaire];
 
-    for(int i=0; i<4; i++){materiaux_construction_primaires[i]=pt_primaire[i];}
-    for(int i=0; i<2; i++){materiaux_construction_secondaires[i]=pt_secondaire[i];}
+            // Allocation dynamique et initialisation des ressources primaires
+        materiaux_construction_primaires = new RessourcePrimaire[Taille_cout_primaire];
+        int i = 0;
+        for (const auto& ressource : pt_primaire) {
+            if (i < Taille_cout_primaire) {
+                materiaux_construction_primaires[i++] = ressource;
+            }
+        }
+
+        // Allocation dynamique et initialisation des ressources secondaires
+        materiaux_construction_secondaires = new RessourceSecondaire[Taille_cout_secondaire];
+        i = 0;
+        for (const auto& ressource : pt_secondaire) {
+            if (i < Taille_cout_secondaire) {
+                materiaux_construction_secondaires[i++] = ressource;
+            }
+        }
 
     accessible = acc;
     face_visible = fv;
@@ -126,11 +141,11 @@ Carte::Carte(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSeconda
 
 Carte::Carte(const Carte &c){
     cout_construction = c.cout_construction;
-    materiaux_construction_primaires = new RessourcePrimaire[4];
-    materiaux_construction_secondaires = new RessourceSecondaire[2];
+    materiaux_construction_primaires = new RessourcePrimaire[Taille_cout_primaire];
+    materiaux_construction_secondaires = new RessourceSecondaire[Taille_cout_secondaire];
 
-    for(int i=0; i<4; i++){materiaux_construction_primaires[i]=c.materiaux_construction_primaires[i];}
-    for(int i=0; i<2; i++){materiaux_construction_secondaires[i]=c.materiaux_construction_secondaires[i];}
+    for(int i=0; i<Taille_cout_primaire; i++){materiaux_construction_primaires[i]=c.materiaux_construction_primaires[i];}
+    for(int i=0; i<Taille_cout_secondaire; i++){materiaux_construction_secondaires[i]=c.materiaux_construction_secondaires[i];}
 
     accessible = c.accessible;
     face_visible = c.face_visible;
@@ -144,7 +159,7 @@ void Carte::set_position(unsigned int pos){
 }
 
 void Carte::set_materiaux_construction_primaire(RessourcePrimaire r){
-    for(int i=0; i<4; i++){
+    for(int i=0; i<Taille_cout_primaire; i++){
         if (materiaux_construction_primaires[i] == RessourcePrimaire::none){
             materiaux_construction_primaires[i] = r;
             break;
@@ -155,7 +170,7 @@ void Carte::set_materiaux_construction_primaire(RessourcePrimaire r){
 //si on est pas sorti du for, cela veut dire que le tableau etait deja plein et ce n'est pas possible d'ajouter de nouvelles ressources nécéssaires
 
 void Carte::set_materiaux_construction_secondaire(RessourceSecondaire r){
-    for(int i=0; i<2; i++){
+    for(int i=0; i<Taille_cout_secondaire; i++){
         if (materiaux_construction_secondaires[i] == RessourceSecondaire::none){
             materiaux_construction_secondaires[i] = r;
             break;
@@ -184,11 +199,11 @@ std::ostream& Carte::operator<<(std::ostream& f) const{
     std::cout << "Cout construction : " << cout_construction << std::endl; 
 
     std::cout << "materiaux_construction_primaire : ";
-    for(int i=0; i<4; i++){ 
+    for(int i=0; i<Taille_cout_primaire; i++){ 
         std::cout << materiaux_construction_primaires[i] << " ";
     }
     std::cout << "materiaux_construction_secondaire : ";
-    for(int i=0; i<2; i++){
+    for(int i=0; i<Taille_cout_secondaire; i++){
         std::cout << materiaux_construction_secondaires[i] << " ";
     }
 
@@ -208,23 +223,28 @@ std::ostream& Carte::operator<<(std::ostream& f) const{
 /*-------------------------------------CarteRessourcePrimaire-------------------------------------*/
 
 //constructeur 
-CarteRessourcePrimaire::CarteRessourcePrimaire(unsigned int cout,RessourcePrimaire* prod, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos)
+CarteRessourcePrimaire::CarteRessourcePrimaire(unsigned int cout,std::initializer_list<RessourcePrimaire> prod, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
 : Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
-    production = new RessourcePrimaire[2]; //alloaction dynamique
-    for(int i=0; i<2; i++){production[i]=prod[i];} //assigner les bonnes valeurs
+    production = new RessourcePrimaire[Taille_prod_primaire]; //alloaction dynamique
+    int i = 0;
+    for (const auto& prod : prod){
+        if (i < Taille_prod_primaire) {
+            production[i++] = prod;
+        }
+    }
 }
 
 CarteRessourcePrimaire::CarteRessourcePrimaire()
 : Carte(){
-    production = new RessourcePrimaire[2]; //alloaction dynamique
-    for(int i=0; i<2; i++){production[i]=RessourcePrimaire::none;}
+    production = new RessourcePrimaire[Taille_prod_primaire]; //alloaction dynamique
+    for(int i=0; i<Taille_prod_primaire; i++){production[i]=RessourcePrimaire::none;}
 }
 
 //constructeur de recopie 
 CarteRessourcePrimaire::CarteRessourcePrimaire(const CarteRessourcePrimaire &c)
 : Carte(c){
-    production = new RessourcePrimaire[2];
-    for(int i=0; i<2; i++){production[i]= c.production[i];}
+    production = new RessourcePrimaire[Taille_prod_primaire];
+    for(int i=0; i<Taille_prod_primaire; i++){production[i]= c.production[i];}
 }
 
 //destructeur
@@ -233,7 +253,7 @@ CarteRessourcePrimaire::~CarteRessourcePrimaire(){
 }
 
 void CarteRessourcePrimaire::set_production(RessourcePrimaire r){
-    for(int i=0; i<2; i++){
+    for(int i=0; i<Taille_prod_primaire; i++){
         if (production[i] == RessourcePrimaire::none){
             production[i] = r;
             break;
@@ -247,7 +267,7 @@ void CarteRessourcePrimaire::set_production(RessourcePrimaire r){
 
 /*------------------------------------Carte Ressource Secondaire--------------------------------------*/
 
-CarteRessourceSecondaire::CarteRessourceSecondaire(unsigned int cout,RessourceSecondaire prod, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos)
+CarteRessourceSecondaire::CarteRessourceSecondaire(unsigned int cout,RessourceSecondaire prod, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
 : Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
     production=prod;
 }
@@ -279,10 +299,10 @@ void CarteRessourceSecondaire::set_production(RessourceSecondaire r){
 
 CarteCommerce::CarteCommerce()
 :Carte(){
-    production_primaire = new RessourcePrimaire[3];
-    production_secondaire = new RessourceSecondaire[2];
-    for(int i =0; i<3; i++){production_primaire[i]=RessourcePrimaire::none;}
-    for(int i =0; i<2; i++){production_secondaire[i]=RessourceSecondaire::none;}
+    production_primaire = new RessourcePrimaire[Taille_cout_primaire];
+    production_secondaire = new RessourceSecondaire[Taille_cout_secondaire];
+    for(int i =0; i<Taille_cout_primaire; i++){production_primaire[i]=RessourcePrimaire::none;}
+    for(int i =0; i<Taille_cout_secondaire; i++){production_secondaire[i]=RessourceSecondaire::none;}
 
     capacite = Capacite::none;
     symbole = SymboleChainage::none;
@@ -291,12 +311,23 @@ CarteCommerce::CarteCommerce()
     pt_victoire = 0;
 }
 
-CarteCommerce::CarteCommerce(RessourcePrimaire* prod_primaire, RessourceSecondaire*prod_secondaire, Capacite capa, SymboleChainage symb, bool ch, bool cont, unsigned int pt_vict, unsigned int cout,RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos)
+CarteCommerce::CarteCommerce(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, Capacite capa, SymboleChainage symb, bool ch, bool cont, unsigned int pt_vict, unsigned int cout,std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
 :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
-    production_primaire = new RessourcePrimaire[3];
-    production_secondaire = new RessourceSecondaire[2];
-    for(int i =0; i<3; i++){production_primaire[i]=prod_primaire[i];}
-    for(int i =0; i<2; i++){production_secondaire[i]=prod_secondaire[i];}
+    production_primaire = new RessourcePrimaire[Taille_prod_primaire];
+    production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
+
+    int i = 0;
+    for (const auto& prod : prod_primaire){
+        if (i < Taille_prod_primaire) {
+            production_primaire[i++] = prod;
+        }
+    }
+    i = 0;
+    for (const auto& prod : prod_secondaire){
+        if (i < Taille_prod_secondaire) {
+            production_secondaire[i++] = prod;
+        }
+    }
 
     capacite = capa;
     symbole = symb;
@@ -307,10 +338,10 @@ CarteCommerce::CarteCommerce(RessourcePrimaire* prod_primaire, RessourceSecondai
 
 CarteCommerce::CarteCommerce(const CarteCommerce& c)
 :Carte(c){
-    production_primaire = new RessourcePrimaire[3];
-    production_secondaire = new RessourceSecondaire[2];
-    for(int i =0; i<3; i++){production_primaire[i]=c.production_primaire[i];}
-    for(int i =0; i<2; i++){production_secondaire[i]=c.production_secondaire[i];}
+    production_primaire = new RessourcePrimaire[Taille_prod_primaire];
+    production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
+    for(int i =0; i<Taille_prod_primaire; i++){production_primaire[i]=c.production_primaire[i];}
+    for(int i =0; i<Taille_prod_secondaire; i++){production_secondaire[i]=c.production_secondaire[i];}
 
     capacite = c.capacite;
     symbole = c.symbole;
@@ -320,10 +351,10 @@ CarteCommerce::CarteCommerce(const CarteCommerce& c)
 }
 
 void CarteCommerce::set_production_primaire(RessourcePrimaire* pt){
-    for(int i=0; i<3; i++){production_primaire[i]=pt[i];}
+    for(int i=0; i<Taille_cout_primaire; i++){production_primaire[i]=pt[i];}
 }
 void CarteCommerce::set_production_secondaire(RessourceSecondaire* pt){
-    for(int i=0; i<2; i++){production_secondaire[i]=pt[i];}
+    for(int i=0; i<Taille_cout_secondaire; i++){production_secondaire[i]=pt[i];}
 }
 
 CarteCommerce::~CarteCommerce(){
@@ -342,7 +373,7 @@ CarteScience::CarteScience() : Carte(){
         pt_victoire = 0;
         capacite = Capacite::ajouter_symbole_science;
     }
-CarteScience::CarteScience(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict)
+CarteScience::CarteScience(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict)
     :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
         symbole_chainage = symb_chain;
         symbole_science = symb_science;
@@ -369,7 +400,7 @@ CartePrestige::CartePrestige()
         symbole_chainage = SymboleChainage::none;
         pt_victoire = 0;
     }
-CartePrestige::CartePrestige(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int pt_vict)
+CartePrestige::CartePrestige(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int pt_vict)
     :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
         symbole_chainage=symb_chain;
         pt_victoire=pt_vict;
@@ -392,7 +423,7 @@ CarteMilitaire::CarteMilitaire()
     nb_symbole_militaire = 0;
     capacite = Capacite::avancee_militaire;
 }
-CarteMilitaire::CarteMilitaire(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire)
+CarteMilitaire::CarteMilitaire(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire)
     :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
     symbole_chainage=symb_chain;
     nb_symbole_militaire=nb_militaire;
@@ -415,7 +446,7 @@ CarteGuilde::CarteGuilde()
 :Carte(){
     effet_guilde = EffetGuilde::guilde_armateurs;
 }
-CarteGuilde::CarteGuilde(unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos, EffetGuilde effet)
+CarteGuilde::CarteGuilde(unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, EffetGuilde effet)
 :Carte(cout, pt_primaire, pt_secondaire, acc, fv, pos){
     effet_guilde = effet;
 }
@@ -431,39 +462,54 @@ CarteGuilde::CarteGuilde(const CarteGuilde& c)
 
 Merveille::Merveille()
 :Carte(){
-    production_primaire = new RessourcePrimaire[3];
-    production_secondaire = new RessourceSecondaire[2];
-    capacite = new Capacite[3];
+    production_primaire = new RessourcePrimaire[Taille_prod_primaire];
+    production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
+    capacite = new Capacite[Taille_capacite];
 
-    for(int i=0; i<3; i++){production_primaire[i] = RessourcePrimaire::none;}
-    for(int i=0; i<2; i++){production_secondaire[i] = RessourceSecondaire::none;}
-    for(int i=0; i<3; i++){capacite[i] = Capacite::none;}
+    for(int i=0; i<Taille_prod_primaire; i++){production_primaire[i] = RessourcePrimaire::none;}
+    for(int i=0; i<Taille_prod_secondaire; i++){production_secondaire[i] = RessourceSecondaire::none;}
+    for(int i=0; i<Taille_capacite; i++){capacite[i] = Capacite::none;}
 
     pt_victoire = 0;
     avance_militaire = 0;
 }
-    Merveille::Merveille(RessourcePrimaire* prod_primaire, RessourceSecondaire* prod_secondaire, Capacite* capa, unsigned int pt_vict, unsigned int av_milit, unsigned int cout, RessourcePrimaire* pt_primaire, RessourceSecondaire* pt_secondaire, bool acc, bool fv, unsigned int pos)
+    Merveille::Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_vict, unsigned int av_milit, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
     :Carte(){
-        production_primaire = new RessourcePrimaire[3];
-        production_secondaire = new RessourceSecondaire[2];
-        capacite = new Capacite[3];
+        production_primaire = new RessourcePrimaire[Taille_prod_primaire];
+        production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
+        capacite = new Capacite[Taille_capacite];
 
-        for(int i=0; i<3; i++){production_primaire[i] = prod_primaire[i];}
-        for(int i=0; i<2; i++){production_secondaire[i] = prod_secondaire[i];}
-        for(int i=0; i<3; i++){capacite[i] = capa[i];}
+        int i = 0;
+        for (const auto& prod : prod_primaire){
+            if (i < Taille_prod_primaire) {
+                production_primaire[i++] = prod;
+            }
+        }
+        i = 0;
+        for (const auto& prod : prod_secondaire){
+            if (i < Taille_prod_secondaire) {
+                production_secondaire[i++] = prod;
+            }
+        }
+        i = 0;
+        for (const auto& cap : capa){
+            if (i < Taille_capacite) {
+                capacite[i++] = cap;
+            }
+        }
 
         pt_victoire = pt_vict;
         avance_militaire = av_milit;
     }
     Merveille::Merveille(const Merveille& c)
     :Carte(c){
-        production_primaire = new RessourcePrimaire[3];
-        production_secondaire = new RessourceSecondaire[2];
-        capacite = new Capacite[3];
+        production_primaire = new RessourcePrimaire[Taille_prod_primaire];
+        production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
+        capacite = new Capacite[Taille_capacite];
 
-        for(int i=0; i<3; i++){production_primaire[i] = c.production_primaire[i];}
-        for(int i=0; i<2; i++){production_secondaire[i] = c.production_secondaire[i];}
-        for(int i=0; i<3; i++){capacite[i] = c.capacite[i];}
+        for(int i=0; i<Taille_prod_primaire; i++){production_primaire[i] = c.production_primaire[i];}
+        for(int i=0; i<Taille_cout_secondaire; i++){production_secondaire[i] = c.production_secondaire[i];}
+        for(int i=0; i<Taille_capacite; i++){capacite[i] = c.capacite[i];}
 
         pt_victoire = c.pt_victoire;
         avance_militaire = c.avance_militaire;
