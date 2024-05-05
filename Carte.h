@@ -30,31 +30,31 @@ enum class SymboleChainage{
     jarre,
     toneau,
     masque,
-    temple, 
-    soleil, 
-    goute, 
-    lune, 
-    pilier, 
-    cible, 
-    casque, 
-    fer_a_cheval, 
-    epee, 
-    tour, 
-    lyre, 
-    engrenage, 
-    livre, 
-    lampe 
+    temple,
+    soleil,
+    goute,
+    lune,
+    pilier,
+    cible,
+    casque,
+    fer_a_cheval,
+    epee,
+    tour,
+    lyre,
+    engrenage,
+    livre,
+    lampe
 };
 
 
 enum class SymboleScience{
-    roue, 
-    plume, 
+    roue,
+    plume,
     pilon,
-    balance, 
-    globe_terrestre, 
+    balance,
+    globe_terrestre,
     fil_a_plomb,
-    bateau, 
+    bateau,
 };
 
 
@@ -70,7 +70,7 @@ enum class EffetGuilde{
 
 
 enum class Capacite{
-    none, 
+    none,
     rejouer,
     detruire_carte_marron,
     detruire_carte_grise,
@@ -78,7 +78,7 @@ enum class Capacite{
     gagner_monnaie,
     avancee_militaire,
     choisir_jeton_science,
-    ajouter_symbole_science    
+    ajouter_symbole_science
 };
 
 
@@ -91,7 +91,7 @@ protected:
     RessourceSecondaire* materiaux_construction_secondaires;
     bool accessible;
     bool face_visible;
-    unsigned int position; //Je propose qu'on mette la position de la carte directement dans la classCarte, 
+    unsigned int position; //Je propose qu'on mette la position de la carte directement dans la classCarte,
     //on met à 0 si elle n'est pas sur le plateau, et sinon, on commence à 1.
     //c'est interessent parceque du coup on peut faire une méthode qui verifie directement si la carte est dans le plateau
     //en faissant un if position:
@@ -101,12 +101,12 @@ public:
     //constructeur
     Carte();
     Carte(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
-    //constructeur de recopie 
+    //constructeur de recopie
     Carte(const Carte &c);
 
     //methodes
     void set_position(unsigned int pos); //def in cpp
-    void set_materiaux_construction_primaire(RessourcePrimaire r); //def in cpp 
+    void set_materiaux_construction_primaire(RessourcePrimaire r); //def in cpp
     void set_materiaux_construction_secondaire(RessourceSecondaire r); //def in cpp
     void set_accessible(); //def in cpp
     void set_face_visible(); //def in cpp
@@ -116,6 +116,8 @@ public:
     unsigned int getPrix() const {return cout_construction;}
     bool est_facevisible() const {return face_visible;}
     bool est_accessible() const {return accessible;}
+    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole,RessourcePrimaire* Resp)
+    unsigned int getQuantiteDeRessourceSecondaire(const RessourcePrimaire& symbole,RessourcePrimaire* ResS)
     RessourcePrimaire* getMateriauxPrimaires()const {return materiaux_construction_primaires;}
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
 
@@ -208,7 +210,7 @@ private:
 public:
     CarteScience();
     CarteScience(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict);
-    //constructeur de recopie 
+    //constructeur de recopie
     CarteScience(const CarteScience &c);
 
     unsigned int get_pt_victoire()const {return pt_victoire;}
@@ -219,7 +221,7 @@ public:
     void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
     void set_symbole_science(SymboleScience s){symbole_science = s;}
-    
+
 
     // std::string get_type() const override {return "CarteScience";}
     //destructeur
@@ -280,12 +282,12 @@ public:
     CarteGuilde();
     CarteGuilde(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, EffetGuilde effet);
     CarteGuilde(const CarteGuilde& c);
-    
+
     EffetGuilde get_effet_guilde(){return effet_guilde;}
     void set_effet_guilde(EffetGuilde& effet){effet_guilde = effet;}
     //void applique_effet_guilde(Joueur& joueur1, Joueur& joueur2);//fonction et arguement a définir plus tard
     // std::string get_type() const override {return "CarteGuilde";};
-    
+
     //destructeur
     virtual ~CarteGuilde(){};
 };

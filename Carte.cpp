@@ -152,7 +152,7 @@ Carte::Carte(const Carte &c){
     accessible = c.accessible;
     face_visible = c.face_visible;
     position = c.position;
-    
+
 }
 
 void Carte::set_position(unsigned int pos){
@@ -168,7 +168,7 @@ void Carte::set_materiaux_construction_primaire(RessourcePrimaire r){
         }
         if (i==3){throw "From Carte, set_materiaux_construction_primaire : le tableau de ressource est déjà plein";}
     }
-} //cherche un emplacement ressource vide (none) puis le remplace, sort alors du for. 
+} //cherche un emplacement ressource vide (none) puis le remplace, sort alors du for.
 //si on est pas sorti du for, cela veut dire que le tableau etait deja plein et ce n'est pas possible d'ajouter de nouvelles ressources nécéssaires
 
 void Carte::set_materiaux_construction_secondaire(RessourceSecondaire r){
@@ -179,7 +179,7 @@ void Carte::set_materiaux_construction_secondaire(RessourceSecondaire r){
         }
         if (i==1){throw "From Carte, set_materiaux_construction_secondaire : le tableau de ressource est déjà plein";}
     }
-} //cherche un emplacement ressource vide (none) puis le remplace, sort alors du for. 
+} //cherche un emplacement ressource vide (none) puis le remplace, sort alors du for.
 //si on est pas sorti du for, cela veut dire que le tableau etait deja plein et ce n'est pas possible d'ajouter de nouvelles ressources nécéssaires
 void Carte::set_accessible(){
     if (not(est_accessible())) accessible = true;
@@ -191,6 +191,25 @@ void Carte::set_face_visible(){
     else std::cout<< "rend_carte_accessible : La carte est déjà face visible." << std::endl;
 }
 
+unsigned int Carte::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole,RessourcePrimaire* Resp) const {
+        unsigned int res=0;
+        while(ResP != nullptr){
+            if(*ResP == symbole) res++;
+            tab++;
+        }
+        return res;
+};
+
+unsigned int Carte::getQuantiteDeRessourceSecondaire(const RessourcePrimaire& symbole,RessourceSecondaire* ResS) const {
+    unsigned int res=0;
+    while(ResS != nullptr){
+        if(*ResS == symbole) res++;
+        tab++;
+    }
+    return res;
+};
+
+
 Carte::~Carte(){
      delete[] materiaux_construction_primaires;
      delete[] materiaux_construction_secondaires;
@@ -198,10 +217,10 @@ Carte::~Carte(){
 
 std::ostream& Carte::operator<<(std::ostream& f) const{
     std::cout << "--------Carte--------"<< std::endl;
-    std::cout << "Cout construction : " << cout_construction << std::endl; 
+    std::cout << "Cout construction : " << cout_construction << std::endl;
 
     std::cout << "materiaux_construction_primaire : ";
-    for(int i=0; i<Taille_cout_primaire; i++){ 
+    for(int i=0; i<Taille_cout_primaire; i++){
         std::cout << materiaux_construction_primaires[i] << " ";
     }
     std::cout << "materiaux_construction_secondaire : ";
@@ -209,10 +228,10 @@ std::ostream& Carte::operator<<(std::ostream& f) const{
         std::cout << materiaux_construction_secondaires[i] << " ";
     }
 
-    std::cout << "accessible : "<< accessible << std::endl; 
-    std::cout << "face_visible" << face_visible << std::endl; 
-    std::cout << "position" << position << std::endl; 
-    
+    std::cout << "accessible : "<< accessible << std::endl;
+    std::cout << "face_visible" << face_visible << std::endl;
+    std::cout << "position" << position << std::endl;
+
     RessourcePrimaire* materiaux_construction_primaires;
     RessourceSecondaire* materiaux_construction_secondaires;
     return f;
@@ -224,7 +243,7 @@ std::ostream& Carte::operator<<(std::ostream& f) const{
 
 /*-------------------------------------CarteRessourcePrimaire-------------------------------------*/
 
-//constructeur 
+//constructeur
 CarteRessourcePrimaire::CarteRessourcePrimaire(std::string n,unsigned int a, unsigned int cout,std::initializer_list<RessourcePrimaire> prod, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
 : Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
     production = new RessourcePrimaire[Taille_prod_primaire]; //alloaction dynamique
@@ -242,7 +261,7 @@ CarteRessourcePrimaire::CarteRessourcePrimaire()
     for(int i=0; i<Taille_prod_primaire; i++){production[i]=RessourcePrimaire::none;}
 }
 
-//constructeur de recopie 
+//constructeur de recopie
 CarteRessourcePrimaire::CarteRessourcePrimaire(const CarteRessourcePrimaire &c)
 : Carte(c){
     production = new RessourcePrimaire[Taille_prod_primaire];
@@ -279,7 +298,7 @@ CarteRessourceSecondaire::CarteRessourceSecondaire()
     production=RessourceSecondaire::none;
 }
 
-//constructeur de recopie 
+//constructeur de recopie
 CarteRessourceSecondaire::CarteRessourceSecondaire(const CarteRessourceSecondaire &c)
 : Carte(c){
     production= c.production;
@@ -383,7 +402,7 @@ CarteScience::CarteScience(std::string n,unsigned int a, unsigned int cout, std:
         capacite = Capacite::ajouter_symbole_science;
 
     }
-    //constructeur de recopie 
+    //constructeur de recopie
 CarteScience::CarteScience(const CarteScience &c)
     :Carte(c){
         symbole_chainage = c.symbole_chainage;
@@ -537,7 +556,7 @@ Merveille::Merveille()
 //     }
 //     if (type_carte == "CarteMilitaire"){
 //         int militaire = carte.get_nb_symbole_militaire();
-        
+
 
 
 //     }
