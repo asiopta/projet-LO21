@@ -51,7 +51,7 @@ Joueur::Joueur(): pt_victoire(0), monnaie(7), ressources() {
     for(int i=0; i<6; i++) jetons_science[i] = nullptr;
 }
 
-Joueur::Joueur(const Joueur& j): monnaie(j.monnaie), pt_victoire(j.pt_victoire), 
+Joueur::Joueur(const Joueur& j): monnaie(j.monnaie), pt_victoire(j.pt_victoire),
 ressources(j.ressources){
     for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
     for(int i=0; i<4; i++) merveille_construite[i] = j.merveille_construite[i];
@@ -171,8 +171,13 @@ void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
     }
 }
 
+unsigned int getCout(const Carte& carte){
+        //En cours
+}
+
+
 //méthodes de vérification
-bool Joueur::estConstructible(const Carte& carte) const{ 
+bool Joueur::estConstructible(const Carte& carte) const{
     if(getCout(carte) < getMonnaie()) return true;
     return false;
 
