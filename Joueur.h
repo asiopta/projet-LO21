@@ -26,13 +26,13 @@ private:
     unsigned int monnaie;
     unsigned int pt_victoire;
     class Ressource{
-    private:
+    public:
         unsigned int bois = 0;
         unsigned int pierre = 0;
         unsigned int brique = 0;
         unsigned int verre = 0;
         unsigned int parchemin = 0;
-    public:
+        
         Ressource() = default;
         Ressource(const Ressource& r) = default;
         ~Ressource() = default;
