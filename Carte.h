@@ -116,8 +116,8 @@ public:
     unsigned int getPrix() const {return cout_construction;}
     bool est_facevisible() const {return face_visible;}
     bool est_accessible() const {return accessible;}
-    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole,RessourcePrimaire* Resp)
-    unsigned int getQuantiteDeRessourceSecondaire(const RessourcePrimaire& symbole,RessourcePrimaire* ResS)
+    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole,RessourcePrimaire* Resp) const;
+    unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole,RessourceSecondaire* ResS) const;
     RessourcePrimaire* getMateriauxPrimaires()const {return materiaux_construction_primaires;}
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
 

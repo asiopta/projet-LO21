@@ -200,7 +200,7 @@ unsigned int Carte::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symb
         return res;
 };
 
-unsigned int Carte::getQuantiteDeRessourceSecondaire(const RessourcePrimaire& symbole,RessourceSecondaire* ResS) const {
+unsigned int Carte::getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole,RessourceSecondaire* ResS) const {
     unsigned int res=0;
     while(ResS != nullptr){
         if(*ResS == symbole) res++;
