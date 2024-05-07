@@ -3,7 +3,7 @@
 #include <string>
 #include "Carte.h"
 #include "Plateau.h"
-#include "game.h"
+
 
 // classe pour gérer les exceptions
 class SetException {
@@ -98,15 +98,15 @@ public:
 class PlateauCartes{
 private:
     unsigned int age =1;
-    CarteEnJeu* cartes_en_jeu[20]; 
+    Carte* cartes_en_jeu[20]; 
     Carte* defausses[60];
 
 public:
 /*
     + addAge()
-    + estaccessible(Carte in listecarteenjeu)
-    + estprise(Carte in listecarteenjeu)
-    + estdefausse(Carte in listrecarteenjeu)
+    + estaccessible(Carte in listeCarte)
+    + estprise(Carte in listeCarte)
+    + estdefausse(Carte in listreCarte)
     + getcartevisible()
     + getcarteaccessibles()
 
@@ -128,9 +128,9 @@ public:
 
 
    //méthodes en lien avec construireCarte() de la classe Joueur
-   CarteEnJeu* trouverCarteDansPlateau(Carte& carte); 
+   Carte* trouverCarteDansPlateau(Carte& carte); 
    // retourne NULL si la carte n'est pas dans le tableau, et le pointeur sinon.
-   void enleverCarteDuPlateau(CarteEnJeu* carte_plateau); //appelle trouverCarteDansPlateau()
+   void enleverCarteDuPlateau(Carte* carte_plateau); //appelle trouverCarteDansPlateau()
 };
 
 
@@ -148,7 +148,7 @@ private:
 	//Pioche* pioche=nullptr;
 	PlateauCartes plateau_cartes;
     PlateauScience plateau_science;
-    PLateauMilitaire plateau_militaire;
+    PlateauMilitaire plateau_militaire;
     Joueur joueur1;
     Joueur joueur2;
 

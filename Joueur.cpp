@@ -160,7 +160,7 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 }
 
 void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
-    CarteEnJeu* c = p.trouverCarteDansPlateau(carte);
+    Carte* c = p.trouverCarteDansPlateau(carte);
     if((c != NULL) && estConstructible(carte)){
         monnaie -= getCout(carte);
         p.enleverCarteDuPlateau(c);
