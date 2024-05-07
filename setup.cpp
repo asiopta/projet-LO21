@@ -35,7 +35,7 @@ Joueur joueur1;
 Joueur joueur2;
 
 //génération des jetons malus
-JetonMalus jetonMalus1(2, joueur1);
-JetonMalus jetonMalus2(5, joueur1);
-JetonMalus jetonMalus3(2, joueur2);
-JetonMalus jetonMalus3(5, joueur2);
+JetonMalus jetonMalus1(2, 3, &joueur1);
+JetonMalus jetonMalus1(5, 6, &joueur2);
+JetonMalus jetonMalus1(2, 3, &joueur1);
+JetonMalus jetonMalus1(5, 6, &joueur2);
