@@ -1,4 +1,5 @@
 #include "Joueur.h"
+#include "Carte.h"
 #include <string.h>
 #include <string>
 
