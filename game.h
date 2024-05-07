@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
 
 //les différente classes d'énumération 
 enum class RessourcePrimaire {
