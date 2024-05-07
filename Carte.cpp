@@ -193,8 +193,8 @@ void Carte::set_face_visible(){
 
 unsigned int Carte::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole,RessourcePrimaire* Resp) const {
         unsigned int res=0;
-        while(ResP != nullptr){
-            if(*ResP == symbole) res++;
+        while(Resp != nullptr){
+            if(*Resp == symbole) res++;
             tab++;
         }
         return res;
