@@ -195,7 +195,7 @@ unsigned int Carte::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symb
         unsigned int res=0;
         while(Resp != nullptr){
             if(*Resp == symbole) res++;
-            tab++;
+            tab++; //! erreur ici
         }
         return res;
 };
@@ -204,7 +204,7 @@ unsigned int Carte::getQuantiteDeRessourceSecondaire(const RessourceSecondaire& 
     unsigned int res=0;
     while(ResS != nullptr){
         if(*ResS == symbole) res++;
-        tab++;
+        tab++; //! erreur ici
     }
     return res;
 };
