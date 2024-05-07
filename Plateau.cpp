@@ -223,10 +223,9 @@ PlateauScience::~PlateauScience() {
 /*-------------------------------------PlateauMilitaire-------------------------------------*/
 
 //constructeur de PlateauMilitaire
-PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur& joueur_derr, JetonMalus* liste_jetons){ //! erreur normale car il manque l'operateur = pour Joueur
-    unsigned int avance = a;
-    Joueur& joueur_derriere = joueur_derr;
-    JetonMalus* liste_jetons_malus = new JetonMalus[Dim_jetons_malus];
+PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur& joueur_derr, JetonMalus* liste_jetons)
+    : avance(a), joueur_derriere(joueur_derr), liste_jetons_malus(new JetonMalus[Dim_jetons_malus])
+{
     for (int i = 0; i < Dim_jetons_malus; i++) {
         liste_jetons_malus[i] = liste_jetons[i];
     }
@@ -240,7 +239,7 @@ void PlateauMilitaire::update_avance(unsigned int ajout, Joueur& joueur_cible){
     else {
         avance -= ajout;
         if (avance < 0) { // si le joueur cible n'est pas le joueur le plus derriere, on avance le pion en direction de l'autre joueur
-            avance = abs(avance); //si avance < 0, on le rend positif et on change le joueur derriere
+            avance = -avance; //si avance < 0, on le rend positif et on change le joueur derriere
             joueur_derriere = joueur_cible;
         }
     }

@@ -65,9 +65,15 @@ public:
     unsigned int get_positon()const{return position;}
     unsigned int get_malus()const{return malus;}
     Joueur* get_joueur()const{return joueur;}
+    bool operator ==(const JetonMalus& other) const;
     void exec_malus(); //applique le malus pour le joueur
     ~JetonMalus() = default;
 };
+
+bool JetonMalus::operator==(const JetonMalus& other) const {
+    //compair address of other and this
+    return this == &other;
+}
 
 
 /*-------------------------------------PlateauScience-------------------------------------*/
