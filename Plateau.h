@@ -4,6 +4,9 @@
 #include "Joueur.h"
 
 const unsigned int LargeurPlateauMilitaire = 9; //la largeur maxe du plateau militaire
+const unsigned int TAILLE_CARTE_EN_JEU = 20; //nombre de cartes en jeu
+const unsigned int TAILLE_DEFAUSSES = 60; //nombre de cartes defaussées
+
 
 enum class CapaciteScience{
     none,
@@ -114,3 +117,53 @@ class PlateauMilitaire{
         ~PlateauMilitaire();
 };
 
+
+/*-------------------------------------PlateauCartes-------------------------------------*/
+
+class PlateauCartes{
+private:
+    unsigned int age;
+    Carte** cartes_en_jeu; //tableau dynamique de pointeurs de Carte
+    Carte** defausses;
+
+public:
+    PlateauCartes();
+    PlateauCartes(unsigned int age, std::initializer_list<Carte*> cartes_en_jeu, std::initializer_list<Carte*> defausses);
+    void addAge(); //modifie carte_en_jeu en tirant de nouvelles cartes en jeu d'age age
+    bool estEnJeu(Carte* carte) const; //verifie que la carte est dans carte_en_jeu
+    bool estAccessible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est accessible
+    bool estVisible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est visible
+    void prendreCarte(Carte* carte); //prend la carte si elle est accessible
+
+    Carte** getCartesEnJeu() const{return cartes_en_jeu;}
+    Carte** getDefausses() const{return defausses;}
+    Carte** getCartesAccessibles() const; //renvoie un tableau de pointeurs de Carte accessibles
+    Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
+
+
+    /*
+    + estdefausse(Carte in listreCarte)
+    + getcartevisible()
+    + getcarteaccessibles()
+
+    + const rend_accessible(&Carte)
+    + const rend_face_visible(&Carte)
+    + prendre(&Carte)
+    + prendre(&Merveille)
+    + defausser(&Carte)
+    + const get_cartes_visibles() -> &Carte[]
+    + const get_cartes_accessibles() -> &Carte[]
+    + const nb_merveilles_restantes() -> unsigned int 
+    */
+
+   //constructuer
+
+   //destructeur
+   ~PlateauCartes();
+
+
+   //méthodes en lien avec construireCarte() de la classe Joueur
+   Carte* trouverCarteDansPlateau(Carte& carte); 
+   // retourne NULL si la carte n'est pas dans le tableau, et le pointeur sinon.
+   void enleverCarteDuPlateau(Carte* carte_plateau); //appelle trouverCarteDansPlateau()
+};

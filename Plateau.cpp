@@ -270,3 +270,95 @@ PlateauMilitaire::~PlateauMilitaire() {
     delete[] liste_jetons_malus;
 }
 
+/*-------------------------------------PlateauCarte-------------------------------------*/
+
+PlateauCartes::PlateauCartes(unsigned int age, std::initializer_list<Carte*> cartes_jeu, std::initializer_list<Carte*> defaus) 
+{
+    if (age < 1 || age > 3) {
+        throw("Constructeur de PlateauCarte : age invalide");
+    }
+    else {this->age = age;}
+
+    Carte** cartes_en_jeu = new Carte*[TAILLE_CARTE_EN_JEU];
+    Carte** defausses = new Carte*[TAILLE_DEFAUSSES];
+
+    int i = 0;
+    for (Carte* pt_carte : cartes_jeu) {
+        cartes_en_jeu[i] = pt_carte;
+        i++;
+    }
+    i = 0;
+    for (Carte* pt_carte : defaus) {
+        defausses[i] = pt_carte;
+        i++;
+    }
+
+}
+
+void PlateauCartes::addAge(){
+    if (age < 3){
+        age++;
+    }
+    else {
+        throw("addAge : age maximal atteint");
+    }
+}
+
+bool PlateauCartes::estEnJeu(Carte* carte) const{
+    for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
+        if (cartes_en_jeu[i] == carte){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool PlateauCartes::estAccessible(Carte* carte) const{
+    if (this->estEnJeu(carte)){ //si la carte est en jeu
+        return carte->est_accessible();
+    }
+    return false;
+}
+
+bool PlateauCartes::estVisible(Carte* carte) const{
+    if (this->estEnJeu(carte)){ //si la carte est en jeu
+        return carte->est_facevisible();
+    }
+    return false;
+}
+
+Carte**PlateauCartes::getCartesAccessibles() const{
+    Carte** cartes_accessibles = new Carte*[TAILLE_CARTE_EN_JEU];
+    for(int i =0; i< TAILLE_CARTE_EN_JEU; i++){
+        if (cartes_en_jeu[i]->est_accessible()){
+            cartes_accessibles[i] = cartes_en_jeu[i];
+        }
+    }
+    return cartes_accessibles;
+}
+
+Carte** PlateauCartes::getCartesVisibles() const{
+    Carte** cartes_visibles = new Carte*[TAILLE_CARTE_EN_JEU];
+    for(int i =0; i< TAILLE_CARTE_EN_JEU; i++){
+        if (cartes_en_jeu[i]->est_facevisible()){
+            cartes_visibles[i] = cartes_en_jeu[i];
+        }
+    }
+    return cartes_visibles;
+}
+
+void PlateauCartes::prendreCarte(Carte* carte){
+    for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
+        if (cartes_en_jeu[i] == carte){
+            cartes_en_jeu[i] = nullptr;
+        }
+    }
+}
+
+
+
+PlateauCartes::~PlateauCartes(){
+    delete[] cartes_en_jeu;
+    delete[] defausses;
+}
+

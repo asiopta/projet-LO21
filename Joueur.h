@@ -95,49 +95,12 @@ public:
     */
 };
 
-class PlateauCartes{
-private:
-    unsigned int age =1;
-    Carte* cartes_en_jeu[20]; 
-    Carte* defausses[60];
-
-public:
-/*
-    + addAge()
-    + estaccessible(Carte in listeCarte)
-    + estprise(Carte in listeCarte)
-    + estdefausse(Carte in listreCarte)
-    + getcartevisible()
-    + getcarteaccessibles()
-
-    + set_age(unsigned int)
-    + const rend_accessible(&Carte)
-    + const rend_face_visible(&Carte)
-    + prendre(&Carte)
-    + prendre(&Merveille)
-    + defausser(&Carte)
-    + const get_cartes_visibles() -> &Carte[]
-    + const get_cartes_accessibles() -> &Carte[]
-    + const nb_merveilles_restantes() -> unsigned int 
-    */
-
-   //constructuer
-
-   //destructeur
-   ~PlateauCartes();
-
-
-   //méthodes en lien avec construireCarte() de la classe Joueur
-   Carte* trouverCarteDansPlateau(Carte& carte); 
-   // retourne NULL si la carte n'est pas dans le tableau, et le pointeur sinon.
-   void enleverCarteDuPlateau(Carte* carte_plateau); //appelle trouverCarteDansPlateau()
-};
-
+//PlateauCarte est maintenant dans le fichier Plateau.h
 
 /**
-* ? jsp si il faut ajouter une autre classe Jeu (comme le td) ou pas?
-* ? je suis aussi pas sur de quand utiliser le singleton
-* * en tout cas, je crois qu'on a pas à utiliser un iterator en ce moment.
+* ? jsp si il faut ajouter une autre classe Jeu (comme le td) ou pas? //!je pense que non (en fait c'est controleur non ?)
+* ? je suis aussi pas sur de quand utiliser le singleton //!controleur
+* * en tout cas, je crois qu'on a pas à utiliser un iterator en ce moment. //!pas besoin d'iterator 
 */
 
 
