@@ -272,7 +272,7 @@ PlateauMilitaire::~PlateauMilitaire() {
 
 /*-------------------------------------PlateauCarte-------------------------------------*/
 
-PlateauCartes::PlateauCartes(unsigned int age, std::initializer_list<Carte*> cartes_jeu, std::initializer_list<Carte*> defaus) 
+PlateauCartes::PlateauCartes(unsigned int age, std::initializer_list<Carte*> cartes_jeu) 
 {
     if (age < 1 || age > 3) {
         throw("Constructeur de PlateauCarte : age invalide");
@@ -287,12 +287,9 @@ PlateauCartes::PlateauCartes(unsigned int age, std::initializer_list<Carte*> car
         cartes_en_jeu[i] = pt_carte;
         i++;
     }
-    i = 0;
-    for (Carte* pt_carte : defaus) {
-        defausses[i] = pt_carte;
-        i++;
+    for(int i=0; i<TAILLE_DEFAUSSES; i++){
+        defausses[i] = nullptr;
     }
-
 }
 
 void PlateauCartes::addAge(){
@@ -355,7 +352,15 @@ void PlateauCartes::prendreCarte(Carte* carte){
     }
 }
 
+void PlateauCartes::defausserCarte(Carte* carte){
+    for (int i = 0; i < TAILLE_DEFAUSSES; i++){
+        if (defausses[i] == nullptr){
+            defausses[i] = carte;
+            break;
+        }
+    }
 
+}
 
 PlateauCartes::~PlateauCartes(){
     delete[] cartes_en_jeu;

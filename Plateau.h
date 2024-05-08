@@ -128,17 +128,20 @@ private:
 
 public:
     PlateauCartes();
-    PlateauCartes(unsigned int age, std::initializer_list<Carte*> cartes_en_jeu, std::initializer_list<Carte*> defausses);
+    PlateauCartes(unsigned int age, std::initializer_list<Carte*> cartes_en_jeu);
     void addAge(); //modifie carte_en_jeu en tirant de nouvelles cartes en jeu d'age age
+    void prendreCarte(Carte* carte); //prend la carte si elle est accessible
+    void defausserCarte(Carte* carte); //defausse la carte si elle est accessible
+
     bool estEnJeu(Carte* carte) const; //verifie que la carte est dans carte_en_jeu
     bool estAccessible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est accessible
     bool estVisible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est visible
-    void prendreCarte(Carte* carte); //prend la carte si elle est accessible
-
     Carte** getCartesEnJeu() const{return cartes_en_jeu;}
     Carte** getDefausses() const{return defausses;}
     Carte** getCartesAccessibles() const; //renvoie un tableau de pointeurs de Carte accessibles
     Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
+
+
 
 
     /*
@@ -151,8 +154,6 @@ public:
     + prendre(&Carte)
     + prendre(&Merveille)
     + defausser(&Carte)
-    + const get_cartes_visibles() -> &Carte[]
-    + const get_cartes_accessibles() -> &Carte[]
     + const nb_merveilles_restantes() -> unsigned int 
     */
 
