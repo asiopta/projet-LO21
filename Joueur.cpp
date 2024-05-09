@@ -188,3 +188,4 @@ bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCo
 /*-------------------------------------PlateauCarte-------------------------------------*/
 
 
+""

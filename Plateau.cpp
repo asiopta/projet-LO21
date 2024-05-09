@@ -281,6 +281,7 @@ PlateauCartes::PlateauCartes(unsigned int age, std::initializer_list<Carte*> car
 
     Carte** cartes_en_jeu = new Carte*[TAILLE_CARTE_EN_JEU];
     Carte** defausses = new Carte*[TAILLE_DEFAUSSES];
+    Merveille** merveilles = new Merveille*[TAILLE_MERVEILLES];
 
     int i = 0;
     for (Carte* pt_carte : cartes_jeu) {
@@ -290,6 +291,9 @@ PlateauCartes::PlateauCartes(unsigned int age, std::initializer_list<Carte*> car
     for(int i=0; i<TAILLE_DEFAUSSES; i++){
         defausses[i] = nullptr;
     }
+    for(int i=0; i<TAILLE_MERVEILLES; i++){
+        merveilles[i] = nullptr;
+    }
 }
 
 void PlateauCartes::addAge(){
@@ -298,6 +302,15 @@ void PlateauCartes::addAge(){
     }
     else {
         throw("addAge : age maximal atteint");
+    }
+}
+
+void PlateauCartes::ajouterCarte(Carte* carte){
+    for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
+        if (cartes_en_jeu[i] == nullptr){
+            cartes_en_jeu[i] = carte;
+            break;
+        }
     }
 }
 
@@ -359,7 +372,25 @@ void PlateauCartes::defausserCarte(Carte* carte){
             break;
         }
     }
+}
 
+void PlateauCartes::prendreMerveille(Merveille* merveille){
+    for (int i = 0; i < TAILLE_MERVEILLES; i++){
+        if (merveilles[i] == merveille){
+            merveilles[i] = nullptr;
+            break;
+        }
+    }
+}
+
+unsigned int PlateauCartes::getNbMerveilles() const{
+    unsigned int compteur = 0;
+    for(int i = 0; i < TAILLE_MERVEILLES; i++){
+        if (merveilles[i] != nullptr){
+            compteur++;
+        }
+    }
+    return compteur;
 }
 
 PlateauCartes::~PlateauCartes(){

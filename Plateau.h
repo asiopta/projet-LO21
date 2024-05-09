@@ -6,6 +6,7 @@
 const unsigned int LargeurPlateauMilitaire = 9; //la largeur maxe du plateau militaire
 const unsigned int TAILLE_CARTE_EN_JEU = 20; //nombre de cartes en jeu
 const unsigned int TAILLE_DEFAUSSES = 60; //nombre de cartes defaussées
+const unsigned int TAILLE_MERVEILLES = 8; //nombre de merveilles
 
 
 enum class CapaciteScience{
@@ -124,14 +125,17 @@ class PlateauCartes{
 private:
     unsigned int age;
     Carte** cartes_en_jeu; //tableau dynamique de pointeurs de Carte
+    Merveille** merveilles; //tableau dynamique de pointeurs de Merveille
     Carte** defausses;
 
 public:
     PlateauCartes();
     PlateauCartes(unsigned int age, std::initializer_list<Carte*> cartes_en_jeu);
     void addAge(); //modifie carte_en_jeu en tirant de nouvelles cartes en jeu d'age age
+    void ajouterCarte(Carte* carte); //ajoute la carte dans carte_en_jeu
     void prendreCarte(Carte* carte); //prend la carte si elle est accessible
     void defausserCarte(Carte* carte); //defausse la carte si elle est accessible
+    void prendreMerveille(Merveille* merveille); //prend la merveille si elle est accessible
 
     bool estEnJeu(Carte* carte) const; //verifie que la carte est dans carte_en_jeu
     bool estAccessible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est accessible
@@ -140,34 +144,8 @@ public:
     unsigned int getAge() const{return age;} //renvoie l'age du plateau
     Carte** getCartesEnJeu() const{return cartes_en_jeu;}
     Carte** getDefausses() const{return defausses;}
-    
     Carte** getCartesAccessibles() const; //renvoie un tableau de pointeurs de Carte accessibles
     Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
-
-
-
-
-    /*
-    + estdefausse(Carte in listreCarte)
-    + getcartevisible()
-    + getcarteaccessibles()
-
-    + const rend_accessible(&Carte)
-    + const rend_face_visible(&Carte)
-    + prendre(&Carte)
-    + prendre(&Merveille)
-    + defausser(&Carte)
-    + const nb_merveilles_restantes() -> unsigned int 
-    */
-
-   //constructuer
-
-   //destructeur
+    unsigned int getNbMerveilles() const; //renvoie le nombre de merveilles restantes
    ~PlateauCartes();
-
-
-   //méthodes en lien avec construireCarte() de la classe Joueur
-   Carte* trouverCarteDansPlateau(Carte& carte); 
-   // retourne NULL si la carte n'est pas dans le tableau, et le pointeur sinon.
-   void enleverCarteDuPlateau(Carte* carte_plateau); //appelle trouverCarteDansPlateau()
 };
