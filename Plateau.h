@@ -136,8 +136,11 @@ public:
     bool estEnJeu(Carte* carte) const; //verifie que la carte est dans carte_en_jeu
     bool estAccessible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est accessible
     bool estVisible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est visible
+
+    unsigned int getAge() const{return age;} //renvoie l'age du plateau
     Carte** getCartesEnJeu() const{return cartes_en_jeu;}
     Carte** getDefausses() const{return defausses;}
+    
     Carte** getCartesAccessibles() const; //renvoie un tableau de pointeurs de Carte accessibles
     Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
 
