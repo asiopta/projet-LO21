@@ -114,6 +114,8 @@ private:
     PlateauMilitaire plateau_militaire;
     Joueur joueur1;
     Joueur joueur2;
+    int tour;
+    //! rajouter notion d'action sous forme de tuple
 
 public:
     /*
