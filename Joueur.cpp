@@ -179,6 +179,7 @@ unsigned int getCout(const Carte& carte){
 
 //méthodes de vérification
 bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCout() donc pas grave pour l'instant
+    //!rajouter les liens de chainage.....
     if(getCout(carte) < getMonnaie()) return true;
     return false;
 
@@ -186,6 +187,4 @@ bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCo
 
 
 /*-------------------------------------PlateauCarte-------------------------------------*/
-
-
-""
+ 
