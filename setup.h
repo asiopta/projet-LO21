@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include "Joueur.h"
-#include "Plateau.h"
 #include "Carte.h"
 
 
@@ -415,6 +414,18 @@ JetonMalus jetonMalus1(5, 6, &joueur2);
 JetonMalus jetonMalus1(2, 3, &joueur1);
 JetonMalus jetonMalus1(5, 6, &joueur2);
 
+
+const int NB_CARTES_AGE_1 = 23;
+const int NB_CARTES_AGE_2 = 23;
+const int NB_CARTES_AGE_3 = 23;
+const int NB_MERVEILLES = 10;
+const int NB_GUILDES = 7;
+
+Carte* LISTE_CARTES_AGE_1 = new Carte[NB_CARTES_AGE_1];
+Carte* LISTE_CARTES_AGE_2 = new Carte[NB_CARTES_AGE_2];
+Carte* LISTE_CARTES_AGE_3 = new Carte[NB_CARTES_AGE_3];
+Carte* LISTE_MERVEILLES = new Carte[NB_MERVEILLES];
+Carte* LISTE_GUILDES = new Carte[NB_GUILDES];
 
 
 

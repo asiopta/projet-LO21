@@ -2,9 +2,10 @@
 #include <iostream>
 #include <string>
 #include "Joueur.h"
+#include "setup.h"
 
 const unsigned int LargeurPlateauMilitaire = 9; //la largeur maxe du plateau militaire
-const unsigned int TAILLE_CARTE_EN_JEU = 20; //nombre de cartes en jeu
+const unsigned int TAILLE_CARTE_EN_JEU = 21; //nombre de cartes en jeu
 const unsigned int TAILLE_DEFAUSSES = 60; //nombre de cartes defaussées
 const unsigned int TAILLE_MERVEILLES = 8; //nombre de merveilles
 
@@ -136,6 +137,8 @@ public:
     void prendreCarte(Carte* carte); //prend la carte si elle est accessible
     void defausserCarte(Carte* carte); //defausse la carte si elle est accessible
     void prendreMerveille(Merveille* merveille); //prend la merveille si elle est accessible
+    void tirerCarteRandom(); // tire les cartes pour l'age donné /!\ supprime les cartes déjà présente dans cartes_en_jeu
+    //prend en compte l'age du plateau
 
     bool estEnJeu(Carte* carte) const; //verifie que la carte est dans carte_en_jeu
     bool estAccessible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est accessible

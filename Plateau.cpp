@@ -3,6 +3,7 @@
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <unordered_set>
 
 
 /*-------------------------------------JetonScience-------------------------------------*/
@@ -392,9 +393,46 @@ unsigned int PlateauCartes::getNbMerveilles() const{
     }
     return compteur;
 }
+void PlateauCartes::tirerCarteRandom(){
+    std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
+    std::mt19937 gen(rd());
+    if (age == 1){
+        std::shuffle(LISTE_CARTES_AGE_1, LISTE_CARTES_AGE_1 + NB_CARTES_AGE_1, gen); //mélange d'une liste de cartes 
+        for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
+            cartes_en_jeu[i] = (Carte*)&LISTE_CARTES_AGE_1[i]; //ajout des TAILLE_CARTE_EN_JEU premières cartes de la liste mélangée
+        }
+    }
+    else if (age == 2){ //pareil pour les cartes de l'age 2
+        std::shuffle(LISTE_CARTES_AGE_2, LISTE_CARTES_AGE_2 + NB_CARTES_AGE_2, gen);
+        for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
+            cartes_en_jeu[i] = (Carte*)&LISTE_CARTES_AGE_2[i];
+        }
+    }
+    else {
+        std::shuffle(LISTE_CARTES_AGE_3, LISTE_CARTES_AGE_3 + NB_CARTES_AGE_3, gen); //mélange des cartes de l'age 3
+        std::random_device rd; 
+        std::mt19937 gen(rd());
+        std::shuffle(LISTE_GUILDES,LISTE_GUILDES+NB_GUILDES, gen); //melange de la liste de guilde
+        
+        for (int i = 0; i < TAILLE_CARTE_EN_JEU-4; i++){ //ajout des 17 cartes age 3
+            cartes_en_jeu[i] = (Carte*)&LISTE_CARTES_AGE_3[i];
+        }
+        for (int i = TAILLE_CARTE_EN_JEU-4; i < TAILLE_CARTE_EN_JEU-1; i++){ //ajout des 3 cartes guildes
+            cartes_en_jeu[i] = (Carte*)&LISTE_GUILDES[i];
+        }
+        //melanger les cartes en jeu pour obtenir une liste de cartes avec des positions aléatoires
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::shuffle(cartes_en_jeu, cartes_en_jeu + TAILLE_CARTE_EN_JEU, gen);
+    }
+}
+
+
+
 
 PlateauCartes::~PlateauCartes(){
     delete[] cartes_en_jeu;
     delete[] defausses;
 }
+
 
