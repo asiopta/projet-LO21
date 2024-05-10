@@ -15,46 +15,117 @@ private:
 	std::string info;
 };
 
+/*
+bool effet_maconnerie
+
+bool effet_urbanisme
+
+bool effet_stragegie
+
+bool effet_mathematique
+
+bool effet_theologie
+*/
 
 
 
 class Joueur{
+/*
+//TODO: terminer classe CapaciteJetons/ rajouter attribut nbJetons
+//TODO: terminer classe SymboleScience
+//TODO: rajouter attribut pour les merveilles non construites
+//TODO: essayer de faire une fonction addEffetX()
+*je l'ai nommé addCapaciteJeton()
+TODO: changer constructeurs/ destructeurs
+TODO: changer getteurs/setteurs
+TODO: fonction getNbCarte(std::string type)
+
+TODO: changer la fonction estConstructible()
+TODO: termine getCout()
+TODO: changer la fonction construireCarte()
+TODO: penser à comment rejouer/ maybe attribut bool rejouer;
+*/
 private:
     Carte* cartes_construite[60]; //diviser en sous tableaux pr cartes marrons/grises construites?? //je pense que c'est mieux de les laisser comme ça
     Merveille* merveille_construite[4];
-    JetonScience* jetons_science[6];
-    SymboleScience* symboles_science[6]; //techniquement, il y a 7 symboles différents. mais, si on a 6, la game est finie.
+    Merveille* Merveille_non_construite[4];
+    unsigned int nb_jetons;
     unsigned int monnaie;
     unsigned int pt_victoire;
     class Ressource{
     public:
-        unsigned int bois = 0;
-        unsigned int pierre = 0;
-        unsigned int brique = 0;
-        unsigned int verre = 0;
-        unsigned int parchemin = 0;
+        unsigned int bois;
+        unsigned int pierre;
+        unsigned int brique;
+        unsigned int verre;
+        unsigned int parchemin;
         
-        Ressource() = default;
+        Ressource():bois(0), pierre(0), brique(0), verre(0), parchemin(0){};
         Ressource(const Ressource& r) = default;
         ~Ressource() = default;
-        void ajouterRessource(RessourcePrimaire rp);
-        void ajouterRessource(RessourceSecondaire rs);
-        void retirerRessource(RessourcePrimaire rp);
-        void retirerRessource(RessourceSecondaire rs);
-
     };
     Ressource ressources;
 
+    struct CapaciteJeton{
+        //attributs
+        bool architecture;
+        bool economie;
+        bool maconnerie;
+        bool mathematiques;
+        bool strategie;
+        bool theologie;
+        bool urbanisme;
+
+        /*
+        les capacites de ces jetons vont étre appelé potentiellement à chaque tour du joueur
+        les autres jetons ont un effet immédiat et donc pas besoin de les préciser ici
+        -pour le jeton agriculture, il suffit juste de rajouter 6 pièces et 4 ptVictoire qd on le construit
+        -pour le jeton loi, il suffit de rajouter 1 "autre" à l'attribut symboles_science
+        -jetons philo: rajouter 7 ptVictoire
+        *j'ai choisi d'appliquer l'effet des capacites immédiatesdans la méthode setCapacite()
+        *Donc, lorsque un jeton est construit, il suffit seulement d'appliquer setCapacite() est on est bon
+        * il reste à voir comment appliquer les capacités long-terme
+
+        !On peut utiliser cette meme classe pour rajouter potentiellement d'autres capacités à long terme qui ne sont pas liés au jetonsScience
+        */
+        //méthodes
+        CapaciteJeton(): architecture(false), economie(false), maconnerie(false), mathematiques(false), strategie(false),
+            theologie(false), urbanisme(false){};
+        CapaciteJeton(const CapaciteJeton& cap) = default;
+        ~CapaciteJeton() = default;
+
+
+    };
+    CapaciteJeton capacites;
+
+    struct SymbolesScience{
+        //attributs
+        unsigned int roue = 0;
+        unsigned int plume = 0;
+        unsigned int pilon = 0;
+        unsigned int balance = 0;
+        unsigned int globe_terrestre = 0;
+        unsigned int fil_a_plomb = 0;
+        unsigned int bateau = 0;
+        bool autre = false; //cet attribut sera converti en true si le jeton loi est construit
+        // on pourra donc compter un symboleScience de plus s'il est à true
+
+        //méthodes
+        SymbolesScience() = default;
+        SymbolesScience(const SymbolesScience& s) = default;
+        ~SymbolesScience() = default;
+    };
+    SymbolesScience symboles_science;
 
 public:
     //constructeurs
-    Joueur();
-    Joueur(const Joueur& j);
-    Joueur& operator=(const Joueur& j);
-    bool operator==(const Joueur& j);
+    Joueur(); // à refaire
+    Joueur(const Joueur& j); //à refaire
+    Joueur& operator=(const Joueur& j); //à refaire
+    bool operator==(const Joueur& j); // à refaire
 
     //destructeur
-    ~Joueur();
+    ~Joueur(); // à refaire
 
     /* ------les getteurs ----*/
     //getteur de monnaie et pt_victoire
@@ -63,18 +134,39 @@ public:
     //getteur de Nb de Cartes / jetons
     unsigned int getNbCartesConstruites() const;
     unsigned int getNbMerveillesConstruites()const;
-    unsigned int getNbJetonsScience() const;
-    unsigned int getNbSymbolesScience() const;
+    unsigned int getNbJetonsScience() const {return nb_jetons;};
+    SymbolesScience getSymbolesScience() const {return symboles_science;};
+    CapaciteJeton getCapacitesJetons() const {return capacites;};
     //getteur de ressources produites. par ex: 2 bois ou 3 verres
     unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const;
     unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ;
-    Ressource getRessources(){return ressources;}; //?est ce que c'est mieux de retourner Ressource ou Ressource& ou Ressource*?
+    Ressource* getRessources(){return &ressources;}; //?est ce que c'est mieux de retourner Ressource ou Ressource& ou Ressource*?
+    unsigned int getNbCarteType(TypeCarte type) const; // à terminer
 
     //setteurs
     void setMonnaie(unsigned int argent){ monnaie = argent; };
     void setPtVictoire(unsigned int p){ pt_victoire = p;};
     void addSymboleScience(SymboleScience symbole);
+    void setRessource(RessourcePrimaire rp, unsigned int quantite); //review
+    void setRessource(RessourceSecondaire rs, unsigned int quantite); //review
+    void addCapaciteJeton(CapaciteScience& jeton); //review
+
+    //méthodes de jetons
+    void construireJeton(CapaciteScience& jeton); //review
     
+    //méthodes de l'attribut symboles_science
+    unsigned int getNbSymbolesScience()const; //review
+    bool gagneScientifiquement() const {return getNbSymbolesScience() >= 6;};//review
+    void addSymboleScience(SymboleScience& s); //review
+    void removeSymboleScience(SymboleScience& s); // review
+    void choisirJeton(); // à faire //c'est une fonction qui choisit un jeton dans le plateau et le construit
+
+    //fonctions spécifiques à l'attribut ressources
+    void ajouterRessource(RessourcePrimaire rp);
+    void ajouterRessource(RessourceSecondaire rs);
+    void retirerRessource(RessourcePrimaire rp);
+    void retirerRessource(RessourceSecondaire rs);
+
     //méthodes d'update
     void gagnerArgent(int argent);
     void gagnerPtVictoire(unsigned int p);
@@ -87,6 +179,8 @@ public:
     void construireCarte(Carte& carte, PlateauCartes& p); //à faire
     //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
     void choisir_action(PlateauCartes& p); // à faire plus tard
+
+    
 
 
 /*

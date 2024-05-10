@@ -10,6 +10,16 @@ const unsigned int Taille_prod_primaire = 3;
 const unsigned int Taille_prod_secondaire = 2;
 const unsigned int Taille_capacite = 3;
 
+enum class TypeCarte{
+    CarteRessourcePrimaire,
+    CarteRessourceSecondaire,
+    CarteCommerce,
+    CarteGuilde,
+    CarteMilitaire,
+    CartePrestige, 
+    CarteScience
+};
+
 enum class RessourcePrimaire {
     none,
     pierre,
@@ -146,6 +156,12 @@ public:
     void set_production(RessourcePrimaire r); //def in cpp
     // les cartes marron ne peuvent étre construites qu'avec la monnaie
     std::string get_type() const {return "CarteRessourcePrimaire";};
+    // std::string get_type() const override {return "CarteRessourcePrimaire";};
+    /*
+    j'ai rajouté une nouvelle classe enumération
+    !essaye de changer la forme de getType sous la forme suivante dorénavant
+    TypeCarte get_type() const override {return TypeCarte::CarteRessourcePrimaire;};
+    */
     //destructeur
     virtual ~CarteRessourcePrimaire();
 };
