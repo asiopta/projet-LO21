@@ -393,6 +393,18 @@ unsigned int PlateauCartes::getNbMerveilles() const{
     }
     return compteur;
 }
+
+void PlateauCartes::tirerMerveilleRandom(){
+    std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
+    std::mt19937 gen(rd());
+    std::shuffle(LISTE_MERVEILLES, LISTE_MERVEILLES + NB_MERVEILLES, gen); //mélange de la liste de merveilles
+    for (int i = 0; i < TAILLE_MERVEILLES; i++){
+        merveilles[i] = (Merveille*)&LISTE_MERVEILLES[i]; //ajout des TAILLE_MERVEILLES premières merveilles de la liste mélangée
+    }
+}
+
+
+
 void PlateauCartes::tirerCarteRandom(){
     std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
     std::mt19937 gen(rd());

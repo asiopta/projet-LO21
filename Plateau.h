@@ -138,6 +138,7 @@ public:
     void defausserCarte(Carte* carte); //defausse la carte si elle est accessible
     void prendreMerveille(Merveille* merveille); //prend la merveille si elle est accessible
     void tirerCarteRandom(); // tire les cartes pour l'age donné /!\ supprime les cartes déjà présente dans cartes_en_jeu
+    void tirerMerveilleRandom(); // tire les merveilles pour l'age donné /!\ supprime les merveilles déjà présente dans merveilles
     //prend en compte l'age du plateau
 
     bool estEnJeu(Carte* carte) const; //verifie que la carte est dans carte_en_jeu
