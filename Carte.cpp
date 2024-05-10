@@ -1,6 +1,7 @@
 
 #include "Carte.h"
 #include "Joueur.h"
+#include "Plateau.h"
 /*-------------------------------------Enumerations-------------------------------------*/
 
 std::ostream& operator<<(std::ostream& f, const RessourcePrimaire& r){
@@ -85,7 +86,6 @@ std::ostream& operator<<(std::ostream& f, const Capacite& capacite) {
         case Capacite::detruire_carte_marron: f << "Détruire une carte marron"; break;
         case Capacite::detruire_carte_grise: f << "Détruire une carte grise"; break;
         case Capacite::jouer_carte_defausse: f << "Jouer une carte de la défausse"; break;
-        case Capacite::gagner_monnaie: f << "Gagner de la monnaie"; break;
         case Capacite::avancee_militaire: f << "Avancée militaire"; break;
         case Capacite::choisir_jeton_science: f << "Choisir un jeton science"; break;
         case Capacite::ajouter_symbole_science: f << "Ajouter un symbole science"; break;
@@ -459,6 +459,8 @@ CarteMilitaire::CarteMilitaire(const CarteMilitaire& c)
         capacite = c.capacite;
 }
 
+
+
 /*--------------------------------------------------------------------------*/
 
 
@@ -492,12 +494,12 @@ void CarteGuilde::exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const{
     }
 }
 
+
 void exec_guilde_armateurs(Joueur& joueur1, Joueur& joueur2){
     //le joueur1 recoit un nombre de pièce équivalent au nombre de cartes marron et gris dans la cité qui en possède le plus grand nombre
     unsigned int nbcartej1 =  joueur1.getNbCartes("RessourcePrimaire")+joueur1.getNbCartes("RessourcePrimaire");
     unsigned int nbcartej2 = joueur2.getNbCartes("RessourcePrimaire")+joueur2.getNbCartes("RessourcePrimaire");
     joueur1.gagnerArgent(std::max(nbcartej1,nbcartej2));
-
     //! jsp encore comment ajouter des points de victoire en plus 
 }
 
@@ -622,3 +624,35 @@ Merveille::~Merveille(){
 }
 
 /*--------------------------------------------------------------------------*/
+
+/*-------------------------------------Exec_capacite-------------------------------------*/
+
+
+void exec_gagner_monnaie_3(Joueur& joueur){
+    joueur.gagnerArgent(3);
+}
+void exec_gagner_monnaie_4(Joueur& joueur){
+    joueur.gagnerArgent(4);
+}
+void exec_gagner_monnaie_6(Joueur& joueur){
+    joueur.gagnerArgent(6);
+}
+void exec_gagner_monnaie_12(Joueur& joueur){
+    joueur.gagnerArgent(12);
+}
+void exec_gagner_monnaie_carte_marron(Joueur& joueur){
+    joueur.gagnerArgent(joueur.getNbCartes("RessourcePrimaire"));
+}
+void exec_gagner_monnaie_carte_grise(Joueur& joueur){
+    joueur.gagnerArgent(joueur.getNbCartes("RessourceSecondaire"));
+}
+void exec_gagner_monnaie_carte_rouge(Joueur& joueur){
+    joueur.gagnerArgent(joueur.getNbCartes("Militaire"));
+}
+void exec_perdre_monnaie_3(Joueur& joueur_adverse){
+    joueur_adverse.perdreArgent(3);
+}
+void exec_avancee_militaire(Joueur& joueur, PlateauMilitaire plateau_militaire){
+    plateau_militaire.avancer(joueur);
+}
+

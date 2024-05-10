@@ -113,7 +113,7 @@ class PlateauMilitaire{
         Joueur& joueur_derriere;
     public:
         PlateauMilitaire(unsigned int a, Joueur& joueur_derr, JetonMalus* liste_jetons);
-        void update_avance(unsigned int a, Joueur& joueur_cible);
+        void update_avance(unsigned int a, Joueur& joueur_cible); //ajoute l'avancé militaire ajout en direction du joueur_cible
         void retirer_jeton_malus(JetonMalus& jeton);
         JetonMalus& jeton_malus_ici() const; //renvoie un jeton malus vide si il n'y en a pas, et le jeton malus sinon
         ~PlateauMilitaire();

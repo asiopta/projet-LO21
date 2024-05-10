@@ -75,7 +75,14 @@ enum class Capacite{
     detruire_carte_marron,
     detruire_carte_grise,
     jouer_carte_defausse,
-    gagner_monnaie,
+    gagner_monnaie_3,
+    gagner_monnaie_4,
+    gagner_monnaie_6,
+    gagner_monnaie_12,
+    gagner_monnaie_carte_marron,
+    gagner_monnaie_carte_grise,
+    gagner_monnaie_carte_rouge,
+    perdre_monnaie_3,
     avancee_militaire,
     choisir_jeton_science,
     ajouter_symbole_science
@@ -121,7 +128,7 @@ public:
     RessourcePrimaire* getMateriauxPrimaires()const {return materiaux_construction_primaires;}
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
 
-    // virtual std::string get_type() const = 0; //pas encore définie
+    virtual std::string get_type() const = 0; //pas encore définie
     //destructeur
     virtual ~Carte();
 };
@@ -193,7 +200,7 @@ public:
     void set_production_primaire(RessourcePrimaire* pt);
     void set_production_secondaire(RessourceSecondaire* pt);
 
-    // std::string get_type() const override {return "CarteCommerce";};
+    std::string get_type() const {return "Commerce";};
     //destructeur
     virtual ~CarteCommerce();
 
@@ -223,7 +230,7 @@ public:
     void set_symbole_science(SymboleScience s){symbole_science = s;}
 
 
-    // std::string get_type() const override {return "CarteScience";}
+    std::string get_type() const {return "Science";}
     //destructeur
     virtual ~CarteScience(){};
 
@@ -243,7 +250,7 @@ public:
     void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
 
-    // std::string get_type() const override {return "CartePrestige";}
+    std::string get_type() const {return "Prestige";}
     //destructeur
     virtual ~CartePrestige(){};
 };
@@ -261,18 +268,20 @@ public:
     CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire);
     CarteMilitaire(const CarteMilitaire& c);
 
-    Capacite get_capacite() const {return capacite;}
+    void exec_militaire(Joueur& joueur1, Joueur& joueur2, PlateauMilitaire plateau_militaire) const;
     unsigned int get_nb_symbole_militaire() const {return nb_symbole_militaire;}
     SymboleChainage get_symbole_chainage() const  {return symbole_chainage;}
 
     void set_nb_symbole_militaire(unsigned int nb){nb_symbole_militaire=nb;}
     void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
 
-    // std::string get_type() const override {return "CarteMilitaire";}
+    std::string get_type() const {return "Militaire";}
 
     //destructeur
     virtual ~CarteMilitaire(){};
 };
+
+
 
 
 class CarteGuilde : public Carte{
@@ -286,7 +295,7 @@ public:
     EffetGuilde get_effet_guilde(){return effet_guilde;}
     void set_effet_guilde(EffetGuilde& effet){effet_guilde = effet;};
     void exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const;
-    // std::string get_type() const override {return "CarteGuilde";};
+    std::string get_type() const {return "Guilde";};
 
     //destructeur
     virtual ~CarteGuilde(){};
@@ -307,7 +316,7 @@ public:
     Merveille(const Merveille& c);
     void addCapacite(Capacite c); 
 
-    // std::string get_type() const override {return "Merveille";};
+    std::string get_type() const {return "Merveille";};
 
     //destructeur
     virtual ~Merveille();
