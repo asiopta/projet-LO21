@@ -159,6 +159,15 @@ void Joueur::gagnerPtVictoire(unsigned int p){
     this->setPtVictoire(res);
 }
 
+void Joueur::addSymboleScience(SymboleScience symbole){
+    for(unsigned int i=0; i<6; i++){
+        if(symboles_science[i] == nullptr){
+            symboles_science[i] = &symbole;
+            break;
+        }
+    }
+}
+
 void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
     Carte* c = p.trouverCarteDansPlateau(carte);
     if((c != NULL) && estConstructible(carte)){

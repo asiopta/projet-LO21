@@ -4,6 +4,7 @@
 #include "Carte.h"
 #include "Plateau.h"
 
+const unsigned int NB_MERVEILLES_JOUEUR = 4;
 
 // classe pour gérer les exceptions
 class SetException {
@@ -72,6 +73,7 @@ public:
     //setteurs
     void setMonnaie(unsigned int argent){ monnaie = argent; };
     void setPtVictoire(unsigned int p){ pt_victoire = p;};
+    void addSymboleScience(SymboleScience symbole);
     
     //méthodes d'update
     void gagnerArgent(unsigned int argent);

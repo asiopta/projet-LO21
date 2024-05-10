@@ -305,6 +305,7 @@ public:
     Merveille();
     Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_victoire, unsigned int av_milit, std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
     Merveille(const Merveille& c);
+    void addCapacite(Capacite c); 
 
     // std::string get_type() const override {return "Merveille";};
 

@@ -537,6 +537,20 @@ Merveille::Merveille()
 
     }
 
+    void Merveille::addCapacite(Capacite c){
+        //ajoute une capacité si la capacité n'est pas déjà présente
+        for(int i=0; i<Taille_capacite; i++){
+            if (capacite[i] == Capacite::none){
+                capacite[i] = c;
+                break;
+            }
+            if(capacite[i] == c){
+                std::cout << "La capacité est déjà présente" << std::endl;
+                break;
+            }
+        }
+    }
+
     Merveille::~Merveille(){
         delete[] production_primaire;
         delete[] production_secondaire;
