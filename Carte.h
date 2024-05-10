@@ -145,7 +145,7 @@ public:
     RessourcePrimaire* get_production() const {return production;}
     void set_production(RessourcePrimaire r); //def in cpp
     // les cartes marron ne peuvent étre construites qu'avec la monnaie
-    // std::string get_type() const override {return "CarteRessourcePrimaire";};
+    std::string get_type() const {return "CarteRessourcePrimaire";};
     //destructeur
     virtual ~CarteRessourcePrimaire();
 };
@@ -162,7 +162,7 @@ public:
 
     //méthodes
     RessourceSecondaire get_production() const {return production;}
-    // std::string get_type() const override {return "CarteRessourceSecondaire";}
+    std::string get_type() const {return "CarteRessourceSecondaire";}
     void set_production(RessourceSecondaire r); //def in cpp
 
     //destructeur
@@ -200,6 +200,7 @@ public:
     void set_production_primaire(RessourcePrimaire* pt);
     void set_production_secondaire(RessourceSecondaire* pt);
 
+    void exec_capacite(Joueur& joueur1) const;
     std::string get_type() const {return "Commerce";};
     //destructeur
     virtual ~CarteCommerce();
@@ -229,7 +230,7 @@ public:
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
     void set_symbole_science(SymboleScience s){symbole_science = s;}
 
-
+    void exec_capacite(Joueur& joueur1) const; //
     std::string get_type() const {return "Science";}
     //destructeur
     virtual ~CarteScience(){};
@@ -268,14 +269,16 @@ public:
     CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire);
     CarteMilitaire(const CarteMilitaire& c);
 
-    void exec_militaire(Joueur& joueur1, Joueur& joueur2, PlateauMilitaire plateau_militaire) const;
     unsigned int get_nb_symbole_militaire() const {return nb_symbole_militaire;}
     SymboleChainage get_symbole_chainage() const  {return symbole_chainage;}
+
+    
 
     void set_nb_symbole_militaire(unsigned int nb){nb_symbole_militaire=nb;}
     void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
 
-    std::string get_type() const {return "Militaire";}
+    void exec_capacite(Joueur& joueur_adverse, PlateauMilitaire& plateau_militaire) const;
+    std::string get_type() const {return "Militaire";} 
 
     //destructeur
     virtual ~CarteMilitaire(){};
@@ -315,7 +318,8 @@ public:
     Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_victoire, unsigned int av_milit, std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
     Merveille(const Merveille& c);
     void addCapacite(Capacite c); 
-
+    
+    void exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes plateau_carte, PlateauMilitaire plateau_militaire, PlateauScience plateau_science) const;
     std::string get_type() const {return "Merveille";};
 
     //destructeur

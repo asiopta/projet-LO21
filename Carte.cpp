@@ -412,6 +412,10 @@ CarteScience::CarteScience(const CarteScience &c)
         capacite = Capacite::ajouter_symbole_science;
     }
 
+void CarteScience::exec_capacite(Joueur& joueur1) const{
+    joueur1.addSymboleScience(symbole_science);
+}
+
 /*--------------------------------------------------------------------------*/
 
 
@@ -459,6 +463,9 @@ CarteMilitaire::CarteMilitaire(const CarteMilitaire& c)
         capacite = c.capacite;
 }
 
+void CarteMilitaire::exec_capacite(Joueur& joueur_adverse, PlateauMilitaire& plateau_militaire) const{
+    plateau_militaire.update_avance(nb_symbole_militaire,joueur_adverse);
+}
 
 
 /*--------------------------------------------------------------------------*/
@@ -655,4 +662,6 @@ void exec_perdre_monnaie_3(Joueur& joueur_adverse){
 void exec_avancee_militaire(Joueur& joueur, PlateauMilitaire plateau_militaire){
     plateau_militaire.avancer(joueur);
 }
+
+
 
