@@ -76,7 +76,7 @@ public:
     void addSymboleScience(SymboleScience symbole);
     
     //méthodes d'update
-    void gagnerArgent(unsigned int argent);
+    void gagnerArgent(int argent);
     void gagnerPtVictoire(unsigned int p);
 
     //méthodes de vérification

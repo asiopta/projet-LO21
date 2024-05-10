@@ -147,9 +147,10 @@ unsigned int Joueur::getQuantiteDeRessourceSecondaire(const RessourceSecondaire&
 
 
 //d'autres méthodes utiles
-void Joueur::gagnerArgent(unsigned int argent){
+void Joueur::gagnerArgent(int argent){
     unsigned int res = this->getMonnaie();
     res += argent;
+    if (res < 0) res = 0;
     this->setMonnaie(res);
 }
 

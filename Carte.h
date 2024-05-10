@@ -70,22 +70,22 @@ enum class EffetGuilde{
 
 
 enum class Capacite{
-    none,
-    rejouer,
-    detruire_carte_marron,
-    detruire_carte_grise,
-    jouer_carte_defausse,
-    gagner_monnaie_3,
-    gagner_monnaie_4,
-    gagner_monnaie_6,
-    gagner_monnaie_12,
-    gagner_monnaie_carte_marron,
-    gagner_monnaie_carte_grise,
-    gagner_monnaie_carte_rouge,
-    perdre_monnaie_3,
-    avancee_militaire,
-    choisir_jeton_science,
-    ajouter_symbole_science
+    none, //pas de capacité
+    rejouer, //reservé à Merveille
+    detruire_carte_marron, //reservé à Merveille
+    detruire_carte_grise, //reservé à Merveille
+    jouer_carte_defausse, //reservé à Merveille
+    gagner_monnaie_3, //reservé à Merveille
+    gagner_monnaie_4, //reserve à CarteCommerce
+    gagner_monnaie_6, //reservé à CarteCommerce et Merveille
+    gagner_monnaie_12, //reservé à Merveille
+    gagner_monnaie_carte_marron, //reservé à CarteCommerce
+    gagner_monnaie_carte_grise, //reservé à CarteCommerce
+    gagner_monnaie_carte_rouge, //reservé à CarteCommerce
+    perdre_monnaie_3, //reservé à Merveille
+    avancee_militaire, //pour Merveille et CarteMilitaire
+    choisir_jeton_science, //pour Merveille
+    ajouter_symbole_science //pour CarteScience
 };
 
 
@@ -319,7 +319,18 @@ public:
     Merveille(const Merveille& c);
     void addCapacite(Capacite c); 
     
-    void exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes plateau_carte, PlateauMilitaire plateau_militaire, PlateauScience plateau_science) const;
+    void exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes& plateau_carte, PlateauMilitaire& plateau_militaire, PlateauScience& plateau_science) const;
+    void exec_rejouer(Joueur& joueur1) const;
+    void exec_detruire_carte_marron(Joueur& joueur1, Joueur& joueur2) const;
+    void exec_detruire_carte_grise(Joueur& joueur1, Joueur& joueur2) const;
+    void exec_jouer_carte_defausse(Joueur& joueur1, PlateauCartes& plateau_carte) const;
+    void exec_gagner_monnaie_12(Joueur& joueur1) const;
+    void exec_gagner_monnaie_3(Joueur& joueur1) const;
+    void exec_gagner_monnaie_6(Joueur& joueur1) const;
+    void exec_perdre_monnaie_3(Joueur& joueur1) const;
+    void exec_avancee_militaire(Joueur& joueur1, PlateauMilitaire& plateau_militaire) const;
+    void exec_choisir_jeton_science(Joueur& joueur1, PlateauScience& plateau_science) const;
+
     std::string get_type() const {return "Merveille";};
 
     //destructeur
