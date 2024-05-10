@@ -693,36 +693,7 @@ Merveille::~Merveille(){
 
 /*--------------------------------------------------------------------------*/
 
-/*-------------------------------------Exec_capacite-------------------------------------*/
 
-
-void exec_gagner_monnaie_3(Joueur& joueur){
-    joueur.gagnerArgent(3);
-}
-void exec_gagner_monnaie_4(Joueur& joueur){
-    joueur.gagnerArgent(4);
-}
-void exec_gagner_monnaie_6(Joueur& joueur){
-    joueur.gagnerArgent(6);
-}
-void exec_gagner_monnaie_12(Joueur& joueur){
-    joueur.gagnerArgent(12);
-}
-void exec_gagner_monnaie_carte_marron(Joueur& joueur){
-    joueur.gagnerArgent(joueur.getNbCartes("RessourcePrimaire"));
-}
-void exec_gagner_monnaie_carte_grise(Joueur& joueur){
-    joueur.gagnerArgent(joueur.getNbCartes("RessourceSecondaire"));
-}
-void exec_gagner_monnaie_carte_rouge(Joueur& joueur){
-    joueur.gagnerArgent(joueur.getNbCartes("Militaire"));
-}
-void exec_perdre_monnaie_3(Joueur& joueur_adverse){
-    joueur_adverse.perdreArgent(3);
-}
-void exec_avancee_militaire(Joueur& joueur, PlateauMilitaire plateau_militaire){
-    plateau_militaire.avancer(joueur);
-}
 
 
 
