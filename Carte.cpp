@@ -1,5 +1,6 @@
 
 #include "Carte.h"
+#include "Joueur.h"
 /*-------------------------------------Enumerations-------------------------------------*/
 
 std::ostream& operator<<(std::ostream& f, const RessourcePrimaire& r){
@@ -476,6 +477,29 @@ CarteGuilde::CarteGuilde(const CarteGuilde& c)
     effet_guilde = c.effet_guilde;
 }
 
+void CarteGuilde::exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const{
+    switch (effet_guilde) {
+        case EffetGuilde::guilde_armateurs: exec_guilde_armateurs(joueur1, joueur2); break;
+        case EffetGuilde::guilde_batisseurs: exec_guilde_batisseurs(joueur1, joueur2); break;
+        case EffetGuilde::guilde_commercants: exec_guilde_commerce(joueur1, joueur2); break;
+        case EffetGuilde::guilde_scientifiques: exec_guilde_scientifiques(joueur1, joueur2); break;
+        case EffetGuilde::guilde_tacticiens: exec_guilde_tacticiens(joueur1, joueur2); break;
+        case EffetGuilde::guilde_magistrats: exec_guilde_magistrats(joueur1, joueur2); break;
+        case EffetGuilde::guilde_usuriers: exec_guilde_usuriers(joueur1, joueur2); break;
+
+        default:
+            std::cout << "Erreur";
+    }
+}
+
+void exec_guilde_armateurs(Joueur& joueur1, Joueur& joueur2){}
+void exec_guilde_batisseurs(Joueur& joueur1, Joueur& joueur2){}
+void exec_guilde_commerce(Joueur& joueur1, Joueur& joueur2){}
+void exec_guilde_scientifiques(Joueur& joueur1, Joueur& joueur2){}
+void exec_guilde_tacticiens(Joueur& joueur1, Joueur& joueur2){}
+void exec_guilde_magistrats(Joueur& joueur1, Joueur& joueur2){}
+void exec_guilde_usuriers(Joueur& joueur1, Joueur& joueur2){}
+
 
 /*--------------------------------------------------------------------------*/
 
@@ -522,59 +546,39 @@ Merveille::Merveille()
         pt_victoire = pt_vict;
         avance_militaire = av_milit;
     }
-    Merveille::Merveille(const Merveille& c)
+Merveille::Merveille(const Merveille& c)
     :Carte(c){
-        production_primaire = new RessourcePrimaire[Taille_prod_primaire];
-        production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
-        capacite = new Capacite[Taille_capacite];
+    production_primaire = new RessourcePrimaire[Taille_prod_primaire];
+    production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
+    capacite = new Capacite[Taille_capacite];
 
-        for(int i=0; i<Taille_prod_primaire; i++){production_primaire[i] = c.production_primaire[i];}
-        for(int i=0; i<Taille_cout_secondaire; i++){production_secondaire[i] = c.production_secondaire[i];}
-        for(int i=0; i<Taille_capacite; i++){capacite[i] = c.capacite[i];}
+    for(int i=0; i<Taille_prod_primaire; i++){production_primaire[i] = c.production_primaire[i];}
+    for(int i=0; i<Taille_cout_secondaire; i++){production_secondaire[i] = c.production_secondaire[i];}
+    for(int i=0; i<Taille_capacite; i++){capacite[i] = c.capacite[i];}
 
-        pt_victoire = c.pt_victoire;
-        avance_militaire = c.avance_militaire;
+    pt_victoire = c.pt_victoire;
+    avance_militaire = c.avance_militaire;
 
-    }
+}
 
-    void Merveille::addCapacite(Capacite c){
-        //ajoute une capacité si la capacité n'est pas déjà présente
-        for(int i=0; i<Taille_capacite; i++){
-            if (capacite[i] == Capacite::none){
-                capacite[i] = c;
-                break;
-            }
-            if(capacite[i] == c){
-                std::cout << "La capacité est déjà présente" << std::endl;
-                break;
-            }
+void Merveille::addCapacite(Capacite c){
+    //ajoute une capacité si la capacité n'est pas déjà présente
+    for(int i=0; i<Taille_capacite; i++){
+        if (capacite[i] == Capacite::none){
+            capacite[i] = c;
+            break;
+        }
+        if(capacite[i] == c){
+            std::cout << "La capacité est déjà présente" << std::endl;
+            break;
         }
     }
+}
 
-    Merveille::~Merveille(){
-        delete[] production_primaire;
-        delete[] production_secondaire;
-        delete[] capacite;
-    }
+Merveille::~Merveille(){
+    delete[] production_primaire;
+    delete[] production_secondaire;
+    delete[] capacite;
+}
 
-
-
-// void exec_capacite(Carte& carte, PlateauMilitaire& plateau_militaire, PlateauScience& plateau_science, PlateauCarte& plateau_carte, Joueur& joueur){
-//     std::string type_carte = carte.get_type();
-
-//     if (type_carte == "Merveille"){
-
-//     }
-//     if (type_carte == "CarteScience"){
-
-//     }
-//     if (type_carte == "CarteMilitaire"){
-//         int militaire = carte.get_nb_symbole_militaire();
-
-
-
-//     }
-//     if (type_carte == "CarteCommerce"){
-
-//     }
-// }
+/*--------------------------------------------------------------------------*/

@@ -284,8 +284,8 @@ public:
     CarteGuilde(const CarteGuilde& c);
 
     EffetGuilde get_effet_guilde(){return effet_guilde;}
-    void set_effet_guilde(EffetGuilde& effet){effet_guilde = effet;}
-    //void applique_effet_guilde(Joueur& joueur1, Joueur& joueur2);//fonction et arguement a définir plus tard
+    void set_effet_guilde(EffetGuilde& effet){effet_guilde = effet;};
+    void exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const;
     // std::string get_type() const override {return "CarteGuilde";};
 
     //destructeur
