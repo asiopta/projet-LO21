@@ -25,6 +25,7 @@
 
 // age 1
 
+
 CarteRessourcePrimaire chantier = CarteRessourcePrimaire("Chantier", 1, 0, {RessourcePrimaire::bois, 
 RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, false, false, 0);
@@ -413,3 +414,7 @@ JetonMalus jetonMalus1(2, 3, &joueur1);
 JetonMalus jetonMalus1(5, 6, &joueur2);
 JetonMalus jetonMalus1(2, 3, &joueur1);
 JetonMalus jetonMalus1(5, 6, &joueur2);
+
+
+
+
