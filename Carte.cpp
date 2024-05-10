@@ -492,13 +492,53 @@ void CarteGuilde::exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const{
     }
 }
 
-void exec_guilde_armateurs(Joueur& joueur1, Joueur& joueur2){}
-void exec_guilde_batisseurs(Joueur& joueur1, Joueur& joueur2){}
-void exec_guilde_commerce(Joueur& joueur1, Joueur& joueur2){}
-void exec_guilde_scientifiques(Joueur& joueur1, Joueur& joueur2){}
-void exec_guilde_tacticiens(Joueur& joueur1, Joueur& joueur2){}
-void exec_guilde_magistrats(Joueur& joueur1, Joueur& joueur2){}
-void exec_guilde_usuriers(Joueur& joueur1, Joueur& joueur2){}
+void exec_guilde_armateurs(Joueur& joueur1, Joueur& joueur2){
+    //le joueur1 recoit un nombre de pièce équivalent au nombre de cartes marron et gris dans la cité qui en possède le plus grand nombre
+    unsigned int nbcartej1 =  joueur1.getNbCartes("RessourcePrimaire")+joueur1.getNbCartes("RessourcePrimaire");
+    unsigned int nbcartej2 = joueur2.getNbCartes("RessourcePrimaire")+joueur2.getNbCartes("RessourcePrimaire");
+    joueur1.gagnerArgent(std::max(nbcartej1,nbcartej2));
+
+    //! jsp encore comment ajouter des points de victoire en plus 
+}
+
+
+void exec_guilde_batisseurs(Joueur& joueur1, Joueur& joueur2){
+    //fin de la partie, le joueur1 recoit 2 points de victoire par carte merveille possédé par le joueur qui en a le plus
+
+}
+
+void exec_guilde_commerce(Joueur& joueur1, Joueur& joueur2){
+    unsigned int nbcartej1 =  joueur1.getNbCartes("Commerce");
+    unsigned int nbcartej2 = joueur2.getNbCartes("Commerce");
+    joueur1.gagnerArgent(std::max(nbcartej1,nbcartej2));
+
+    //! jsp encore comment ajouter des points de victoire en plus 
+}
+void exec_guilde_scientifiques(Joueur& joueur1, Joueur& joueur2){
+    unsigned int nbcartej1 =  joueur1.getNbCartes("Science");
+    unsigned int nbcartej2 = joueur2.getNbCartes("Science");
+    joueur1.gagnerArgent(std::max(nbcartej1,nbcartej2));
+
+    //! jsp encore comment ajouter des points de victoire en plus 
+}
+void exec_guilde_tacticiens(Joueur& joueur1, Joueur& joueur2){
+        unsigned int nbcartej1 =  joueur1.getNbCartes("Militaire");
+    unsigned int nbcartej2 = joueur2.getNbCartes("Militaire");
+    joueur1.gagnerArgent(std::max(nbcartej1,nbcartej2));
+
+    //! jsp encore comment ajouter des points de victoire en plus 
+}
+void exec_guilde_magistrats(Joueur& joueur1, Joueur& joueur2){
+        unsigned int nbcartej1 =  joueur1.getNbCartes("Presige");
+    unsigned int nbcartej2 = joueur2.getNbCartes("Presige");
+    joueur1.gagnerArgent(std::max(nbcartej1,nbcartej2));
+
+    //! jsp encore comment ajouter des points de victoire en plus 
+}
+void exec_guilde_usuriers(Joueur& joueur1, Joueur& joueur2){
+    // 1 point de victoire pour le joueur1 par lot de 3 pièces d'or possédé par le joueur le plus riche
+
+}
 
 
 /*--------------------------------------------------------------------------*/
