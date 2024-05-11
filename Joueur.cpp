@@ -179,6 +179,131 @@ void Joueur::removeSymboleScience(SymboleScience& s){
     }
 }
 
+/*------------classe SymbolesChainage----------------*/
+void Joueur::addSymboleChainage(SymboleChainage s) {
+    switch (s) {
+        case SymboleChainage::jarre: 
+            symboles_chainage.jarre = true; 
+            break;
+        case SymboleChainage::toneau:
+            symboles_chainage.toneau = true;
+            break;
+        case SymboleChainage::masque:
+            symboles_chainage.masque = true;
+            break;
+        case SymboleChainage::temple:
+            symboles_chainage.temple = true;
+            break;
+        case SymboleChainage::soleil:
+            symboles_chainage.soleil = true;
+            break;
+        case SymboleChainage::goute:
+            symboles_chainage.goute = true;
+            break;
+        case SymboleChainage::lune:
+            symboles_chainage.lune = true;
+            break;
+        case SymboleChainage::pilier:
+            symboles_chainage.pilier = true;
+            break;
+        case SymboleChainage::cible:
+            symboles_chainage.cible = true;
+            break;
+        case SymboleChainage::casque:
+            symboles_chainage.casque = true;
+            break;
+        case SymboleChainage::fer_a_cheval:
+            symboles_chainage.fer_a_cheval = true;
+            break;
+        case SymboleChainage::epee:
+            symboles_chainage.epee = true;
+            break;
+        case SymboleChainage::tour:
+            symboles_chainage.tour = true;
+            break;
+        case SymboleChainage::lyre:
+            symboles_chainage.lyre = true;
+            break;
+        case SymboleChainage::engrenage:
+            symboles_chainage.engrenage = true;
+            break;
+        case SymboleChainage::livre:
+            symboles_chainage.livre = true;
+            break;
+        case SymboleChainage::lampe:
+            symboles_chainage.lampe = true;
+            break;
+        case SymboleChainage::none:
+            break;
+        default:
+            SetException("erreur: symbole chainage n'existe pas");
+            break;
+    }
+}
+
+void Joueur::removeSymboleChainage(SymboleChainage s) {
+    switch (s) {
+        case SymboleChainage::jarre: 
+            symboles_chainage.jarre = false; 
+            break;
+        case SymboleChainage::toneau:
+            symboles_chainage.toneau = false;
+            break;
+        case SymboleChainage::masque:
+            symboles_chainage.masque = false;
+            break;
+        case SymboleChainage::temple:
+            symboles_chainage.temple = false;
+            break;
+        case SymboleChainage::soleil:
+            symboles_chainage.soleil = false;
+            break;
+        case SymboleChainage::goute:
+            symboles_chainage.goute = false;
+            break;
+        case SymboleChainage::lune:
+            symboles_chainage.lune = false;
+            break;
+        case SymboleChainage::pilier:
+            symboles_chainage.pilier = false;
+            break;
+        case SymboleChainage::cible:
+            symboles_chainage.cible = false;
+            break;
+        case SymboleChainage::casque:
+            symboles_chainage.casque = false;
+            break;
+        case SymboleChainage::fer_a_cheval:
+            symboles_chainage.fer_a_cheval = false;
+            break;
+        case SymboleChainage::epee:
+            symboles_chainage.epee = false;
+            break;
+        case SymboleChainage::tour:
+            symboles_chainage.tour = false;
+            break;
+        case SymboleChainage::lyre:
+            symboles_chainage.lyre = false;
+            break;
+        case SymboleChainage::engrenage:
+            symboles_chainage.engrenage = false;
+            break;
+        case SymboleChainage::livre:
+            symboles_chainage.livre = false;
+            break;
+        case SymboleChainage::lampe:
+            symboles_chainage.lampe = false;
+            break;
+        case SymboleChainage::none:
+            break;
+        default:
+            SetException("erreur: symbole chainage n'existe pas");
+            break;
+    }
+}
+
+
+
 /*------------------classe Joueur----------------------*/
 //constructeurs
 Joueur::Joueur(): pt_victoire(0), monnaie(7), ressources() {
@@ -234,23 +359,6 @@ unsigned int Joueur::getNbMerveillesConstruites() const {
         i++;
     }
     return i;
-}
-
-unsigned int Joueur::getNbJetonsScience()const{
-    
-}
-
-
-unsigned int Joueur::getNbCarteType(TypeCarte type) const{
-    switch (type)
-    {
-    case TypeCarte::CarteRessourcePrimaire:
-
-        break;
-    
-    default:
-        break;
-    }
 }
 
 TypeCarte hashit(std::string const& type){
@@ -356,15 +464,6 @@ void Joueur::gagnerPtVictoire(unsigned int p){
     this->setPtVictoire(res);
 }
 
-void Joueur::addSymboleScience(SymboleScience symbole){
-    for(unsigned int i=0; i<6; i++){
-        if(symboles_science[i] == nullptr){
-            symboles_science[i] = &symbole;
-            break;
-        }
-    }
-}
-
 void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
     Carte* c = p.trouverCarteDansPlateau(carte);
     if((c != NULL) && estConstructible(carte)){
@@ -372,6 +471,7 @@ void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
         p.enleverCarteDuPlateau(c);
         unsigned int nb = getNbCartesConstruites();
         cartes_construite[nb] = &carte;
+        //addSymboleChainage(carte);
     }
     else{
         SetException("Impossible de construire la carte!");

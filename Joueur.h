@@ -37,7 +37,7 @@ class Joueur{
 //TODO: essayer de faire une fonction addEffetX()
     *je l'ai nommé addCapaciteJeton()
 //TODO: fonction getNbCarte(std::string type)
-
+//TODO: rajouter notion de symboles de chainage
 TODO: changer constructeurs/ destructeurs
 TODO: changer getteurs/setteurs
 TODO: changer la fonction estConstructible()
@@ -117,6 +117,34 @@ private:
     };
     SymbolesScience symboles_science;
 
+    struct SymbolesChainage{
+        //attributs
+        bool jarre = false;
+        bool toneau = false;
+        bool masque = false;
+        bool temple = false;
+        bool soleil = false;
+        bool goute = false;
+        bool lune = false;
+        bool pilier = false;
+        bool cible = false;
+        bool casque = false;
+        bool fer_a_cheval = false;
+        bool epee = false;
+        bool tour = false;
+        bool lyre = false;
+        bool engrenage = false;
+        bool livre = false;
+        bool lampe = false;
+
+        //méthodes
+        SymbolesChainage() = default;
+        SymbolesChainage(const SymbolesChainage& s) = default;
+        ~SymbolesChainage() = default;
+
+    };
+    SymbolesChainage symboles_chainage;
+
 public:
     //constructeurs
     Joueur(); // à refaire
@@ -141,13 +169,11 @@ public:
     unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const;
     unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ;
     Ressource* getRessources(){return &ressources;}; //?est ce que c'est mieux de retourner Ressource ou Ressource& ou Ressource*?
-    unsigned int getNbCarteType(TypeCarte type) const; // à terminer
-    unsigned int getNbCarteType(std::string type) const; // à terminer
+    unsigned int getNbCarteType(std::string type) const; // review
 
     //setteurs
     void setMonnaie(unsigned int argent){ monnaie = argent; };
     void setPtVictoire(unsigned int p){ pt_victoire = p;};
-    void addSymboleScience(SymboleScience symbole);
     void setRessource(RessourcePrimaire rp, unsigned int quantite); //review
     void setRessource(RessourceSecondaire rs, unsigned int quantite); //review
     void addCapaciteJeton(CapaciteScience& jeton); //review
@@ -167,6 +193,11 @@ public:
     void ajouterRessource(RessourceSecondaire rs);
     void retirerRessource(RessourcePrimaire rp);
     void retirerRessource(RessourceSecondaire rs);
+
+    //méthodes spécifiques à l'attribut symboles_chainage
+    void addSymboleChainage(SymboleChainage s); //à faire
+    // à appeler à chaque fois qu'on construit une carte si son symbole != none 
+    void removeSymboleChainage(SymboleChainage s); // à faire
 
     //méthodes d'update
     void gagnerArgent(int argent);
@@ -241,4 +272,4 @@ public:
 * 
 */
 
-TypeCarte hashit(std::string const& type);
+TypeCarte hashit(std::string const& type); //fonction qui facilite faire switch cases avec types de cartes
