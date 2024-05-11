@@ -180,6 +180,68 @@ void Joueur::removeSymboleScience(SymboleScience& s){
 }
 
 /*------------classe SymbolesChainage----------------*/
+void Joueur::setSymboleChainage(SymboleChainage s, bool var) {
+    switch (s) {
+        case SymboleChainage::jarre: 
+            symboles_chainage.jarre = var; 
+            break;
+        case SymboleChainage::toneau:
+            symboles_chainage.toneau = var;
+            break;
+        case SymboleChainage::masque:
+            symboles_chainage.masque = var;
+            break;
+        case SymboleChainage::temple:
+            symboles_chainage.temple = var;
+            break;
+        case SymboleChainage::soleil:
+            symboles_chainage.soleil = var;
+            break;
+        case SymboleChainage::goute:
+            symboles_chainage.goute = var;
+            break;
+        case SymboleChainage::lune:
+            symboles_chainage.lune = var;
+            break;
+        case SymboleChainage::pilier:
+            symboles_chainage.pilier = var;
+            break;
+        case SymboleChainage::cible:
+            symboles_chainage.cible = var;
+            break;
+        case SymboleChainage::casque:
+            symboles_chainage.casque = var;
+            break;
+        case SymboleChainage::fer_a_cheval:
+            symboles_chainage.fer_a_cheval = var;
+            break;
+        case SymboleChainage::epee:
+            symboles_chainage.epee = var;
+            break;
+        case SymboleChainage::tour:
+            symboles_chainage.tour = var;
+            break;
+        case SymboleChainage::lyre:
+            symboles_chainage.lyre = var;
+            break;
+        case SymboleChainage::engrenage:
+            symboles_chainage.engrenage = var;
+            break;
+        case SymboleChainage::livre:
+            symboles_chainage.livre = var;
+            break;
+        case SymboleChainage::lampe:
+            symboles_chainage.lampe = var;
+            break;
+        case SymboleChainage::none:
+            break;
+        default:
+            SetException("erreur: Symbole de chainage non existant");
+            break;
+    }
+}
+
+
 void Joueur::addSymboleChainage(SymboleChainage s) {
     switch (s) {
         case SymboleChainage::jarre: 
@@ -356,6 +418,14 @@ unsigned int Joueur::getNbCartesConstruites() const{
 unsigned int Joueur::getNbMerveillesConstruites() const {
     unsigned int i = 0;
     while(i<4 && merveille_construite[i]!= NULL){
+        i++;
+    }
+    return i;
+}
+
+unsigned int Joueur::getNbMerveillesNonConstruites()const{
+    unsigned int i = 0;
+    while(i<4 && merveille_non_construite[i]!= NULL){
         i++;
     }
     return i;

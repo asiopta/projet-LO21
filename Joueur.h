@@ -38,17 +38,18 @@ class Joueur{
     *je l'ai nommé addCapaciteJeton()
 //TODO: fonction getNbCarte(std::string type)
 //TODO: rajouter notion de symboles de chainage
-TODO: changer constructeurs/ destructeurs
-TODO: changer getteurs/setteurs
-TODO: changer la fonction estConstructible()
-TODO: termine getCout()
-TODO: changer la fonction construireCarte()
+//TODO: changer getteurs/setteurs;
+
+TODO: changer constructeurs/ destructeurs;
+TODO: changer la fonction estConstructible();
+TODO: termine getCout();
+TODO: changer la fonction construireCarte();
 TODO: penser à comment rejouer/ maybe attribut bool rejouer;
 */
 private:
-    Carte* cartes_construite[60]; //diviser en sous tableaux pr cartes marrons/grises construites?? //je pense que c'est mieux de les laisser comme ça
+    Carte* cartes_construite[60];
     Merveille* merveille_construite[4];
-    Merveille* Merveille_non_construite[4];
+    Merveille* merveille_non_construite[4];
     unsigned int nb_jetons;
     unsigned int monnaie;
     unsigned int pt_victoire;
@@ -157,23 +158,26 @@ public:
 
     /* ------les getteurs ----*/
     //getteur de monnaie et pt_victoire
-    unsigned int getMonnaie() const { return monnaie; };
-    unsigned int getPtVictoire()const { return pt_victoire; };
+    unsigned int getMonnaie() const { return monnaie; }; //ok
+    unsigned int getPtVictoire()const { return pt_victoire; }; //ok
     //getteur de Nb de Cartes / jetons
-    unsigned int getNbCartesConstruites() const;
-    unsigned int getNbMerveillesConstruites()const;
-    unsigned int getNbJetonsScience() const {return nb_jetons;};
-    SymbolesScience getSymbolesScience() const {return symboles_science;};
-    CapaciteJeton getCapacitesJetons() const {return capacites;};
-    //getteur de ressources produites. par ex: 2 bois ou 3 verres
-    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const;
-    unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ;
-    Ressource* getRessources(){return &ressources;}; //?est ce que c'est mieux de retourner Ressource ou Ressource& ou Ressource*?
+    unsigned int getNbCartesConstruites() const; //ok
+    unsigned int getNbMerveillesConstruites()const; //ok
+    unsigned int getNbMerveillesNonConstruites()const; //ok
+    unsigned int getNbJetonsScience() const {return nb_jetons;}; //ok
+    SymbolesScience getSymbolesScience() const {return symboles_science;}; //ok
+    CapaciteJeton getCapacitesJetons() const {return capacites;}; //ok
+    SymbolesChainage getSymbolesChainage() const {return symboles_chainage;}; //ok
     unsigned int getNbCarteType(std::string type) const; // review
+    //getteurs de ressources produites. par ex: 2 bois ou 3 verres
+    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const; //ok
+    unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ; //ok
+    Ressource* getRessources(){return &ressources;}; //review
+
 
     //setteurs
-    void setMonnaie(unsigned int argent){ monnaie = argent; };
-    void setPtVictoire(unsigned int p){ pt_victoire = p;};
+    void setMonnaie(unsigned int argent){ monnaie = argent; }; //ok
+    void setPtVictoire(unsigned int p){ pt_victoire = p;}; //ok
     void setRessource(RessourcePrimaire rp, unsigned int quantite); //review
     void setRessource(RessourceSecondaire rs, unsigned int quantite); //review
     void addCapaciteJeton(CapaciteScience& jeton); //review
@@ -186,25 +190,29 @@ public:
     bool gagneScientifiquement() const {return getNbSymbolesScience() >= 6;};//review
     void addSymboleScience(SymboleScience& s); //review
     void removeSymboleScience(SymboleScience& s); // review
-    void choisirJeton(); // à faire //c'est une fonction qui choisit un jeton dans le plateau et le construit
+    void choisirJeton(); // à faire 
+    //c'est une fonction qui choisit un jeton dans le plateau et le construit
 
     //fonctions spécifiques à l'attribut ressources
-    void ajouterRessource(RessourcePrimaire rp);
-    void ajouterRessource(RessourceSecondaire rs);
-    void retirerRessource(RessourcePrimaire rp);
-    void retirerRessource(RessourceSecondaire rs);
+    void ajouterRessource(RessourcePrimaire rp); //ok
+    void ajouterRessource(RessourceSecondaire rs); //ok
+    void retirerRessource(RessourcePrimaire rp); //ok
+    void retirerRessource(RessourceSecondaire rs); //ok
 
     //méthodes spécifiques à l'attribut symboles_chainage
-    void addSymboleChainage(SymboleChainage s); //à faire
-    // à appeler à chaque fois qu'on construit une carte si son symbole != none 
-    void removeSymboleChainage(SymboleChainage s); // à faire
+    void setSymboleChainage(SymboleChainage s, bool var); //review
+    void addSymboleChainage(SymboleChainage s); // review
+        // à appeler à chaque fois qu'on construit une carte
+    void removeSymboleChainage(SymboleChainage s); // review
+        //à appeler à chaque fois qu'on supprime une des cartes construites par le joueur
 
     //méthodes d'update
-    void gagnerArgent(int argent);
-    void gagnerPtVictoire(unsigned int p);
+    void gagnerArgent(int argent); //ok
+    void gagnerPtVictoire(unsigned int p); //ok
 
     //méthodes de vérification
-    bool estConstructible(const Carte& carte) const; //! en gros est ce qu'on a les ressources necessaires pour construire la carte
+    bool estConstructible(const Carte& carte) const; // à refaire
+    //! en gros est ce qu'on a les ressources necessaires pour construire la carte
 
     //autres fonctions importantes
     unsigned int getCout(const Carte& carte); //à faire bientot
