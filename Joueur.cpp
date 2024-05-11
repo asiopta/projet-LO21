@@ -432,16 +432,16 @@ unsigned int Joueur::getNbMerveillesNonConstruites()const{
 }
 
 TypeCarte hashit(std::string const& type){
-    if(type=="CarteRessourcePrimaire") return TypeCarte::CarteRessourcePrimaire;
-    if(type=="CarteRessourceSecondaire") return TypeCarte::CarteRessourceSecondaire;
-    if(type=="CarteCarteCommerce") return TypeCarte::CarteCommerce;
-    if(type=="CarteGuilde") return TypeCarte::CarteGuilde;
-    if(type=="CarteMilitaire") return TypeCarte::CarteMilitaire;
-    if(type=="CartePrestige") return TypeCarte::CartePrestige;
-    if(type=="CarteScience") return TypeCarte::CarteScience;
+    if(type=="RessourcePrimaire") return TypeCarte::CarteRessourcePrimaire;
+    if(type=="RessourceSecondaire") return TypeCarte::CarteRessourceSecondaire;
+    if(type=="Commerce") return TypeCarte::CarteCommerce;
+    if(type=="Guilde") return TypeCarte::CarteGuilde;
+    if(type=="Militaire") return TypeCarte::CarteMilitaire;
+    if(type=="Prestige") return TypeCarte::CartePrestige;
+    if(type=="Science") return TypeCarte::CarteScience;
  }
 
-unsigned int Joueur::getNbCarteType(std::string type) const {
+unsigned int Joueur::getNbCartesType(std::string type) const {
     switch (hashit(type)) {
         case TypeCarte::CarteRessourcePrimaire:
         {

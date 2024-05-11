@@ -44,7 +44,9 @@ TODO: changer constructeurs/ destructeurs;
 TODO: changer la fonction estConstructible();
 TODO: termine getCout();
 TODO: changer la fonction construireCarte();
+TODO: méthode addCarte() qui construit une carte gratuitement
 TODO: penser à comment rejouer/ maybe attribut bool rejouer;
+
 */
 private:
     Carte* cartes_construite[60];
@@ -168,7 +170,7 @@ public:
     SymbolesScience getSymbolesScience() const {return symboles_science;}; //ok
     CapaciteJeton getCapacitesJetons() const {return capacites;}; //ok
     SymbolesChainage getSymbolesChainage() const {return symboles_chainage;}; //ok
-    unsigned int getNbCarteType(std::string type) const; // review
+    unsigned int getNbCartesType(std::string type) const; // review
     //getteurs de ressources produites. par ex: 2 bois ou 3 verres
     unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const; //ok
     unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ; //ok
