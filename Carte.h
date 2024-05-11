@@ -17,7 +17,8 @@ enum class TypeCarte{
     CarteGuilde,
     CarteMilitaire,
     CartePrestige, 
-    CarteScience
+    CarteScience,
+    Merveille
 };
 
 enum class RessourcePrimaire {
@@ -138,7 +139,7 @@ public:
     RessourcePrimaire* getMateriauxPrimaires()const {return materiaux_construction_primaires;}
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
 
-    virtual std::string get_type() const = 0; //pas encore définie
+    virtual TypeCarte get_type() const = 0; //pas encore définie
     virtual SymboleChainage getSymboleChainageEntre() const {return SymboleChainage::none;}
     virtual SymboleChainage getSymboleChainageSortie() const {return SymboleChainage::none;}
     /*
@@ -162,13 +163,7 @@ public:
     RessourcePrimaire* get_production() const {return production;}
     void set_production(RessourcePrimaire r); //def in cpp
     // les cartes marron ne peuvent étre construites qu'avec la monnaie
-    std::string get_type() const {return "CarteRessourcePrimaire";};
-    // std::string get_type() const override {return "CarteRessourcePrimaire";};
-    /*
-    j'ai rajouté une nouvelle classe enumération
-    !essaye de changer la forme de getType sous la forme suivante dorénavant
     TypeCarte get_type() const override {return TypeCarte::CarteRessourcePrimaire;};
-    */
     //destructeur
     virtual ~CarteRessourcePrimaire();
 };
@@ -185,7 +180,8 @@ public:
 
     //méthodes
     RessourceSecondaire get_production() const {return production;}
-    std::string get_type() const {return "CarteRessourceSecondaire";}
+        TypeCarte get_type() const override {return TypeCarte::CarteRessourceSecondaire;};
+
     void set_production(RessourceSecondaire r); //def in cpp
 
     //destructeur
@@ -225,7 +221,8 @@ public:
     void set_production_secondaire(RessourceSecondaire* pt);
 
     void exec_capacite(Joueur& joueur1) const;
-    std::string get_type() const {return "Commerce";};
+    TypeCarte get_type() const override {return TypeCarte::CarteCommerce;};
+
     //destructeur
     virtual ~CarteCommerce();
 
@@ -258,7 +255,7 @@ public:
     void set_symbole_science(SymboleScience s){symbole_science = s;}
 
     void exec_capacite(Joueur& joueur1) const; //
-    std::string get_type() const {return "Science";}
+    TypeCarte get_type() const override {return TypeCarte::CarteScience;};
     //destructeur
     virtual ~CarteScience(){};
 
@@ -279,7 +276,7 @@ public:
     SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
 
-    std::string get_type() const {return "Prestige";}
+    TypeCarte get_type() const override {return TypeCarte::CartePrestige;};
     //destructeur
     virtual ~CartePrestige(){};
 };
@@ -308,7 +305,7 @@ public:
 
 
     void exec_capacite(Joueur& joueur_adverse, PlateauMilitaire& plateau_militaire) const;
-    std::string get_type() const {return "Militaire";} 
+    TypeCarte get_type() const override {return TypeCarte::CarteMilitaire;}; 
 
     //destructeur
     virtual ~CarteMilitaire(){};
@@ -328,7 +325,7 @@ public:
     EffetGuilde get_effet_guilde(){return effet_guilde;}
     void set_effet_guilde(EffetGuilde& effet){effet_guilde = effet;};
     void exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const;
-    std::string get_type() const {return "Guilde";};
+    TypeCarte get_type() const override {return TypeCarte::CarteGuilde;}; 
 
     //destructeur
     virtual ~CarteGuilde(){};
@@ -361,7 +358,7 @@ public:
     void exec_avancee_militaire(Joueur& joueur1, PlateauMilitaire& plateau_militaire) const;
     void exec_choisir_jeton_science(Joueur& joueur1, PlateauScience& plateau_science) const;
 
-    std::string get_type() const {return "Merveille";};
+    TypeCarte get_type() const override {return TypeCarte::Merveille;}; 
 
     //destructeur
     virtual ~Merveille();
