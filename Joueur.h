@@ -39,13 +39,13 @@ class Joueur{
 //TODO: fonction getNbCarte(std::string type)
 //TODO: rajouter notion de symboles de chainage
 //TODO: changer getteurs/setteurs;
-
+TODO: penser à comment rejouer/ maybe attribut bool rejouer;
 TODO: changer constructeurs/ destructeurs;
 TODO: changer la fonction estConstructible();
 TODO: termine getCout();
 TODO: changer la fonction construireCarte();
 TODO: méthode addCarte() qui construit une carte gratuitement
-TODO: penser à comment rejouer/ maybe attribut bool rejouer;
+
 
 */
 private:
@@ -170,7 +170,7 @@ public:
     SymbolesScience getSymbolesScience() const {return symboles_science;}; //ok
     CapaciteJeton getCapacitesJetons() const {return capacites;}; //ok
     SymbolesChainage getSymbolesChainage() const {return symboles_chainage;}; //ok
-    unsigned int getNbCartesType(std::string type) const; // review
+    unsigned int getNbCartesType(TypeCarte& type) const; // review
     //getteurs de ressources produites. par ex: 2 bois ou 3 verres
     unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const; //ok
     unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ; //ok
@@ -207,6 +207,7 @@ public:
         // à appeler à chaque fois qu'on construit une carte
     void removeSymboleChainage(SymboleChainage s); // review
         //à appeler à chaque fois qu'on supprime une des cartes construites par le joueur
+    bool possedeSymboleChainage(SymboleChainage s) const;
 
     //méthodes d'update
     void gagnerArgent(int argent); //ok
@@ -281,5 +282,3 @@ public:
 // action est un tuple (carte, défausser/construire)
 * 
 */
-
-TypeCarte hashit(std::string const& type); //fonction qui facilite faire switch cases avec types de cartes

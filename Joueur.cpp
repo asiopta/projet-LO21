@@ -364,6 +364,47 @@ void Joueur::removeSymboleChainage(SymboleChainage s) {
     }
 }
 
+bool Joueur::possedeSymboleChainage(SymboleChainage s) const {
+    switch (s) {
+        case SymboleChainage::jarre: 
+            return symboles_chainage.jarre;
+        case SymboleChainage::toneau:
+            return symboles_chainage.toneau;
+        case SymboleChainage::masque:
+            return symboles_chainage.masque;
+        case SymboleChainage::temple:
+            return symboles_chainage.temple;
+        case SymboleChainage::soleil:
+            return symboles_chainage.soleil;
+        case SymboleChainage::goute:
+            return symboles_chainage.goute;
+        case SymboleChainage::lune:
+            return symboles_chainage.lune;
+        case SymboleChainage::pilier:
+            return symboles_chainage.pilier;
+        case SymboleChainage::cible:
+            return symboles_chainage.cible;
+        case SymboleChainage::casque:
+            return symboles_chainage.casque;
+        case SymboleChainage::fer_a_cheval:
+            return symboles_chainage.fer_a_cheval;
+        case SymboleChainage::epee:
+            return symboles_chainage.epee;
+        case SymboleChainage::tour:
+            return symboles_chainage.tour;
+        case SymboleChainage::lyre:
+            return symboles_chainage.lyre;
+        case SymboleChainage::engrenage:
+            return symboles_chainage.engrenage;
+        case SymboleChainage::livre:
+            return symboles_chainage.livre;
+        case SymboleChainage::lampe:
+            return symboles_chainage.lampe;
+        default:
+            SetException("erreur: symbole chainage n'existe pas");
+            return false; // Handle invalid case
+    }
+}
 
 
 /*------------------classe Joueur----------------------*/
@@ -431,23 +472,13 @@ unsigned int Joueur::getNbMerveillesNonConstruites()const{
     return i;
 }
 
-TypeCarte hashit(std::string const& type){
-    if(type=="RessourcePrimaire") return TypeCarte::CarteRessourcePrimaire;
-    if(type=="RessourceSecondaire") return TypeCarte::CarteRessourceSecondaire;
-    if(type=="Commerce") return TypeCarte::CarteCommerce;
-    if(type=="Guilde") return TypeCarte::CarteGuilde;
-    if(type=="Militaire") return TypeCarte::CarteMilitaire;
-    if(type=="Prestige") return TypeCarte::CartePrestige;
-    if(type=="Science") return TypeCarte::CarteScience;
- }
-
-unsigned int Joueur::getNbCartesType(std::string type) const {
-    switch (hashit(type)) {
+unsigned int Joueur::getNbCartesType(TypeCarte& type) const {
+    switch (type) {
         case TypeCarte::CarteRessourcePrimaire:
         {
             unsigned int res = 0;
             for (int i = 0; i < 60; ++i) {
-                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteRessourcePrimaire") {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == TypeCarte::CarteRessourcePrimaire) {
                     res++;
                 }
             }
@@ -457,7 +488,7 @@ unsigned int Joueur::getNbCartesType(std::string type) const {
         {
             unsigned int res = 0;
             for (int i = 0; i < 60; ++i) {
-                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteRessourceSecondaire") {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == TypeCarte::CarteRessourceSecondaire) {
                     res++;
                 }
             }
@@ -467,7 +498,7 @@ unsigned int Joueur::getNbCartesType(std::string type) const {
         {
             unsigned int res = 0;
             for (int i = 0; i < 60; ++i) {
-                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteCommerce") {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() ==TypeCarte::CarteCommerce) {
                     res++;
                 }
             }
@@ -477,7 +508,7 @@ unsigned int Joueur::getNbCartesType(std::string type) const {
         {
             unsigned int res = 0;
             for (int i = 0; i < 60; ++i) {
-                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteGuilde") {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() ==TypeCarte::CarteGuilde) {
                     res++;
                 }
             }
@@ -487,7 +518,7 @@ unsigned int Joueur::getNbCartesType(std::string type) const {
         {
             unsigned int res = 0;
             for (int i = 0; i < 60; ++i) {
-                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteMilitaire") {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == TypeCarte::CarteMilitaire) {
                     res++;
                 }
             }
@@ -497,7 +528,7 @@ unsigned int Joueur::getNbCartesType(std::string type) const {
         {
             unsigned int res = 0;
             for (int i = 0; i < 60; ++i) {
-                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CartePrestige") {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == TypeCarte::CartePrestige) {
                     res++;
                 }
             }
@@ -507,7 +538,7 @@ unsigned int Joueur::getNbCartesType(std::string type) const {
         {
             unsigned int res = 0;
             for (int i = 0; i < 60; ++i) {
-                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteScience") {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == TypeCarte::CarteScience) {
                     res++;
                 }
             }
@@ -556,8 +587,9 @@ unsigned int getCout(const Carte& carte){
 //méthodes de vérification
 bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCout() donc pas grave pour l'instant
     //!rajouter les liens de chainage.....
-    if(getCout(carte) < getMonnaie()) return true;
-    return false;
+    SymboleChainage lien_chainage = carte.getSymboleChainageEntre();
+    if(getCout(carte) < getMonnaie() || possedeSymboleChainage(lien_chainage)) return true;
+    else return false;
 
 }
 
