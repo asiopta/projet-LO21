@@ -2,6 +2,8 @@
 #include "Carte.h"
 #include <string.h>
 #include <string>
+#include <vector>
+#include <iostream>
 
 
 /*--------------------classe Ressource--------------*/
@@ -113,7 +115,7 @@ unsigned int Joueur::getNbSymbolesScience()const{
     return res;
 }
 
-void Joueur::addSymboleScience(SymboleScience& s){
+void Joueur::addSymboleScience(const SymboleScience s){
     switch (s)
     {
     case SymboleScience::roue: 
@@ -471,9 +473,18 @@ unsigned int Joueur::getNbMerveillesNonConstruites()const{
     }
     return i;
 }
+TypeCarte hashit(std::string const& type){
+    if(type=="RessourcePrimaire") return TypeCarte::CarteRessourcePrimaire;
+    if(type=="RessourceSecondaire") return TypeCarte::CarteRessourceSecondaire;
+    if(type=="Commerce") return TypeCarte::CarteCommerce;
+    if(type=="Guilde") return TypeCarte::CarteGuilde;
+    if(type=="Militaire") return TypeCarte::CarteMilitaire;
+    if(type=="Prestige") return TypeCarte::CartePrestige;
+    if(type=="Science") return TypeCarte::CarteScience;
+ }
 
-unsigned int Joueur::getNbCartesType(TypeCarte& type) const {
-    switch (type) {
+unsigned int Joueur::getNbCartesType(std::string type) const {
+    switch (hashit(type)) {
         case TypeCarte::CarteRessourcePrimaire:
         {
             unsigned int res = 0;
@@ -564,6 +575,27 @@ void Joueur::gagnerPtVictoire(unsigned int p){
     res += p;
     this->setPtVictoire(res);
 }
+
+//méthodes qui permettent de rajouter une carte
+void Joueur::updateRessourcesCarte(Carte *carte){ //!jsp prq j'ai un erreur ici
+    for(int i =0; i<Taille_cout_primaire; i++){
+        if(carte->getMateriauxPrimaires()[i] != nullptr) ajouterRessource(carte->getMateriauxPrimaires()[i]);
+    }
+
+    for(){
+        int quant = carte->getQuantiteDeRessourceSecondaire(e, carte->getMateriauxSecondaires());
+        ajouterRessource(e, quant);
+    }
+
+
+}
+
+void Joueur::updatePtVictoireCarte(Carte* carte){
+
+}
+
+
+
 
 void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
     Carte* c = p.trouverCarteDansPlateau(carte);

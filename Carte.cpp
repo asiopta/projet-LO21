@@ -421,7 +421,7 @@ CarteScience::CarteScience(const CarteScience &c)
     }
 
 void CarteScience::exec_capacite(Joueur& joueur1) const{
-    joueur1.addSymboleScience(symbole_science); //! error 
+    joueur1.addSymboleScience(symbole_science); //error résolu
 }
 
 /*--------------------------------------------------------------------------*/
@@ -519,8 +519,8 @@ void CarteGuilde::exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const{
 
 void exec_guilde_armateurs(Joueur& joueur1, Joueur& joueur2){
     //le joueur1 recoit un nombre de pièce équivalent au nombre de cartes marron et gris dans la cité qui en possède le plus grand nombre
-    unsigned int nbcartej1 =  joueur1.getNbCartesType("RessourcePrimaire")+joueur1.getNbCartesType("RessourcePrimaire");
-    unsigned int nbcartej2 = joueur2.getNbCartesType("RessourcePrimaire")+joueur2.getNbCartesType("RessourcePrimaire");
+    unsigned int nbcartej1 =  joueur1.getNbCartesType("RessourcePrimaire")+joueur1.getNbCartesType("RessourceSecondaire");// j'ai corrigé une erreur. t'avais mis RessourcePrimaire 2 fois
+    unsigned int nbcartej2 = joueur2.getNbCartesType("RessourcePrimaire")+joueur2.getNbCartesType("RessourceSecondaire");
     joueur1.gagnerArgent(std::max(nbcartej1,nbcartej2));
     //! jsp encore comment ajouter des points de victoire en plus 
     //utilise la méthode: joueur1.gagnerPtVictoire(x);
@@ -665,7 +665,8 @@ void Merveille::exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes& p
 }
 
 void Merveille::exec_rejouer(Joueur& joueur1) const{
-    joueur1.setRejouer(); //! setRejouer est une méthode qui met l'attribut rejouer à True
+    joueur1.setRejouerTrue(); //! setRejouer est une méthode qui met l'attribut rejouer à True
+    //* utiliser plutot setRejouerTrue() ou bien setRejouerFalse()
 }
 void Merveille::exec_detruire_carte_marron(Joueur& joueur1, Joueur& joueur2) const{
     //! en attente d'une définition pour cette Carte
@@ -683,6 +684,7 @@ void Merveille::exec_jouer_carte_defausse(Joueur& joueur1, PlateauCartes& platea
     for (unsigned int i = 0; i < TAILLE_DEFAUSSES; i++){ //parcourir la defaiuse pour verifier que la carte existe bien dans la defause
         if (&carte_choisit == carte_defausse[i]){ //si on a trouvé la carte, on la retire de la defausse et on l'ajoute au joueur
             joueur1.addCarte(carte_choisit); //!definir addCarte
+            //* je suis en train de faire, mais je me suis rendu qu'il ya pas mal de méthodes à rajouter pr le faire correctement
             plateau_carte.retirerCarteDefausse(&carte_choisit);
             break; //on a trouvé la carte donc pas besoin d'aller jusuq'au bout de la boucle
         }

@@ -142,11 +142,6 @@ public:
     virtual TypeCarte get_type() const = 0; //pas encore définie
     virtual SymboleChainage getSymboleChainageEntre() const {return SymboleChainage::none;}
     virtual SymboleChainage getSymboleChainageSortie() const {return SymboleChainage::none;}
-    /*
-    !c'est pt étre mieux de retourner TypeCarte au lieu de string.
-    !On peut pas utiliser string dans des switch()
-    ! mais si tu préfère ne pas changer, je peux créer une fonction de hashage
-    */
     //destructeur
     virtual ~Carte();
 };

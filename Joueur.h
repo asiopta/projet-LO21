@@ -39,12 +39,15 @@ class Joueur{
 //TODO: fonction getNbCarte(std::string type)
 //TODO: rajouter notion de symboles de chainage
 //TODO: changer getteurs/setteurs;
-TODO: penser à comment rejouer/ maybe attribut bool rejouer;
+
+//TODO: changer la fonction estConstructible();
+//TODO: penser à comment rejouer/ maybe attribut bool rejouer;
+TODO: méthode addCarte() qui construit une carte gratuitement
+
 TODO: changer constructeurs/ destructeurs;
-TODO: changer la fonction estConstructible();
 TODO: termine getCout();
 TODO: changer la fonction construireCarte();
-TODO: méthode addCarte() qui construit une carte gratuitement
+
 
 
 */
@@ -55,6 +58,7 @@ private:
     unsigned int nb_jetons;
     unsigned int monnaie;
     unsigned int pt_victoire;
+    bool rejouer = false;
     class Ressource{
     public:
         unsigned int bois;
@@ -170,19 +174,24 @@ public:
     SymbolesScience getSymbolesScience() const {return symboles_science;}; //ok
     CapaciteJeton getCapacitesJetons() const {return capacites;}; //ok
     SymbolesChainage getSymbolesChainage() const {return symboles_chainage;}; //ok
-    unsigned int getNbCartesType(TypeCarte& type) const; // review
+    unsigned int getNbCartesType(std::string type) const; // review
     //getteurs de ressources produites. par ex: 2 bois ou 3 verres
     unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const; //ok
     unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ; //ok
     Ressource* getRessources(){return &ressources;}; //review
 
 
-    //setteurs
+    //setteurs générales
     void setMonnaie(unsigned int argent){ monnaie = argent; }; //ok
     void setPtVictoire(unsigned int p){ pt_victoire = p;}; //ok
     void setRessource(RessourcePrimaire rp, unsigned int quantite); //review
     void setRessource(RessourceSecondaire rs, unsigned int quantite); //review
     void addCapaciteJeton(CapaciteScience& jeton); //review
+    
+    //méthodes de l'attribut rejouer
+    void setRejouerTrue(){rejouer = true;}; //ok
+    void setRejouerFalse(){rejouer = false;}; //ok
+
 
     //méthodes de jetons
     void construireJeton(CapaciteScience& jeton); //review
@@ -190,12 +199,12 @@ public:
     //méthodes de l'attribut symboles_science
     unsigned int getNbSymbolesScience()const; //review
     bool gagneScientifiquement() const {return getNbSymbolesScience() >= 6;};//review
-    void addSymboleScience(SymboleScience& s); //review
+    void addSymboleScience(const SymboleScience s); //review
     void removeSymboleScience(SymboleScience& s); // review
     void choisirJeton(); // à faire 
     //c'est une fonction qui choisit un jeton dans le plateau et le construit
 
-    //fonctions spécifiques à l'attribut ressources
+    //méthodes spécifiques à l'attribut ressources
     void ajouterRessource(RessourcePrimaire rp); //ok
     void ajouterRessource(RessourceSecondaire rs); //ok
     void retirerRessource(RessourcePrimaire rp); //ok
@@ -214,8 +223,17 @@ public:
     void gagnerPtVictoire(unsigned int p); //ok
 
     //méthodes de vérification
-    bool estConstructible(const Carte& carte) const; // à refaire
+    bool estConstructible(const Carte& carte) const; // review
     //! en gros est ce qu'on a les ressources necessaires pour construire la carte
+
+
+    //méthodes qui permettent de rajouter une carte
+    void updateRessourcesCarte(Carte* carte); // à faire
+    void updatePtVictoireCarte(Carte* carte); //à faire
+    void updateSymbolesChainageCarte(Carte* carte); // à faire
+    void updateSymbolesScienceCarte(Carte* carte); //à faire
+    void addCarte(Carte* carte); // à faire
+
 
     //autres fonctions importantes
     unsigned int getCout(const Carte& carte); //à faire bientot
@@ -236,7 +254,7 @@ public:
 
 //PlateauCarte est maintenant dans le fichier Plateau.h
 
-/**
+/*
 * ? jsp si il faut ajouter une autre classe Jeu (comme le td) ou pas? //!je pense que non (en fait c'est controleur non ?)
 * ? je suis aussi pas sur de quand utiliser le singleton //!controleur
 * * en tout cas, je crois qu'on a pas à utiliser un iterator en ce moment. //!pas besoin d'iterator 
@@ -282,3 +300,8 @@ public:
 // action est un tuple (carte, défausser/construire)
 * 
 */
+
+
+
+
+TypeCarte hashit(std::string const& type);
