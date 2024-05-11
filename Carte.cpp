@@ -327,13 +327,14 @@ CarteCommerce::CarteCommerce()
     for(int i =0; i<Taille_cout_secondaire; i++){production_secondaire[i]=RessourceSecondaire::none;}
 
     capacite = Capacite::none;
-    symbole = SymboleChainage::none;
+    symbole_chainage_entre = SymboleChainage::none;
+    symbole_chainage_sortie = SymboleChainage::none;
     choix = false;
     contrepartie = false;
     pt_victoire = 0;
 }
 
-CarteCommerce::CarteCommerce(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, Capacite capa, SymboleChainage symb, bool ch, bool cont, unsigned int pt_vict,std::string n,unsigned int a, unsigned int cout,std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
+CarteCommerce::CarteCommerce(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, Capacite capa, SymboleChainage symb_entre,SymboleChainage symb_sortie, bool ch, bool cont, unsigned int pt_vict,std::string n,unsigned int a, unsigned int cout,std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
 :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
     production_primaire = new RessourcePrimaire[Taille_prod_primaire];
     production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
@@ -352,7 +353,9 @@ CarteCommerce::CarteCommerce(std::initializer_list<RessourcePrimaire> prod_prima
     }
 
     capacite = capa;
-    symbole = symb;
+    symbole_chainage_entre = symb_entre;
+    symbole_chainage_sortie = symb_sortie;
+
     choix = ch;
     contrepartie = cont;
     pt_victoire = pt_vict;
@@ -366,7 +369,8 @@ CarteCommerce::CarteCommerce(const CarteCommerce& c)
     for(int i =0; i<Taille_prod_secondaire; i++){production_secondaire[i]=c.production_secondaire[i];}
 
     capacite = c.capacite;
-    symbole = c.symbole;
+    symbole_chainage_entre = c.symbole_chainage_entre;
+    symbole_chainage_sortie = c.symbole_chainage_sortie;
     choix = c.choix;
     contrepartie = c.contrepartie;
     pt_victoire = c.pt_victoire;
@@ -390,14 +394,17 @@ CarteCommerce::~CarteCommerce(){
 /*-------------------------------------CarteScience-------------------------------------*/
 
 CarteScience::CarteScience() : Carte(){
-        symbole_chainage = SymboleChainage::none;
+        symbole_chainage_entre = SymboleChainage::none;
+        symbole_chainage_sortie = SymboleChainage::none;
         symbole_science = SymboleScience::balance;
         pt_victoire = 0;
         capacite = Capacite::ajouter_symbole_science;
     }
-CarteScience::CarteScience(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict)
+CarteScience::CarteScience(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, SymboleScience symb_science, unsigned int pt_vict)
     :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
-        symbole_chainage = symb_chain;
+        symbole_chainage_entre = symb_chain_entre;
+        symbole_chainage_sortie = symb_chain_sortie;
+
         symbole_science = symb_science;
         pt_victoire = pt_vict;
         capacite = Capacite::ajouter_symbole_science;
@@ -406,7 +413,8 @@ CarteScience::CarteScience(std::string n,unsigned int a, unsigned int cout, std:
     //constructeur de recopie
 CarteScience::CarteScience(const CarteScience &c)
     :Carte(c){
-        symbole_chainage = c.symbole_chainage;
+        symbole_chainage_entre = c.symbole_chainage_entre;
+        symbole_chainage_sortie = c.symbole_chainage_sortie;
         symbole_science = c.symbole_science;
         pt_victoire = c.pt_victoire;
         capacite = Capacite::ajouter_symbole_science;
@@ -423,18 +431,21 @@ void CarteScience::exec_capacite(Joueur& joueur1) const{
 
 CartePrestige::CartePrestige()
     :Carte(){
-        symbole_chainage = SymboleChainage::none;
+        symbole_chainage_entre = SymboleChainage::none;
+        symbole_chainage_sortie = SymboleChainage::none;
         pt_victoire = 0;
     }
-CartePrestige::CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int pt_vict)
+CartePrestige::CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict)
     :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
-        symbole_chainage=symb_chain;
+        symbole_chainage_entre=symb_chain_entre;
+        symbole_chainage_sortie=symb_chain_sortie;
         pt_victoire=pt_vict;
     }
 
 CartePrestige::CartePrestige(const CartePrestige& c)
     :Carte(c){
-        symbole_chainage=c.symbole_chainage;
+        symbole_chainage_entre=c.symbole_chainage_entre;
+        symbole_chainage_sortie=c.symbole_chainage_sortie;
         pt_victoire=c.pt_victoire;
     }
 
@@ -445,20 +456,24 @@ CartePrestige::CartePrestige(const CartePrestige& c)
 
 CarteMilitaire::CarteMilitaire()
     :Carte(){
-    symbole_chainage = SymboleChainage::none;
+    symbole_chainage_entre = SymboleChainage::none;
+    symbole_chainage_sortie = SymboleChainage::none;
+
     nb_symbole_militaire = 0;
     capacite = Capacite::avancee_militaire;
 }
-CarteMilitaire::CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire)
+CarteMilitaire::CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, unsigned int nb_militaire)
     :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
-    symbole_chainage=symb_chain;
+    symbole_chainage_entre=symb_chain_entre;
+    symbole_chainage_sortie=symb_chain_sortie;
     nb_symbole_militaire=nb_militaire;
     capacite = Capacite::avancee_militaire;
 }
 
 CarteMilitaire::CarteMilitaire(const CarteMilitaire& c)
     :Carte(c){
-        symbole_chainage=c.symbole_chainage;
+        symbole_chainage_entre=c.symbole_chainage_entre;
+        symbole_chainage_sortie=c.symbole_chainage_sortie;
         nb_symbole_militaire=c.nb_symbole_militaire;
         capacite = c.capacite;
 }

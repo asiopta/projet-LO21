@@ -139,6 +139,8 @@ public:
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
 
     virtual std::string get_type() const = 0; //pas encore définie
+    virtual SymboleChainage getSymboleChainageEntre() const {return SymboleChainage::none;}
+    virtual SymboleChainage getSymboleChainageSortie() const {return SymboleChainage::none;}
     /*
     !c'est pt étre mieux de retourner TypeCarte au lieu de string.
     !On peut pas utiliser string dans des switch()
@@ -195,14 +197,15 @@ private:
     RessourcePrimaire* production_primaire; //taille3
     RessourceSecondaire* production_secondaire; //taille 2
     Capacite capacite;
-    SymboleChainage symbole;
+    SymboleChainage symbole_chainage_entre;
+    SymboleChainage symbole_chainage_sortie;
     bool choix;
     bool contrepartie;
     unsigned int pt_victoire;
 
 public:
     CarteCommerce();
-    CarteCommerce(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, Capacite capa, SymboleChainage symb, bool choix, bool contrepartie, unsigned int pt_victoire,std::string n, unsigned int a, unsigned int cout,std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
+    CarteCommerce(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, Capacite capa, SymboleChainage symb_entre,SymboleChainage symb_sortie, bool choix, bool contrepartie, unsigned int pt_victoire,std::string n, unsigned int a, unsigned int cout,std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos);
     CarteCommerce(const CarteCommerce& c);
 
     RessourcePrimaire* get_production_primaire()const {return production_primaire;}
@@ -211,9 +214,9 @@ public:
     bool get_contrepatrie()const {return contrepartie;}
     Capacite get_capacite()const {return capacite;}
     unsigned int get_pt_victoire()const {return pt_victoire;}
-    SymboleChainage get_symbole_chainage()const {return symbole;}
+    SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
+    SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
 
-    void set_symbole_chainage(SymboleChainage s){symbole = s;}
     void set_choix(bool c){choix = c;}
     void set_contrepartie(bool c){contrepartie = c;}
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
@@ -232,22 +235,25 @@ public:
 class CarteScience : public Carte{
 private:
     SymboleScience symbole_science;
-    SymboleChainage symbole_chainage;
+    SymboleChainage symbole_chainage_entre;
+    SymboleChainage symbole_chainage_sortie;
     Capacite capacite;
     unsigned int pt_victoire;
     //Capacite capacite; //il faut pt étre pas rajouter ca ici. On déclence la capacite ssi il ya deux cartes avec meme symbole scientifique
 public:
     CarteScience();
-    CarteScience(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, SymboleScience& symb_science, unsigned int pt_vict);
+    CarteScience(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, SymboleScience symb_science, unsigned int pt_vict);
+    
     //constructeur de recopie
     CarteScience(const CarteScience &c);
 
     unsigned int get_pt_victoire()const {return pt_victoire;}
-    SymboleChainage get_symbole_chainage() const  {return symbole_chainage;}
+    SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
+    SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
     SymboleScience get_symbole_science() const {return symbole_science;}
     Capacite get_capacite() const {return capacite;}
 
-    void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
+
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
     void set_symbole_science(SymboleScience s){symbole_science = s;}
 
@@ -261,15 +267,16 @@ public:
 class CartePrestige : public Carte{
 private:
     unsigned int pt_victoire;
-    SymboleChainage symbole_chainage;
+    SymboleChainage symbole_chainage_entre;
+    SymboleChainage symbole_chainage_sortie;
 
 public:
     CartePrestige();
-    CartePrestige(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int pt_vict);
+    CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict);
     CartePrestige(const CartePrestige& c);
     unsigned int get_pt_victoire()const {return pt_victoire;}
-    SymboleChainage get_symbole_chainage() const  {return symbole_chainage;}
-    void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
+    SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
+    SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
 
     std::string get_type() const {return "Prestige";}
@@ -282,21 +289,23 @@ class CarteMilitaire : public Carte{
 private:
     unsigned int nb_symbole_militaire;
     Capacite capacite;
-    SymboleChainage symbole_chainage;
+    SymboleChainage symbole_chainage_entre;
+    SymboleChainage symbole_chainage_sortie;
 
 public:
 
     CarteMilitaire();
-    CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage& symb_chain, unsigned int nb_militaire);
+    CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, unsigned int nb_militaire);
     CarteMilitaire(const CarteMilitaire& c);
 
     unsigned int get_nb_symbole_militaire() const {return nb_symbole_militaire;}
-    SymboleChainage get_symbole_chainage() const  {return symbole_chainage;}
+    SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
+    SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
 
     
 
     void set_nb_symbole_militaire(unsigned int nb){nb_symbole_militaire=nb;}
-    void set_symbole_chainage(SymboleChainage s){symbole_chainage = s;}
+
 
     void exec_capacite(Joueur& joueur_adverse, PlateauMilitaire& plateau_militaire) const;
     std::string get_type() const {return "Militaire";} 
