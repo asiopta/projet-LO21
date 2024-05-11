@@ -35,11 +35,11 @@ class Joueur{
 //TODO: terminer classe SymboleScience
 //TODO: rajouter attribut pour les merveilles non construites
 //TODO: essayer de faire une fonction addEffetX()
-*je l'ai nommé addCapaciteJeton()
+    *je l'ai nommé addCapaciteJeton()
+//TODO: fonction getNbCarte(std::string type)
+
 TODO: changer constructeurs/ destructeurs
 TODO: changer getteurs/setteurs
-TODO: fonction getNbCarte(std::string type)
-
 TODO: changer la fonction estConstructible()
 TODO: termine getCout()
 TODO: changer la fonction construireCarte()
@@ -142,6 +142,7 @@ public:
     unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ;
     Ressource* getRessources(){return &ressources;}; //?est ce que c'est mieux de retourner Ressource ou Ressource& ou Ressource*?
     unsigned int getNbCarteType(TypeCarte type) const; // à terminer
+    unsigned int getNbCarteType(std::string type) const; // à terminer
 
     //setteurs
     void setMonnaie(unsigned int argent){ monnaie = argent; };
@@ -240,3 +241,4 @@ public:
 * 
 */
 
+TypeCarte hashit(std::string const& type);

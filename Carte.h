@@ -139,6 +139,11 @@ public:
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
 
     virtual std::string get_type() const = 0; //pas encore définie
+    /*
+    !c'est pt étre mieux de retourner TypeCarte au lieu de string.
+    !On peut pas utiliser string dans des switch()
+    ! mais si tu préfère ne pas changer, je peux créer une fonction de hashage
+    */
     //destructeur
     virtual ~Carte();
 };

@@ -240,7 +240,7 @@ unsigned int Joueur::getNbJetonsScience()const{
     
 }
 
-/*
+
 unsigned int Joueur::getNbCarteType(TypeCarte type) const{
     switch (type)
     {
@@ -252,33 +252,93 @@ unsigned int Joueur::getNbCarteType(TypeCarte type) const{
         break;
     }
 }
-*/
-//les getteurs de ressources
-unsigned int Joueur::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const {
-        Carte* constr = *cartes_construite;
-        unsigned int res=0;
-        for(int i=0; i<60; i++){
-            RessourcePrimaire* tab = constr->getMateriauxPrimaires();
-            while(tab != nullptr){
-                if(*tab == symbole) res++;
-                tab++;
-            }
-        }
-        return res;
-    };
 
-unsigned int Joueur::getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const{
-        Carte* constr = *cartes_construite;
-        unsigned int res=0;
-        for(int i=0; i<60; i++){
-            RessourceSecondaire* tab = constr->getMateriauxSecondaires();
-            while(tab != nullptr){
-                if(*tab == symbole) res++;
-                tab++;
+TypeCarte hashit(std::string const& type){
+    if(type=="CarteRessourcePrimaire") return TypeCarte::CarteRessourcePrimaire;
+    if(type=="CarteRessourceSecondaire") return TypeCarte::CarteRessourceSecondaire;
+    if(type=="CarteCarteCommerce") return TypeCarte::CarteCommerce;
+    if(type=="CarteGuilde") return TypeCarte::CarteGuilde;
+    if(type=="CarteMilitaire") return TypeCarte::CarteMilitaire;
+    if(type=="CartePrestige") return TypeCarte::CartePrestige;
+    if(type=="CarteScience") return TypeCarte::CarteScience;
+ }
+
+unsigned int Joueur::getNbCarteType(std::string type) const {
+    switch (hashit(type)) {
+        case TypeCarte::CarteRessourcePrimaire:
+        {
+            unsigned int res = 0;
+            for (int i = 0; i < 60; ++i) {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteRessourcePrimaire") {
+                    res++;
+                }
             }
+            return res;
         }
-        return res;
-    };
+        case TypeCarte::CarteRessourceSecondaire:
+        {
+            unsigned int res = 0;
+            for (int i = 0; i < 60; ++i) {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteRessourceSecondaire") {
+                    res++;
+                }
+            }
+            return res;
+        }
+        case TypeCarte::CarteCommerce:
+        {
+            unsigned int res = 0;
+            for (int i = 0; i < 60; ++i) {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteCommerce") {
+                    res++;
+                }
+            }
+            return res;
+        }
+        case TypeCarte::CarteGuilde:
+        {
+            unsigned int res = 0;
+            for (int i = 0; i < 60; ++i) {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteGuilde") {
+                    res++;
+                }
+            }
+            return res;
+        }
+        case TypeCarte::CarteMilitaire:
+        {
+            unsigned int res = 0;
+            for (int i = 0; i < 60; ++i) {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteMilitaire") {
+                    res++;
+                }
+            }
+            return res;
+        }
+        case TypeCarte::CartePrestige:
+        {
+            unsigned int res = 0;
+            for (int i = 0; i < 60; ++i) {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CartePrestige") {
+                    res++;
+                }
+            }
+            return res;
+        }
+        case TypeCarte::CarteScience:
+        {
+            unsigned int res = 0;
+            for (int i = 0; i < 60; ++i) {
+                if (cartes_construite[i] != nullptr && cartes_construite[i]->get_type() == "CarteScience") {
+                    res++;
+                }
+            }
+            return res;
+        }
+        default:
+            return 0;
+    }
+}
 
 
 
