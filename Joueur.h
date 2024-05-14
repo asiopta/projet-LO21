@@ -233,11 +233,12 @@ public:
     void updateSymbolesChainageCarte(Carte* carte); // à faire
     void updateSymbolesScienceCarte(Carte* carte); //à faire
     void addCarte(Carte* carte); // à faire
-
+    //construire une carte
+    void construireCarte(Carte& carte, PlateauCartes& p); //à faire
 
     //autres fonctions importantes
     unsigned int getCout(const Carte& carte); //à faire bientot
-    void construireCarte(Carte& carte, PlateauCartes& p); //à faire
+    
     //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
     void choisir_action(PlateauCartes& p); // à faire plus tard
 

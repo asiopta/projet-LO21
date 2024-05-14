@@ -577,21 +577,22 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 }
 
 //méthodes qui permettent de rajouter une carte
-void Joueur::updateRessourcesCarte(Carte *carte){ //!jsp prq j'ai un erreur ici
+void Joueur::updateRessourcesCarte(Carte *carte){ //! erreur ici, jsp prq
     for(int i =0; i<Taille_cout_primaire; i++){
-        if(carte->getMateriauxPrimaires()[i] != nullptr) ajouterRessource(carte->getMateriauxPrimaires()[i]);
+        if(carte->getMateriauxPrimairesProduites()[i] != RessourcePrimaire::none) ajouterRessource(carte->getMateriauxPrimairesProduites()[i]);  
+        //! méthode de Carte à définir
     }
 
-    for(){
-        int quant = carte->getQuantiteDeRessourceSecondaire(e, carte->getMateriauxSecondaires());
-        ajouterRessource(e, quant);
+    for(int i =0; i<Taille_cout_secondaire; i++){
+        if(carte->getMateriauxSecondairesProduites()[i] != RessourceSecondaire::none) ajouterRessource(carte->getMateriauxSecondairesProduites()[i]);
+        //! méthode de Carte à définir
     }
 
 
 }
 
 void Joueur::updatePtVictoireCarte(Carte* carte){
-
+    gagnerPtVictoire(carte->getPtVictoire()); //! méthode à 
 }
 
 
