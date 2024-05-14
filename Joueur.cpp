@@ -592,11 +592,21 @@ void Joueur::updateRessourcesCarte(Carte *carte){ //! erreur ici, jsp prq
 }
 
 void Joueur::updatePtVictoireCarte(Carte* carte){
-    gagnerPtVictoire(carte->getPtVictoire()); //! méthode à 
+    gagnerPtVictoire(carte->getPtVictoire()); //! méthode à définir
+}
+
+void Joueur::updateSymbolesChainageCarte(Carte* carte){
+    if(carte->getSymboleChainageSortie() != SymboleChainage::none){
+        addSymboleChainage(carte->getSymboleChainageEntre());
+    }
 }
 
 
-
+void Joueur::updateSymbolesScienceCarte(Carte* carte){
+    if(carte->get_type()== TypeCarte::CarteScience){
+        addSymboleScience(carte->getSymboleSciene()); //! à définir
+    }
+}
 
 void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
     Carte* c = p.trouverCarteDansPlateau(carte);
