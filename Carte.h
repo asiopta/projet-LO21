@@ -140,7 +140,7 @@ public:
     RessourcePrimaire* getMateriauxPrimaires()const {return materiaux_construction_primaires;}
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
 
-    virtual TypeCarte get_type() const = 0; //pas encore définie
+    virtual TypeCarte get_type() const = 0;
     virtual unsigned int getPtVictoire() const {return 0;}
     virtual SymboleScience getSymboleScience() const {return SymboleScience::none;}
     virtual SymboleChainage getSymboleChainageEntre() const {return SymboleChainage::none;}
