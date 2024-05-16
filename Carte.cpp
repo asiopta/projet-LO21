@@ -662,38 +662,37 @@ void Merveille::exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes& p
     }
 }
 
+//TODO : definir les méthodes de la classe joueur : choisirCarteMarronAutreJoueur() -> CarteRessourcePrimaire* const 
+//TODO : definir les méthodes de la classe joueur : choisirCarteGriseAutreJoueur() -> CarteRessourceSecondaire* const 
+//TODO : definir les méthodes de la classe joueur : choisirCarteDefausse() -> Carte* const
+//TODO : definir les méthodes de la classe joueur : retirerCarte(Carte* c) -> void
+
+
 void Merveille::exec_rejouer(Joueur& joueur1) const{
     joueur1.setRejouerTrue(); //! setRejouer est une méthode qui met l'attribut rejouer à True
 }
 void Merveille::exec_detruire_carte_marron(Joueur& joueur1, Joueur& joueur2) const{
-    //! en attente d'une définition pour cette Carte
 
-    carte_choisit = joueur1.choisirCarteMarronAutreJoueur(); //? demander au joueur 1 de choisir une carte marron du joueur 2
-    joueur2.retirerCarte(&carte_choisit); //!definir retirerCarteMarron
-
+    CarteRessourcePrimaire* carte_choisit = joueur1.choisirCarteMarronAutreJoueur(); //? demander au joueur 1 de choisir une carte marron du joueur 2
+    joueur2.retirerCarte(carte_choisit); //!definir retirerCarte
 }
 
 void Merveille::exec_detruire_carte_grise(Joueur& joueur1, Joueur& joueur2) const{
-    //! en attente d'une définition pour cette Carte
+
+    CarteRessourceSecondaire* carte_choisit = joueur1.choisirCarteGriseAutreJoueur(); //? demander au joueur 1 de choisir une carte grise du joueur 2
+    joueur2.retirerCarte(carte_choisit); 
 }
 void Merveille::exec_jouer_carte_defausse(Joueur& joueur1, PlateauCartes& plateau_carte) const{
-    //! en attente d'une définition pour cette Carte
 
-    // carte_choisit = joueur1.choisirCarte(); //? demander au joueur de choisir une carte de la defause 
 
-    Carte** carte_defausse = plateau_carte.getDefausse(); 
-    for (unsigned int i = 0; i < TAILLE_DEFAUSSES; i++){ //parcourir la defaiuse pour verifier que la carte existe bien dans la defause
-        if (&carte_choisit == carte_defausse[i]){ //si on a trouvé la carte, on la retire de la defausse et on l'ajoute au joueur
-            joueur1.addCarte(carte_choisit); //!definir addCarte
-            //* je suis en train de faire, mais je me suis rendu qu'il ya pas mal de méthodes à rajouter pr le faire correctement
-            plateau_carte.retirerCarteDefausse(&carte_choisit);
-            break; //on a trouvé la carte donc pas besoin d'aller jusuq'au bout de la boucle
-        }
-    }
+    Carte* carte_choisit = joueur1.choisirCarteDefausse(); //? demander au joueur de choisir une carte de la defause 
+    joueur1.construireCarte(*carte_choisit); 
+
+
 }
 
 void Merveille::exec_choisir_jeton_science(Joueur& joueur1, PlateauScience& plateau_science) const{
-    //! en attente d'une définition pour cette Carte
+    
 }
 
 void Merveille::exec_gagner_monnaie_12(Joueur& joueur1) const{joueur1.gagnerArgent(12);}
