@@ -42,8 +42,8 @@ class Joueur{
 
 //TODO: changer la fonction estConstructible();
 //TODO: penser à comment rejouer/ maybe attribut bool rejouer;
-TODO: méthode addCarte() qui construit une carte gratuitement
-TODO: fonction removeCarte();
+//TODO: méthode addCarte() qui construit une carte gratuitement
+TODO: fonction retirerCarte();
 
 TODO: changer constructeurs/ destructeurs;
 TODO: termine getCout();
@@ -229,7 +229,7 @@ public:
     //! en gros est ce qu'on a les ressources necessaires pour construire la carte
 
     //déconstruire une carte
-    void retirerCarte(Carte* carte);
+    void retirerCarte(Carte* carte); //! à utiliser que avec CarteRessourcesPrimaire/Secondaire
 
     //méthodes qui permettent de rajouter une carte
     void updateRessourcesCarte(Carte* carte); //! à utiliser qd on contruit une carte
