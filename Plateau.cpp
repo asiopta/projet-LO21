@@ -42,7 +42,7 @@ void exec_agriculture(Joueur& joueur) {
 void exec_architecture(Joueur& joueur) {
     // implementation of exec_architecture
     //les prochaines Merveilles construites par le joueur coûteront 2 ressources en moins
-    joueur.addEffetArchitecture();  //addEffetArchitecture est une méthode de la classe Joueur qui ajoute un effet de carte architecture
+    joueur.addCapaciteJeton(CapaciteScience::architecture);  //addEffetArchitecture est une méthode de la classe Joueur qui ajoute un effet de carte architecture
     //modifie un attribut de la classe Joueur BOOL pour ajouter un effet de carte architecture
     //!ajouter dans joueur un bool effet_architecture
 }

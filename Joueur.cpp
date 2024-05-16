@@ -104,13 +104,13 @@ void Joueur::construireJeton(CapaciteScience& jeton){
 /*---------------Classe SymbolesScience----------------*/
 unsigned int Joueur::getNbSymbolesScience()const{
     unsigned int res = 0;
-    if(symboles_science.roue!=0) res++;
-    if(symboles_science.plume != 0) res++;
-    if(symboles_science.pilon != 0) res++;
-    if(symboles_science.balance != 0) res++;
-    if(symboles_science.globe_terrestre != 0) res++;
-    if(symboles_science.fil_a_plomb != 0) res++;
-    if(symboles_science.bateau != 0) res++;
+    if(symboles_science.roue > 0) res++;
+    if(symboles_science.plume > 0) res++;
+    if(symboles_science.pilon > 0) res++;
+    if(symboles_science.balance > 0) res++;
+    if(symboles_science.globe_terrestre > 0) res++;
+    if(symboles_science.fil_a_plomb > 0) res++;
+    if(symboles_science.bateau > 0) res++;
     if(symboles_science.autre == true) res++;
     return res;
 }
@@ -156,25 +156,25 @@ void Joueur::removeSymboleScience(SymboleScience& s){
         switch (s)
     {
     case SymboleScience::roue: 
-        if(symboles_science.roue!=0) symboles_science.roue--;
+        if(symboles_science.roue>0) symboles_science.roue--;
         break;
     case SymboleScience::plume:
-        if(symboles_science.plume!=0) symboles_science.plume--;
+        if(symboles_science.plume>0) symboles_science.plume--;
         break;
     case SymboleScience::pilon:
-        if(symboles_science.pilon!=0) symboles_science.pilon--;
+        if(symboles_science.pilon>0) symboles_science.pilon--;
         break;
     case SymboleScience::balance:
-        if(symboles_science.balance!=0) symboles_science.balance--;
+        if(symboles_science.balance>0) symboles_science.balance--;
         break;
     case SymboleScience::globe_terrestre:
-        if(symboles_science.globe_terrestre!=0) symboles_science.globe_terrestre--;
+        if(symboles_science.globe_terrestre>0) symboles_science.globe_terrestre--;
         break;
     case SymboleScience::fil_a_plomb:
-        if(symboles_science.fil_a_plomb!=0) symboles_science.fil_a_plomb--;
+        if(symboles_science.fil_a_plomb>0) symboles_science.fil_a_plomb--;
         break;
     case SymboleScience::bateau:
-        if(symboles_science.bateau!=0) symboles_science.bateau--;
+        if(symboles_science.bateau>0) symboles_science.bateau--;
         break;
     default:
         break;
