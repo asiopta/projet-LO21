@@ -179,6 +179,7 @@ public:
     unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const; //ok
     unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ; //ok
     Ressource* getRessources(){return &ressources;}; //review
+    bool getRejouer() const {return rejouer;}; //ok
 
 
     //setteurs générales
