@@ -607,14 +607,13 @@ void Joueur::updateRessourcesCarte(Carte* carte){ //! erreur non expliqué
 
     unsigned int nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
     ajouterRessource(RessourceSecondaire::parchemin, nb);
-
 }
 
-void Joueur::updatePtVictoireCarte(Carte* carte){ //! erreur
+void Joueur::updatePtVictoireCarte(Carte* carte){
     gagnerPtVictoire(carte->getPtVictoire());
 }
 
-void Joueur::updateSymbolesChainageCarte(Carte* carte){ //! erreur
+void Joueur::updateSymbolesChainageCarte(Carte* carte){ 
     if(carte->getSymboleChainageSortie() != SymboleChainage::none){
         addSymboleChainage(carte->getSymboleChainageSortie());
     }
@@ -627,7 +626,15 @@ void Joueur::updateSymbolesScienceCarte(Carte* carte){
     }
 }
 
-
+void Joueur::addCarte(Carte* carte){
+    updatePtVictoireCarte(carte);
+    updateSymbolesChainageCarte(carte);
+    if(carte->get_type() == TypeCarte::CarteRessourcePrimaire || carte->get_type() == TypeCarte::CarteRessourceSecondaire){
+        updateRessourcesCarte(carte);
+    }
+    if(carte->get_type() == TypeCarte::CarteScience) updateSymbolesScienceCarte(carte);
+    
+} 
 
 
 void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
