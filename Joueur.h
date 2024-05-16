@@ -187,7 +187,7 @@ public:
     void setPtVictoire(unsigned int p){ pt_victoire = p;}; //ok
     void setRessource(RessourcePrimaire rp, unsigned int quantite); //review
     void setRessource(RessourceSecondaire rs, unsigned int quantite); //review
-    void addCapaciteJeton(CapaciteScience& jeton); //review
+    void addCapaciteJeton(CapaciteScience jeton); //review
     
     //méthodes de l'attribut rejouer
     void setRejouerTrue(){rejouer = true;}; //ok
@@ -195,7 +195,7 @@ public:
 
 
     //méthodes de jetons
-    void construireJeton(CapaciteScience& jeton); //review
+    void construireJeton(JetonScience& jeton); //constuit le jeton pour le joueur
     
     //méthodes de l'attribut symboles_science
     unsigned int getNbSymbolesScience()const; //review
@@ -242,8 +242,6 @@ public:
     
     //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
     void choisir_action(PlateauCartes& p); // à faire plus tard
-
-    
 
 
 /*

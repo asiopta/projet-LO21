@@ -51,7 +51,7 @@ private:
 public:
     JetonScience();
     JetonScience(CapaciteScience capacite);
-    void exec_capacite_science(Joueur& joueur) const;
+    void exec_capacite_science(Joueur* joueur) const;
     CapaciteScience get_capacite() const;
     ~JetonScience() = default;
 };

@@ -70,8 +70,8 @@ void Joueur::setRessource(RessourceSecondaire rs, unsigned int quantite){
 }
 
 /*---------classe CapaciteJetons------------------------*/
-void Joueur::addCapaciteJeton(CapaciteScience& jeton){
-    switch (jeton)
+void Joueur::addCapaciteJeton(CapaciteScience capacite){
+    switch (capacite)
     {
     case CapaciteScience::architecture: capacites.architecture = true; break;
     case CapaciteScience::economie: capacites.economie = true; break;
@@ -80,24 +80,28 @@ void Joueur::addCapaciteJeton(CapaciteScience& jeton){
     case CapaciteScience::strategie: capacites.strategie = true; break;
     case CapaciteScience::theologie: capacites.theologie = true; break;
     case CapaciteScience::urbanisme: capacites.urbanisme = true; break;
-    
     default:break;
     }
 }
 
-void Joueur::construireJeton(CapaciteScience& jeton){
-    switch (jeton)
-    {
-    case CapaciteScience::loi: symboles_science.autre = true; break;
-    case CapaciteScience::agriculture:
-        gagnerArgent(6);
-        gagnerPtVictoire(4);
-        break;
-    case CapaciteScience::philosophie:
-        gagnerPtVictoire(7);
-        break;
-    default: addCapaciteJeton(jeton); break;
-    }
+void Joueur::construireJeton(JetonScience& jeton){
+    // switch (jeton)
+    // {
+    // case CapaciteScience::loi: symboles_science.autre = true; break;
+    // case CapaciteScience::agriculture:
+    //     gagnerArgent(6);
+    //     gagnerPtVictoire(4);
+    //     break;
+    // case CapaciteScience::philosophie:
+    //     gagnerPtVictoire(7);
+    //     break;
+    // default: addCapaciteJeton(jeton); break;
+    // }
+    jeton.exec_capacite_science(this);
+
+    //+ gerer le fait que le jeton n'est plus prenable
+
+
 }
 
 
@@ -414,14 +418,12 @@ bool Joueur::possedeSymboleChainage(SymboleChainage s) const {
 Joueur::Joueur(): pt_victoire(0), monnaie(7), ressources() {
     for(int i=0; i<60; i++) cartes_construite[i] = nullptr;
     for(int i=0; i<4; i++) merveille_construite[i] = nullptr;
-    for(int i=0; i<6; i++) jetons_science[i] = nullptr;
 }
 
 Joueur::Joueur(const Joueur& j): monnaie(j.monnaie), pt_victoire(j.pt_victoire),
 ressources(j.ressources){
     for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
     for(int i=0; i<4; i++) merveille_construite[i] = j.merveille_construite[i];
-    for(int i=0; i<6; i++) jetons_science[i] = j.jetons_science[i];
 }
 
 Joueur& Joueur::operator=(const Joueur& j){
@@ -431,7 +433,6 @@ Joueur& Joueur::operator=(const Joueur& j){
         ressources = j.ressources;
         for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
         for(int i=0; i<4; i++) merveille_construite[i] = j.merveille_construite[i];
-        for(int i=0; i<6; i++) jetons_science[i] = j.jetons_science[i];
     }
     return *this;
 }
@@ -444,7 +445,6 @@ bool Joueur::operator==(const Joueur& j){
 Joueur::~Joueur(){
     for(int i=0; i< getNbCartesConstruites(); i++) free(cartes_construite[i]);
     for(int i=0; i< getNbMerveillesConstruites(); i++) free(merveille_construite[i]);
-    for(int i=0; i< getNbJetonsScience(); i++) free(jetons_science[i]);
 }
 
 // _____les getteurs_____//

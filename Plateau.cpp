@@ -14,7 +14,7 @@ JetonScience::JetonScience(CapaciteScience capacite) : capacite(capacite) {} //r
 CapaciteScience JetonScience::get_capacite() const{return capacite;}
 
 //fonction d'execution de la capacite du jeton science
-void JetonScience::exec_capacite_science(Joueur& joueur) const{
+void JetonScience::exec_capacite_science(Joueur* joueur) const{
     switch (capacite) {
         case CapaciteScience::agriculture: exec_agriculture(joueur); break;
         case CapaciteScience::architecture: exec_architecture(joueur); break;
@@ -32,77 +32,74 @@ void JetonScience::exec_capacite_science(Joueur& joueur) const{
     delete this; //on supprime le jeton science après avoir executé son effet
 }
 
-void exec_agriculture(Joueur& joueur) {
+void exec_agriculture(Joueur* joueur) {
     // implementation of exec_agriculture
     //Le joueur prend immédiatement 6 pièce de monnaie et 4 point de victoire 
-    joueur.gagnerArgent(6);
-    joueur.gagnerPtVictoire(4);
+    joueur->gagnerArgent(6);
+    joueur->gagnerPtVictoire(4);
 }
 
-void exec_architecture(Joueur& joueur) {
+void exec_architecture(Joueur* joueur) {
     // implementation of exec_architecture
     //les prochaines Merveilles construites par le joueur coûteront 2 ressources en moins
-    joueur.addCapaciteJeton(CapaciteScience::architecture);  //addEffetArchitecture est une méthode de la classe Joueur qui ajoute un effet de carte architecture
-    //modifie un attribut de la classe Joueur BOOL pour ajouter un effet de carte architecture
-    //!ajouter dans joueur un bool effet_architecture
+    joueur->addCapaciteJeton(CapaciteScience::architecture);  //!ajouter dans joueur un bool effet_architecture
 }
 
-void exec_economie(Joueur& joueur) {
+void exec_economie(Joueur* joueur) {
     // implementation of exec_economie
     //le joueurs recupère l'agent depensé par son adversaire lors de l'achat de ressource de commerce 
-    joueur.addEffetEconomie();  //addEffetEconomie est une méthode de la classe Joueur qui ajoute un effet de carte economie
+    joueur->addCapaciteJeton(CapaciteScience::economie);  //addEffetEconomie est une méthode de la classe Joueur qui ajoute un effet de carte economie
     //!ajouter dans joueur un bool effet_economie
 }
 
-void exec_loi(Joueur& joueur) {
+void exec_loi(Joueur* joueur) {
     // implementation of exec_loi
     //Rapport un symbole science balance
-    joueur.addSymboleScience(SymboleScience::balance); //addSymboleScience est une méthode de la classe Joueur qui ajoute un symbole science balance
+    joueur->addSymboleScience(SymboleScience::balance); //addSymboleScience est une méthode de la classe Joueur qui ajoute un symbole science balance
 }
 
-void exec_maconnerie(Joueur& joueur) {
+void exec_maconnerie(Joueur* joueur) {
     // implementation of exec_maconnerie
     //les cartes bleues sont reduites de deux ressources 
-    joueur.addEffetMaconnerie();  //addEffetMaconnerie est une méthode de la classe Joueur qui ajoute un effet de carte maconnerie
+    joueur->addCapaciteJeton(CapaciteScience::maconnerie);  //addEffetMaconnerie est une méthode de la classe Joueur qui ajoute un effet de carte maconnerie
     //! ajouter dans joueur un bool effet_maconnerie
+
 }
 
-void exec_urbanisme(Joueur& joueur) {
+void exec_urbanisme(Joueur* joueur) {
     // implementation of exec_urbanisme
     //A chaque fois que le joueur construit un batiment avec l'effet chainage il gagne 6 pièces de monnaie
-    joueur.gagnerArgent(6);
-    joueur.addEffetUrbanisme();  //addEffetUrbanisme est une méthode de la classe Joueur qui ajoute un effet de carte urbanisme
+    joueur->gagnerArgent(6);
+    joueur->addCapaciteJeton(CapaciteScience::urbanisme);  //addEffetUrbanisme est une méthode de la classe Joueur qui ajoute un effet de carte urbanisme
 }   //!ajouter dans joueur un bool effet_urbanisme
 
-void exec_theologie(Joueur& joueur) {
+void exec_theologie(Joueur* joueur) {
     // implementation of exec_theologie
     //les merveilles du joueur ont l'Effet rejouer 
-    for (int i = 0; i < NB_MERVEILLES_JOUEUR; i++) {
-        joueur.addEffetTheologie();  //addEffetTheologie est une méthode de la classe Joueur qui ajoute un effet de carte theologie
-        //!ajouter dans joueur un bool effet_theologie
+    joueur->addCapaciteJeton(CapaciteScience::theologie);  //addEffetTheologie est une méthode de la classe Joueur qui ajoute un effet de carte theologie
+    //!ajouter dans joueur un bool effet_theologie
 
         //on ne peut pas ajouter des effets de types rejouer à une merveille directement car certaines merveilles peuvent etre 
         //volé par l'autre joueur et l'effet rejouer serai alors conservé par le joueur qui a volé la merveille, ce qui n'est pas le but
-    }
 }
 
-void exec_strategie(Joueur& joueur) {
+void exec_strategie(Joueur* joueur) {
     // implementation of exec_strategie
     //Le joueur avance le pion militaire de 1 de plus a chaque batiment militaire construit
-    joueur.addEffetStrategie();  //addEffetStrategie est une méthode de la classe Joueur qui ajoute un effet de carte strategie
+    joueur->addCapaciteJeton(CapaciteScience::strategie);  //addEffetStrategie est une méthode de la classe Joueur qui ajoute un effet de carte strategie
     //!ajouter dans joueur un bool effet_strategie
 }
 
-void exec_philosophie(Joueur& joueur) {
+void exec_philosophie(Joueur* joueur) {
     // implementation of exec_philosophie
     //le joueur gagne 7 points de victoire
-    joueur.gagnerPtVictoire(7);
+    joueur->gagnerPtVictoire(7);
 }
 
-void exec_mathematique(Joueur& joueur) {
+void exec_mathematique(Joueur* joueur) {
     // implementation of exec_mathematique
     //A la fin de la partie le joueur marque 3 point de victoire pour chaque jeton Progès Possédé
-    joueur.addEffetMathematique();  //addEffetMathematique est une méthode de la classe Joueur qui ajoute un effet de carte mathematique
+    joueur->addCapaciteJeton(CapaciteScience::mathematique);  //addEffetMathematique est une méthode de la classe Joueur qui ajoute un effet de carte mathematique
     //!ajouter dans joueur un attribut qui compte le nombre de jeton science possédé
     //!ajouter dans joueur un bool effet_mathematique
 }
