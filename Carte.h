@@ -207,7 +207,7 @@ public:
     bool get_choix()const {return choix;}
     bool get_contrepatrie()const {return contrepartie;}
     Capacite get_capacite()const {return capacite;}
-    unsigned int getPtVictoire()const {return pt_victoire;}
+    unsigned int getPtVictoire()const override {return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
     SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
 
