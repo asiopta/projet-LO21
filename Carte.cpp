@@ -667,6 +667,9 @@ void Merveille::exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes& p
 //TODO : definir les méthodes de la classe joueur : choisirCarteDefausse() -> Carte* const
 //TODO : definir les méthodes de la classe joueur : retirerCarte(Carte* c) -> void
 
+//TODO : definir les méthodes de la classe joueur : choisirJetonScienceParmis3(JetonScience* liste_jeton) -> void
+
+
 
 void Merveille::exec_rejouer(Joueur& joueur1) const{
     joueur1.setRejouerTrue(); //! setRejouer est une méthode qui met l'attribut rejouer à True
@@ -692,7 +695,8 @@ void Merveille::exec_jouer_carte_defausse(Joueur& joueur1, PlateauCartes& platea
 }
 
 void Merveille::exec_choisir_jeton_science(Joueur& joueur1, PlateauScience& plateau_science) const{
-    
+    JetonScience* liste_jeton = plateau_science.tirer_jeton_out_game();
+    joueur1.choisirJetonScienceParmis3(liste_jeton);
 }
 
 void Merveille::exec_gagner_monnaie_12(Joueur& joueur1) const{joueur1.gagnerArgent(12);}
