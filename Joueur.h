@@ -43,6 +43,7 @@ class Joueur{
 //TODO: changer la fonction estConstructible();
 //TODO: penser à comment rejouer/ maybe attribut bool rejouer;
 TODO: méthode addCarte() qui construit une carte gratuitement
+TODO: fonction removeCarte();
 
 TODO: changer constructeurs/ destructeurs;
 TODO: termine getCout();
@@ -236,6 +237,7 @@ public:
     void addCarte(Carte* carte); // à faire
     //construire une carte
     void construireCarte(Carte& carte, PlateauCartes& p); //à faire
+
 
     //autres fonctions importantes
     unsigned int getCout(const Carte& carte); //à faire bientot
