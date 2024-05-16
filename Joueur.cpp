@@ -577,7 +577,7 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 }
 
 //méthodes qui permettent de rajouter une carte
-void Joueur::updateRessourcesCarte(Carte *carte){ //! erreur ici, jsp prq
+void Joueur::updateRessourcesCarte(Carte *carte){ 
     for(int i =0; i<Taille_cout_primaire; i++){
         if(carte->getMateriauxPrimairesProduites()[i] != RessourcePrimaire::none) ajouterRessource(carte->getMateriauxPrimairesProduites()[i]);  
         //! méthode de Carte à définir
@@ -627,13 +627,12 @@ unsigned int getCout(const Carte& carte){
 }
 
 
-//méthodes de vérification
+//méthodes de vérification 
 bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCout() donc pas grave pour l'instant
     //!rajouter les liens de chainage.....
     SymboleChainage lien_chainage = carte.getSymboleChainageEntre();
     if(getCout(carte) < getMonnaie() || possedeSymboleChainage(lien_chainage)) return true;
     else return false;
-
 }
 
 

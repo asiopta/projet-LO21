@@ -667,6 +667,10 @@ void Merveille::exec_rejouer(Joueur& joueur1) const{
 }
 void Merveille::exec_detruire_carte_marron(Joueur& joueur1, Joueur& joueur2) const{
     //! en attente d'une définition pour cette Carte
+
+    carte_choisit = joueur1.choisirCarteMarronAutreJoueur(); //? demander au joueur 1 de choisir une carte marron du joueur 2
+    joueur2.retirerCarte(&carte_choisit); //!definir retirerCarteMarron
+
 }
 
 void Merveille::exec_detruire_carte_grise(Joueur& joueur1, Joueur& joueur2) const{
