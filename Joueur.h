@@ -42,8 +42,10 @@ class Joueur{
 
 //TODO: changer la fonction estConstructible();
 //TODO: penser à comment rejouer/ maybe attribut bool rejouer;
+
+
 //TODO: méthode addCarte() qui construit une carte gratuitement
-TODO: fonction retirerCarte();
+//TODO: fonction retirerCarte();
 
 TODO: changer constructeurs/ destructeurs;
 TODO: termine getCout();
@@ -232,17 +234,16 @@ public:
     void retirerCarte(Carte* carte); //! à utiliser que avec CarteRessourcesPrimaire/Secondaire
 
     //méthodes qui permettent de rajouter une carte
-    void updateRessourcesCarte(Carte* carte); //! à utiliser qd on contruit une carte
-    void updatePtVictoireCarte(Carte* carte); //à faire
-    void updateSymbolesChainageCarte(Carte* carte); // à faire
-    void updateSymbolesScienceCarte(Carte* carte); //à faire
-    void addCarte(Carte* carte); // à faire
+    void updateRessourcesCarte(Carte* carte); //review
+    //! à utiliser qd on contruit une carte 
+    void updatePtVictoireCarte(Carte* carte); //review
+    void updateSymbolesChainageCarte(Carte* carte); // review
+    void updateSymbolesScienceCarte(Carte* carte); //review
+    void addCarte(Carte* carte); // review
+
     //construire une carte
-    void construireCarte(Carte& carte); //à faire
-
-
-    //autres fonctions importantes
     unsigned int getCout(const Carte& carte); //à faire bientot
+    void construireCarte(Carte& carte); //à faire
     
     //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
     void choisir_action(PlateauCartes& p); // à faire plus tard
