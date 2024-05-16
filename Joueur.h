@@ -207,10 +207,10 @@ public:
     //c'est une fonction qui choisit un jeton dans le plateau et le construit
 
     //méthodes spécifiques à l'attribut ressources
-    void ajouterRessource(RessourcePrimaire rp); //ok
-    void ajouterRessource(RessourceSecondaire rs); //ok
-    void retirerRessource(RessourcePrimaire rp); //ok
-    void retirerRessource(RessourceSecondaire rs); //ok
+    void ajouterRessource(RessourcePrimaire rp, unsigned int quant); //ok
+    void ajouterRessource(RessourceSecondaire rs, unsigned int quant); //ok
+    void retirerRessource(RessourcePrimaire rp, unsigned int quant); //ok
+    void retirerRessource(RessourceSecondaire rs, unsigned int quant); //ok
 
     //méthodes spécifiques à l'attribut symboles_chainage
     void setSymboleChainage(SymboleChainage s, bool var); //review
@@ -228,15 +228,17 @@ public:
     bool estConstructible(const Carte& carte) const; // review
     //! en gros est ce qu'on a les ressources necessaires pour construire la carte
 
+    //déconstruire une carte
+    void retirerCarte(Carte* carte);
 
     //méthodes qui permettent de rajouter une carte
-    void updateRessourcesCarte(Carte* carte); // à faire
+    void updateRessourcesCarte(Carte* carte); //! à utiliser qd on contruit une carte
     void updatePtVictoireCarte(Carte* carte); //à faire
     void updateSymbolesChainageCarte(Carte* carte); // à faire
     void updateSymbolesScienceCarte(Carte* carte); //à faire
     void addCarte(Carte* carte); // à faire
     //construire une carte
-    void construireCarte(Carte& carte, PlateauCartes& p); //à faire
+    void construireCarte(Carte& carte); //à faire
 
 
     //autres fonctions importantes
