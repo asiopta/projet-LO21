@@ -7,33 +7,45 @@
 
 
 /*--------------------classe Ressource--------------*/
-void Joueur::ajouterRessource(RessourcePrimaire rp){
+void Joueur::ajouterRessource(RessourcePrimaire rp, unsigned int quant){
     switch (rp){
-        case RessourcePrimaire::bois: ressources.bois++; break;
-        case RessourcePrimaire::pierre: ressources.pierre++; break;
-        case RessourcePrimaire::brique: ressources.brique++; break;
+        case RessourcePrimaire::bois: ressources.bois+= quant; break;
+        case RessourcePrimaire::pierre: ressources.pierre+= quant; break;
+        case RessourcePrimaire::brique: ressources.brique+= quant; break;
         case RessourcePrimaire::none: break;
     }
 }
 
-void Joueur::ajouterRessource(RessourceSecondaire rs){
+void Joueur::ajouterRessource(RessourceSecondaire rs, unsigned int quant){
     switch (rs){
-        case RessourceSecondaire::verre: ressources.verre++; break;
-        case RessourceSecondaire::parchemin: ressources.parchemin++; break;
+        case RessourceSecondaire::verre: ressources.verre+= quant; break;
+        case RessourceSecondaire::parchemin: ressources.parchemin+= quant; break;
         case RessourceSecondaire::none: break;
     }
 }
 
-void Joueur::retirerRessource(RessourcePrimaire rp){
+void Joueur::retirerRessource(RessourcePrimaire rp, unsigned int quant){
     switch (rp){
-        case RessourcePrimaire::bois: if(ressources.bois != 0){ressources.bois--;} break;
-        case RessourcePrimaire::pierre: if(ressources.pierre != 0){ ressources.pierre--;} break;
-        case RessourcePrimaire::brique: if(ressources.brique != 0){ressources.brique--;} break;
+        case RessourcePrimaire::bois: 
+            if(ressources.bois > quant){ressources.bois-= quant;} 
+            else ressources.bois = 0;
+            break;
+
+        case RessourcePrimaire::pierre: 
+            if(ressources.pierre > quant){ ressources.pierre-= quant;} 
+            else ressources.pierre = 0;
+            break;
+
+        case RessourcePrimaire::brique: 
+            if(ressources.brique > quant){ressources.brique-= quant;} 
+            else ressources.brique = 0;
+            break;
+
         case RessourcePrimaire::none: break;
     }
 }
 
-void Joueur::retirerRessource(RessourceSecondaire rs){
+void Joueur::retirerRessource(RessourceSecondaire rs, unsigned int quant){
     switch (rs){
         case RessourceSecondaire::verre: if(ressources.verre!= 0){ressources.verre--;} break;
         case RessourceSecondaire::parchemin: if(ressources.parchemin!=0){ressources.parchemin--;} break;
@@ -577,27 +589,34 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 }
 
 //méthodes qui permettent de rajouter une carte
-void Joueur::updateRessourcesCarte(Carte *carte){ 
-    for(int i =0; i<Taille_cout_primaire; i++){
-        if(carte->getMateriauxPrimairesProduites()[i] != RessourcePrimaire::none) ajouterRessource(carte->getMateriauxPrimairesProduites()[i]);  
-        //! méthode de Carte à définir
-    }
+void Joueur::updateRessourcesCarte(Carte* carte){ //! erreur non expliqué
+    unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+    ajouterRessource(RessourcePrimaire::bois, nb);
 
-    for(int i =0; i<Taille_cout_secondaire; i++){
-        if(carte->getMateriauxSecondairesProduites()[i] != RessourceSecondaire::none) ajouterRessource(carte->getMateriauxSecondairesProduites()[i]);
-        //! méthode de Carte à définir
-    }
+    unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique);
+    ajouterRessource(RessourcePrimaire::brique, nb);
 
+    unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre);
+    ajouterRessource(RessourcePrimaire::pierre, nb);
+
+    unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+    ajouterRessource(RessourcePrimaire::bois, nb);
+
+    unsigned int nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre);
+    ajouterRessource(RessourceSecondaire::verre, nb);
+
+    unsigned int nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
+    ajouterRessource(RessourceSecondaire::parchemin, nb);
 
 }
 
-void Joueur::updatePtVictoireCarte(Carte* carte){
+void Joueur::updatePtVictoireCarte(Carte* carte){ //! erreur
     gagnerPtVictoire(carte->getPtVictoire());
 }
 
-void Joueur::updateSymbolesChainageCarte(Carte* carte){
+void Joueur::updateSymbolesChainageCarte(Carte* carte){ //! erreur
     if(carte->getSymboleChainageSortie() != SymboleChainage::none){
-        addSymboleChainage(carte->getSymboleChainageEntre());
+        addSymboleChainage(carte->getSymboleChainageSortie());
     }
 }
 
@@ -607,6 +626,9 @@ void Joueur::updateSymbolesScienceCarte(Carte* carte){
         addSymboleScience(carte->getSymboleScience());
     }
 }
+
+
+
 
 void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
     Carte* c = p.trouverCarteDansPlateau(carte);
