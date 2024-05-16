@@ -207,7 +207,7 @@ public:
     bool get_choix()const {return choix;}
     bool get_contrepatrie()const {return contrepartie;}
     Capacite get_capacite()const {return capacite;}
-    unsigned int getPtVictoire()const {return pt_victoire;}
+    unsigned int getPtVictoire()const override{return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
     SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
 
@@ -242,10 +242,10 @@ public:
     //constructeur de recopie
     CarteScience(const CarteScience &c);
 
-    unsigned int getPtVictoire()const {return pt_victoire;}
+    unsigned int getPtVictoire()const override{return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
     SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
-    SymboleScience getSymboleScience() const {return symbole_science;}
+    SymboleScience getSymboleScience() const override {return symbole_science;}
     Capacite get_capacite() const {return capacite;}
 
 
@@ -269,7 +269,7 @@ public:
     CartePrestige();
     CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict);
     CartePrestige(const CartePrestige& c);
-    unsigned int getPtVictoire()const {return pt_victoire;}
+    unsigned int getPtVictoire()const override{return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
     SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
@@ -355,6 +355,8 @@ public:
     void exec_perdre_monnaie_3(Joueur& joueur1) const;
     void exec_avancee_militaire(Joueur& joueur1, PlateauMilitaire& plateau_militaire) const;
     void exec_choisir_jeton_science(Joueur& joueur1, PlateauScience& plateau_science) const;
+
+    unsigned int getPtVictoire()const override{return pt_victoire;}
 
     TypeCarte get_type() const override {return TypeCarte::Merveille;}; 
 

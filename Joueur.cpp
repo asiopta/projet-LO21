@@ -659,6 +659,14 @@ void Joueur::retirerCarte(Carte* carte){
     }
 }
 
+
+//construire une carte
+unsigned int getCout(const Carte& carte){
+        //En cours
+        
+}
+
+
 void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
     Carte* c = p.trouverCarteDansPlateau(carte);
     if((c != NULL) && estConstructible(carte)){
@@ -673,9 +681,7 @@ void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
     }
 }
 
-unsigned int getCout(const Carte& carte){
-        //En cours
-}
+
 
 
 //méthodes de vérification 
