@@ -566,7 +566,6 @@ void exec_guilde_magistrats(Joueur& joueur1, Joueur& joueur2){
 }
 void exec_guilde_usuriers(Joueur& joueur1, Joueur& joueur2){
     // 1 point de victoire pour le joueur1 par lot de 3 pièces d'or possédé par le joueur le plus riche
-
 }
 
 
@@ -627,7 +626,6 @@ Merveille::Merveille(const Merveille& c)
 
     pt_victoire = c.pt_victoire;
     avance_militaire = c.avance_militaire;
-
 }
 
 void Merveille::addCapacite(Capacite c){
@@ -666,7 +664,6 @@ void Merveille::exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes& p
 
 void Merveille::exec_rejouer(Joueur& joueur1) const{
     joueur1.setRejouerTrue(); //! setRejouer est une méthode qui met l'attribut rejouer à True
-    //* utiliser plutot setRejouerTrue() ou bien setRejouerFalse()
 }
 void Merveille::exec_detruire_carte_marron(Joueur& joueur1, Joueur& joueur2) const{
     //! en attente d'une définition pour cette Carte
@@ -703,8 +700,6 @@ void Merveille::exec_perdre_monnaie_3(Joueur& joueur2) const{joueur2.gagnerArgen
 void Merveille::exec_avancee_militaire(Joueur& joueur2, PlateauMilitaire& plateau_militaire) const{
     plateau_militaire.update_avance(avance_militaire,joueur1);
 }
-
-
 
 
 Merveille::~Merveille(){

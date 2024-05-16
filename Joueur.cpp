@@ -592,7 +592,7 @@ void Joueur::updateRessourcesCarte(Carte *carte){ //! erreur ici, jsp prq
 }
 
 void Joueur::updatePtVictoireCarte(Carte* carte){
-    gagnerPtVictoire(carte->getPtVictoire()); //! méthode à définir
+    gagnerPtVictoire(carte->getPtVictoire());
 }
 
 void Joueur::updateSymbolesChainageCarte(Carte* carte){
@@ -604,7 +604,7 @@ void Joueur::updateSymbolesChainageCarte(Carte* carte){
 
 void Joueur::updateSymbolesScienceCarte(Carte* carte){
     if(carte->get_type()== TypeCarte::CarteScience){
-        addSymboleScience(carte->getSymboleSciene()); //! à définir
+        addSymboleScience(carte->getSymboleScience());
     }
 }
 

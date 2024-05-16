@@ -59,6 +59,7 @@ enum class SymboleChainage{
 
 
 enum class SymboleScience{
+    none,
     roue,
     plume,
     pilon,
@@ -140,6 +141,8 @@ public:
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
 
     virtual TypeCarte get_type() const = 0; //pas encore définie
+    virtual unsigned int getPtVictoire() const {return 0;}
+    virtual SymboleScience getSymboleScience() const {return SymboleScience::none;}
     virtual SymboleChainage getSymboleChainageEntre() const {return SymboleChainage::none;}
     virtual SymboleChainage getSymboleChainageSortie() const {return SymboleChainage::none;}
     //destructeur
@@ -204,7 +207,7 @@ public:
     bool get_choix()const {return choix;}
     bool get_contrepatrie()const {return contrepartie;}
     Capacite get_capacite()const {return capacite;}
-    unsigned int get_pt_victoire()const {return pt_victoire;}
+    unsigned int getPtVictoire()const {return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
     SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
 
@@ -239,10 +242,10 @@ public:
     //constructeur de recopie
     CarteScience(const CarteScience &c);
 
-    unsigned int get_pt_victoire()const {return pt_victoire;}
+    unsigned int getPtVictoire()const {return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
     SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
-    SymboleScience get_symbole_science() const {return symbole_science;}
+    SymboleScience getSymboleScience() const {return symbole_science;}
     Capacite get_capacite() const {return capacite;}
 
 
@@ -266,7 +269,7 @@ public:
     CartePrestige();
     CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict);
     CartePrestige(const CartePrestige& c);
-    unsigned int get_pt_victoire()const {return pt_victoire;}
+    unsigned int getPtVictoire()const {return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
     SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
