@@ -418,6 +418,9 @@ bool Joueur::possedeSymboleChainage(SymboleChainage s) const {
             return symboles_chainage.livre;
         case SymboleChainage::lampe:
             return symboles_chainage.lampe;
+        case SymboleChainage::none:
+            return true;
+            break;
         default:
             SetException("erreur: symbole chainage n'existe pas");
             return false; // Handle invalid case
@@ -748,10 +751,10 @@ unsigned int Joueur::getCout(const Carte& carte){
         //En cours
         //COÛT = 2 + nombre de symboles de la même ressource produite par les
         //cartes marron et grises de la cité adverse
+        if(possedeSymboleChainage(carte.getSymboleChainageEntre())) return 0;
+        unsigned int cout = 0;
+        if(getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois)<carte.getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois));
 
-        if(carte.getSymboleChainageEntre()!= SymboleChainage::none){
-
-        }
         
 }
 

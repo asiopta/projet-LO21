@@ -107,6 +107,13 @@ enum class Capacite{
 
 
 class Carte{
+    //ressources produites par la carte
+    //TODO: unsigned int getQuantRessPrimProd(RessourcePrimaire rp);
+    //TODO: unsigned int getQuantRessSecondProd(RessourceSecondaire rs);
+    //ressources necessaires pour construire la carte
+    //TODO: unsigned int getQuantRessPrimNess(RessourcePrimaire rp);
+    //TODO: unsigned int getQuantRessSecondNess(RessourceSecondaire rs);
+
 protected:
     std::string nom;
     unsigned int age;
