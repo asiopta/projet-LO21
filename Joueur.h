@@ -50,9 +50,11 @@ class Joueur{
 
 //TODO: rajouter les effets guildes et les méthodes qui vont avec
 //TODO: changer constructeurs/ destructeurs;
+//TODO: termine getCout();
 
-TODO: termine getCout();
-TODO: changer la fonction construireCarte();
+TODO: estConstructible()
+TODO: changer la fonction construireCarte(carte);
+TODO; defausserCarte(carte)
 TODO: choisirJetons()
 
 
@@ -277,7 +279,7 @@ public:
     unsigned int getCout(const Carte& carte, Joueur adversaire); //à faire bientot
     void construireCarte(Carte& carte); //à faire
 
-    
+
     //c'est une fonction qui choisit un jeton dans le plateau et le construit
     void choisirJeton(); // à faire 
     
