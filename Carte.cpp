@@ -209,6 +209,22 @@ unsigned int Carte::getQuantiteDeRessourceSecondaire(const RessourceSecondaire& 
     return res;
 };
 
+unsigned int Carte::getQuantRessPrimNess(RessourcePrimaire rp) const{
+    unsigned int res = 0;
+    for(int i=0; i<Taille_cout_primaire; i++){
+        if (materiaux_construction_primaires[i] == rp) res++;
+    }
+    return res;
+}
+
+unsigned int Carte::getQuantRessSecondNess(RessourceSecondaire rs) const{
+    unsigned int res = 0;
+    for(int i=0; i<Taille_cout_secondaire; i++){
+        if (materiaux_construction_secondaires[i] == rs) res++;
+    }
+    return res;
+}
+
 
 Carte::~Carte(){
      delete[] materiaux_construction_primaires;
@@ -283,6 +299,14 @@ void CarteRessourcePrimaire::set_production(RessourcePrimaire r){
     }
 }
 
+unsigned int CarteRessourcePrimaire::getQuantRessPrimProd(RessourcePrimaire rp) const{
+    unsigned int res = 0;
+    for(int i=0; i<Taille_prod_primaire; i++){
+        if (production[i] == rp) res++;
+    }
+    return res;
+}
+
 
 /*--------------------------------------------------------------------------*/
 
@@ -312,6 +336,10 @@ void CarteRessourceSecondaire::set_production(RessourceSecondaire r){
     else {throw "From CarteRessourceSecondaire, set_production : la production est renseignée";}
 }
 
+unsigned int CarteRessourceSecondaire::getQuantRessSecondProd(RessourceSecondaire rs) const{
+    if (production == rs) return 1;
+    else return 0;
+}
 
 
 /*--------------------------------------------------------------------------*/
@@ -380,6 +408,21 @@ void CarteCommerce::set_production_primaire(RessourcePrimaire* pt){
 }
 void CarteCommerce::set_production_secondaire(RessourceSecondaire* pt){
     for(int i=0; i<Taille_cout_secondaire; i++){production_secondaire[i]=pt[i];}
+}
+
+unsigned int CarteCommerce::getQuantRessPrimProd(RessourcePrimaire rp) const{
+    unsigned int res = 0;
+    for(int i=0; i<Taille_prod_primaire; i++){
+        if (production_primaire[i] == rp) res++;
+    }
+    return res;
+}
+unsigned int CarteCommerce::getQuantRessSecondProd(RessourceSecondaire rs) const{
+    unsigned int res = 0;
+    for(int i=0; i<Taille_prod_secondaire; i++){
+        if (production_secondaire[i] == rs) res++;
+    }
+    return res;
 }
 
 CarteCommerce::~CarteCommerce(){
@@ -626,6 +669,22 @@ Merveille::Merveille(const Merveille& c)
     pt_victoire = c.pt_victoire;
     avance_militaire = c.avance_militaire;
 }
+
+unsigned int Merveille::getQuantRessPrimProd(RessourcePrimaire rp) const{
+    unsigned int res = 0;
+    for(int i=0; i<Taille_prod_primaire; i++){
+        if (production_primaire[i] == rp) res++;
+    }
+    return res;
+}
+unsigned int Merveille::getQuantRessSecondProd(RessourceSecondaire rs) const{
+    unsigned int res = 0;
+    for(int i=0; i<Taille_prod_secondaire; i++){
+        if (production_secondaire[i] == rs) res++;
+    }
+    return res;
+}
+
 
 void Merveille::addCapacite(Capacite c){
     //ajoute une capacité si la capacité n'est pas déjà présente
