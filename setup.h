@@ -1,8 +1,9 @@
-
+#pragma once
 #include <iostream>
 #include <string>
 #include "Joueur.h"
 #include "Carte.h"
+#include "Plateau.h"
 
 
 //génération des cartes

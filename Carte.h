@@ -1,4 +1,7 @@
-
+#pragma once
+#include "Joueur.h"
+#include "Plateau.h"
+#include "setup.h"
 #include <iostream>
 #include <string>
 

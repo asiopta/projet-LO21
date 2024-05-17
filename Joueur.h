@@ -3,6 +3,7 @@
 #include <string>
 #include "Carte.h"
 #include "Plateau.h"
+#include "setup.h"
 
 const unsigned int NB_MERVEILLES_JOUEUR = 4;
 

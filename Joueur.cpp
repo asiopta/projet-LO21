@@ -1,5 +1,5 @@
+#pragma once
 #include "Joueur.h"
-#include "Carte.h"
 #include <string.h>
 #include <string>
 #include <vector>
@@ -744,12 +744,18 @@ void Joueur::retirerCarte(Carte* carte){
 
 
 //construire une carte
-unsigned int getCout(const Carte& carte){
+unsigned int Joueur::getCout(const Carte& carte){
         //En cours
+        //COÛT = 2 + nombre de symboles de la même ressource produite par les
+        //cartes marron et grises de la cité adverse
+
+        if(carte.getSymboleChainageEntre()!= SymboleChainage::none){
+
+        }
         
 }
 
-
+/*
 void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
     Carte* c = p.trouverCarteDansPlateau(carte);
     if((c != NULL) && estConstructible(carte)){
@@ -774,7 +780,7 @@ bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCo
     if(getCout(carte) < getMonnaie() || possedeSymboleChainage(lien_chainage)) return true;
     else return false;
 }
-
+*/
 
 /*-------------------------------------PlateauCarte-------------------------------------*/
  

@@ -1,7 +1,6 @@
-
 #include "Carte.h"
-#include "Joueur.h"
-#include "Plateau.h"
+
+
 /*-------------------------------------Enumerations-------------------------------------*/
 
 std::ostream& operator<<(std::ostream& f, const RessourcePrimaire& r){

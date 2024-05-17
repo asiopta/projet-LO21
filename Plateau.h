@@ -1,8 +1,9 @@
-
+#pragma once
 #include <iostream>
 #include <string>
 #include "Joueur.h"
 #include "setup.h"
+#include "Carte.h"
 
 const unsigned int LargeurPlateauMilitaire = 9; //la largeur maxe du plateau militaire
 const unsigned int TAILLE_CARTE_EN_JEU = 21; //nombre de cartes en jeu
