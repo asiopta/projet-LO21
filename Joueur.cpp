@@ -675,22 +675,22 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 
 //méthodes qui permettent de rajouter une carte
 void Joueur::updateRessourcesCarte(Carte* carte){ //! erreur non expliqué
-    unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
     ajouterRessource(RessourcePrimaire::bois, nb);
 
-    unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique);
+    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::brique);
     ajouterRessource(RessourcePrimaire::brique, nb);
 
-    unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre);
+    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::pierre);
     ajouterRessource(RessourcePrimaire::pierre, nb);
 
-    unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
     ajouterRessource(RessourcePrimaire::bois, nb);
 
-    unsigned int nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre);
+    unsigned int nb = carte->getQuantRessSecondProd(RessourceSecondaire::verre);
     ajouterRessource(RessourceSecondaire::verre, nb);
 
-    unsigned int nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
+    unsigned int nb = carte->getQuantRessSecondProd(RessourceSecondaire::parchemin);
     ajouterRessource(RessourceSecondaire::parchemin, nb);
 }
 
@@ -711,6 +711,12 @@ void Joueur::updateSymbolesScienceCarte(Carte* carte){
     }
 }
 
+void Joueur::updateEffetsGuilde(Carte* carte){
+    if(carte->get_type() == TypeCarte::CarteGuilde){
+        addEffetGuilde(carte->get_effet_guilde());
+    }
+}
+
 void Joueur::addCarte(Carte* carte){
     updatePtVictoireCarte(carte);
     updateSymbolesChainageCarte(carte);
@@ -718,7 +724,7 @@ void Joueur::addCarte(Carte* carte){
         updateRessourcesCarte(carte);
     }
     if(carte->get_type() == TypeCarte::CarteScience) updateSymbolesScienceCarte(carte);
-    if(carte->get_type()== TypeCarte::CarteGuilde) addEffetGuilde(carte->get_effet_guilde());
+    if(carte->get_type()== TypeCarte::CarteGuilde) updateEffetsGuilde(carte);
     
 } 
 
@@ -747,16 +753,43 @@ void Joueur::retirerCarte(Carte* carte){
 
 
 //construire une carte
-unsigned int Joueur::getCout(const Carte& carte){
-        //En cours
-        //COÛT = 2 + nombre de symboles de la même ressource produite par les
-        //cartes marron et grises de la cité adverse
-        if(possedeSymboleChainage(carte.getSymboleChainageEntre())) return 0;
-        unsigned int cout = 0;
-        if(getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois)<carte.getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois));
+unsigned int Joueur::getCout(const Carte& carte, Joueur adversaire) {
+    //En cours
+    //COÛT = 2 + nombre de symboles de la même ressource produite par les
+    //cartes marron et grises de la cité adverse
+    if(possedeSymboleChainage(carte.getSymboleChainageEntre())) return 0;
+    unsigned int cout = 0;
 
-        
+    // Handle RessourcePrimaire
+    int diff_pierre = carte.getQuantRessPrimNess(RessourcePrimaire::pierre) - getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre);
+    if(diff_pierre > 0) {
+        cout += diff_pierre * (2 + adversaire.getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre));
+    }
+
+    int diff_bois = carte.getQuantRessPrimNess(RessourcePrimaire::bois) - getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+    if(diff_bois > 0) {
+        cout += diff_bois * (2 + adversaire.getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois));
+    }
+
+    int diff_brique = carte.getQuantRessPrimNess(RessourcePrimaire::brique) - getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique);
+    if(diff_brique > 0) {
+        cout += diff_brique * (2 + adversaire.getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique));
+    }
+
+    // Handle RessourceSecondaire
+    int diff_verre = carte.getQuantRessSecondNess(RessourceSecondaire::verre) - getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre);
+    if(diff_verre > 0) {
+        cout += diff_verre * (2 + adversaire.getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre));
+    }
+
+    int diff_parchemin = carte.getQuantRessSecondNess(RessourceSecondaire::parchemin) - getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
+    if(diff_parchemin > 0) {
+        cout += diff_parchemin * (2 + adversaire.getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin));
+    }
+
+    return cout;
 }
+
 
 /*
 void Joueur::construireCarte(Carte& carte, PlateauCartes& p){

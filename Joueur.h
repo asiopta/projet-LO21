@@ -233,8 +233,7 @@ public:
     bool gagneScientifiquement() const {return getNbSymbolesScience() >= 6;};//review
     void addSymboleScience(const SymboleScience s); //review
     void removeSymboleScience(SymboleScience& s); // review
-    void choisirJeton(); // à faire 
-    //c'est une fonction qui choisit un jeton dans le plateau et le construit
+
 
     //méthodes spécifiques à l'attribut ressources
     void ajouterRessource(RessourcePrimaire rp, unsigned int quant); //ok
@@ -252,7 +251,7 @@ public:
         // à appeler à chaque fois qu'on construit une carte
     void removeSymboleChainage(SymboleChainage s); // review
         //à appeler à chaque fois qu'on supprime une des cartes construites par le joueur
-    bool possedeSymboleChainage(SymboleChainage s) const;
+    bool possedeSymboleChainage(SymboleChainage s) const; //ok
 
     //méthodes d'update
     void gagnerArgent(int argent); //ok
@@ -271,11 +270,16 @@ public:
     void updatePtVictoireCarte(Carte* carte); //review
     void updateSymbolesChainageCarte(Carte* carte); // review
     void updateSymbolesScienceCarte(Carte* carte); //review
+    void updateEffetsGuilde(Carte* carte); //review
     void addCarte(Carte* carte); // review
 
     //construire une carte
-    unsigned int getCout(const Carte& carte); //à faire bientot
+    unsigned int getCout(const Carte& carte, Joueur adversaire); //à faire bientot
     void construireCarte(Carte& carte); //à faire
+
+    
+    //c'est une fonction qui choisit un jeton dans le plateau et le construit
+    void choisirJeton(); // à faire 
     
     //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
     void choisir_action(PlateauCartes& p); // à faire plus tard
