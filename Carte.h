@@ -122,12 +122,7 @@ protected:
     RessourceSecondaire* materiaux_construction_secondaires;
     bool accessible;
     bool face_visible;
-    unsigned int position; //Je propose qu'on mette la position de la carte directement dans la classCarte,
-    //on met à 0 si elle n'est pas sur le plateau, et sinon, on commence à 1.
-    //c'est interessent parceque du coup on peut faire une méthode qui verifie directement si la carte est dans le plateau
-    //en faissant un if position:
-
-    //attribut static pt étre à rajouter pr la taille de la liste de materiaux primaire
+    unsigned int position;
 public:
     //constructeur
     Carte();
@@ -147,17 +142,23 @@ public:
     unsigned int getPrix() const {return cout_construction;}
     bool est_facevisible() const {return face_visible;}
     bool est_accessible() const {return accessible;}
+
     unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole,RessourcePrimaire* Resp) const;
     unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole,RessourceSecondaire* ResS) const;
     RessourcePrimaire* getMateriauxPrimaires()const {return materiaux_construction_primaires;}
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
-
     virtual EffetGuilde get_effet_guilde() const {return EffetGuilde::none;}
     virtual TypeCarte get_type() const = 0;
     virtual unsigned int getPtVictoire() const {return 0;}
     virtual SymboleScience getSymboleScience() const {return SymboleScience::none;}
     virtual SymboleChainage getSymboleChainageEntre() const {return SymboleChainage::none;}
     virtual SymboleChainage getSymboleChainageSortie() const {return SymboleChainage::none;}
+    virtual unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const {return 0;}
+    virtual unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const {return 0;}
+    unsigned int getQuantRessPrimNess(RessourcePrimaire rp) const ;
+    unsigned int getQuantRessSecondNess(RessourceSecondaire rs) const ;
+
+
     //destructeur
     virtual ~Carte();
 };
@@ -175,6 +176,7 @@ public:
     void set_production(RessourcePrimaire r); //def in cpp
     // les cartes marron ne peuvent étre construites qu'avec la monnaie
     TypeCarte get_type() const override {return TypeCarte::CarteRessourcePrimaire;};
+    unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;
     //destructeur
     virtual ~CarteRessourcePrimaire();
 };
@@ -191,9 +193,9 @@ public:
 
     //méthodes
     RessourceSecondaire get_production() const {return production;}
-        TypeCarte get_type() const override {return TypeCarte::CarteRessourceSecondaire;};
-
+    TypeCarte get_type() const override {return TypeCarte::CarteRessourceSecondaire;};
     void set_production(RessourceSecondaire r); //def in cpp
+    unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const override;
 
     //destructeur
     virtual  ~CarteRessourceSecondaire(){};
@@ -224,6 +226,8 @@ public:
     unsigned int getPtVictoire()const override {return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
     SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
+    unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;
+    unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const override;
 
     void set_choix(bool c){choix = c;}
     void set_contrepartie(bool c){contrepartie = c;}
@@ -371,6 +375,8 @@ public:
     void exec_choisir_jeton_science(Joueur& joueur1, PlateauScience& plateau_science) const;
 
     unsigned int getPtVictoire()const override{return pt_victoire;}
+    unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;
+    unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const override;
 
     TypeCarte get_type() const override {return TypeCarte::Merveille;}; 
 
