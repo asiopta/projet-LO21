@@ -71,6 +71,7 @@ enum class SymboleScience{
 
 
 enum class EffetGuilde{
+    none,
     guilde_armateurs,
     guilde_batisseurs,
     guilde_commercants,
@@ -140,6 +141,7 @@ public:
     RessourcePrimaire* getMateriauxPrimaires()const {return materiaux_construction_primaires;}
     RessourceSecondaire* getMateriauxSecondaires()const {return materiaux_construction_secondaires;}
 
+    virtual EffetGuilde get_effet_guilde() const {return EffetGuilde::none;}
     virtual TypeCarte get_type() const = 0;
     virtual unsigned int getPtVictoire() const {return 0;}
     virtual SymboleScience getSymboleScience() const {return SymboleScience::none;}
