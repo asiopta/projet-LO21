@@ -424,18 +424,88 @@ bool Joueur::possedeSymboleChainage(SymboleChainage s) const {
     }
 }
 
+//méthodes de classe EffetsGuilde
+void Joueur::addEffetGuilde(EffetGuilde effet) {
+    switch(effet) {
+        case EffetGuilde::guilde_armateurs:
+            effets_guilde.guilde_armateurs = true;
+            break;
+        case EffetGuilde::guilde_batisseurs:
+            effets_guilde.guilde_batisseurs = true;
+            break;
+        case EffetGuilde::guilde_commercants:
+            effets_guilde.guilde_commercants = true;
+            break;
+        case EffetGuilde::guilde_magistrats:
+            effets_guilde.guilde_magistrats = true;
+            break;
+        case EffetGuilde::guilde_tacticiens:
+            effets_guilde.guilde_tacticiens = true;
+            break;
+        case EffetGuilde::guilde_scientifiques:
+            effets_guilde.guilde_scientifiques = true;
+            break;
+        case EffetGuilde::guilde_usuriers:
+            effets_guilde.guilde_usuriers = true;
+            break;
+        case EffetGuilde::none:
+            break;
+        default:
+            SetException("erreur: effet guilde non existant!");
+            break;
+    }
+}
+
+void Joueur::removeEffetGuilde(EffetGuilde effet) {
+    switch(effet) {
+        case EffetGuilde::guilde_armateurs:
+            effets_guilde.guilde_armateurs = false;
+            break;
+        case EffetGuilde::guilde_batisseurs:
+            effets_guilde.guilde_batisseurs = false;
+            break;
+        case EffetGuilde::guilde_commercants:
+            effets_guilde.guilde_commercants = false;
+            break;
+        case EffetGuilde::guilde_magistrats:
+            effets_guilde.guilde_magistrats = false;
+            break;
+        case EffetGuilde::guilde_tacticiens:
+            effets_guilde.guilde_tacticiens = false;
+            break;
+        case EffetGuilde::guilde_scientifiques:
+            effets_guilde.guilde_scientifiques = false;
+            break;
+        case EffetGuilde::guilde_usuriers:
+            effets_guilde.guilde_usuriers = false;
+            break;
+        case EffetGuilde::none:
+            break;
+        default:
+            SetException("erreur: effet guilde non existant!");
+            break;
+    }
+}
+
+
 
 /*------------------classe Joueur----------------------*/
 //constructeurs
-Joueur::Joueur(): pt_victoire(0), monnaie(7), ressources() {
+Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false), ressources(), capacites()
+, symboles_science(), symboles_chainage(), effets_guilde(){
     for(int i=0; i<60; i++) cartes_construite[i] = nullptr;
     for(int i=0; i<4; i++) merveille_construite[i] = nullptr;
+    for(int i=0; i<4; i++) merveille_non_construite[i] = nullptr;
 }
 
-Joueur::Joueur(const Joueur& j): monnaie(j.monnaie), pt_victoire(j.pt_victoire),
-ressources(j.ressources){
+Joueur::Joueur(const Joueur& j): monnaie(j.monnaie), pt_victoire(j.pt_victoire), nb_jetons(j.nb_jetons),
+rejouer(j.rejouer), ressources(j.ressources), capacites(j.capacites), symboles_science(j.symboles_science),
+symboles_chainage(j.symboles_chainage), effets_guilde(j.effets_guilde)
+{
     for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
     for(int i=0; i<4; i++) merveille_construite[i] = j.merveille_construite[i];
+    for(int i=0; i<4; i++) merveille_non_construite[i] = j.merveille_non_construite[i];
+
 }
 
 Joueur& Joueur::operator=(const Joueur& j){
@@ -443,8 +513,19 @@ Joueur& Joueur::operator=(const Joueur& j){
         monnaie = j.monnaie;
         pt_victoire = j.pt_victoire;
         ressources = j.ressources;
+        rejouer = j.rejouer;
+        nb_jetons = j.nb_jetons;
+        ressources = j.ressources;
+        capacites = j.capacites;
+        symboles_science = j.symboles_science;
+        symboles_chainage = j.symboles_chainage;
+        effets_guilde = j.effets_guilde;
+        free(cartes_construite);
+        free(merveille_construite);
+        free(merveille_non_construite);
         for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
         for(int i=0; i<4; i++) merveille_construite[i] = j.merveille_construite[i];
+        for(int i=0; i<4; i++) merveille_non_construite[i] = j.merveille_non_construite[i];
     }
     return *this;
 }
@@ -457,6 +538,7 @@ bool Joueur::operator==(const Joueur& j){
 Joueur::~Joueur(){
     for(int i=0; i< getNbCartesConstruites(); i++) free(cartes_construite[i]);
     for(int i=0; i< getNbMerveillesConstruites(); i++) free(merveille_construite[i]);
+    for(int i=0; i< getNbMerveillesNonConstruites(); i++) free(merveille_non_construite[i]);
 }
 
 // _____les getteurs_____//
@@ -633,6 +715,7 @@ void Joueur::addCarte(Carte* carte){
         updateRessourcesCarte(carte);
     }
     if(carte->get_type() == TypeCarte::CarteScience) updateSymbolesScienceCarte(carte);
+    if(carte->get_type()== TypeCarte::CarteGuilde) addEffetGuilde(carte->get_effet_guilde());
     
 } 
 

@@ -47,9 +47,14 @@ class Joueur{
 //TODO: méthode addCarte() qui construit une carte gratuitement
 //TODO: fonction retirerCarte();
 
-TODO: changer constructeurs/ destructeurs
+//TODO: rajouter les effets guildes et les méthodes qui vont avec
+//TODO: changer constructeurs/ destructeurs;
+
 TODO: termine getCout();
 TODO: changer la fonction construireCarte();
+TODO: choisirJetons()
+
+
 
 */
 
@@ -102,6 +107,7 @@ private:
             theologie(false), urbanisme(false){};
         CapaciteJeton(const CapaciteJeton& cap) = default;
         ~CapaciteJeton() = default;
+        CapaciteJeton& operator=(const CapaciteJeton& capacite) = default;
 
 
     };
@@ -123,6 +129,7 @@ private:
         SymbolesScience() = default;
         SymbolesScience(const SymbolesScience& s) = default;
         ~SymbolesScience() = default;
+        SymbolesScience& operator=(const SymbolesScience& symbole_science) = default;
     };
     SymbolesScience symboles_science;
 
@@ -154,6 +161,25 @@ private:
     };
     SymbolesChainage symboles_chainage;
 
+    struct EffetsGuilde{
+        //attributs
+        bool guilde_armateurs = false;
+        bool guilde_batisseurs = false;
+        bool guilde_commercants = false;
+        bool guilde_magistrats = false;
+        bool guilde_tacticiens = false;
+        bool guilde_scientifiques = false;
+        bool guilde_usuriers = false;
+
+        //méthodes
+        EffetsGuilde() = default;
+        EffetsGuilde(const EffetsGuilde& effets_guilde) = default;
+        ~EffetsGuilde() = default;
+        EffetsGuilde& operator=(const EffetsGuilde& effet_guilde) = default;
+
+    };
+    EffetsGuilde effets_guilde;
+
 public:
     //constructeurs
     Joueur(); // à refaire
@@ -175,6 +201,7 @@ public:
     unsigned int getNbJetonsScience() const {return nb_jetons;}; //ok
     SymbolesScience getSymbolesScience() const {return symboles_science;}; //ok
     CapaciteJeton getCapacitesJetons() const {return capacites;}; //ok
+    EffetsGuilde getEffetsGuilde() const { return effets_guilde;} ; //ok
     SymbolesChainage getSymbolesChainage() const {return symboles_chainage;}; //ok
     unsigned int getNbCartesType(std::string type) const; // review
     //getteurs de ressources produites. par ex: 2 bois ou 3 verres
@@ -191,13 +218,14 @@ public:
     void setRessource(RessourceSecondaire rs, unsigned int quantite); //review
     void addCapaciteJeton(CapaciteScience jeton); //review
     
+    
     //méthodes de l'attribut rejouer
     void setRejouerTrue(){rejouer = true;}; //ok
     void setRejouerFalse(){rejouer = false;}; //ok
 
 
     //méthodes de jetons
-    void construireJeton(JetonScience& jeton); //constuit le jeton pour le joueur
+    void construireJeton(JetonScience& jeton); //construit le jeton pour le joueur
     
     //méthodes de l'attribut symboles_science
     unsigned int getNbSymbolesScience()const; //review
@@ -212,6 +240,10 @@ public:
     void ajouterRessource(RessourceSecondaire rs, unsigned int quant); //ok
     void retirerRessource(RessourcePrimaire rp, unsigned int quant); //ok
     void retirerRessource(RessourceSecondaire rs, unsigned int quant); //ok
+
+    //méthodes pour effets_guilde*
+    void addEffetGuilde(EffetGuilde effet);
+    void removeEffetGuilde(EffetGuilde effet);
 
     //méthodes spécifiques à l'attribut symboles_chainage
     void setSymboleChainage(SymboleChainage s, bool var); //review

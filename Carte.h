@@ -78,7 +78,8 @@ enum class EffetGuilde{
     guilde_magistrats,
     guilde_tacticiens,
     guilde_scientifiques,
-    guilde_usuriers
+    guilde_usuriers,
+    none
 };
 
 
