@@ -47,13 +47,12 @@ class Joueur{
 //TODO: méthode addCarte() qui construit une carte gratuitement
 //TODO: fonction retirerCarte();
 
-TODO: changer constructeurs/ destructeurs;
+TODO: changer constructeurs/ destructeurs
 TODO: termine getCout();
 TODO: changer la fonction construireCarte();
 
-
-
 */
+
 private:
     Carte* cartes_construite[60];
     Merveille* merveille_construite[4];
