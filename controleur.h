@@ -13,7 +13,6 @@ using Action = std::tuple<Carte*, std::string>;
 
 class Plateau{
 private:
-    unsigned int age = 1; //! information redondante. existe deja dans plateau_cartes
     PlateauMilitaire* plateau_militaire;
     PlateauScience* plateau_science;
     PlateauCartes* plateau_cartes;
@@ -82,10 +81,26 @@ public:
     //? a t-on vraiment besoin de setteurs pour plateau et joueur?
 	const Plateau& getPlateau() const { return plateau; }
     Plateau& getPlateau() { return plateau; }
+
+    Joueur& getJoueur1() { return joueur1; };
+    const Joueur& getJoueur1() const{ return joueur1; };
+
+    Joueur& getJoueur2() { return joueur2; };
+    const Joueur& getJoueur2() const{ return joueur2; };
+
+    int getTour() { return tour;};
+    void setTour(int j) { tour = j;};
 	
-    Joueur& quiJoue(); 
-    bool gagne(Joueur& joueur); //renvoie true si le joueur a gagné, false sinon  
-    bool jeuEstFinie(); // plateau.IsEtatFinal() || joueur1 a gagné || joueur2 a gagné //? def dans le cpp
+
+    //autres méthodes utiles
+    Joueur& quiJoue(); //retourne le joueur dont il est le tour de jouer //review
+    Joueur& autreJoueur(Joueur& j);
+
+    bool jeuEstFinie(); // plateau.IsEtatFinal() || joueur1 a gagné || joueur2 a gagné //review
+    unsigned int gagnant(); //retourne le gagnant du match //review
+
+    void contruireCarte(Carte* carte);
+    void defausserCarte(Carte* carte);
 
     Action* actionsLegales(); //renvoie une liste de ttes les actions légales que le joueurs, dont il est le tour de jouer, peut faire.
     bool actionEstLegale(Action& action); //est-ce que une action donné est légale/possible à faire pour le joueur dont il est le tour de jouer.
