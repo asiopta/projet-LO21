@@ -65,6 +65,8 @@ Joueur& Controleur::autreJoueur(Joueur& j){
     else SetException("erreur: joueur non reconnu");
 }
 
+
+
  void Controleur::contruireCarte(Carte* carte){
     //si la carte est accessible
     if(plateau.getPlateauCartes()->estAccessible(carte)){
@@ -82,7 +84,7 @@ Joueur& Controleur::autreJoueur(Joueur& j){
         //si c'est une carteMilitaire
         if(carte->get_type() == TypeCarte::CarteMilitaire){
             CarteMilitaire* carte_militaire = dynamic_cast<CarteMilitaire*>(carte);
-            carte_militaire->exec_capacite(j, plateau.getPlateauMilitaire());
+            carte_militaire->exec_capacite(j, plateau.getPlateauCartes());
         }
     }
     else SetException("erreur: carte non accessible!");

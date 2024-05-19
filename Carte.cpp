@@ -520,7 +520,7 @@ CarteMilitaire::CarteMilitaire(const CarteMilitaire& c)
         capacite = c.capacite;
 }
 
-void CarteMilitaire::exec_capacite(Joueur& joueur_adverse, PlateauMilitaire& plateau_militaire) const{ //!error
+void CarteMilitaire::exec_capacite(Joueur& joueur_adverse, PlateauMilitaire& plateau_militaire){ //!error
     plateau_militaire.update_avance(nb_symbole_militaire,joueur_adverse);
 }
 

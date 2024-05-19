@@ -313,7 +313,7 @@ public:
     void set_nb_symbole_militaire(unsigned int nb){nb_symbole_militaire=nb;}
 
 
-    void exec_capacite(Joueur& joueur_adverse, PlateauMilitaire& plateau_militaire) const;
+    void exec_capacite(Joueur& joueur_adverse, PlateauMilitaire& plateau_militaire) ;
     TypeCarte get_type() const override {return TypeCarte::CarteMilitaire;}; 
 
     //destructeur
