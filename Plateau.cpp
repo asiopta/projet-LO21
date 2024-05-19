@@ -291,6 +291,15 @@ JetonMalus* PlateauMilitaire::jeton_malus_ici() const{
     }
 }
 
+bool PlateauMilitaire::gagneMilitairement(Joueur& joueur) const {
+    if (avance >= avance_win && &joueur != &joueur_derriere){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 void PlateauMilitaire::retirer_jeton_malus(JetonMalus& jeton) { 
     unsigned int compteur_teste = 0;
     for (int i = 0; i < Dim_jetons_malus; i++) {

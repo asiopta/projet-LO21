@@ -109,12 +109,14 @@ public:
 /*-------------------------------------PlateauMilitaire-------------------------------------*/
 class PlateauMilitaire{
     private:
+        const int avance_win = 9;
         unsigned int avance;
         const int Dim_jetons_malus = 4;
         JetonMalus **liste_jetons_malus;
         Joueur& joueur_derriere;
     public:
         PlateauMilitaire(unsigned int a, Joueur& joueur_derr, Joueur& autre_joueur);
+        bool gagneMilitairement(Joueur& joueur) const ; //renvoie le joueur qui a gagné militairement, nullptr sinon
         void update_avance(unsigned int a, Joueur& joueur_cible); //ajoute l'avancé militaire ajout en direction du joueur_cible
         void retirer_jeton_malus(JetonMalus& jeton);
         JetonMalus* jeton_malus_ici() const; //renvoie un jeton malus vide si il n'y en a pas, et le jeton malus sinon
