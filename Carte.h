@@ -8,7 +8,7 @@
 
 /*-------------------------------------CONSTANTES DE L'ENVIRONEMENT-------------------------------------*/
 const unsigned int Taille_cout_primaire = 5;
-const unsigned int Taille_cout_secondaire = 2;
+const unsigned int Taille_cout_secondaire = 3;
 const unsigned int Taille_prod_primaire = 3;
 const unsigned int Taille_prod_secondaire = 2;
 const unsigned int Taille_capacite = 3;
