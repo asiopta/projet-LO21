@@ -110,7 +110,7 @@ void Joueur::construireJeton(JetonScience& jeton){
     // }
     jeton.exec_capacite_science(this);
 
-    //+ gerer le fait que le jeton n'est plus prenable
+    //! + gerer le fait que le jeton n'est plus prenable
 
 
 }
@@ -759,7 +759,7 @@ unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
     if(possedeSymboleChainage(carte.getSymboleChainageEntre())) return 0;
     unsigned int cout = 0;
 
-    // Handle RessourcePrimaire
+    // gérer ressources primaires
     int diff_pierre = carte.getQuantRessPrimNess(RessourcePrimaire::pierre) - getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre);
     if(diff_pierre > 0) {
         cout += diff_pierre * (2 + adversaire.getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre));
@@ -775,7 +775,7 @@ unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
         cout += diff_brique * (2 + adversaire.getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique));
     }
 
-    // Handle RessourceSecondaire
+    // gérer ressources secondaires
     int diff_verre = carte.getQuantRessSecondNess(RessourceSecondaire::verre) - getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre);
     if(diff_verre > 0) {
         cout += diff_verre * (2 + adversaire.getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre));

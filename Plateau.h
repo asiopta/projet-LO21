@@ -121,6 +121,10 @@ class PlateauMilitaire{
         void retirer_jeton_malus(JetonMalus& jeton);
         JetonMalus* jeton_malus_ici() const; //renvoie un jeton malus vide si il n'y en a pas, et le jeton malus sinon
         ~PlateauMilitaire();
+
+        //Joueur& gagneMilitairement();
+        auto gagneMilitairement(); //maybe this? //! à faire
+        //! une fonction qui renvoie le gagant militairement si c'est le cas sinon NULL
 };
 
 
@@ -134,7 +138,7 @@ private:
     Carte** defausses;
 
 public:
-    PlateauCartes();
+    PlateauCartes() = default;
     PlateauCartes(unsigned int age, std::initializer_list<Carte*> cartes_en_jeu);
     void addAge(); //modifie carte_en_jeu en tirant de nouvelles cartes en jeu d'age age
     void ajouterCarte(Carte* carte); //ajoute la carte dans carte_en_jeu
@@ -156,6 +160,8 @@ public:
     Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
     unsigned int getNbMerveilles() const; //renvoie le nombre de merveilles restantes
    ~PlateauCartes();
+
+   bool estVide(); //! renvoie si il ya encore des carte sur le plateau ou pas, que ce soit l'age
 };
 
 
