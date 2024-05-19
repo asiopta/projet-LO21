@@ -13,6 +13,8 @@ int main(){
     CarteGuilde carte_3 = carte_2;
     cout << "teste" << endl;
     return 0;
+
+    
 }
 
 
