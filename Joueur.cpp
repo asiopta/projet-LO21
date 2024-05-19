@@ -806,7 +806,8 @@ void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
     }
 }
 
-*/
+
+
 
 
 //méthodes de vérification 
@@ -817,6 +818,6 @@ bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCo
     else return false;
 }
 
-
+*/
 /*-------------------------------------PlateauCarte-------------------------------------*/
  

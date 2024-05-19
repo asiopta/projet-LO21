@@ -276,7 +276,7 @@ public:
     void addCarte(Carte* carte); // review
 
     //construire une carte
-    unsigned int getCout(const Carte& carte, Joueur adversaire); //à faire bientot
+    unsigned int getCout(const Carte& carte, Joueur& adversaire); //à faire bientot
     void construireCarte(Carte& carte); //à faire
 
 
