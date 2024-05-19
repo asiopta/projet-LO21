@@ -91,7 +91,7 @@ public:
 	
 
     //autres méthodes utiles
-    bool gagne(Joueur& joueur);
+    //bool gagne(Joueur& joueur);
     Joueur& quiJoue(); //retourne le joueur dont il est le tour de jouer //review
     Joueur& autreJoueur(Joueur& j);
 
@@ -99,7 +99,7 @@ public:
     unsigned int gagnant(); //retourne le gagnant du match //review
 
     void contruireCarte(Carte* carte); //review
-    void defausserCarte(Carte* carte); 
+    void defausserCarte(Carte* carte); //review
 
     Action* actionsLegales(); //renvoie une liste de ttes les actions légales que le joueurs, dont il est le tour de jouer, peut faire.
     bool actionEstLegale(Action& action); //est-ce que une action donné est légale/possible à faire pour le joueur dont il est le tour de jouer.
