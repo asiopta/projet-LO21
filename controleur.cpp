@@ -50,7 +50,7 @@ bool Controleur::jeuEstFinie(){
 Controleur::Handler Controleur::handler = Handler(); 
 
 Controleur& Controleur::getInstance(){
-    if(handler.instance == nullptr) handler.instance = new Controleur; //!erreur qui n'a pas de sense
+    if(handler.instance == nullptr) handler.instance = new Controleur;
     return *handler.instance;
 }
 void Controleur::libererInstance(){
