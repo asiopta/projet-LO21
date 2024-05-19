@@ -172,28 +172,14 @@ PlateauScience::PlateauScience() {
     }
 }
 
-//constructeur de PlateauScience
-PlateauScience::PlateauScience(JetonScience *in_game, JetonScience *out_game){
-    jeton_in_game = new JetonScience[Dim_jetons_in_game];
-    liste_position = new unsigned int[Dim_liste_position];
-    jeton_out_game = new JetonScience[Dim_jetons_out_game];
-    for (int i = 0; i < Dim_jetons_in_game; i++) {
-        jeton_in_game[i] = in_game[i];
-    }
-    for (int i = 0; i < Dim_jetons_out_game; i++) {
-        jeton_out_game[i] = out_game[i];
-    }
-    for (int i = 0; i < Dim_liste_position; i++) {
-        liste_position[i] = i+1; //va de 1 à 5, 0 designe l'absence de jeton
-    }
-}
+
 
 //ajoute un jeton science dans le tableau jeton_in_game
 void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
     for (int i = 0; i < Dim_jetons_in_game; i++) {
-        if (jeton_in_game[i].get_capacite() == CapaciteScience::none) { ////la capacité de JetonScience est inacessible directement. Comme c'est privé 
+        if (jeton_in_game[i]->get_capacite() == CapaciteScience::none) { ////la capacité de JetonScience est inacessible directement. Comme c'est privé 
                                                                         // Erreur corrigé en rajoutant une méthode get_capacite() dans la classe JetonScience
-            jeton_in_game[i] = jeton;
+            jeton_in_game[i] = &jeton;
             liste_position[i] = i+1;
         }
         else {throw("Erreur : pas de place pour ajouter un jeton");}
@@ -202,8 +188,8 @@ void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
 
 void PlateauScience::ajouter_jeton_out_game(JetonScience& jeton) {
     for (int i = 0; i < Dim_jetons_out_game; i++) {
-        if (jeton_out_game[i].get_capacite() == CapaciteScience::none) {
-            jeton_out_game[i] = jeton;
+        if (jeton_out_game[i]->get_capacite() == CapaciteScience::none) {
+            jeton_out_game[i] = &jeton;
             liste_position[i] = i+1;
         }
         else {throw("Erreur : pas de place pour ajouter un jeton");}
@@ -212,8 +198,8 @@ void PlateauScience::ajouter_jeton_out_game(JetonScience& jeton) {
 
 void PlateauScience::retirer_jeton_in_game(JetonScience& jeton) { //cette fonction n'existe pas dans le fichier plateau.h
     for (int i = 0; i < Dim_jetons_in_game; i++) {
-        if (jeton_in_game[i].get_capacite() == jeton.get_capacite()) {
-            jeton_in_game[i] = JetonScience();
+        if (jeton_in_game[i]->get_capacite() == jeton.get_capacite()) {
+            jeton_in_game[i] = nullptr;
             liste_position[i] = 0;
         }
         else {throw("Erreur : jeton non présent");}
@@ -222,22 +208,19 @@ void PlateauScience::retirer_jeton_in_game(JetonScience& jeton) { //cette foncti
 
 void PlateauScience::retirer_jeton_out_game(JetonScience& jeton) { //meme chose ici
     for (int i = 0; i < Dim_jetons_out_game; i++) {
-        if (jeton_out_game[i].get_capacite() == jeton.get_capacite()) {
-            jeton_out_game[i] = JetonScience();
+        if (jeton_out_game[i]->get_capacite() == jeton.get_capacite()) {
+            jeton_out_game[i] = nullptr;
             liste_position[i] = 0;
         }
         else {throw("Erreur : jeton non présent");}
     }
 }
 
-JetonScience* PlateauScience::tirer_jeton_in_game(JetonScience& jeton){
-    retirer_jeton_in_game(jeton); //On retire le jeton du plateau
-    return &jeton; //on renvoie le jeton retiré, pour eventuellement faire son effet
-}
 
-JetonScience* PlateauScience::tirer_jeton_out_game(){ //renvoie un tableau de 3 jetons science tiré depuis l'exterieur du jeu. 
+
+JetonScience** PlateauScience::tirer_jeton_out_game(){ //renvoie un tableau de 3 jetons science tiré depuis l'exterieur du jeu. 
     const unsigned int Dim_resultat = 3;
-    JetonScience* resultat = new JetonScience[Dim_resultat]; //génère un tableau de 3 jetons science
+    JetonScience** resultat = new JetonScience*[Dim_resultat]; //génère un tableau de 3 jetons science
     std::vector<int> liste = {1, 2, 3, 4, 5};
     // Initialisation du générateur de nombres aléatoires
     std::random_device rd;
@@ -514,7 +497,7 @@ void PlateauCartes::tirerCarteRandom(){
 }
 
 
-bool PlateauCartes::estVide(){
+bool PlateauCartes::estVide() const{
     for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
         if (cartes_en_jeu[i] != nullptr){
             return false;

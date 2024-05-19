@@ -23,7 +23,7 @@ Plateau::~Plateau(){
 }
 
 bool Plateau::isEtatFinal() {
-    return (plateau_cartes->estVide() && plateau_cartes->getAge() = 3 ); //! erreur que je comprends pas
+    return (plateau_cartes->estVide() && plateau_cartes->getAge() == 3 ); //! erreur que je comprends pas
         
 }
 

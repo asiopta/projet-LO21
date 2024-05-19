@@ -95,9 +95,7 @@ private:
 
 public:
     PlateauScience();
-    PlateauScience(JetonScience *in_game, JetonScience *out_game);
-    JetonScience* tirer_jeton_out_game();
-    JetonScience* tirer_jeton_in_game(JetonScience& jeton);
+    JetonScience** tirer_jeton_out_game();
     void retirer_jeton_out_game(JetonScience& jeton);
     void retirer_jeton_in_game(JetonScience& jeton);
     void ajouter_jeton_in_game(JetonScience& jeton);
@@ -161,7 +159,7 @@ public:
     unsigned int getNbMerveilles() const; //renvoie le nombre de merveilles restantes
    ~PlateauCartes();
 
-   bool estVide(); //! renvoie si il ya encore des carte sur le plateau ou pas, que ce soit l'age
+   bool estVide() const; //! renvoie si il ya encore des carte sur le plateau ou pas, que ce soit l'age
 };
 
 
