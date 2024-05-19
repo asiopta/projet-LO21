@@ -185,13 +185,13 @@ private:
 
 public:
     //constructeurs
-    Joueur(); // à refaire
-    Joueur(const Joueur& j); //à refaire
-    Joueur& operator=(const Joueur& j); //à refaire
-    bool operator==(const Joueur& j); // à refaire
+    Joueur(); // review
+    Joueur(const Joueur& j); //review
+    Joueur& operator=(const Joueur& j); //review
+    bool operator==(const Joueur& j); // review
 
     //destructeur
-    ~Joueur(); // à refaire
+    ~Joueur(); // review
 
     /* ------les getteurs ----*/
     //getteur de monnaie et pt_victoire
@@ -294,58 +294,6 @@ public:
     //** je pense meme que c'est pt étre une fonction de controleur
     */
 };
-
-//PlateauCarte est maintenant dans le fichier Plateau.h
-
-/*
-* ? jsp si il faut ajouter une autre classe Jeu (comme le td) ou pas? //!je pense que non (en fait c'est controleur non ?)
-* ? je suis aussi pas sur de quand utiliser le singleton //!controleur
-* * en tout cas, je crois qu'on a pas à utiliser un iterator en ce moment. //!pas besoin d'iterator 
-*/
-
-
-//gérer age et distribuer les cartes
-//piocher cartes, tt ce qui n'est pas dans les autres classes
-
-
-
-class Controleur {
-private:
-	//Pioche* pioche=nullptr;
-	PlateauCartes plateau_cartes;
-    PlateauScience plateau_science;
-    PlateauMilitaire plateau_militaire;
-    Joueur joueur1;
-    Joueur joueur2;
-    int tour;
-    //! rajouter notion d'action sous forme de tuple
-
-public:
-    /*
-	Controleur();
-	void distribuer();
-    ~Controleur() { delete pioche; }
-	const Plateau& getPlateau() const { return plateau; }
-    Plateau& getPlateau() { return plateau; }
-    const Pioche& getPioche() const { return *pioche; }
-	Controleur(const Controleur& c) = delete;
-	Controleur& operator=(const Controleur& c) = delete;
-    bool jeuEstFinie();
-    */
-};
-
-/**
- * si on veut faire un IA plus tard, il faut penser à rajouter les fonctions:
- * TODO: bool actionEstLegale(Controleur& c, Action& a);
-** le problème c'est comment modéliser l'action. Cette fonction sera aussi utilise pour la classe Joueur
-** pour s'assurer que les joueur effectuent une action légale à chaque fois
-
-* TODO: Action* actionsLégales(Controleur& c, Joueur& j);
- * --> retourne un tableau contenant ttes les actions légales pour un joueur donné à cet instant du jeu
-
-// action est un tuple (carte, défausser/construire)
-* 
-*/
 
 
 

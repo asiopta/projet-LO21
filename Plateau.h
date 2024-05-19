@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <tuple>
 #include "Joueur.h"
 #include "setup.h"
 #include "Carte.h"
@@ -154,6 +155,12 @@ public:
     unsigned int getNbMerveilles() const; //renvoie le nombre de merveilles restantes
    ~PlateauCartes();
 };
+
+
+
+
+
+
 
 
 class Plateau{
