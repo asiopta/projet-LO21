@@ -91,6 +91,7 @@ public:
 	
 
     //autres méthodes utiles
+    bool gagne(Joueur& joueur);
     Joueur& quiJoue(); //retourne le joueur dont il est le tour de jouer //review
     Joueur& autreJoueur(Joueur& j);
 

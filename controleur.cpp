@@ -82,7 +82,7 @@ Joueur& Controleur::autreJoueur(Joueur& j){
         //si c'est une carteMilitaire
         if(carte->get_type() == TypeCarte::CarteMilitaire){
             CarteMilitaire* carte_militaire = dynamic_cast<CarteMilitaire*>(carte);
-            carte_militaire.exec_capacite();
+            carte_militaire->exec_capacite(j, plateau.getPlateauMilitaire());
         }
     }
     else SetException("erreur: carte non accessible!");
