@@ -424,7 +424,7 @@ void PlateauCartes::defausserCarte(Carte* carte){
     }
 }
 
-void PlateauCartes::prendreMerveille(Merveille* merveille){
+void PlateauCartes::prendreCarte(Merveille* merveille){
     for (int i = 0; i < TAILLE_MERVEILLES; i++){
         if (merveilles[i] == merveille){
             merveilles[i] = nullptr;

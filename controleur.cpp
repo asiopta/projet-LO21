@@ -71,7 +71,7 @@ Joueur& Controleur::autreJoueur(Joueur& j){
  void Controleur::contruireCarte(Carte* carte){
     //si la carte est accessible
     if(plateau.getPlateauCartes()->estAccessible(carte)){
-        //niveau ressources joueur
+        //niveau argent joueur
         Joueur& j = quiJoue();
         int diff = j.getMonnaie() - j.getCout(*carte, autreJoueur(j));
         if(diff < 0) SetException(" erreur: joueur n'a pas assez d'argent et de ressources");
@@ -79,7 +79,37 @@ Joueur& Controleur::autreJoueur(Joueur& j){
 
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
         j.addCarte(carte);
-        plateau.getPlateauCartes()->defausserCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
+        plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
+        // leurs effets se fait au niveau de classe Joueur
+
+        //si c'est une carteMilitaire
+        if(carte->get_type() == TypeCarte::CarteMilitaire){
+            CarteMilitaire* carte_militaire = dynamic_cast<CarteMilitaire*>(carte);
+            carte_militaire->exec_capacite(j, *plateau.getPlateauMilitaire());
+        }
+
+        //si c'est une merveille
+        if(carte->get_type() == TypeCarte::Merveille){
+            Merveille* merveille = dynamic_cast<Merveille*>(carte);
+            merveille->exec_capacite(joueur1, joueur2, *plateau.getPlateauCartes(), *plateau.getPlateauMilitaire(), *plateau.getPlateauScience());
+
+        }
+    }
+    else SetException("erreur: carte non accessible!");
+ }
+
+
+
+void Controleur::defausserCarte(Carte* carte){
+    if(plateau.getPlateauCartes()->estAccessible(carte)){
+
+        //niveau argent joueur
+        Joueur& j = quiJoue();
+        j.setMonnaie(j.getMonnaie() + j.getCout(*carte, autreJoueur(j)));
+
+        //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
+        j.addCarte(carte);
+        plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
         // leurs effets se fait au niveau de classe Joueur
 
         //si c'est une carteMilitaire
@@ -92,8 +122,8 @@ Joueur& Controleur::autreJoueur(Joueur& j){
         if(carte->get_type() == TypeCarte::CarteMilitaire){
             Merveille* merveille = dynamic_cast<Merveille*>(carte);
             merveille->exec_capacite(joueur1, joueur2, *plateau.getPlateauCartes(), *plateau.getPlateauMilitaire(), *plateau.getPlateauScience());
-            
+
         }
     }
     else SetException("erreur: carte non accessible!");
- }
+}

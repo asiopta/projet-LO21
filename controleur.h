@@ -98,8 +98,8 @@ public:
     bool jeuEstFinie(); // plateau.IsEtatFinal() || joueur1 a gagné || joueur2 a gagné //review
     unsigned int gagnant(); //retourne le gagnant du match //review
 
-    void contruireCarte(Carte* carte);
-    void defausserCarte(Carte* carte);
+    void contruireCarte(Carte* carte); //review
+    void defausserCarte(Carte* carte); 
 
     Action* actionsLegales(); //renvoie une liste de ttes les actions légales que le joueurs, dont il est le tour de jouer, peut faire.
     bool actionEstLegale(Action& action); //est-ce que une action donné est légale/possible à faire pour le joueur dont il est le tour de jouer.
