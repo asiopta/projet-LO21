@@ -139,14 +139,33 @@ void JetonMalus::exec_malus(){
 
 //constructeur par defaut de PlateauScience
 PlateauScience::PlateauScience() {
-    jeton_in_game = new JetonScience[Dim_jetons_in_game];
+    jeton_in_game = new JetonScience*[Dim_jetons_in_game];
     liste_position = new unsigned int[Dim_liste_position];
-    jeton_out_game = new JetonScience[Dim_jetons_out_game];
+    jeton_out_game = new JetonScience*[Dim_jetons_out_game];
+
+    std::vector<CapaciteScience> capacites = {
+        CapaciteScience::agriculture,
+        CapaciteScience::architecture,
+        CapaciteScience::economie,
+        CapaciteScience::loi,
+        CapaciteScience::maconnerie,
+        CapaciteScience::urbanisme,
+        CapaciteScience::theologie,
+        CapaciteScience::strategie,
+        CapaciteScience::philosophie,
+        CapaciteScience::mathematique
+    };
+
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(capacites.begin(), capacites.end(), g);
+
+
     for (int i = 0; i < Dim_jetons_in_game; i++) {
-        jeton_in_game[i] = JetonScience();
+        jeton_in_game[i] = new JetonScience(capacites[i]);
     }
-    for (int i = 0; i < Dim_jetons_out_game; i++) {
-        jeton_out_game[i] = JetonScience();
+    for (int i = Dim_jetons_in_game; i < Dim_jetons_out_game; i++) {
+        jeton_out_game[i] = new JetonScience(capacites[i]);
     }
     for (int i = 0; i < Dim_liste_position; i++) {
         liste_position[i] = i+1;
@@ -243,8 +262,14 @@ JetonScience* PlateauScience::tirer_jeton_out_game(){ //renvoie un tableau de 3 
 }
 
 PlateauScience::~PlateauScience() {
+    for (int i = 0; i < Dim_jetons_in_game; i++) {
+        delete jeton_in_game[i];
+    }
     delete[] jeton_in_game;
     delete[] liste_position;
+    for (int i = 0; i < Dim_jetons_out_game; i++) {
+        delete jeton_out_game[i];
+    }
     delete[] jeton_out_game;
 }
 

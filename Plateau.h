@@ -89,9 +89,9 @@ private:
     const int Dim_jetons_in_game = 5; //est la dimension du tableau jeton_in_game
     const int Dim_liste_position = 5; //est la dimension du tableau liste_position
     const int Dim_jetons_out_game = 5; //est la dimension du tableau jeton_out_game
-    JetonScience *jeton_in_game;
+    JetonScience **jeton_in_game;
     unsigned int *liste_position;
-    JetonScience *jeton_out_game;
+    JetonScience **jeton_out_game;
 
 public:
     PlateauScience();

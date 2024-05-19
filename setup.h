@@ -491,17 +491,18 @@ RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, R
 
 //génération des jetons science
 
-JetonScience** LISTE_JETONS_SCIENCE = new JetonScience*[10];
-JetonScience* jetonAgriculture= new JetonScience(CapaciteScience::agriculture);
-JetonScience* jetonArchitecture= new JetonScience(CapaciteScience::architecture);
-JetonScience* jetonEconomie= new JetonScience(CapaciteScience::economie);
-JetonScience* jetonLoi= new JetonScience(CapaciteScience::loi);
-JetonScience* jetonMaconnerie= new JetonScience(CapaciteScience::maconnerie);
-JetonScience* jetonUrbanisme= new JetonScience(CapaciteScience::urbanisme);
-JetonScience* jetonTheologie= new JetonScience(CapaciteScience::theologie);
-JetonScience* jetonStrategie= new JetonScience(CapaciteScience::strategie);
-JetonScience* jetonPhilosophie= new JetonScience(CapaciteScience::philosophie);
-JetonScience* jetonMathematique= new JetonScience(CapaciteScience::mathematique);
+JetonScience** liste_jetons_science = new JetonScience*[10];
+liste_jetons_science[0] = nullptr;
+// JetonScience* jetonAgriculture= new JetonScience(CapaciteScience::agriculture);
+// JetonScience* jetonArchitecture= new JetonScience(CapaciteScience::architecture);
+// JetonScience* jetonEconomie= new JetonScience(CapaciteScience::economie);
+// JetonScience* jetonLoi= new JetonScience(CapaciteScience::loi);
+// JetonScience* jetonMaconnerie= new JetonScience(CapaciteScience::maconnerie);
+// JetonScience* jetonUrbanisme= new JetonScience(CapaciteScience::urbanisme);
+// JetonScience* jetonTheologie= new JetonScience(CapaciteScience::theologie);
+// JetonScience* jetonStrategie= new JetonScience(CapaciteScience::strategie);
+// JetonScience* jetonPhilosophie= new JetonScience(CapaciteScience::philosophie);
+// JetonScience* jetonMathematique= new JetonScience(CapaciteScience::mathematique);
 
 
 
