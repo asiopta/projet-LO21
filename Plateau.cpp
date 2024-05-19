@@ -489,6 +489,15 @@ void PlateauCartes::tirerCarteRandom(){
 }
 
 
+bool PlateauCartes::estVide(){
+    for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
+        if (cartes_en_jeu[i] != nullptr){
+            return false;
+        }
+    }
+    return true;
+}
+
 
 
 PlateauCartes::~PlateauCartes(){
