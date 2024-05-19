@@ -68,8 +68,9 @@ public:
 	const Plateau& getPlateau() const { return plateau; }
     Plateau& getPlateau() { return plateau; }
 	
-    Joueur& quiJoue();
-    bool jeuEstFinie(); // plateau.IsEtatFinal() || joueur1 a gagné || joueur2 a gagné
+    Joueur& quiJoue(); 
+    bool gagne(Joueur& joueur); //renvoie true si le joueur a gagné, false sinon  
+    bool jeuEstFinie(); // plateau.IsEtatFinal() || joueur1 a gagné || joueur2 a gagné //? def dans le cpp
 
     Action* actionsLegales(); //renvoie une liste de ttes les actions légales que le joueurs, dont il est le tour de jouer, peut faire.
     bool actionEstLegale(Action& action); //est-ce que une action donné est légale/possible à faire pour le joueur dont il est le tour de jouer.

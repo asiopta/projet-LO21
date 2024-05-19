@@ -24,9 +24,19 @@ bool Plateau::changerAge(){
     else {return false;}
 }
 
-
 Plateau::~Plateau(){
     delete plateau_cartes;
     delete plateau_science;
     delete plateau_militaire;
 }
+bool Controleur::gagne(Joueur& joueur){
+    bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur);
+    bool victoireScience = 0 ;
+    return victoireMilitaire || victoireScience;
+}
+
+
+bool Controleur::jeuEstFinie(){
+    return plateau.isEtatFinal() || gagne(joueur1) || gagne(joueur2);
+}
+

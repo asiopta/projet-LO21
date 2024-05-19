@@ -303,7 +303,7 @@ bool PlateauMilitaire::gagneMilitairement(Joueur& joueur) const {
 void PlateauMilitaire::retirer_jeton_malus(JetonMalus& jeton) { 
     unsigned int compteur_teste = 0;
     for (int i = 0; i < Dim_jetons_malus; i++) {
-        if (liste_jetons_malus[i] == &jeton) { //! erreur normale car il manque l'operateur == pour JetonMalus
+        if (liste_jetons_malus[i] == &jeton) { 
             liste_jetons_malus[i] = nullptr; //on retire le jeton de la liste en ajoutant une jeton "neutre"
             jeton.exec_malus(); //on execute l'effet du jeton 
             compteur_teste += 1; //on incremente le compteur de jeton retiré
