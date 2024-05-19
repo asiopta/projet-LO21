@@ -99,6 +99,7 @@ enum class Capacite{
     gagner_monnaie_carte_marron, //reservé à CarteCommerce
     gagner_monnaie_carte_grise, //reservé à CarteCommerce
     gagner_monnaie_carte_rouge, //reservé à CarteCommerce
+    gagner_monnaie_carte_jaune, //reservé à CarteCommerce
     perdre_monnaie_3, //reservé à Merveille
     avancee_militaire, //pour Merveille et CarteMilitaire
     choisir_jeton_science, //pour Merveille

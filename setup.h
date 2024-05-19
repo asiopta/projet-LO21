@@ -288,101 +288,126 @@ SymboleChainage::lampe, SymboleScience::fil_a_plomb, 1);
 
 
 
-
-
-
-
-
-
-
 // age 3
 
-////////////// COMMENT GERER LES RECOMPENSES ?
+/*CarteCommerce(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, Capacite capa, 
+SymboleChainage symb_entre,SymboleChainage symb_sortie, bool choix, bool contrepartie, unsigned int pt_victoire,std::string n, unsigned int a, 
+unsigned int cout,std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, 
+bool fv = false, unsigned int pos = 0);*/
+
 CarteCommerce chambreDeCommerce = CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
-{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, SymboleChainage::none, false, false, 
-3, "ChambreDeCommerce", 3, 0, {RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
-{RessourceSecondaire::parchemin, RessourceSecondaire::parchemin} );
+{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::gagner_monnaie_carte_grise, Capacite::none, Capacite::none}, SymboleChainage::none, 
+SymboleChainage::none, false, false, 3, "ChambreDeCommerce", 3, 0, {RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, 
+RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin} );
+
 CarteCommerce port = CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
-{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, SymboleChainage::none, false, false, 
-3, "Port", 3, 0, {RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, 
-{RessourceSecondaire::verre, RessourceSecondaire::parchemin} );
+{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::gagner_monnaie_carte_marron, Capacite::none, Capacite::none}, SymboleChainage::none,
+ SymboleChainage::none, false, false, 3, "Port", 3, 0, {RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none, 
+ RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin} );
+
 CarteCommerce armurerie = CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
-{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, SymboleChainage::none, false, false, 
-3, "Armurerie", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::none}, 
-{RessourceSecondaire::verre, RessourceSecondaire::none} );
+{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::gagner_monnaie_carte_rouge, Capacite::none, Capacite::none}, SymboleChainage::none, 
+SymboleChainage::none, false, false, 3, "Armurerie", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::none, 
+RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none} );
+
 CarteCommerce phare = CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
-{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, SymboleChainage::none, false, false, 
-3, "Phare", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, RessourcePrimaire::none}, 
-{RessourceSecondaire::verre, RessourceSecondaire::none} );
+{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::gagner_monnaie_carte_jaune, Capacite::none, Capacite::none}, SymboleChainage::jarre, 
+SymboleChainage::none, false, false, 3, "Phare", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, RessourcePrimaire::none, 
+RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none} );
+
+////////////// COMMENT GERER LA RECOMPENSE DE PIECE PAR MERVEILLE CONSTRUITE ?
 CarteCommerce arene = CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
-{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, SymboleChainage::none, false, false, 
-3, "Arene", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::pierre, RessourcePrimaire::bois}, 
+{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, SymboleChainage::toneau, SymboleChainage::none, 
+false, false, 3, "Arene", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, 
 {RessourceSecondaire::none, RessourceSecondaire::none} );
 ////////////////////////
 
 
+/*CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, 
+std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, SymboleChainage symb_chain_entre,
+SymboleChainage symb_chain_sortie, unsigned int pt_vict);*/
+   
 CartePrestige palace = CartePrestige("Palace", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::pierre, 
-RessourcePrimaire::bois}, {RessourceSecondaire::verre, RessourceSecondaire::verre} , 
-SymboleChainage::none, 7);
-//////////////// PROBLEME : IL FAUT 5 RESSOURCES PRIMAIRES
+RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::verre} , 
+SymboleChainage::none, SymboleChainage::none, 7);
+
 CartePrestige hotelDeVille = CartePrestige("HotelDeVille", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, 
-RessourcePrimaire::pierre}, {RessourceSecondaire::none, RessourceSecondaire::none} , 
-SymboleChainage::none, 7);
-//////////
+RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::bois}, {RessourceSecondaire::none, RessourceSecondaire::none} , 
+SymboleChainage::none, SymboleChainage::none, 7);
+
 CartePrestige obelisque = CartePrestige("Obelisque", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, 
-RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none} , 
-SymboleChainage::none, 5);
-//////////////// PROBLEME : IL FAUT 4 RESSOURCES PRIMAIRES
+RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none} , 
+SymboleChainage::none, SymboleChainage::none, 5);
+
 CartePrestige jardins = CartePrestige("Jardins", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
-RessourcePrimaire::bois}, {RessourceSecondaire::none, RessourceSecondaire::none} , 
-SymboleChainage::none, 6);
-//////////
+RessourcePrimaire::bois, RessourcePrimaire::bois, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none} , 
+SymboleChainage::pilier, SymboleChainage::none, 6);
+
 CartePrestige pantheon = CartePrestige("Pantheon", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::bois, 
-RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin} , 
-SymboleChainage::none, 6);
+RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin} , 
+SymboleChainage::soleil, SymboleChainage::none, 6);
+
 CartePrestige senat = CartePrestige("Senat", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
-RessourcePrimaire::pierre}, {RessourceSecondaire::parchemin, RessourceSecondaire::none} , 
-SymboleChainage::none, 5);
+RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none} , 
+SymboleChainage::temple, SymboleChainage::none, 5);
 
 
-//////////////// PROBLEME : IL FAUT 5 RESSOURCES PRIMAIRES
+/*CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, 
+std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, SymboleChainage symb_chain_entre, 
+SymboleChainage symb_chain_sortie, unsigned int nb_militaire);*/
+
 CarteMilitaire arsenal = CarteMilitaire("Arsenal", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
-RessourcePrimaire::brique}, {RessourceSecondaire::none, RessourceSecondaire::none} , 
-SymboleChainage::none, 3);
-//////////
-CarteMilitaire pretoire = CarteMilitaire("Pretoire", 3, 8, {RessourcePrimaire::none, RessourcePrimaire::none, 
-RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none} , 
-SymboleChainage::none, 3);
-CarteMilitaire fortifications = CarteMilitaire("Fortifications", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, 
-RessourcePrimaire::brique}, {RessourceSecondaire::parchemin, RessourceSecondaire::none} , 
-SymboleChainage::none, 2);
-CarteMilitaire atelierDeSiege = CarteMilitaire("AtelierDeSiege", 3, 0, {RessourcePrimaire::bois, RessourcePrimaire::bois, 
-RessourcePrimaire::bois}, {RessourceSecondaire::verre, RessourceSecondaire::none} , 
-SymboleChainage::none, 2);
-//////////////// PROBLEME : IL FAUT 4 RESSOURCES PRIMAIRES
-CarteMilitaire cirque = CarteMilitaire("Cirque", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
-RessourcePrimaire::pierre}, {RessourceSecondaire::none, RessourceSecondaire::none} , 
-SymboleChainage::none, 2);
-//////////
+RessourcePrimaire::brique, RessourcePrimaire::bois, RessourcePrimaire::bois}, {RessourceSecondaire::none, RessourceSecondaire::none} , 
+SymboleChainage::none, SymboleChainage::none, 3);
 
+CarteMilitaire pretoire = CarteMilitaire("Pretoire", 3, 8, {RessourcePrimaire::none, RessourcePrimaire::none, 
+RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none} , 
+SymboleChainage::none, SymboleChainage::none, 3);
+
+CarteMilitaire fortifications = CarteMilitaire("Fortifications", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, 
+RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none} , 
+SymboleChainage::tour, SymboleChainage::none, 2);
+
+CarteMilitaire atelierDeSiege = CarteMilitaire("AtelierDeSiege", 3, 0, {RessourcePrimaire::bois, RessourcePrimaire::bois, 
+RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none} , 
+SymboleChainage::cible, SymboleChainage::none, 2);
+
+CarteMilitaire cirque = CarteMilitaire("Cirque", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
+RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none} , 
+SymboleChainage::casque, SymboleChainage::none, 2);
+
+
+/*CarteScience(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, 
+std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, SymboleChainage symb_chain_entre, 
+SymboleChainage symb_chain_sortie, SymboleScience symb_science, unsigned int pt_vict);*/
 
 CarteScience academie = CarteScience("Academie", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::bois, 
-RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::verre} , 
-SymboleChainage::none, SymboleScience::balance, 3);
+RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::verre} , 
+SymboleChainage::none, SymboleChainage::none, SymboleScience::balance, 3);
+
 CarteScience etude = CarteScience("Etude", 3, 0, {RessourcePrimaire::bois, RessourcePrimaire::bois, 
-RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin} , 
-SymboleChainage::none, SymboleScience::balance, 3);
+RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin} , 
+SymboleChainage::none, SymboleChainage::none, SymboleScience::balance, 3);
+
 CarteScience universite = CarteScience("Universite", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::none, 
-RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin} , 
-SymboleChainage::none, SymboleScience::globe_terrestre, 2);
+RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin} , 
+SymboleChainage::lyre, SymboleChainage::none, SymboleScience::globe_terrestre, 2);
+
 CarteScience observatoire = CarteScience("Observatoire", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::none, 
-RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin} , 
-SymboleChainage::none, SymboleScience::globe_terrestre, 2);
+RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin} , 
+SymboleChainage::lampe, SymboleChainage::none, SymboleScience::globe_terrestre, 2);
+
+
+
+
+
+
+
+
+
 
 
 // guildes
-
-//////////// RETIRER L'AGE POUR LES CARTES GUILDES ? Probleme c'est un argument de carte
 
 ////////////  verifier que les effets guildes sont définis dans le code --> je crois pas 
 CarteGuilde guildeDesCommercants = CarteGuilde("GuildeDesCommercants", 0, 0, {RessourcePrimaire::brique, 
@@ -417,8 +442,6 @@ false, false, 0, EffetGuilde::guilde_tacticiens);
 
 
 // merveilles
-
-////////////// RETIRER L'AGE POUR LES CARTES MERVEILLES ? Probleme c'est un argument de carte
 
 ////////////// VERIFIER LE COUT DES CARTES ET LES RESSOURCES NECESSAIRES
 
