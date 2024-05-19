@@ -112,7 +112,6 @@ public:
 
 class CardWidget : public QWidget {
 
-
 public:
     CardWidget(const Card& card, QWidget *parent = nullptr) : QWidget(parent), mCard(card) {
         setFixedSize(100, 150); // Set fixed size for each card widget
@@ -162,8 +161,6 @@ int main(int argc, char *argv[]) {
     QVBoxLayout layout(&window);
 
     QList<Card> cards;
-
-
 
     cards.append(Card("Scierie",2,3,":/images/card_test.jpeg"));
     cards.append(Card("Google",2,3,":/images/test1.png"));
