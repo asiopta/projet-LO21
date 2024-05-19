@@ -107,8 +107,9 @@ public:
     bool actionEstLegale(Action& action); //review
         //est-ce que une action donné est légale/possible à faire pour le joueur dont il est le tour de jouer.
 
-    Action* actionsLegales(); 
+    Action* actionsLegales(); //review
         //renvoie une liste de ttes les actions légales que le joueurs, dont il est le tour de jouer, peut faire.
+    
 
 };
 

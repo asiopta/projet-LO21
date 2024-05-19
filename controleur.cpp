@@ -179,3 +179,25 @@ bool Controleur::actionEstLegale(Action& action){
     }
     else SetException("erreur: carte non acessible");
 }
+
+
+Action* Controleur::actionsLegales(){
+    Action* res = new Action[60];
+    int j = 0;
+    int i = 0;
+    for(i; i<TAILLE_CARTE_EN_JEU; i++){
+        Carte* carte= plateau.getPlateauCartes()->getCartesEnJeu()[i];
+        if(carte->est_accessible()){
+            if(estConstructible(carte)){
+                res[j] = std::make_tuple( carte , "construire");
+                j++;
+            }
+            res[j] = std::make_tuple( carte , "defausser");
+            j++;
+        }
+    }
+
+    for(i; i<=60; i++) std::make_tuple( nullptr , "ignore");
+
+
+} 
