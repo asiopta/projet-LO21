@@ -506,10 +506,7 @@ Joueur joueur1;
 Joueur joueur2;
 
 //génération des jetons malus
-JetonMalus jetonMalus1(2, 3, &joueur1);
-JetonMalus jetonMalus1(5, 6, &joueur2);
-JetonMalus jetonMalus1(2, 3, &joueur1);
-JetonMalus jetonMalus1(5, 6, &joueur2);
+
 
 
 const int NB_CARTES_AGE_1 = 23;

@@ -253,13 +253,18 @@ PlateauScience::~PlateauScience() {
 
 /*-------------------------------------PlateauMilitaire-------------------------------------*/
 
+
+
+
 //constructeur de PlateauMilitaire
-PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur& joueur_derr, JetonMalus* liste_jetons)
-    : avance(a), joueur_derriere(joueur_derr), liste_jetons_malus(new JetonMalus[Dim_jetons_malus])
+PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur& joueur_derr, Joueur& autre_joueur)
+    : avance(a), joueur_derriere(joueur_derr)
 {
-    for (int i = 0; i < Dim_jetons_malus; i++) {
-        liste_jetons_malus[i] = liste_jetons[i];
-    }
+    liste_jetons_malus[0] = new JetonMalus(2, 3, &joueur_derr);
+    liste_jetons_malus[1] = new JetonMalus(5, 6, &joueur_derr);
+    liste_jetons_malus[2] = new JetonMalus(2, 3, &autre_joueur);
+    liste_jetons_malus[3] = new JetonMalus(5, 6, &autre_joueur);
+
 }
 
 void PlateauMilitaire::update_avance(unsigned int ajout, Joueur& joueur_cible){
@@ -276,10 +281,12 @@ void PlateauMilitaire::update_avance(unsigned int ajout, Joueur& joueur_cible){
     }
 }
 
-JetonMalus& PlateauMilitaire::jeton_malus_ici() const{
+JetonMalus* PlateauMilitaire::jeton_malus_ici() const{
     for(int i = 0; i < Dim_jetons_malus; i++){
-        if (liste_jetons_malus[i].get_malus() != 0 and liste_jetons_malus[i].get_positon() == avance  and liste_jetons_malus[i].get_joueur() == &joueur_derriere) {
-            return liste_jetons_malus[i];
+        if (liste_jetons_malus[i] != nullptr){
+            if (liste_jetons_malus[i]->get_malus() != 0 and liste_jetons_malus[i]->get_positon() == avance  and liste_jetons_malus[i]->get_joueur() == &joueur_derriere) {
+                return liste_jetons_malus[i];
+            }
         }
     }
 }
@@ -287,8 +294,8 @@ JetonMalus& PlateauMilitaire::jeton_malus_ici() const{
 void PlateauMilitaire::retirer_jeton_malus(JetonMalus& jeton) { 
     unsigned int compteur_teste = 0;
     for (int i = 0; i < Dim_jetons_malus; i++) {
-        if (liste_jetons_malus[i] == jeton) { //! erreur normale car il manque l'operateur == pour JetonMalus
-            liste_jetons_malus[i] = JetonMalus(); //on retire le jeton de la liste en ajoutant une jeton "neutre"
+        if (liste_jetons_malus[i] == &jeton) { //! erreur normale car il manque l'operateur == pour JetonMalus
+            liste_jetons_malus[i] = nullptr; //on retire le jeton de la liste en ajoutant une jeton "neutre"
             jeton.exec_malus(); //on execute l'effet du jeton 
             compteur_teste += 1; //on incremente le compteur de jeton retiré
         }
@@ -298,6 +305,9 @@ void PlateauMilitaire::retirer_jeton_malus(JetonMalus& jeton) {
 
 //destructeur de PlateauMilitaire
 PlateauMilitaire::~PlateauMilitaire() {
+    for (int i = 0; i < Dim_jetons_malus; i++) {
+        delete liste_jetons_malus[i];
+    }
     delete[] liste_jetons_malus;
 }
 
@@ -477,4 +487,19 @@ PlateauCartes::~PlateauCartes(){
     delete[] defausses;
 }
 
+
+
+/*-------------------------------------Plateau-------------------------------------*/
+
+Plateau::Plateau(Joueur& joueur1, Joueur& joueur2){
+    plateauCartes = new PlateauCartes();
+    plateauScience = new PlateauScience();
+    plateauMilitaire = new PlateauMilitaire(0, joueur1, joueur2);
+}
+
+Plateau::~Plateau(){
+    delete plateauCartes;
+    delete plateauScience;
+    delete plateauMilitaire;
+}
 

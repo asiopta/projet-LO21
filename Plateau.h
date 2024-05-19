@@ -110,13 +110,13 @@ class PlateauMilitaire{
     private:
         unsigned int avance;
         const int Dim_jetons_malus = 4;
-        JetonMalus *liste_jetons_malus;
+        JetonMalus **liste_jetons_malus;
         Joueur& joueur_derriere;
     public:
-        PlateauMilitaire(unsigned int a, Joueur& joueur_derr, JetonMalus* liste_jetons);
+        PlateauMilitaire(unsigned int a, Joueur& joueur_derr, Joueur& autre_joueur);
         void update_avance(unsigned int a, Joueur& joueur_cible); //ajoute l'avancé militaire ajout en direction du joueur_cible
         void retirer_jeton_malus(JetonMalus& jeton);
-        JetonMalus& jeton_malus_ici() const; //renvoie un jeton malus vide si il n'y en a pas, et le jeton malus sinon
+        JetonMalus* jeton_malus_ici() const; //renvoie un jeton malus vide si il n'y en a pas, et le jeton malus sinon
         ~PlateauMilitaire();
 };
 
@@ -153,4 +153,18 @@ public:
     Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
     unsigned int getNbMerveilles() const; //renvoie le nombre de merveilles restantes
    ~PlateauCartes();
+};
+
+
+class Plateau{
+    private:
+        PlateauScience* plateauScience;
+        PlateauMilitaire* plateauMilitaire;
+        PlateauCartes* plateauCartes;
+    public:
+        Plateau(Joueur& joueur1, Joueur& joueur2);
+        PlateauScience* getPlateauScience(){return plateauScience;};
+        PlateauMilitaire* getPlateauMilitaire(){return plateauMilitaire;};
+        PlateauCartes* getPlateauCartes(){return plateauCartes;};
+        ~Plateau();
 };

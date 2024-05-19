@@ -306,6 +306,9 @@ public:
 
 //gérer age et distribuer les cartes
 //piocher cartes, tt ce qui n'est pas dans les autres classes
+
+
+
 class Controleur {
 private:
 	//Pioche* pioche=nullptr;
