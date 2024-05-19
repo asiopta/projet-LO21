@@ -506,6 +506,9 @@ JetonScience* jetonMathematique= new JetonScience(CapaciteScience::mathematique)
 
 
 
+
+
+
 //génération des jetons malus
 
 
