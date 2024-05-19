@@ -42,7 +42,7 @@ Joueur& Controleur::quiJoue(){
 
  bool Controleur::jeuEstFinie(){
     return (plateau.isEtatFinal() || joueur1.gagneScientifiquement() || joueur2.gagneScientifiquement() ||
-        plateau.getPlateauMilitaire()->gagneMilitairement() != NULL);
+        plateau.getPlateauMilitaire()->gagneMilitairement(joueur1) || plateau.getPlateauMilitaire()->gagneMilitairement(joueur2));
 
  }
 
