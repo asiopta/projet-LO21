@@ -13,7 +13,7 @@ using Action = std::tuple<Carte*, std::string>;
 
 class Plateau{
 private:
-    unsigned int age = 1;
+    unsigned int age = 1; //! information redondante. existe deja dans plateau_cartes
     PlateauMilitaire* plateau_militaire;
     PlateauScience* plateau_science;
     PlateauCartes* plateau_cartes;
@@ -33,13 +33,13 @@ public:
     //méthodes ultra importants
     void init(); //initialise correctement tous les plateaux //pt étre pas nécessaire à faire
 
-    bool isEtatFinal() const; //est ce que le jeu est fini ou pas
-    //(il n'ya plus de cartes sur PlateauCartes et c'est age 3) || (un des joueurs a gagné militairement)
+    bool isEtatFinal(); //est ce que le jeu est fini ou pas
+    //(il n'ya plus de cartes sur PlateauCartes et c'est age 3)
     Action* actionsPossiblesCarte() const; //renvoie la liste des actions possibles à réaliser 
     // soit toutes les cartes visibles et accessibles + (defausser ou construire)
     // Action = tuple(Carte*, "defausser" ou "construire")
 
-    void play_move(Action& action);//appliquer une certaine action sur le Plateau
+    void playActionPlateau(Action& action);//appliquer une certaine action sur le Plateau
     // soit construire ou défausser une carte et appliquer les conséquences correspondantes sur les PlateauMiliaire et Science
     bool changerAge(); //change d'age (ajoute +1 à age) et renvoie false si l'age est 3 et True sinon 
     ~Plateau();
@@ -55,16 +55,31 @@ private:
 	Plateau plateau;
     Joueur joueur1;
     Joueur joueur2;
-    int tour;
-    //! rajouter notion d'action sous forme de tuple
+    unsigned int tour = 1;
     //rajouter singleton pattern
+    struct Handler{
+        Controleur* instance = nullptr;
+        Handler() = default;
+        ~Handler(){delete instance;};
+    };
+    static Handler handler;
+
+
 public:
+    //Constructeurs/destructeurs
+	Controleur() = default; //intialise le jeu: Plateau / joueurs / tour = 1
+    ~Controleur() = default; //libere tout l'espace
     // = delete parcequ'on va jamais les utiliser
     Controleur(const Controleur& c) = delete;
 	Controleur& operator=(const Controleur& c) = delete;
 
-	Controleur() = default; //intialise le jeu: Plateau / joueurs / tour = 1
-    ~Controleur() = default; //libere tout l'espace
+    //méthodes de handler
+    static Controleur& getInstance();//renvoie l'instance de handler //review
+    static void libererInstance();// libère l'instance de handler //review
+
+
+    //getteurs/setteurs
+    //? a t-on vraiment besoin de setteurs pour plateau et joueur?
 	const Plateau& getPlateau() const { return plateau; }
     Plateau& getPlateau() { return plateau; }
 	
@@ -74,7 +89,7 @@ public:
 
     Action* actionsLegales(); //renvoie une liste de ttes les actions légales que le joueurs, dont il est le tour de jouer, peut faire.
     bool actionEstLegale(Action& action); //est-ce que une action donné est légale/possible à faire pour le joueur dont il est le tour de jouer.
-    void play_action(Action& action); //applique un move à tout les niveau. niveau
+    void playAction(Action& action); //applique un move à tout les niveau. niveau
 
 };
 

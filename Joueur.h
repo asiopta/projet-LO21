@@ -276,8 +276,7 @@ public:
     void addCarte(Carte* carte); // review
 
     //construire une carte
-    unsigned int getCout(const Carte& carte, Joueur& adversaire); //à faire bientot
-    void construireCarte(Carte& carte); //à faire
+    unsigned int getCout(const Carte& carte, Joueur& adversaire); //review
 
 
     //c'est une fonction qui choisit un jeton dans le plateau et le construit
