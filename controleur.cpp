@@ -93,7 +93,7 @@ Joueur& Controleur::autreJoueur(Joueur& j){
 
 
 
- void Controleur::contruireCarte(Carte* carte){
+ void Controleur::construireCarte(Carte* carte){
     //si la carte est accessible
     if(plateau.getPlateauCartes()->estAccessible(carte)){
         //niveau argent joueur
@@ -142,4 +142,16 @@ void Controleur::defausserCarte(Carte* carte){
 
     }
     else SetException("erreur: carte non accessible!");
+}
+
+void Controleur::playAction(Action& action){
+    if(std::get<1>(action) == "defausser")
+        defausserCarte(std::get<0>(action));
+
+    if(std::get<1>(action) == "construire")
+        construireCarte(std::get<0>(action));
+
+    else 
+        SetException("erreur: action non reconnue;");
+
 }
