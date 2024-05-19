@@ -13,7 +13,6 @@ using Action = std::tuple<Carte*, std::string>;
 
 class Plateau{
 private:
-    unsigned int age = 1; //! information redondante. existe deja dans plateau_cartes
     PlateauMilitaire* plateau_militaire;
     PlateauScience* plateau_science;
     PlateauCartes* plateau_cartes;
@@ -38,12 +37,9 @@ public:
     Action* actionsPossiblesCarte() const; //renvoie la liste des actions possibles à réaliser 
     // soit toutes les cartes visibles et accessibles + (defausser ou construire)
     // Action = tuple(Carte*, "defausser" ou "construire")
-
     void playActionPlateau(Action& action);//appliquer une certaine action sur le Plateau
     // soit construire ou défausser une carte et appliquer les conséquences correspondantes sur les PlateauMiliaire et Science
-    bool changerAge(); //change d'age (ajoute +1 à age) et renvoie false si l'age est 3 et True sinon 
     ~Plateau();
-
 };
 
 
@@ -79,7 +75,8 @@ public:
 
 
     //getteurs/setteurs
-    //? a t-on vraiment besoin de setteurs pour plateau et joueur?
+    //? a t-on vraiment besoin de setteurs pour plateau et joueur? 
+    //! non etant donnée quelles seront init par le controleur, et qu'on va pas les modifier après
 	const Plateau& getPlateau() const { return plateau; }
     Plateau& getPlateau() { return plateau; }
 	
