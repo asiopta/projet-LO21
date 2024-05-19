@@ -144,7 +144,7 @@ public:
     void ajouterCarte(Carte* carte); //ajoute la carte dans carte_en_jeu
     void prendreCarte(Carte* carte); //prend la carte si elle est accessible
     void defausserCarte(Carte* carte); //defausse la carte si elle est accessible
-    void prendreCarte(Merveille* merveille); //prend la merveille si elle est accessible
+    void prendreMerveille(Merveille* merveille); //prend la merveille si elle est accessible
     void tirerCarteRandom(); // tire les cartes pour l'age donné /!\ supprime les cartes déjà présente dans cartes_en_jeu
     void tirerMerveilleRandom(); // tire les merveilles pour l'age donné /!\ supprime les merveilles déjà présente dans merveilles
     //prend en compte l'age du plateau

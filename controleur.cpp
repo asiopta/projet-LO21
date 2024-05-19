@@ -21,6 +21,14 @@ Plateau::~Plateau(){
     delete plateau_science;
     delete plateau_militaire;
 }
+
+bool Plateau::isEtatFinal() {
+    return (plateau_cartes->estVide() && plateau_cartes->getAge() = 3 ); //! erreur que je comprends pas
+        
+}
+
+/*
+
 bool Controleur::gagne(Joueur& joueur){
     bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur);
     bool victoireScience = 0 ;
@@ -31,7 +39,24 @@ bool Controleur::gagne(Joueur& joueur){
 bool Controleur::jeuEstFinie(){
     return plateau.isEtatFinal() || gagne(joueur1) || gagne(joueur2);
 }
+*/
 
+
+
+
+
+/*---------------------classe Controleur-----------------------------------*/
+//méthodes de handler
+Controleur::Handler Controleur::handler = Handler(); 
+
+Controleur& Controleur::getInstance(){
+    if(handler.instance == nullptr) handler.instance = new Controleur;
+    return *handler.instance;
+}
+void Controleur::libererInstance(){
+    delete handler.instance;
+    handler.instance = nullptr;
+}
 
 //méthodes utiles
 Joueur& Controleur::quiJoue(){
@@ -79,7 +104,8 @@ Joueur& Controleur::autreJoueur(Joueur& j){
 
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
         j.addCarte(carte);
-        plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
+        if(carte->get_type() == TypeCarte::Merveille) plateau.getPlateauCartes()->prendreMerveille(dynamic_cast<Merveille*>(carte));
+        else plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
         // leurs effets se fait au niveau de classe Joueur
 
         //si c'est une carteMilitaire
@@ -108,22 +134,12 @@ void Controleur::defausserCarte(Carte* carte){
         j.setMonnaie(j.getMonnaie() + j.getCout(*carte, autreJoueur(j)));
 
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
-        j.addCarte(carte);
-        plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
-        // leurs effets se fait au niveau de classe Joueur
-
-        //si c'est une carteMilitaire
-        if(carte->get_type() == TypeCarte::CarteMilitaire){
-            CarteMilitaire* carte_militaire = dynamic_cast<CarteMilitaire*>(carte);
-            carte_militaire->exec_capacite(j, *plateau.getPlateauMilitaire());
+        if(carte->get_type() == TypeCarte::Merveille) SetException("erreur: impossible de défausser une merveille");
+        else{
+            plateau.getPlateauCartes()->prendreCarte(carte); 
+            plateau.getPlateauCartes()->defausserCarte(carte);
         }
 
-        //si c'est une merveille
-        if(carte->get_type() == TypeCarte::CarteMilitaire){
-            Merveille* merveille = dynamic_cast<Merveille*>(carte);
-            merveille->exec_capacite(joueur1, joueur2, *plateau.getPlateauCartes(), *plateau.getPlateauMilitaire(), *plateau.getPlateauScience());
-
-        }
     }
     else SetException("erreur: carte non accessible!");
 }
