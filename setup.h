@@ -490,20 +490,21 @@ RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, R
 
 
 //génération des jetons science
-JetonScience jetonAgriculture(CapaciteScience::agriculture);
-JetonScience jetonArchitecture(CapaciteScience::architecture);
-JetonScience jetonEconomie(CapaciteScience::economie);
-JetonScience jetonLoi(CapaciteScience::loi);
-JetonScience jetonMaconnerie(CapaciteScience::maconnerie);
-JetonScience jetonUrbanisme(CapaciteScience::urbanisme);
-JetonScience jetonTheologie(CapaciteScience::theologie);
-JetonScience jetonStrategie(CapaciteScience::strategie);
-JetonScience jetonPhilosophie(CapaciteScience::philosophie);
-JetonScience jetonMathematique(CapaciteScience::mathematique);
 
-//génération des joueurs
-Joueur joueur1;
-Joueur joueur2;
+JetonScience** LISTE_JETONS_SCIENCE = new JetonScience*[10];
+JetonScience* jetonAgriculture= new JetonScience(CapaciteScience::agriculture);
+JetonScience* jetonArchitecture= new JetonScience(CapaciteScience::architecture);
+JetonScience* jetonEconomie= new JetonScience(CapaciteScience::economie);
+JetonScience* jetonLoi= new JetonScience(CapaciteScience::loi);
+JetonScience* jetonMaconnerie= new JetonScience(CapaciteScience::maconnerie);
+JetonScience* jetonUrbanisme= new JetonScience(CapaciteScience::urbanisme);
+JetonScience* jetonTheologie= new JetonScience(CapaciteScience::theologie);
+JetonScience* jetonStrategie= new JetonScience(CapaciteScience::strategie);
+JetonScience* jetonPhilosophie= new JetonScience(CapaciteScience::philosophie);
+JetonScience* jetonMathematique= new JetonScience(CapaciteScience::mathematique);
+
+
+
 
 //génération des jetons malus
 
