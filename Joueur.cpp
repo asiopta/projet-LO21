@@ -753,7 +753,7 @@ void Joueur::retirerCarte(Carte* carte){
 
 
 //construire une carte
-unsigned int Joueur::getCout(const Carte& carte, Joueur adversaire) {
+unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
     //En cours
     //COÛT = 2 + nombre de symboles de la même ressource produite par les
     //cartes marron et grises de la cité adverse
@@ -809,6 +809,7 @@ void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
 
 
 
+
 //méthodes de vérification 
 bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCout() donc pas grave pour l'instant
     //!rajouter les liens de chainage.....
@@ -816,7 +817,7 @@ bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCo
     if(getCout(carte) < getMonnaie() || possedeSymboleChainage(lien_chainage)) return true;
     else return false;
 }
-*/
 
+*/
 /*-------------------------------------PlateauCarte-------------------------------------*/
  
