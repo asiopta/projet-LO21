@@ -453,7 +453,7 @@ RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}
 3, 2, "LeColosse", nullptr, 0, {RessourcePrimaire::brique, RessourcePrimaire::beique, RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none}, 
 {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none} );
 
-//////////// gerer la recompense de ressources primaires (choix)
+//////////// gerer la recompense de ressources primaires (ajout du bool choix ?)
 CarteMerveille leGrandPhare = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, 
 4, 0, "LeGrandPhare", nullptr, 0, {RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
@@ -474,7 +474,7 @@ RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}
 Capacite::none, Capacite::none}, 2, 0, "LeMausolee", nullptr, 0, {RessourcePrimaire::brique, 
 RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::verre, RessourceSecondaire::parchemin} );
 
-//////////// gerer la recompense de ressources secondaires (choix)
+//////////// gerer la recompense de ressources secondaires (ajout du bool choix ?)
 CarteMerveille lePiree = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::verre}, {Capacite::rejouer, 
 Capacite::none, Capacite::none}, 2, 0, "LePiree", nullptr, 0, {RessourcePrimaire::bois, 
