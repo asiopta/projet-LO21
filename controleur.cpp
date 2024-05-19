@@ -3,16 +3,16 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "Plateau.h"
+#include "controleur.h"
 
 
 
 /*-------------------------------------Plateau-------------------------------------*/
 
 Plateau::Plateau(Joueur& joueur1, Joueur& joueur2){
-    plateauCartes = new PlateauCartes();
-    plateauScience = new PlateauScience();
-    plateauMilitaire = new PlateauMilitaire(0, joueur1, joueur2);
+    plateau_cartes = new PlateauCartes();
+    plateau_science = new PlateauScience();
+    plateau_militaire = new PlateauMilitaire(0, joueur1, joueur2);
 }
 
 bool Plateau::changerAge(){
@@ -26,7 +26,7 @@ bool Plateau::changerAge(){
 
 
 Plateau::~Plateau(){
-    delete plateauCartes;
-    delete plateauScience;
-    delete plateauMilitaire;
+    delete plateau_cartes;
+    delete plateau_science;
+    delete plateau_militaire;
 }
