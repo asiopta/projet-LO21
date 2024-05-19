@@ -98,14 +98,17 @@ public:
     bool jeuEstFinie(); // plateau.IsEtatFinal() || joueur1 a gagné || joueur2 a gagné //review
     unsigned int gagnant(); //retourne le gagnant du match //review
 
+    bool estConstructible(Carte* carte);
     void construireCarte(Carte* carte); //review
     void defausserCarte(Carte* carte); //review
 
     void playAction(Action& action); //applique un move à tout les niveau. niveau //review
     //* pour créer une action, il faut utiliser: std::make_tuple(carte*, "construire");
-    Action* actionsLegales(); //renvoie une liste de ttes les actions légales que le joueurs, dont il est le tour de jouer, peut faire.
-    bool actionEstLegale(Action& action); //est-ce que une action donné est légale/possible à faire pour le joueur dont il est le tour de jouer.
-    
+    bool actionEstLegale(Action& action); //review
+        //est-ce que une action donné est légale/possible à faire pour le joueur dont il est le tour de jouer.
+
+    Action* actionsLegales(); 
+        //renvoie une liste de ttes les actions légales que le joueurs, dont il est le tour de jouer, peut faire.
 
 };
 

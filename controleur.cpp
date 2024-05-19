@@ -91,6 +91,12 @@ Joueur& Controleur::autreJoueur(Joueur& j){
     else SetException("erreur: joueur non reconnu");
 }
 
+bool Controleur::estConstructible(Carte* carte){
+    Joueur& j = quiJoue();
+    int diff = j.getMonnaie() - j.getCout(*carte, autreJoueur(j));
+    if(diff< 0) return false;
+    else return true;
+}
 
 
  void Controleur::construireCarte(Carte* carte){
@@ -145,13 +151,31 @@ void Controleur::defausserCarte(Carte* carte){
 }
 
 void Controleur::playAction(Action& action){
-    if(std::get<1>(action) == "defausser")
-        defausserCarte(std::get<0>(action));
+    Carte* carte = std::get<0>(action);
+    if(plateau.getPlateauCartes()->estAccessible(carte)){
+        if(std::get<1>(action) == "defausser")
+            defausserCarte(carte);
 
-    if(std::get<1>(action) == "construire")
-        construireCarte(std::get<0>(action));
+        if(std::get<1>(action) == "construire")
+            construireCarte(carte);
 
-    else 
-        SetException("erreur: action non reconnue;");
+        else 
+            SetException("erreur: action non reconnue;");
+    }
+    else SetException("erreur: carte non acessible");
+}
 
+bool Controleur::actionEstLegale(Action& action){
+    Carte* carte = std::get<0>(action);
+    if(plateau.getPlateauCartes()->estAccessible(carte)){
+        if(std::get<1>(action) == "defausser")
+            return true;
+
+        if(std::get<1>(action) == "construire")
+            return estConstructible(carte);
+
+        else 
+            SetException("erreur: action non reconnue;");
+    }
+    else SetException("erreur: carte non acessible");
 }
