@@ -163,18 +163,3 @@ public:
 
 
 
-class Plateau{
-    private:
-        unsigned int age=1;
-        PlateauScience* plateauScience;
-        PlateauMilitaire* plateauMilitaire;
-        PlateauCartes* plateauCartes;
-    public:
-        Plateau(Joueur& joueur1, Joueur& joueur2);
-        unsigned int getAge() const{return age;};
-        PlateauScience* getPlateauScience() const {return plateauScience;};
-        PlateauMilitaire* getPlateauMilitaire() const {return plateauMilitaire;};
-        PlateauCartes* getPlateauCartes() const {return plateauCartes;};
-        bool changerAge(); //change d'age (ajoute +1 à age) et renvoie false si l'age est 3 et True sinon 
-        ~Plateau();
-};

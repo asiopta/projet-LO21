@@ -9,37 +9,40 @@
 
 /*---------------------------Plateau général-------------------------*/
 using Action = std::tuple<Carte*, std::string>;
+
+
 class Plateau{
 private:
-    PlateauMilitaire plateau_militaire;
-    PlateauScience plateau_science;
-    PlateauCartes plateau_cartes;
+    unsigned int age = 1;
+    PlateauMilitaire* plateau_militaire;
+    PlateauScience* plateau_science;
+    PlateauCartes* plateau_cartes;
 
 public:
     //constructeurs/destructeur
-    Plateau() = default;
-    ~Plateau() = default;
-    Plateau(const Plateau& plateau) = default; //potentiellement à refaire
+    Plateau(Joueur& joueur1, Joueur& joueur2); //initialise les 3 plateaux (militaire, science, cartes
+
     Plateau& operator=(const Plateau& plateau) = default; // potentiellement à refaire
     Plateau operator==(const Plateau& plateau); //à faire
 
     //getteurs
-    PlateauMilitaire& getPlateauMilitaire(){return plateau_militaire;};
-    PlateauScience& getPlateauScience(){ return plateau_science;};
-    PlateauCartes& getPlateauCartes(){ return plateau_cartes;};
+    PlateauMilitaire* getPlateauMilitaire(){return plateau_militaire;};
+    PlateauScience* getPlateauScience(){ return plateau_science;};
+    PlateauCartes* getPlateauCartes(){ return plateau_cartes;};
 
     //méthodes ultra importants
     void init(); //initialise correctement tous les plateaux //pt étre pas nécessaire à faire
 
     bool isEtatFinal() const; //est ce que le jeu est fini ou pas
     //(il n'ya plus de cartes sur PlateauCartes et c'est age 3) || (un des joueurs a gagné militairement)
-    Action* actionsPossibles() const; //renvoie la liste des actions possibles à réaliser
+    Action* actionsPossiblesCarte() const; //renvoie la liste des actions possibles à réaliser 
     // soit toutes les cartes visibles et accessibles + (defausser ou construire)
     // Action = tuple(Carte*, "defausser" ou "construire")
 
     void play_move(Action& action);//appliquer une certaine action sur le Plateau
     // soit construire ou défausser une carte et appliquer les conséquences correspondantes sur les PlateauMiliaire et Science
-
+    bool changerAge(); //change d'age (ajoute +1 à age) et renvoie false si l'age est 3 et True sinon 
+    ~Plateau();
 
 };
 
