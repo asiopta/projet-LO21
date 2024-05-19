@@ -107,12 +107,6 @@ enum class Capacite{
 
 
 class Carte{
-    //ressources produites par la carte
-    //TODO: unsigned int getQuantRessPrimProd(RessourcePrimaire rp);
-    //TODO: unsigned int getQuantRessSecondProd(RessourceSecondaire rs);
-    //ressources necessaires pour construire la carte
-    //TODO: unsigned int getQuantRessPrimNess(RessourcePrimaire rp);
-    //TODO: unsigned int getQuantRessSecondNess(RessourceSecondaire rs);
 
 protected:
     std::string nom;
@@ -157,7 +151,6 @@ public:
     virtual unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const {return 0;}
     unsigned int getQuantRessPrimNess(RessourcePrimaire rp) const ;
     unsigned int getQuantRessSecondNess(RessourceSecondaire rs) const ;
-
 
     //destructeur
     virtual ~Carte();
