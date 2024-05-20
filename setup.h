@@ -315,12 +315,10 @@ CarteCommerce phare = CarteCommerce({RessourcePrimaire::none, RessourcePrimaire:
 SymboleChainage::none, false, false, 3, "Phare", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, RessourcePrimaire::none, 
 RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none} );
 
-////////////// COMMENT GERER LA RECOMPENSE DE PIECE PAR MERVEILLE CONSTRUITE ?
 CarteCommerce arene = CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
-{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, SymboleChainage::toneau, SymboleChainage::none, 
+{RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::gagner_monnaie_2_par_merveille, Capacite::none, Capacite::none}, SymboleChainage::toneau, SymboleChainage::none, 
 false, false, 3, "Arene", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, 
 {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} );
-////////////////////////
 
 
 /*CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, 
@@ -437,72 +435,70 @@ RessourcePrimaire::pierre, RessourcePrimaire::brique, RessourcePrimaire::none, R
 // merveilles
 
 /*Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, 
-std::initializer_list<Capacite> capa, unsigned int pt_victoire, unsigned int av_milit, std::string n, unsigned int a, unsigned int cout, 
-std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false,
- unsigned int pos = 0);*/
+std::initializer_list<Capacite> capa, unsigned int pt_victoire, unsigned int av_milit, bool choix, std::string n, unsigned int a, unsigned int cout, 
+std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, 
+unsigned int pos = 0);*/
 
 //c'est quoi la capacité avancee_militaire ?
 
 CarteMerveille leCircusMaximus = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::detruire_carte_grise, Capacite::none, Capacite::none}, 
-3, 1, "LeCircusMaximus", nullptr, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, 
+3, 1, false, "LeCircusMaximus", nullptr, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, 
 {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none} );
 
 CarteMerveille leColosse = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, 
-3, 2, "LeColosse", nullptr, 0, {RessourcePrimaire::brique, RessourcePrimaire::beique, RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none}, 
+3, 2, false, "LeColosse", nullptr, 0, {RessourcePrimaire::brique, RessourcePrimaire::beique, RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none}, 
 {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none} );
 
-//////////// gerer la recompense de ressources primaires (ajout du bool choix ?)
-CarteMerveille leGrandPhare = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
-RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, 
-4, 0, "LeGrandPhare", nullptr, 0, {RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+CarteMerveille leGrandPhare = CarteMerveille({RessourcePrimaire::bois, RessourcePrimaire::pierre, 
+RessourcePrimaire::brique}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, 
+4, 0, true, "LeGrandPhare", nullptr, 0, {RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
 {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin, RessourceSecondaire::none} );
 
 CarteMerveille lesJardinsSuspendus = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::gagner_monnaie_6, 
-Capacite::rejouer, Capacite::none}, 3, 0, "LesJardinsSuspendus", nullptr, 0, {RessourcePrimaire::bois, 
+Capacite::rejouer, Capacite::none}, 3, 0, false, "LesJardinsSuspendus", nullptr, 0, {RessourcePrimaire::bois, 
 RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin, RessourceSecondaire::none} );
 
 CarteMerveille laGrandeBibliotheque = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::choisir_jeton_science, 
-Capacite::none, Capacite::none}, 4, 0, "LaGrandeBibliotheque", nullptr, 0, {RessourcePrimaire::bois, 
+Capacite::none, Capacite::none}, 4, 0, false, "LaGrandeBibliotheque", nullptr, 0, {RessourcePrimaire::bois, 
 RessourcePrimaire::bois, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin, RessourceSecondaire::none} );
 
 CarteMerveille leMausolee = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::jouer_carte_defausse, 
-Capacite::none, Capacite::none}, 2, 0, "LeMausolee", nullptr, 0, {RessourcePrimaire::brique, 
+Capacite::none, Capacite::none}, 2, 0, false, "LeMausolee", nullptr, 0, {RessourcePrimaire::brique, 
 RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::verre, RessourceSecondaire::parchemin} );
 
-//////////// gerer la recompense de ressources secondaires (ajout du bool choix ?)
 CarteMerveille lePiree = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::verre}, {Capacite::rejouer, 
-Capacite::none, Capacite::none}, 2, 0, "LePiree", nullptr, 0, {RessourcePrimaire::bois, 
+Capacite::none, Capacite::none}, 2, 0, true, "LePiree", nullptr, 0, {RessourcePrimaire::bois, 
 RessourcePrimaire::bois, RessourcePrimaire::pierre, RessourcePrimaire::brique, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} );
 
 CarteMerveille lesPyramides = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, 
-Capacite::none, Capacite::none}, 9, 0, "LesPyramides", nullptr, 0, {RessourcePrimaire::pierre, 
+Capacite::none, Capacite::none}, 9, 0, false, "LesPyramides", nullptr, 0, {RessourcePrimaire::pierre, 
 RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none} );
 
 CarteMerveille leSphynx = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::rejouer, 
-Capacite::none, Capacite::none}, 6, 0, "LeSphynx", nullptr, 0, {RessourcePrimaire::brique, 
+Capacite::none, Capacite::none}, 6, 0, false, "LeSphynx", nullptr, 0, {RessourcePrimaire::brique, 
 RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::verre, RessourceSecondaire::none} );
 
 CarteMerveille laStatueDeZeus = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::detruire_carte_marron, 
-Capacite::none, Capacite::none}, 3, 1, "LaStatueDeZeus", nullptr, 0, {RessourcePrimaire::brique, 
+Capacite::none, Capacite::none}, 3, 1, false, "LaStatueDeZeus", nullptr, 0, {RessourcePrimaire::brique, 
 RessourcePrimaire::bois, RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin, RessourceSecondaire::none} );
 
 CarteMerveille leTempledArtemis = CarteMerveille({RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::gagner_monnaie_12, 
-Capacite::rejouer, Capacite::none}, 0, 0, "LeTempleDArtemis", nullptr, 0, {RessourcePrimaire::pierre, 
+Capacite::rejouer, Capacite::none}, 0, 0, false, "LeTempleDArtemis", nullptr, 0, {RessourcePrimaire::pierre, 
 RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::verre, RessourceSecondaire::none} );
 
 CarteMerveille laViaAppia = CarteMerveille({RessourcePrimaire::pierre, RessourcePrimaire::pierre, 
 RessourcePrimaire::brique}, {RessourceSecondaire::parchemin, RessourceSecondaire::none}, {Capacite::gagner_monnaie_3, 
-Capacite::rejouer, Capacite::perdre_monnaie_3}, 3, 0, "LaViaAppia", nullptr, 0, {RessourcePrimaire::brique, 
+Capacite::rejouer, Capacite::perdre_monnaie_3}, 3, 0, false, "LaViaAppia", nullptr, 0, {RessourcePrimaire::brique, 
 RessourcePrimaire::brique, RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none} );
 
 
