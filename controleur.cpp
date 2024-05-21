@@ -23,10 +23,18 @@ Plateau::~Plateau(){
 }
 
 bool Plateau::isEtatFinal() {
-    return (plateau_cartes->estVide() && plateau_cartes->getAge() == 3 ); //! erreur que je comprends pas
+    return (plateau_cartes->estVide() && plateau_cartes->getAge() == 3 );
         
 }
 
+
+
+
+
+
+
+
+/*---------------------classe Controleur-----------------------------------*/
 /*
 
 bool Controleur::gagne(Joueur& joueur){
@@ -41,11 +49,6 @@ bool Controleur::jeuEstFinie(){
 }
 */
 
-
-
-
-
-/*---------------------classe Controleur-----------------------------------*/
 //méthodes de handler
 Controleur::Handler Controleur::handler = Handler(); 
 
@@ -160,9 +163,9 @@ void Controleur::playAction(Action& action){
             construireCarte(carte);
 
         else 
-            SetException("erreur: action non reconnue;");
+            throw SetException("erreur: action non reconnue;");
     }
-    else SetException("erreur: carte non acessible");
+    else throw SetException("erreur: carte non acessible");
 }
 
 bool Controleur::actionEstLegale(Action& action){
@@ -175,9 +178,9 @@ bool Controleur::actionEstLegale(Action& action){
             return estConstructible(carte);
 
         else 
-            SetException("erreur: action non reconnue;");
+            throw SetException("erreur: action non reconnue;");
     }
-    else SetException("erreur: carte non acessible");
+    else throw SetException("erreur: carte non acessible");
 }
 
 

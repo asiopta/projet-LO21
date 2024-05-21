@@ -9,7 +9,7 @@
 
 /*---------------------------Plateau général-------------------------*/
 using Action = std::tuple<Carte*, std::string>;
-
+ 
 
 class Plateau{
 private:
@@ -22,7 +22,7 @@ public:
     Plateau(Joueur& joueur1, Joueur& joueur2); //initialise les 3 plateaux (militaire, science, cartes
 
     Plateau& operator=(const Plateau& plateau) = default; // potentiellement à refaire
-    Plateau operator==(const Plateau& plateau); //à faire
+    Plateau operator==(const Plateau& plateau); //à faire //? a t-on vraiment besoin de ca?
 
     //getteurs
     PlateauMilitaire* getPlateauMilitaire(){return plateau_militaire;};
@@ -30,15 +30,11 @@ public:
     PlateauCartes* getPlateauCartes(){ return plateau_cartes;};
 
     //méthodes ultra importants
-    void init(); //initialise correctement tous les plateaux //pt étre pas nécessaire à faire
+    void init(); //initialise correctement tous les plateaux
 
     bool isEtatFinal(); //est ce que le jeu est fini ou pas
     //(il n'ya plus de cartes sur PlateauCartes et c'est age 3)
-    Action* actionsPossiblesCarte() const; //renvoie la liste des actions possibles à réaliser 
-    // soit toutes les cartes visibles et accessibles + (defausser ou construire)
-    // Action = tuple(Carte*, "defausser" ou "construire")
-    void playActionPlateau(Action& action);//appliquer une certaine action sur le Plateau
-    // soit construire ou défausser une carte et appliquer les conséquences correspondantes sur les PlateauMiliaire et Science
+
     ~Plateau();
 };
 
