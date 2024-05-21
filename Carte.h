@@ -8,7 +8,7 @@
 
 /*-------------------------------------CONSTANTES DE L'ENVIRONEMENT-------------------------------------*/
 const unsigned int Taille_cout_primaire = 5;
-const unsigned int Taille_cout_secondaire = 2;
+const unsigned int Taille_cout_secondaire = 3;
 const unsigned int Taille_prod_primaire = 3;
 const unsigned int Taille_prod_secondaire = 2;
 const unsigned int Taille_capacite = 3;
@@ -96,9 +96,11 @@ enum class Capacite{
     gagner_monnaie_4, //reserve à CarteCommerce
     gagner_monnaie_6, //reservé à CarteCommerce et Merveille
     gagner_monnaie_12, //reservé à Merveille
+    gagner_monnaie_2_par_merveille, //reservé à CarteCommerce
     gagner_monnaie_carte_marron, //reservé à CarteCommerce
     gagner_monnaie_carte_grise, //reservé à CarteCommerce
     gagner_monnaie_carte_rouge, //reservé à CarteCommerce
+    gagner_monnaie_carte_jaune, //reservé à CarteCommerce
     perdre_monnaie_3, //reservé à Merveille
     avancee_militaire, //pour Merveille et CarteMilitaire
     choisir_jeton_science, //pour Merveille
@@ -345,16 +347,20 @@ class Merveille : public Carte{
 private:
     unsigned int pt_victoire;
     unsigned int avance_militaire;
+    bool choix;
     RessourcePrimaire* production_primaire;
     RessourceSecondaire* production_secondaire;
     Capacite* capacite;
 
 public:
     Merveille();
-    Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_victoire, unsigned int av_milit, std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0);
+    Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_victoire, unsigned int av_milit, bool choix, std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0);
     Merveille(const Merveille& c);
+
+    bool get_choix()const {return choix;}
     void addCapacite(Capacite c); 
     
+    void set_choix(bool c){choix = c;}
     void exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes& plateau_carte, PlateauMilitaire& plateau_militaire, PlateauScience& plateau_science) const;
     void exec_rejouer(Joueur& joueur1) const;
     void exec_detruire_carte_marron(Joueur& joueur1, Joueur& joueur2) const;
