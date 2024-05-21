@@ -173,7 +173,6 @@ PlateauScience::PlateauScience() {
 }
 
 
-
 //ajoute un jeton science dans le tableau jeton_in_game
 void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
     for (int i = 0; i < Dim_jetons_in_game; i++) {
