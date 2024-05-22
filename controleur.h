@@ -23,6 +23,7 @@ public:
 
     Plateau& operator=(const Plateau& plateau) = default; // potentiellement à refaire
     Plateau operator==(const Plateau& plateau); //à faire //? a t-on vraiment besoin de ca?
+    //!non, jamais on va l'utiliser
 
     //getteurs
     PlateauMilitaire* getPlateauMilitaire(){return plateau_militaire;};
@@ -83,7 +84,7 @@ public:
     const Joueur& getJoueur2() const{ return joueur2; };
 
     int getTour() { return tour;};
-    void setTour(int j) { tour = j;};
+    void addTour() { tour ++;};
 	
 
     //autres méthodes utiles

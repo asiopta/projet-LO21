@@ -4,8 +4,10 @@
 #include "Carte.h"
 #include "Plateau.h"
 #include "setup.h"
+#include "controleur.h"
 
 const unsigned int NB_MERVEILLES_JOUEUR = 4;
+using Action = std::tuple<Carte*, std::string>; 
 
 // classe pour gérer les exceptions
 class SetException {
@@ -283,7 +285,7 @@ public:
     void choisirJeton(); // à faire 
     
     //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
-    void choisir_action(PlateauCartes& p); // à faire plus tard
+    Action choisir_action(PlateauCartes& p); // à faire plus tard
 
 
 /*
