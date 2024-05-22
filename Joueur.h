@@ -222,6 +222,7 @@ public:
     void setRessource(RessourcePrimaire rp, unsigned int quantite); //review
     void setRessource(RessourceSecondaire rs, unsigned int quantite); //review
     void addCapaciteJeton(CapaciteScience jeton); //review
+    void setMerveille(Merveille* merveille); // !!! A definir !!!
     
     
     //méthodes de l'attribut rejouer

@@ -54,27 +54,57 @@ int SevenWondersDuel(Controleur& controleur, Joueur& joueur_actif){ //le 1er jou
         }
     }
 }
-NB_CHOIX_MERVEILLE = 4;
+const unsigned int NB_CHOIX_MERVEILLE = 4;
+
+void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
+    if (joueur == 1){
+        Merveille* choix = jeu->getJoueur1().choisir_merveille(merveilles); //!!! A DEFINIR !!!//
+        jeu->getJoueur1().setMerveille(choix);
+        for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
+            if (merveilles[i] == choix){
+                merveilles[i] = nullptr;
+            }
+        } //supression de la merveille de la liste donnée en argument
+    }
+    else{
+        jeu->getJoueur2().setMerveille(choix);
+        Merveille* choix = jeu->getJoueur2().choisir_merveille(merveilles); //!!! A DEFINIR !!!//
+        for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
+            if (merveilles[i] == choix){
+                merveilles[i] = nullptr;
+            }
+        }
+    }
+}
 
 int main(){
 
     //!INITIALISATION DU JEU
+
     cout << "Bienvenue dans 7 Wonders Duel!" << endl;
-    Controleur* jeu =  new Controleur();
+    Controleur* jeu =  new Controleur(); // initialisation du jeu via le controleur
 
-    Merveille** merveilles = jeu->getPlateau().getPlateauCartes()->getMerveilles();
-
-
+    
     //!CHOIX DES MERVEILLES
-
+    Merveille** merveille = jeu->getPlateau().getPlateauCartes()->getMerveilles(); //recuperation des merveilles
+    Merveille** merveilles_etape_1; //creation du premier lot de 4 merveilles
     for (int i = 0; i < NB_CHOIX_MERVEILLE; i++){
-        
-
+        merveilles_etape_1[i] = merveille[i];
     }
-    for (int i =NB_CHOIX_MERVEILLE; i<TAILLE_MERVEILLES; i++){
-
+    Merveille** merveilles_etape_2; //creation du deuxieme lot de 4 merveilles
+    for (int i =0; i < NB_CHOIX_MERVEILLE; i++){
+        merveilles_etape_2[i] = merveille[i+NB_CHOIX_MERVEILLE];
     }
-
+    //choix des merveilles pour le 1er lot de 4 merveilles
+    choix_merveille(jeu, merveilles_etape_1, 1);
+    choix_merveille(jeu, merveilles_etape_1, 2);
+    choix_merveille(jeu, merveilles_etape_1, 2);
+    choix_merveille(jeu, merveilles_etape_1, 1);
+    //choix des merveilles pour le 2eme lot de 4 merveilles
+    choix_merveille(jeu, merveilles_etape_2, 2);
+    choix_merveille(jeu, merveilles_etape_2, 1);
+    choix_merveille(jeu, merveilles_etape_2, 1);
+    choix_merveille(jeu, merveilles_etape_2, 2);
 
 
     //!LANCEMENT DU JEU
