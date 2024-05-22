@@ -134,6 +134,7 @@ public:
     void set_face_visible(); //def in cpp
 
     std::ostream& operator<<(std::ostream& f) const;
+    std::string getNom() const {return nom;}
     unsigned int get_position() const {return position;}
     unsigned int getPrix() const {return cout_construction;}
     bool est_facevisible() const {return face_visible;}

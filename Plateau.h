@@ -153,6 +153,7 @@ public:
     unsigned int getAge() const{return age;} //renvoie l'age du plateau
     Carte** getCartesEnJeu() const{return cartes_en_jeu;}
     Carte** getDefausse() const{return defausses;}
+    Merveille** getMerveilles() const {return merveilles;}
     Carte** getCartesAccessibles() const; //renvoie un tableau de pointeurs de Carte accessibles
     Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
     unsigned int getNbMerveilles() const; //renvoie le nombre de merveilles restantes

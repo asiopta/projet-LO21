@@ -54,19 +54,38 @@ int SevenWondersDuel(Controleur& controleur, Joueur& joueur_actif){ //le 1er jou
         }
     }
 }
-
+NB_CHOIX_MERVEILLE = 4;
 
 int main(){
-    cout << "Bienvenue dans 7 Wonders Duel!" << endl;
 
-    Controleur jeu = Controleur();
-    int gagnant  = SevenWondersDuel(jeu, jeu.getJoueur1());
+    //!INITIALISATION DU JEU
+    cout << "Bienvenue dans 7 Wonders Duel!" << endl;
+    Controleur* jeu =  new Controleur();
+
+    Merveille** merveilles = jeu->getPlateau().getPlateauCartes()->getMerveilles();
+
+
+    //!CHOIX DES MERVEILLES
+
+    for (int i = 0; i < NB_CHOIX_MERVEILLE; i++){
+        
+
+    }
+    for (int i =NB_CHOIX_MERVEILLE; i<TAILLE_MERVEILLES; i++){
+
+    }
+
+
+
+    //!LANCEMENT DU JEU
+    int gagnant  = SevenWondersDuel(*jeu, jeu->getJoueur1()); 
     if (gagnant == 1){
         cout << "Le joueur 1 a gagné!" << endl;
     }
     else{
         cout << "Le joueur 2 a gagné!" << endl;
     }
+    delete jeu;
     return 0;
 }
 
