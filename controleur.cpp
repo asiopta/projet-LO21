@@ -12,6 +12,7 @@
 
 Plateau::Plateau(Joueur& joueur1, Joueur& joueur2){
     plateau_cartes = new PlateauCartes();
+    plateau_cartes->addAge(); //! la fonction addage set a initialiser les cartes en jeu
     plateau_science = new PlateauScience();
     plateau_militaire = new PlateauMilitaire(0, joueur1, joueur2);
 }

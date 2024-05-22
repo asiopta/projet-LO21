@@ -329,20 +329,16 @@ PlateauMilitaire::~PlateauMilitaire() {
 
 /*-------------------------------------PlateauCarte-------------------------------------*/
 
-PlateauCartes::PlateauCartes(unsigned int age, std::initializer_list<Carte*> cartes_jeu) 
+PlateauCartes::PlateauCartes() 
 {
-    if (age < 1 || age > 3) {
-        throw("Constructeur de PlateauCarte : age invalide");
-    }
-    else {this->age = age;}
-
+    age = 0; //on commence a 0 car on effectue un addAge() au début de la partie dans le contstructeur de Plateau
     Carte** cartes_en_jeu = new Carte*[TAILLE_CARTE_EN_JEU];
     Carte** defausses = new Carte*[TAILLE_DEFAUSSES];
     Merveille** merveilles = new Merveille*[TAILLE_MERVEILLES];
 
     int i = 0;
-    for (Carte* pt_carte : cartes_jeu) {
-        cartes_en_jeu[i] = pt_carte;
+    for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++) {
+        cartes_en_jeu[i] = nullptr;
         i++;
     }
     for(int i=0; i<TAILLE_DEFAUSSES; i++){
@@ -354,12 +350,11 @@ PlateauCartes::PlateauCartes(unsigned int age, std::initializer_list<Carte*> car
 }
 
 void PlateauCartes::addAge(){
-    if (age < 3){
-        age++;
+    age++;
+    if (age == 1){
+        tirerMerveilleRandom();
     }
-    else {
-        throw("addAge : age maximal atteint");
-    }
+    tirerCarteRandom();
 }
 
 void PlateauCartes::ajouterCarte(Carte* carte){
@@ -508,8 +503,18 @@ bool PlateauCartes::estVide() const{
 
 
 PlateauCartes::~PlateauCartes(){
+    for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
+        delete cartes_en_jeu[i];
+    }
+    for (int i = 0; i < TAILLE_DEFAUSSES; i++){
+        delete defausses[i];
+    }
+    for (int i = 0; i < TAILLE_MERVEILLES; i++){
+        delete merveilles[i];
+    }
     delete[] cartes_en_jeu;
     delete[] defausses;
+    delete[] merveilles;
 }
 
 
