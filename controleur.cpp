@@ -181,7 +181,7 @@ bool Controleur::actionEstLegale(Action& action){
         else 
             throw SetException("erreur: action non reconnue;");
     }
-    else throw SetException("erreur: carte non acessible");
+    else return false;
 }
 
 
@@ -200,6 +200,8 @@ Action* Controleur::actionsLegales(){
             j++;
         }
     }
+    //merveilles
+    
 
     for(i; i<=60; i++) std::make_tuple( nullptr , "ignore");
 

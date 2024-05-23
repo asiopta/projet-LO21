@@ -28,7 +28,7 @@ Carte* LISTE_CARTES_AGE_1[10] ={
     new CarteRessourcePrimaire("Chantier", 1, 0, {RessourcePrimaire::bois, 
 RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
 RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none})
-}
+};
 
 CarteRessourcePrimaire chantier = CarteRessourcePrimaire("Chantier", 1, 0, {RessourcePrimaire::bois, 
 RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
