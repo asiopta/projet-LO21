@@ -66,9 +66,10 @@ void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
             }
         } //supression de la merveille de la liste donnée en argument
     }
+
     else{
-        jeu->getJoueur2().setMerveille(choix);
         Merveille* choix = jeu->getJoueur2().choisir_merveille(merveilles); //!!! A DEFINIR !!!//
+        jeu->getJoueur2().setMerveille(choix);
         for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
             if (merveilles[i] == choix){
                 merveilles[i] = nullptr;
