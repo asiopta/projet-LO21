@@ -723,8 +723,6 @@ void Merveille::exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes& p
 //TODO : definir les méthodes de la classe joueur : choisirCarteMarronAutreJoueur() -> CarteRessourcePrimaire* const 
 //TODO : definir les méthodes de la classe joueur : choisirCarteGriseAutreJoueur() -> CarteRessourceSecondaire* const 
 //TODO : definir les méthodes de la classe joueur : choisirCarteDefausse() -> Carte* const
-//TODO : definir les méthodes de la classe joueur : retirerCarte(Carte* c) -> void
-
 //TODO : definir les méthodes de la classe joueur : choisirJetonScienceParmis3(JetonScience* liste_jeton) -> void
 
 
