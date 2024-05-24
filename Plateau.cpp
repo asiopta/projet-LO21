@@ -7,8 +7,8 @@
 
 const unsigned int NB_MERVEILLES_JEU = 8;
 const unsigned int NB_MERVEILLES_TOT = 10;
-const unsigned int NB_CARTES_AGE_1_JEU = 21;
-const unsigned int NB_CARTES_AGE_2_JEU = 21;
+const unsigned int NB_CARTES_AGE_1_JEU = 20;
+const unsigned int NB_CARTES_AGE_2_JEU = 20;
 const unsigned int NB_CARTES_AGE_3_JEU = 20;
 const unsigned int NB_CARTE_AGE_1_TOT = 31;
 const unsigned int NB_CARTE_AGE_2_TOT = 31;
@@ -540,7 +540,21 @@ void PlateauCartes::initPlateauCarte(){
             {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::goute, 3),
 
         };
+        
+        //*ajout des cartes dans le plateau
         initCarteRandom(NB_CARTES_AGE_1_JEU,NB_CARTE_AGE_1_TOT, LISTE_CARTE_AGE_1);
+
+        //*initialisation des positions des cartes et de leur visibilité et de leur accessibilité et de leur position
+        unsigned int i_counter = 0;
+        for(int j = 0; j < 5; j++){ //rangé 0 à 4
+            for(int _ =0; _ <j+2; _++){
+                if (j%2 ==0){cartes_en_jeu[i_counter]->set_face_visible();}//carte visible pour toutes les lignes paires
+                if (j==4){cartes_en_jeu[i_counter]->set_accessible();}//carte accessible pour la dernière ligne
+                cartes_en_jeu[i_counter]->set_position(i_counter);
+                i_counter++;
+            }
+        }
+
         initMerveilleRandom(NB_MERVEILLES_JEU,NB_MERVEILLES_TOT, LISTE_MERVEILLES);
         delete[] LISTE_MERVEILLES;
         delete[] LISTE_CARTE_AGE_1;
@@ -551,7 +565,23 @@ void PlateauCartes::initPlateauCarte(){
             //! Mettre les cartes sous la forme suivante :
             //! new CarteRessourcePrimaire( attributs )
         };
+
+        //* Ajout des cartes dans le plateau
         initCarteRandom(NB_CARTES_AGE_2_JEU,NB_CARTE_AGE_2_TOT, LISTE_CARTE_AGE_2);
+
+        //*initialisation des positions des cartes et de leur visibilité et de leur accessibilité et de leur position
+
+        unsigned int i_counter = 0;
+        for(int j = 0; j < 5; j++){ //rangé 0 à 4
+            for(int _ =0; _ <j+2; _++){
+                if (j%2 ==0){cartes_en_jeu[i_counter]->set_face_visible();}//carte visible pour toutes les lignes paires
+                if (j==0){cartes_en_jeu[i_counter]->set_accessible();}//carte accessible pour la dernière ligne
+                cartes_en_jeu[i_counter]->set_position(NB_CARTES_AGE_2_JEU-1-i_counter);
+                i_counter++;
+            }
+        }
+        //supression de la liste de cartes
+        //* Remarque, on a deja suprimé les cartes non utilisées dans la fonction initCarteRandom
         delete[] LISTE_CARTE_AGE_2;
 
     }
@@ -561,7 +591,32 @@ void PlateauCartes::initPlateauCarte(){
             //! Mettre les cartes sous la forme suivante :
             //! new CarteRessourcePrimaire( attributs )
         };
+
+        //!!!! GERER LA POSITONS DES CARTES GUILDES !!!!
         initCarteRandom(NB_CARTES_AGE_3_JEU,NB_CARTE_AGE_3_TOT, LISTE_CARTE_AGE_3);
+
+
+        int i_counter = 0;
+        for(int j = 0; j < 3; j++){ //rangé 0 à 4
+            for(int _ =0; _ <j+2; _++){
+                if (j%2 ==0){cartes_en_jeu[i_counter]->set_face_visible();}//carte visible pour toutes les lignes paires
+                i_counter++;
+            }
+        }
+        cartes_en_jeu[9] -> set_position(9); //les deux cartes centrales dans le schemat de l'age 3
+        cartes_en_jeu[10] -> set_position(10);
+        i_counter =0;
+        for(int j = 0; j < 3; j++){ //rangé 0 à 4
+            for(int _ =0; _ <j+2; _++){
+                if (j%2 ==0){cartes_en_jeu[20-1-i_counter]->set_face_visible();}//carte visible pour toutes les lignes paires
+                if (j==0){cartes_en_jeu[20-1-i_counter]->set_accessible();}//carte accessible pour la dernière ligne
+                i_counter++;
+            }
+        }
+
+
+
+
         delete[] LISTE_CARTE_AGE_3;
 
     }
