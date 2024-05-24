@@ -132,24 +132,31 @@ class PlateauMilitaire{
 class PlateauCartes{
 private:
     unsigned int age;
-    Carte** cartes_en_jeu; //tableau dynamique de pointeurs de Carte
-    Merveille** merveilles; //tableau dynamique de pointeurs de Merveille
-    Carte** defausses;
+    Carte* cartes_en_jeu[TAILLE_CARTE_EN_JEU]; //tableau dynamique de pointeurs de Carte 
+    Merveille* merveilles[TAILLE_MERVEILLES]; //tableau dynamique de pointeurs de Merveille
+    Carte* defausses[TAILLE_DEFAUSSES];
 
 public:
     PlateauCartes();
+
+    //**Actions du PlateauCarte**//
     void addAge(); //modifie carte_en_jeu en tirant de nouvelles cartes en jeu d'age age
     void ajouterCarte(Carte* carte); //ajoute la carte dans carte_en_jeu
     void prendreCarte(Carte* carte); //prend la carte si elle est accessible
     void defausserCarte(Carte* carte); //defausse la carte si elle est accessible
     void prendreMerveille(Merveille* merveille); //prend la merveille si elle est accessible
-    void tirerCarteRandom(); // tire les cartes pour l'age donné /!\ supprime les cartes déjà présente dans cartes_en_jeu
-    void tirerMerveilleRandom();
 
+    //**Initialisation**//
+    void init_merveille(); //rempli le tableau de merveilles
+    void init_cartes_en_jeu(unsigned int nombre_carte);
+    void tirerCarteRandom(unsigned int nombre_carte, Carte** tableau_cartes); //renvoie un tableau de pointeurs de Carte de taille nombre_carte tiré aléatoirement dans cartes
+    void tirerMerveilleRandom(unsigned int nombre_merveille, Merveille** tableau_merveilles);
+    //**Verification d'états des cartes**//
     bool estEnJeu(Carte* carte) const; //verifie que la carte est dans carte_en_jeu
     bool estAccessible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est accessible
     bool estVisible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est visible
 
+    //**Getters**//
     unsigned int getAge() const{return age;} //renvoie l'age du plateau
     Carte** getCartesEnJeu() const{return cartes_en_jeu;}
     Carte** getDefausse() const{return defausses;}
@@ -157,6 +164,7 @@ public:
     Carte** getCartesAccessibles() const; //renvoie un tableau de pointeurs de Carte accessibles
     Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
     unsigned int getNbMerveilles() const; //renvoie le nombre de merveilles restantes
+
    ~PlateauCartes();
 
    bool estVide() const; //! renvoie si il ya encore des carte sur le plateau ou pas, que ce soit l'age

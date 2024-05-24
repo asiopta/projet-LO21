@@ -445,50 +445,6 @@ unsigned int PlateauCartes::getNbMerveilles() const{
     return compteur;
 }
 
-void PlateauCartes::tirerMerveilleRandom(){
-    std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
-    std::mt19937 gen(rd());
-    std::shuffle(LISTE_MERVEILLES, LISTE_MERVEILLES + NB_MERVEILLES, gen); //mélange de la liste de merveilles
-    for (int i = 0; i < TAILLE_MERVEILLES; i++){
-        merveilles[i] = (Merveille*)&LISTE_MERVEILLES[i]; //ajout des TAILLE_MERVEILLES premières merveilles de la liste mélangée
-    }
-}
-
-
-
-void PlateauCartes::tirerCarteRandom(){
-    std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
-    std::mt19937 gen(rd());
-    if (age == 1){
-        std::shuffle(LISTE_CARTES_AGE_1, LISTE_CARTES_AGE_1 + NB_CARTES_AGE_1, gen); //mélange d'une liste de cartes 
-        for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
-            cartes_en_jeu[i] = (Carte*)&LISTE_CARTES_AGE_1[i]; //ajout des TAILLE_CARTE_EN_JEU premières cartes de la liste mélangée
-        }
-    }
-    else if (age == 2){ //pareil pour les cartes de l'age 2
-        std::shuffle(LISTE_CARTES_AGE_2, LISTE_CARTES_AGE_2 + NB_CARTES_AGE_2, gen);
-        for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
-            cartes_en_jeu[i] = (Carte*)&LISTE_CARTES_AGE_2[i];
-        }
-    }
-    else {
-        std::shuffle(LISTE_CARTES_AGE_3, LISTE_CARTES_AGE_3 + NB_CARTES_AGE_3, gen); //mélange des cartes de l'age 3
-        std::random_device rd; 
-        std::mt19937 gen(rd());
-        std::shuffle(LISTE_GUILDES,LISTE_GUILDES+NB_GUILDES, gen); //melange de la liste de guilde
-        
-        for (int i = 0; i < TAILLE_CARTE_EN_JEU-4; i++){ //ajout des 17 cartes age 3
-            cartes_en_jeu[i] = (Carte*)&LISTE_CARTES_AGE_3[i];
-        }
-        for (int i = TAILLE_CARTE_EN_JEU-4; i < TAILLE_CARTE_EN_JEU-1; i++){ //ajout des 3 cartes guildes
-            cartes_en_jeu[i] = (Carte*)&LISTE_GUILDES[i];
-        }
-        //melanger les cartes en jeu pour obtenir une liste de cartes avec des positions aléatoires
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::shuffle(cartes_en_jeu, cartes_en_jeu + TAILLE_CARTE_EN_JEU, gen);
-    }
-}
 
 
 bool PlateauCartes::estVide() const{
@@ -498,6 +454,65 @@ bool PlateauCartes::estVide() const{
         }
     }
     return true;
+}
+
+
+void PlateauCartes::init_merveille(){
+    if (age == 1){
+
+    }
+    else {throw ("Erreur dans init_merveille : age invalide, age 1 dépassé");}
+
+}
+void PlateauCartes::init_cartes_en_jeu(){
+    if (age == 1){
+        //initialisation des cartes en jeu pour l'age 1
+        Carte* LISTE_CARTE_AGE_1[] = {};
+        
+    }
+    else if (age == 2){
+        //initialisation des cartes en jeu pour l'age 2
+        Carte* LISTE_CARTE_AGE_2[] = {};
+
+    }
+    else if (age == 3){
+        //initialisation des cartes en jeu pour l'age 3
+        Carte* LISTE_CARTE_AGE_3[] = {};
+
+    }
+    else {throw ("Erreur dans init_carte_en_jeu : age invalide");}
+
+}
+
+void PlateauCartes::tirerCarteRandom(unsigned int nombre_carte, Carte** tableau_cartes){
+    if (nombre_carte > TAILLE_CARTE_EN_JEU){throw ("Erreur dans tirerCarteRandom : nombre de carte invalide");}
+
+    std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
+    std::mt19937 gen(rd());
+    std::shuffle(tableau_cartes, tableau_cartes + nombre_carte, gen); //mélange d'une liste de cartes 
+    for (int i = 0; i < nombre_carte; i++){
+        cartes_en_jeu[i] = tableau_cartes[i]; //ajout des nombre_carte premières cartes de la liste mélangée
+    }
+    if (nombre_carte < TAILLE_CARTE_EN_JEU){
+        for (int i = nombre_carte; i < TAILLE_CARTE_EN_JEU; i++){
+            cartes_en_jeu[i] = nullptr; //on met les cartes restantes à nullptr
+        }
+    }
+}
+
+void PlateauCartes::tirerMerveilleRandom(unsigned int nombre_merveille, Merveille** tableau_merveilles){
+    if (nombre_merveille > TAILLE_MERVEILLES){throw ("Erreur dans tirerMerveilleRandom : nombre de merveille invalide");}
+    std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
+    std::mt19937 gen(rd());
+    std::shuffle(tableau_merveilles, tableau_merveilles + nombre_merveille, gen); //mélange d'une liste de cartes
+    for (int i = 0; i < nombre_merveille; i++){
+        merveilles[i] = tableau_merveilles[i]; //ajout des TAILLE_MERVEILLES premières merveilles de la liste mélangée
+    }
+    if (nombre_merveille < TAILLE_MERVEILLES){
+        for (int i = nombre_merveille; i < TAILLE_MERVEILLES; i++){
+            merveilles[i] = nullptr; //on met les merveilles restantes à nullptr
+        }
+    }
 }
 
 
