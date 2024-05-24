@@ -49,7 +49,7 @@ private:
     Joueur joueur1;
     Joueur joueur2;
     unsigned int tour = 1;
-    //rajouter singleton pattern
+
     struct Handler{
         Controleur* instance = nullptr;
         Handler() = default;
