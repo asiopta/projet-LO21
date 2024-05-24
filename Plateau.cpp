@@ -474,6 +474,63 @@ void PlateauCartes::initPlateauCarte(){
             //! Mettre les cartes sous la forme suivante :
             //! new CarteRessourcePrimaire( attributs )
 
+             new CarteRessourcePrimaire("Chantier", 1, 0, {RessourcePrimaire::bois, 
+                RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}),
+            
+            new CarteRessourcePrimaire("Exploitation", 1, 1, {RessourcePrimaire::bois, 
+                RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}),
+
+            new CarteRessourcePrimaire("BassinArgileux", 1, 0, {RessourcePrimaire::brique, 
+                RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}),
+            
+            new CarteRessourcePrimaire("Cavite", 1, 1, {RessourcePrimaire::brique, 
+                RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}),
+
+            new CarteRessourcePrimaire("Gisement", 1, 0, {RessourcePrimaire::pierre, 
+                RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+            
+            new CarteRessourcePrimaire("Mine", 1, 1, {RessourcePrimaire::pierre, 
+                RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteRessourceSecondaire("Verrerie", 1, 1, RessourceSecondaire::verre,
+                {RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}),
+
+            new CarteRessourceSecondaire("Presse", 1, 1, RessourceSecondaire::parchemin,
+                {RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+            
+
+            new CarteCommerce({RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none}, Capacite::none, 
+                SymboleChainage::none, SymboleChainage::none, false, true, 0, "DepotDePierre", 1, 3, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteCommerce({RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none}, Capacite::none,
+                SymboleChainage::none, SymboleChainage::none, false, true, 0, "DepotDArgile", 1, 3, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteCommerce({RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none}, Capacite::none,
+                SymboleChainage::none, SymboleChainage::none, false, true, 0, "DepotDeBois", 1, 3, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none}, Capacite::gagner_monnaie_4, SymboleChainage::none, 
+                SymboleChainage::jarre, false, false, 0, "Taverne", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+            
+            
+
+
+/*CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, 
 
         };
         initCarteRandom(NB_CARTES_AGE_1_JEU,NB_CARTE_AGE_1_TOT, LISTE_CARTE_AGE_1);
