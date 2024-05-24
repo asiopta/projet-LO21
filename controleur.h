@@ -3,7 +3,6 @@
 #include <string>
 #include "Carte.h"
 #include "Plateau.h"
-#include "setup.h"
 #include "Joueur.h"
 
 

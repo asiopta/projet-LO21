@@ -3,7 +3,6 @@
 #include <string>
 #include <tuple>
 #include "Joueur.h"
-#include "setup.h"
 #include "Carte.h"
 
 const unsigned int LargeurPlateauMilitaire = 9; //la largeur maxe du plateau militaire

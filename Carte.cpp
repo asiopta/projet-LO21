@@ -534,8 +534,8 @@ CarteGuilde::CarteGuilde()
 :Carte(){
     effet_guilde = EffetGuilde::guilde_armateurs;
 }
-CarteGuilde::CarteGuilde(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, EffetGuilde effet)
-:Carte(n, a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteGuilde::CarteGuilde(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, EffetGuilde effet)
+:Carte(n, a, cout, pt_primaire, pt_secondaire, false, false, 0){
     effet_guilde = effet;
 }
 CarteGuilde::CarteGuilde(const CarteGuilde& c)
@@ -628,11 +628,12 @@ Merveille::Merveille()
     pt_victoire = 0;
     avance_militaire = 0;
 }
-    Merveille::Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_vict, unsigned int av_milit,std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
-    :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
+    Merveille::Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_vict, unsigned int av_milit,bool choix, std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire)
+    :Carte(n,a, cout, pt_primaire, pt_secondaire, 1, 1, 0){
         production_primaire = new RessourcePrimaire[Taille_prod_primaire];
         production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
         capacite = new Capacite[Taille_capacite];
+        this->choix = choix;
 
         int i = 0;
         for (const auto& prod : prod_primaire){

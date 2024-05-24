@@ -1,7 +1,6 @@
 #pragma once
 #include "Joueur.h"
 #include "Plateau.h"
-#include "setup.h"
 #include <iostream>
 #include <string>
 
@@ -331,7 +330,7 @@ private:
     EffetGuilde effet_guilde;
 public:
     CarteGuilde();
-    CarteGuilde(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, EffetGuilde effet);
+    CarteGuilde(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, EffetGuilde effet);
     CarteGuilde(const CarteGuilde& c);
 
     EffetGuilde get_effet_guilde(){return effet_guilde;}
@@ -355,7 +354,7 @@ private:
 
 public:
     Merveille();
-    Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_victoire, unsigned int av_milit, bool choix, std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0);
+    Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_victoire, unsigned int av_milit, bool choix, std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire);
     Merveille(const Merveille& c);
 
     bool get_choix()const {return choix;}

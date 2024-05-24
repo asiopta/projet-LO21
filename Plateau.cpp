@@ -6,13 +6,13 @@
 #include <unordered_set>
 
 const unsigned int NB_MERVEILLES_JEU = 8;
-const unsigned int NB_MERVEILLES_TOT = 10;
+const unsigned int NB_MERVEILLES_TOT = 12;
 const unsigned int NB_CARTES_AGE_1_JEU = 20;
 const unsigned int NB_CARTES_AGE_2_JEU = 20;
 const unsigned int NB_CARTES_AGE_3_JEU = 20;
 const unsigned int NB_CARTE_AGE_1_TOT = 23;
 const unsigned int NB_CARTE_AGE_2_TOT = 23;
-const unsigned int NB_CARTE_AGE_3_TOT = 23;
+const unsigned int NB_CARTE_AGE_3_TOT = 20;
 const int NB_CARTE_GUILDE_TOT= 7;
 const int NB_CARTE_GUILDE_JEU = 3;
 
@@ -468,13 +468,70 @@ void PlateauCartes::initPlateauCarte(){
     if (age == 1){
         //initialisation des cartes en jeu pour l'age 1
         Merveille* LISTE_MERVEILLES[NB_MERVEILLES_TOT] = {
-            //! Mettre les merveilles sous la forme suivante :
-            //! new Merveille( attributs )
+            //!LISTE DE TOUTE LES MERVEILLES
+            new Merveille({RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::detruire_carte_grise, Capacite::none, Capacite::none}, 
+                3, 1, false, "LeCircusMaximus", 1, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new Merveille({RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, 
+                3, 2, false, "LeColosse", 1, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new Merveille({RessourcePrimaire::bois, RessourcePrimaire::pierre, 
+                RessourcePrimaire::brique}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, Capacite::none, Capacite::none}, 
+                4, 0, true, "LeGrandPhare", 1, 0, {RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin, RessourceSecondaire::none} ),
+
+            new Merveille({RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::gagner_monnaie_6, 
+                Capacite::rejouer, Capacite::none}, 3, 0, false, "LesJardinsSuspendus", 1, 0, {RessourcePrimaire::bois, 
+                RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin, RessourceSecondaire::none} ),
+
+            new Merveille({RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::choisir_jeton_science, 
+                Capacite::none, Capacite::none}, 4, 0, false, "LaGrandeBibliotheque", 1, 0, {RessourcePrimaire::bois, 
+                RessourcePrimaire::bois, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin, RessourceSecondaire::none} ),
+
+            new Merveille({RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::jouer_carte_defausse, 
+                Capacite::none, Capacite::none}, 2, 0, false, "LeMausolee", 1, 0, {RessourcePrimaire::brique, 
+                RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::verre, RessourceSecondaire::parchemin} ),
+
+            new Merveille({RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::verre}, {Capacite::rejouer, 
+                Capacite::none, Capacite::none}, 2, 0, true, "LePiree", 1, 0, {RessourcePrimaire::bois, 
+                RessourcePrimaire::bois, RessourcePrimaire::pierre, RessourcePrimaire::brique, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new Merveille({RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::none, 
+                Capacite::none, Capacite::none}, 9, 0, false, "LesPyramides", 1, 0, {RessourcePrimaire::pierre, 
+                RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new Merveille({RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::rejouer, 
+                Capacite::none, Capacite::none}, 6, 0, false, "LeSphynx", 1, 0, {RessourcePrimaire::brique, 
+                RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::verre, RessourceSecondaire::none} ),
+            new Merveille({RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::detruire_carte_marron, 
+                Capacite::none, Capacite::none}, 3, 1, false, "LaStatueDeZeus", 1, 0, {RessourcePrimaire::brique, 
+                RessourcePrimaire::bois, RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin, RessourceSecondaire::none} ),
+
+            new Merveille({RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}, {Capacite::gagner_monnaie_12, 
+                Capacite::rejouer, Capacite::none}, 0, 0, false, "LeTempleDArtemis", 1, 0, {RessourcePrimaire::pierre, 
+                RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::verre, RessourceSecondaire::none} ),
+
+            new Merveille({RessourcePrimaire::pierre, RessourcePrimaire::pierre, 
+                RessourcePrimaire::brique}, {RessourceSecondaire::parchemin, RessourceSecondaire::none}, {Capacite::gagner_monnaie_3, 
+                Capacite::rejouer, Capacite::perdre_monnaie_3}, 3, 0, false, "LaViaAppia",1, 0, {RessourcePrimaire::brique, 
+                RessourcePrimaire::brique, RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none} )
         };
         Carte* LISTE_CARTE_AGE_1[NB_CARTE_AGE_1_TOT] = {
             //! LISTE DE TOUTES LES CARTES DE L'AGE 1
 
-             new CarteRessourcePrimaire("Chantier", 1, 0, {RessourcePrimaire::bois, 
+            new CarteRessourcePrimaire("Chantier", 1, 0, {RessourcePrimaire::bois, 
                 RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
                 RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none}),
             
@@ -594,8 +651,111 @@ void PlateauCartes::initPlateauCarte(){
     else if (age == 2){
         //initialisation des cartes en jeu pour l'age 2
         Carte* LISTE_CARTE_AGE_2[NB_CARTE_AGE_2_TOT] = {
-            //! Mettre les cartes sous la forme suivante :
-            //! new CarteRessourcePrimaire( attributs )
+            //! LISTE DE TOUTES LES CARTES DE L'AGE 2
+
+            new CarteRessourcePrimaire("Scierie", 2, 2, {RessourcePrimaire::bois, 
+                RessourcePrimaire::bois, RessourcePrimaire::none}, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
+                RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteRessourcePrimaire("Briqueterie", 2, 2, {RessourcePrimaire::brique, 
+                RessourcePrimaire::brique, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
+                RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteRessourcePrimaire("Carriere", 2, 2, {RessourcePrimaire::pierre, 
+                RessourcePrimaire::pierre, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none,
+                RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteRessourceSecondaire("Soufflerie", 2, 0, RessourceSecondaire::verre,
+                {RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteRessourceSecondaire("Sechoir", 2, 0, RessourceSecondaire::parchemin,
+                {RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            
+            new CartePrestige("Tribunal", 2, 0, {RessourcePrimaire::bois, RessourcePrimaire::bois, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::none, SymboleChainage::none, 5),
+
+            new CartePrestige("Statue", 2, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::masque, SymboleChainage::pilier, 4),
+
+            new CartePrestige("Temple", 2, 0, {RessourcePrimaire::bois, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::lune, SymboleChainage::soleil, 4),
+
+            new CartePrestige("Aqueduc", 2, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, 
+                RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::goute, SymboleChainage::none, 5),
+
+            new CartePrestige("Rostres", 2, 0, {RessourcePrimaire::pierre, RessourcePrimaire::bois, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::none, SymboleChainage::temple, 4),
+
+            new CarteMilitaire("Muraille", 2, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::none, SymboleChainage::none, 2),
+
+            new CarteMilitaire("Haras", 2, 0, {RessourcePrimaire::brique, RessourcePrimaire::bois, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::fer_a_cheval, SymboleChainage::none, 1),
+
+            new CarteMilitaire("Baraquements", 2, 3, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::epee, SymboleChainage::none, 1),
+
+            new CarteMilitaire("ChampDeTir", 2, 0, {RessourcePrimaire::pierre, RessourcePrimaire::bois, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::none, SymboleChainage::cible, 2),
+
+            new CarteMilitaire("PlaceDArmes", 2, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::none, SymboleChainage::casque, 2),
+
+            new CarteScience("Bibliotheque", 2, 0, {RessourcePrimaire::pierre, RessourcePrimaire::bois, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::livre, SymboleChainage::none, SymboleScience::plume, 2),
+
+            new CarteScience("Dispensaire", 2, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
+                RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, 
+                SymboleChainage::engrenage, SymboleChainage::none, SymboleScience::pilon, 2),
+
+            new CarteScience("Ecole", 2, 0, {RessourcePrimaire::bois, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin, RessourceSecondaire::none},
+                SymboleChainage::none, SymboleChainage::lyre, SymboleScience::roue, 1),
+
+            new CarteScience("Laboratoire", 2, 0, {RessourcePrimaire::bois, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::verre, RessourceSecondaire::none}, 
+                SymboleChainage::none,SymboleChainage::lampe, SymboleScience::fil_a_plomb, 1),
+
+            new CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::verre, RessourceSecondaire::parchemin}, Capacite::none,
+                SymboleChainage::none, SymboleChainage::none, true, false, 0, "Forum", 2, 3, {RessourcePrimaire::brique, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteCommerce({RessourcePrimaire::bois, RessourcePrimaire::brique, RessourcePrimaire::pierre}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none}, Capacite::none, 
+                SymboleChainage::none, SymboleChainage::none, true, false, 0, "Caravanserail", 2, 2, {RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::verre, RessourceSecondaire::parchemin, RessourceSecondaire::none} ),
+
+            new CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::verre, RessourceSecondaire::parchemin}, Capacite::none,  SymboleChainage::none, SymboleChainage::none, false, true, 
+                0, "Douanes", 2, 4, {RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none}, Capacite::gagner_monnaie_6,  
+                SymboleChainage::none, SymboleChainage::toneau, false, false, 0, "Brasserie", 2, 0, {RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} )
         };
 
         //* Ajout des cartes dans le plateau
@@ -620,13 +780,125 @@ void PlateauCartes::initPlateauCarte(){
     else if (age == 3){
         //initialisation des cartes en jeu pour l'age 3
         Carte* LISTE_CARTE_AGE_3[NB_CARTE_AGE_3_TOT] = {
-            //! Mettre les cartes sous la forme suivante :
-            //! new CarteRessourcePrimaire( attributs )
+            //! LISTE DES CARTES DE L'AGE 3
+
+            new CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none}, Capacite::gagner_monnaie_carte_grise, SymboleChainage::none, 
+                SymboleChainage::none, false, false, 3, "ChambreDeCommerce", 3, 0, {RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin, RessourceSecondaire::none} ),
+
+            new CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none}, Capacite::gagner_monnaie_carte_marron, SymboleChainage::none,
+                SymboleChainage::none, false, false, 3, "Port", 3, 0, {RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin, RessourceSecondaire::none} ),
+
+            new  CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none}, Capacite::gagner_monnaie_carte_rouge, SymboleChainage::none, 
+                SymboleChainage::none, false, false, 3, "Armurerie", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none}, Capacite::gagner_monnaie_carte_jaune, SymboleChainage::jarre, 
+                SymboleChainage::none, false, false, 3, "Phare", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CarteCommerce({RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none}, Capacite::gagner_monnaie_2_par_merveille, SymboleChainage::toneau, SymboleChainage::none, 
+                false, false, 3, "Arene", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
+
+            new CartePrestige("Palace", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::pierre, 
+                RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::verre, RessourceSecondaire::none} , 
+                SymboleChainage::none, SymboleChainage::none, 7),
+
+            new CartePrestige("HotelDeVille", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, 
+                RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::bois}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} , 
+                SymboleChainage::none, SymboleChainage::none, 7),
+
+            new CartePrestige("Obelisque", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none} , 
+                SymboleChainage::none, SymboleChainage::none, 5),
+
+            new CartePrestige("Jardins", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
+                RessourcePrimaire::bois, RessourcePrimaire::bois, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} , 
+                SymboleChainage::pilier, SymboleChainage::none, 6),
+
+            new CartePrestige("Pantheon", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::bois, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin, RessourceSecondaire::none} , 
+                SymboleChainage::soleil, SymboleChainage::none, 6),
+
+            new CartePrestige("Senat", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
+                RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none} , 
+                SymboleChainage::temple, SymboleChainage::none, 5),
+
+            new CarteMilitaire("Arsenal", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
+                RessourcePrimaire::brique, RessourcePrimaire::bois, RessourcePrimaire::bois}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} , 
+                SymboleChainage::none, SymboleChainage::none, 3),
+
+            new CarteMilitaire("Pretoire", 3, 8, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} , 
+                SymboleChainage::none, SymboleChainage::none, 3),
+
+            new CarteMilitaire("Fortifications", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::pierre, 
+                RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none} , 
+                SymboleChainage::tour, SymboleChainage::none, 2),
+
+            new CarteMilitaire("AtelierDeSiege", 3, 0, {RessourcePrimaire::bois, RessourcePrimaire::bois, 
+                RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none} , 
+                SymboleChainage::cible, SymboleChainage::none, 2),
+
+            new CarteMilitaire("Cirque", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::brique, 
+                RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} , 
+                SymboleChainage::casque, SymboleChainage::none, 2),
+
+            new CarteScience("Academie", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::bois, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::verre, RessourceSecondaire::none} , 
+                SymboleChainage::none, SymboleChainage::none, SymboleScience::balance, 3),
+
+            new CarteScience("Etude", 3, 0, {RessourcePrimaire::bois, RessourcePrimaire::bois, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin, RessourceSecondaire::none} , 
+                SymboleChainage::none, SymboleChainage::none, SymboleScience::balance, 3),
+
+            new CarteScience("Universite", 3, 0, {RessourcePrimaire::brique, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin, RessourceSecondaire::none} , 
+                SymboleChainage::lyre, SymboleChainage::none, SymboleScience::globe_terrestre, 2),
+
+            new CarteScience("Observatoire", 3, 0, {RessourcePrimaire::pierre, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::parchemin, RessourceSecondaire::none} , 
+                SymboleChainage::lampe, SymboleChainage::none, SymboleScience::globe_terrestre, 2)
+
         };
 
         Carte* LISTE_CARTE_GUILDE[NB_CARTE_GUILDE_TOT] = {
-            //! Mettre les cartes sous la forme suivante :
-            //! new CarteRessourcePrimaire( attributs )
+            //!LISTE DES CARTES GUILDE
+
+            new CarteGuilde("GuildeDesCommercants", 3, 0, {RessourcePrimaire::brique, 
+                RessourcePrimaire::bois, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin, RessourceSecondaire::none},
+                EffetGuilde::guilde_commercants),
+
+            new CarteGuilde("GuildeDesArmateurs", 3, 0, {RessourcePrimaire::brique, 
+                RessourcePrimaire::pierre, RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::parchemin, RessourceSecondaire::none},
+                EffetGuilde::guilde_armateurs),
+
+            new CarteGuilde("GuildeDesBatisseurs", 3, 0, {RessourcePrimaire::pierre, 
+                RessourcePrimaire::pierre, RessourcePrimaire::brique, RessourcePrimaire::bois, RessourcePrimaire::none}, {RessourceSecondaire::verre, RessourceSecondaire::none, RessourceSecondaire::none},
+                EffetGuilde::guilde_batisseurs),
+
+            new CarteGuilde("GuildeDesMagistrats", 3, 0, {RessourcePrimaire::bois, 
+                RessourcePrimaire::bois, RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none},
+                EffetGuilde::guilde_magistrats),
+
+            new CarteGuilde("GuildeDesScientifiques", 3, 0, {RessourcePrimaire::brique, 
+                RessourcePrimaire::brique, RessourcePrimaire::bois, RessourcePrimaire::bois, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none},
+                EffetGuilde::guilde_scientifiques),
+
+            new CarteGuilde("GuildeDesUsuriers", 3, 0, {RessourcePrimaire::pierre, 
+                RessourcePrimaire::pierre, RessourcePrimaire::bois, RessourcePrimaire::bois, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none},
+                EffetGuilde::guilde_usuriers),
+
+            new CarteGuilde("GuildeDesTacticiens", 3, 0, {RessourcePrimaire::pierre, 
+                RessourcePrimaire::pierre, RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none},
+                EffetGuilde::guilde_tacticiens)
         };
 
         initCarteRandom(NB_CARTES_AGE_3_JEU,NB_CARTE_AGE_3_TOT, LISTE_CARTE_AGE_3);
