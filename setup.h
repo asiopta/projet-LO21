@@ -20,23 +20,6 @@
 
 
 
-/*CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, 
-std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, 
-SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict);*/
-
-CartePrestige theatre = CartePrestige("Theatre", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
-RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
-{RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::masque, 3);
-
-CartePrestige autel = CartePrestige("Autel", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
-RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
-{RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::lune, 3);
-
-CartePrestige bains = CartePrestige("Bains", 1, 0, {RessourcePrimaire::pierre, RessourcePrimaire::none, 
-RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
-{RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::goute, 3);
-
-
 /*CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, 
 std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, 
 SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, unsigned int nb_militaire);*/

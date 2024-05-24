@@ -527,6 +527,18 @@ void PlateauCartes::initPlateauCarte(){
                 SymboleChainage::jarre, false, false, 0, "Taverne", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
                 RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none} ),
             
+            new CartePrestige("Theatre", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::masque, 3),
+
+            new CartePrestige("Autel", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::lune, 3),
+
+            new CartePrestige("Bains", 1, 0, {RessourcePrimaire::pierre, RessourcePrimaire::none, 
+            RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+            {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::goute, 3),
+
             
 
 

@@ -281,7 +281,7 @@ private:
 
 public:
     CartePrestige();
-    CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict);
+    CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict);
     CartePrestige(const CartePrestige& c);
     unsigned int getPtVictoire()const override{return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}

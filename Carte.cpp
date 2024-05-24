@@ -477,8 +477,8 @@ CartePrestige::CartePrestige()
         symbole_chainage_sortie = SymboleChainage::none;
         pt_victoire = 0;
     }
-CartePrestige::CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict)
-    :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CartePrestige::CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict)
+    :Carte(n,a, cout, pt_primaire, pt_secondaire, false, false, 0){
         symbole_chainage_entre=symb_chain_entre;
         symbole_chainage_sortie=symb_chain_sortie;
         pt_victoire=pt_vict;
