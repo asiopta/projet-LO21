@@ -66,7 +66,7 @@ TODO: choisirJetons()
 private:
     Carte* cartes_construite[60];
     Merveille* merveille_construite[4];
-    Merveille* merveille_non_construite[5]; //? UPDATE : changé 4 en 5 car on peut voler des merveilles à l'adversaire
+    Merveille* merveille_non_construite[5];
     unsigned int nb_jetons;
     unsigned int monnaie;
     unsigned int pt_victoire;
