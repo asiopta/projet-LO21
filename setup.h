@@ -24,42 +24,14 @@
 std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, 
 SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, unsigned int nb_militaire);*/
 
-CarteMilitaire tourDeGarde = CarteMilitaire("TourDeGarde", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
-RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
-RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::none, 1);
 
-CarteMilitaire ecuries = CarteMilitaire("Ecuries", 1, 0, {RessourcePrimaire::bois, RessourcePrimaire::none, 
-RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
-RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::fer_a_cheval, 1);
-
-CarteMilitaire caserne = CarteMilitaire("Caserne", 1, 0, {RessourcePrimaire::brique, RessourcePrimaire::none, 
-RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
-RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::epee, 1);
-
-CarteMilitaire palissade = CarteMilitaire("Palissade", 1, 2, {RessourcePrimaire::none, RessourcePrimaire::none, 
-RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
-RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::tour, 1);
 
 
 /*CarteScience(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, 
 std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, 
 SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, SymboleScience symb_science, unsigned int pt_vict);*/
 
-CarteScience atelier = CarteScience("Atelier", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
-RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, 
-RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::none, SymboleScience::fil_a_plomb, 1);
 
-CarteScience apothicaire = CarteScience("Apothicaire", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
-RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, 
-RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::none, SymboleScience::roue, 1);
-
-CarteScience scriptorium = CarteScience("Scriptorium", 1, 2, {RessourcePrimaire::none, RessourcePrimaire::none, 
-RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
-RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::livre, SymboleScience::plume, 0);
-
-CarteScience officine = CarteScience("Officine", 1, 2, {RessourcePrimaire::none, RessourcePrimaire::none, 
-RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
-RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::engrenage, SymboleScience::pilon, 0);
 
 
 
@@ -419,20 +391,7 @@ RessourcePrimaire::brique, RessourcePrimaire::pierre, RessourcePrimaire::pierre,
 
 
 
-//génération des jetons science
 
-JetonScience** liste_jetons_science = new JetonScience*[10];
-liste_jetons_science[0] = nullptr;
-// JetonScience* jetonAgriculture= new JetonScience(CapaciteScience::agriculture);
-// JetonScience* jetonArchitecture= new JetonScience(CapaciteScience::architecture);
-// JetonScience* jetonEconomie= new JetonScience(CapaciteScience::economie);
-// JetonScience* jetonLoi= new JetonScience(CapaciteScience::loi);
-// JetonScience* jetonMaconnerie= new JetonScience(CapaciteScience::maconnerie);
-// JetonScience* jetonUrbanisme= new JetonScience(CapaciteScience::urbanisme);
-// JetonScience* jetonTheologie= new JetonScience(CapaciteScience::theologie);
-// JetonScience* jetonStrategie= new JetonScience(CapaciteScience::strategie);
-// JetonScience* jetonPhilosophie= new JetonScience(CapaciteScience::philosophie);
-// JetonScience* jetonMathematique= new JetonScience(CapaciteScience::mathematique);
 
 
 
@@ -448,13 +407,9 @@ const int NB_CARTES_AGE_1 = 23;
 const int NB_CARTES_AGE_2 = 23;
 const int NB_CARTES_AGE_3 = 23;
 const int NB_MERVEILLES = 10;
-const int NB_GUILDES = 7;
 
-Carte* LISTE_CARTES_AGE_1 = new Carte[NB_CARTES_AGE_1];
-Carte* LISTE_CARTES_AGE_2 = new Carte[NB_CARTES_AGE_2];
-Carte* LISTE_CARTES_AGE_3 = new Carte[NB_CARTES_AGE_3];
-Carte* LISTE_MERVEILLES = new Carte[NB_MERVEILLES];
-Carte* LISTE_GUILDES = new Carte[NB_GUILDES];
+
+
 
 
 

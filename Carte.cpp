@@ -442,8 +442,8 @@ CarteScience::CarteScience() : Carte(){
         pt_victoire = 0;
         capacite = Capacite::ajouter_symbole_science;
     }
-CarteScience::CarteScience(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, SymboleScience symb_science, unsigned int pt_vict)
-    :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteScience::CarteScience(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, SymboleScience symb_science, unsigned int pt_vict)
+    :Carte(n,a, cout, pt_primaire, pt_secondaire, false, false, 0){
         symbole_chainage_entre = symb_chain_entre;
         symbole_chainage_sortie = symb_chain_sortie;
 
@@ -504,8 +504,8 @@ CarteMilitaire::CarteMilitaire()
     nb_symbole_militaire = 0;
     capacite = Capacite::avancee_militaire;
 }
-CarteMilitaire::CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, unsigned int nb_militaire)
-    :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteMilitaire::CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, unsigned int nb_militaire)
+    :Carte(n,a, cout, pt_primaire, pt_secondaire, false, false, 0){
     symbole_chainage_entre=symb_chain_entre;
     symbole_chainage_sortie=symb_chain_sortie;
     nb_symbole_militaire=nb_militaire;

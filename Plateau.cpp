@@ -10,9 +10,11 @@ const unsigned int NB_MERVEILLES_TOT = 10;
 const unsigned int NB_CARTES_AGE_1_JEU = 20;
 const unsigned int NB_CARTES_AGE_2_JEU = 20;
 const unsigned int NB_CARTES_AGE_3_JEU = 20;
-const unsigned int NB_CARTE_AGE_1_TOT = 31;
-const unsigned int NB_CARTE_AGE_2_TOT = 31;
-const unsigned int NB_CARTE_AGE_3_TOT = 31;
+const unsigned int NB_CARTE_AGE_1_TOT = 23;
+const unsigned int NB_CARTE_AGE_2_TOT = 23;
+const unsigned int NB_CARTE_AGE_3_TOT = 23;
+const int NB_CARTE_GUILDE_TOT= 7;
+const int NB_CARTE_GUILDE_JEU = 3;
 
 /*-------------------------------------JetonScience-------------------------------------*/
 
@@ -470,9 +472,7 @@ void PlateauCartes::initPlateauCarte(){
             //! new Merveille( attributs )
         };
         Carte* LISTE_CARTE_AGE_1[NB_CARTE_AGE_1_TOT] = {
-    
-            //! Mettre les cartes sous la forme suivante :
-            //! new CarteRessourcePrimaire( attributs )
+            //! LISTE DE TOUTES LES CARTES DE L'AGE 1
 
              new CarteRessourcePrimaire("Chantier", 1, 0, {RessourcePrimaire::bois, 
                 RessourcePrimaire::none, RessourcePrimaire::none},{RessourcePrimaire::none, RessourcePrimaire::none, 
@@ -536,9 +536,41 @@ void PlateauCartes::initPlateauCarte(){
                 {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::lune, 3),
 
             new CartePrestige("Bains", 1, 0, {RessourcePrimaire::pierre, RessourcePrimaire::none, 
-            RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
-            {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::goute, 3),
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
+                {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::goute, 3),
 
+            new CarteMilitaire("TourDeGarde", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
+                RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::none, 1),
+
+            new CarteMilitaire("Ecuries", 1, 0, {RessourcePrimaire::bois, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
+                RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::fer_a_cheval, 1),
+
+            new CarteMilitaire("Caserne", 1, 0, {RessourcePrimaire::brique, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
+                RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::epee, 1),
+
+            new CarteMilitaire("Palissade", 1, 2, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
+                RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::tour, 1),
+
+            
+            new CarteScience("Atelier", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, 
+                RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::none, SymboleScience::fil_a_plomb, 1),
+
+            new CarteScience("Apothicaire", 1, 0, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::verre, 
+                RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::none, SymboleScience::roue, 1),
+
+            new CarteScience("Scriptorium", 1, 2, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
+                RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::livre, SymboleScience::plume, 0),
+
+            new CarteScience("Officine", 1, 2, {RessourcePrimaire::none, RessourcePrimaire::none, 
+                RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
+                RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::engrenage, SymboleScience::pilon, 0)
         };
         
         //*ajout des cartes dans le plateau
@@ -592,7 +624,11 @@ void PlateauCartes::initPlateauCarte(){
             //! new CarteRessourcePrimaire( attributs )
         };
 
-        //!!!! GERER LA POSITONS DES CARTES GUILDES !!!!
+        Carte* LISTE_CARTE_GUILDE[NB_CARTE_GUILDE_TOT] = {
+            //! Mettre les cartes sous la forme suivante :
+            //! new CarteRessourcePrimaire( attributs )
+        };
+
         initCarteRandom(NB_CARTES_AGE_3_JEU,NB_CARTE_AGE_3_TOT, LISTE_CARTE_AGE_3);
 
 
@@ -613,8 +649,6 @@ void PlateauCartes::initPlateauCarte(){
                 i_counter++;
             }
         }
-
-
 
 
         delete[] LISTE_CARTE_AGE_3;
