@@ -539,11 +539,6 @@ void PlateauCartes::initPlateauCarte(){
             RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, 
             {RessourceSecondaire::none, RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::goute, 3),
 
-            
-
-
-/*CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, 
-
         };
         initCarteRandom(NB_CARTES_AGE_1_JEU,NB_CARTE_AGE_1_TOT, LISTE_CARTE_AGE_1);
         initMerveilleRandom(NB_MERVEILLES_JEU,NB_MERVEILLES_TOT, LISTE_MERVEILLES);
