@@ -5,6 +5,14 @@
 #include <algorithm>
 #include <unordered_set>
 
+const unsigned int NB_MERVEILLES_JEU = 8;
+const unsigned int NB_MERVEILLES_TOT = 10;
+const unsigned int NB_CARTES_AGE_1_JEU = 21;
+const unsigned int NB_CARTES_AGE_2_JEU = 21;
+const unsigned int NB_CARTES_AGE_3_JEU = 20;
+const unsigned int NB_CARTE_AGE_1_TOT = 31;
+const unsigned int NB_CARTE_AGE_2_TOT = 31;
+const unsigned int NB_CARTE_AGE_3_TOT = 31;
 
 /*-------------------------------------JetonScience-------------------------------------*/
 
@@ -276,7 +284,7 @@ PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur& joueur_derr, Joueur& 
 
 void PlateauMilitaire::update_avance(unsigned int ajout, Joueur& joueur_cible){
     //ajoute l'avancé militaire ajout en direction du joueur_cible
-    if (joueur_cible == joueur_derriere) { //! erreur normale car il manque l'operateur == pour Joueur
+    if (joueur_cible == joueur_derriere) { 
         avance += ajout; //si je joueur cible est le joueur le plus derriere, on avance le pion dans sa direction et c'est tout
     }
     else {
@@ -351,10 +359,7 @@ PlateauCartes::PlateauCartes()
 
 void PlateauCartes::addAge(){
     age++;
-    if (age == 1){
-        tirerMerveilleRandom();
-    }
-    tirerCarteRandom();
+    initPlateauCarte();
 }
 
 void PlateauCartes::ajouterCarte(Carte* carte){
@@ -457,34 +462,50 @@ bool PlateauCartes::estVide() const{
 }
 
 
-void PlateauCartes::init_merveille(){
-    if (age == 1){
-
-    }
-    else {throw ("Erreur dans init_merveille : age invalide, age 1 dépassé");}
-
-}
-void PlateauCartes::init_cartes_en_jeu(){
+void PlateauCartes::initPlateauCarte(){
     if (age == 1){
         //initialisation des cartes en jeu pour l'age 1
-        Carte* LISTE_CARTE_AGE_1[] = {};
-        
+        Merveille* LISTE_MERVEILLES[NB_MERVEILLES_TOT] = {
+            //! Mettre les merveilles sous la forme suivante :
+            //! new Merveille( attributs )
+        };
+        Carte* LISTE_CARTE_AGE_1[NB_CARTE_AGE_1_TOT] = {
+    
+            //! Mettre les cartes sous la forme suivante :
+            //! new CarteRessourcePrimaire( attributs )
+
+
+        };
+        initCarteRandom(NB_CARTES_AGE_1_JEU,NB_CARTE_AGE_1_TOT, LISTE_CARTE_AGE_1);
+        initMerveilleRandom(NB_MERVEILLES_JEU,NB_MERVEILLES_TOT, LISTE_MERVEILLES);
+        delete[] LISTE_MERVEILLES;
+        delete[] LISTE_CARTE_AGE_1;
     }
     else if (age == 2){
         //initialisation des cartes en jeu pour l'age 2
-        Carte* LISTE_CARTE_AGE_2[] = {};
+        Carte* LISTE_CARTE_AGE_2[NB_CARTE_AGE_2_TOT] = {
+            //! Mettre les cartes sous la forme suivante :
+            //! new CarteRessourcePrimaire( attributs )
+        };
+        initCarteRandom(NB_CARTES_AGE_2_JEU,NB_CARTE_AGE_2_TOT, LISTE_CARTE_AGE_2);
+        delete[] LISTE_CARTE_AGE_2;
 
     }
     else if (age == 3){
         //initialisation des cartes en jeu pour l'age 3
-        Carte* LISTE_CARTE_AGE_3[] = {};
+        Carte* LISTE_CARTE_AGE_3[NB_CARTE_AGE_3_TOT] = {
+            //! Mettre les cartes sous la forme suivante :
+            //! new CarteRessourcePrimaire( attributs )
+        };
+        initCarteRandom(NB_CARTES_AGE_3_JEU,NB_CARTE_AGE_3_TOT, LISTE_CARTE_AGE_3);
+        delete[] LISTE_CARTE_AGE_3;
 
     }
     else {throw ("Erreur dans init_carte_en_jeu : age invalide");}
 
 }
 
-void PlateauCartes::tirerCarteRandom(unsigned int nombre_carte, Carte** tableau_cartes){
+void PlateauCartes::initCarteRandom(unsigned int nombre_carte,unsigned int taille_tableau, Carte** tableau_cartes){
     if (nombre_carte > TAILLE_CARTE_EN_JEU){throw ("Erreur dans tirerCarteRandom : nombre de carte invalide");}
 
     std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
@@ -498,9 +519,13 @@ void PlateauCartes::tirerCarteRandom(unsigned int nombre_carte, Carte** tableau_
             cartes_en_jeu[i] = nullptr; //on met les cartes restantes à nullptr
         }
     }
+    for (int i = nombre_carte; i < taille_tableau ; i++){
+        delete tableau_cartes[i];
+    }
+    delete[] tableau_cartes;
 }
 
-void PlateauCartes::tirerMerveilleRandom(unsigned int nombre_merveille, Merveille** tableau_merveilles){
+void PlateauCartes::initMerveilleRandom(unsigned int nombre_merveille, unsigned int taille_tableau, Merveille** tableau_merveilles){
     if (nombre_merveille > TAILLE_MERVEILLES){throw ("Erreur dans tirerMerveilleRandom : nombre de merveille invalide");}
     std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
     std::mt19937 gen(rd());
@@ -512,6 +537,9 @@ void PlateauCartes::tirerMerveilleRandom(unsigned int nombre_merveille, Merveill
         for (int i = nombre_merveille; i < TAILLE_MERVEILLES; i++){
             merveilles[i] = nullptr; //on met les merveilles restantes à nullptr
         }
+    }
+    for (int i = nombre_merveille; i < taille_tableau ; i++){
+        delete tableau_merveilles[i];
     }
 }
 

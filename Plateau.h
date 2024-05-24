@@ -147,10 +147,10 @@ public:
     void prendreMerveille(Merveille* merveille); //prend la merveille si elle est accessible
 
     //**Initialisation**//
-    void init_merveille(); //rempli le tableau de merveilles
-    void init_cartes_en_jeu(unsigned int nombre_carte);
-    void tirerCarteRandom(unsigned int nombre_carte, Carte** tableau_cartes); //renvoie un tableau de pointeurs de Carte de taille nombre_carte tiré aléatoirement dans cartes
-    void tirerMerveilleRandom(unsigned int nombre_merveille, Merveille** tableau_merveilles);
+
+    void initPlateauCarte(); //initialise le plateau de carte
+    void initCarteRandom(unsigned int nombre_carte,unsigned int taille_tableau, Carte** tableau_cartes); //renvoie un tableau de pointeurs de Carte de taille nombre_carte tiré aléatoirement dans cartes
+    void initMerveilleRandom(unsigned int nombre_merveille,unsigned int taille_tableau, Merveille** tableau_merveilles);
     //**Verification d'états des cartes**//
     bool estEnJeu(Carte* carte) const; //verifie que la carte est dans carte_en_jeu
     bool estAccessible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est accessible
