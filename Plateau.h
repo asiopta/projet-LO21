@@ -157,10 +157,10 @@ public:
 
     //**Getters**//
     unsigned int getAge() const{return age;} //renvoie l'age du plateau
-    Carte** getCartesEnJeu() const{return cartes_en_jeu;}
-    Carte** getDefausse() const{return defausses;}
-    Merveille** getMerveilles() const {return merveilles;}
-    Carte** getCartesAccessibles() const; //renvoie un tableau de pointeurs de Carte accessibles
+    Carte** getCartesEnJeu() const{return const_cast<Carte**>(cartes_en_jeu);}
+    Carte** getDefausse() const{return const_cast<Carte**>(defausses);}
+    Merveille** getMerveilles() const {return const_cast<Merveille**>(merveilles);}
+    Carte** getCartesAccessibles() const; //renvoie un tableau de pointeus de Carte accessibles
     Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
     unsigned int getNbMerveilles() const; //renvoie le nombre de merveilles restantes
 

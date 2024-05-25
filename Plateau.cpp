@@ -396,7 +396,7 @@ bool PlateauCartes::estVisible(Carte* carte) const{
     return false;
 }
 
-Carte**PlateauCartes::getCartesAccessibles() const{
+Carte** PlateauCartes::getCartesAccessibles() const{
     Carte** cartes_accessibles = new Carte*[TAILLE_CARTE_EN_JEU];
     for(int i =0; i< TAILLE_CARTE_EN_JEU; i++){
         if (cartes_en_jeu[i]->est_accessible()){
