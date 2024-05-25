@@ -9,7 +9,7 @@ const unsigned int NB_MERVEILLES_JEU = 8;
 const unsigned int NB_MERVEILLES_TOT = 12;
 const unsigned int NB_CARTES_AGE_1_JEU = 20;
 const unsigned int NB_CARTES_AGE_2_JEU = 20;
-const unsigned int NB_CARTES_AGE_3_JEU = 20;
+const unsigned int NB_CARTES_AGE_3_JEU = 17; //17 cartes d'age 3 puis 3 cartes de guilde
 const unsigned int NB_CARTE_AGE_1_TOT = 23;
 const unsigned int NB_CARTE_AGE_2_TOT = 23;
 const unsigned int NB_CARTE_AGE_3_TOT = 20;
@@ -900,9 +900,21 @@ void PlateauCartes::initPlateauCarte(){
                 RessourcePrimaire::pierre, RessourcePrimaire::brique, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none},
                 EffetGuilde::guilde_tacticiens)
         };
-
-        initCarteRandom(NB_CARTES_AGE_3_JEU,NB_CARTE_AGE_3_TOT, LISTE_CARTE_AGE_3);
-
+        //ETAPE 1 : initialisation des cartes en jeu pour l'age 3, avec NB_CARTE_GUILDE_JEU en plus,
+        initCarteRandom(NB_CARTES_AGE_3_JEU+NB_CARTE_GUILDE_JEU,NB_CARTE_AGE_3_TOT, LISTE_CARTE_AGE_3); 
+        //ETAPE 2 : on remplit les première case du tableau avec le nombre de carte guilde necessaire
+        //on reecrit donc par dessus les cartes age 3, mais pas grave parcequ'on en à tiré exactement NB_CARTE_GUILDE_JEU en plus
+        for (int i = 0; i < NB_CARTE_GUILDE_JEU; i++){
+            delete cartes_en_jeu[i]; //on supprime les cartes age 3 qui vont etre reecrite
+            cartes_en_jeu[i] = nullptr; //on remplace apr des nullptr
+        
+        }
+        initCarteRandom(NB_CARTE_GUILDE_JEU,NB_CARTE_GUILDE_TOT, LISTE_CARTE_GUILDE);
+        //ETAPE 3 : on shuffle pour eviter que les cartes guilde soient toujours au debut
+        std::random_device rd; 
+        std::mt19937 gen(rd());
+        std::shuffle(cartes_en_jeu, cartes_en_jeu + NB_CARTE_AGE_3_TOT, gen); 
+    
 
         int i_counter = 0;
         for(int j = 0; j < 3; j++){ //rangé 0 à 4
@@ -938,11 +950,6 @@ void PlateauCartes::initCarteRandom(unsigned int nombre_carte,unsigned int taill
     std::shuffle(tableau_cartes, tableau_cartes + nombre_carte, gen); //mélange d'une liste de cartes 
     for (int i = 0; i < nombre_carte; i++){
         cartes_en_jeu[i] = tableau_cartes[i]; //ajout des nombre_carte premières cartes de la liste mélangée
-    }
-    if (nombre_carte < TAILLE_CARTE_EN_JEU){
-        for (int i = nombre_carte; i < TAILLE_CARTE_EN_JEU; i++){
-            cartes_en_jeu[i] = nullptr; //on met les cartes restantes à nullptr
-        }
     }
     for (int i = nombre_carte; i < taille_tableau ; i++){
         delete tableau_cartes[i];

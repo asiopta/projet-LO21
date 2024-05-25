@@ -164,9 +164,10 @@ public:
     Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
     unsigned int getNbMerveilles() const; //renvoie le nombre de merveilles restantes
 
+    bool estVide() const; //! renvoie si il ya encore des carte sur le plateau ou pas, que ce soit l'age
    ~PlateauCartes();
 
-   bool estVide() const; //! renvoie si il ya encore des carte sur le plateau ou pas, que ce soit l'age
+   
 };
 
 
