@@ -781,6 +781,7 @@ void Joueur::updateEffetsGuilde(Carte* carte){
 
 void Joueur::addCarte(Carte* carte){
     if( carte->get_type()==TypeCarte::Merveille){
+        //!corriger ca
         Merveille* merveille = dynamic_cast<Merveille*>(carte);;
         setMerveille(merveille);
         updateRessourcesCarte(carte);

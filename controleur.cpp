@@ -143,6 +143,7 @@ void Controleur::playAction(Action& action){
 
 bool Controleur::actionEstLegale(Action& action){
     Carte* carte = std::get<0>(action);
+    //!prendre en compte les merveilles
     if(plateau.getPlateauCartes()->estAccessible(carte)){
         if(std::get<1>(action) == "defausser")
             return true;
@@ -158,6 +159,7 @@ bool Controleur::actionEstLegale(Action& action){
 
 
 Action* Controleur::actionsLegales(){
+    //!merveilles
     Action* res = new Action[60];
     int j = 0;
     int i = 0;
