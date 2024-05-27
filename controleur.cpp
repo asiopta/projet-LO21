@@ -48,7 +48,7 @@ Controleur::Controleur(){
 
 bool Controleur::gagne(Joueur* joueur){
     bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur);
-    bool victoireScience = 0 ;
+    bool victoireScience = joueur1->gagneScientifiquement();
     return victoireMilitaire || victoireScience;
 }
 
@@ -56,6 +56,7 @@ bool Controleur::gagne(Joueur* joueur){
 bool Controleur::jeuEstFinie(){
     return plateau.isEtatFinal() || gagne(joueur1) || gagne(joueur2);
 }
+
 
 
 //méthodes de handler
@@ -78,11 +79,6 @@ Joueur* Controleur::quiJoue(){
 }
 
 
- bool Controleur::jeuEstFinie(){
-    return (plateau.isEtatFinal() || joueur1->gagneScientifiquement() || joueur2->gagneScientifiquement() ||
-        plateau.getPlateauMilitaire()->gagneMilitairement(joueur1) || plateau.getPlateauMilitaire()->gagneMilitairement(joueur2));
-
- }
 
 
  unsigned int Controleur::gagnant(){

@@ -67,7 +67,6 @@ private:
 public:
     //Constructeurs/destructeurs
 	Controleur(); //intialise le jeu: Plateau / joueurs / tour = 1
-    ~Controleur() = default; //libere tout l'espace
     // = delete parcequ'on va jamais les utiliser
     Controleur(const Controleur& c) = delete;
 	Controleur& operator=(const Controleur& c) = delete;
