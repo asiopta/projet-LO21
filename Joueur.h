@@ -90,7 +90,10 @@ private:
         unsigned int verre;
         unsigned int parchemin;
         
-        Ressource():bois(0), pierre(0), brique(0), verre(0), parchemin(0){};
+        bool forum; //verre ou parchemin
+        bool caravanserail; //bois ou brique ou pierre
+
+        Ressource():bois(0), pierre(0), brique(0), verre(0), parchemin(0), forum(false), caravanserail(false){};
         Ressource(const Ressource& r) = default;
         ~Ressource() = default;
     };
@@ -177,7 +180,7 @@ private:
     };
     SymbolesChainage symboles_chainage;
 
-    struct EffetsGuilde{
+    struct Effets{
         //attributs
         bool guilde_armateurs = false;
         bool guilde_batisseurs = false;
@@ -187,14 +190,20 @@ private:
         bool guilde_scientifiques = false;
         bool guilde_usuriers = false;
 
+        bool depot_pierre = false;
+        bool depot_argile = false;
+        bool depot_bois = false;
+        bool douanes = false;
+
+
         //méthodes
-        EffetsGuilde() = default;
-        EffetsGuilde(const EffetsGuilde& effets_guilde) = default;
-        ~EffetsGuilde() = default;
-        EffetsGuilde& operator=(const EffetsGuilde& effet_guilde) = default;
+        Effets() = default;
+        Effets(const Effets& effets_guilde) = default;
+        ~Effets() = default;
+        Effets& operator=(const Effets& effet_guilde) = default;
 
     };
-    EffetsGuilde effets_guilde;
+    Effets effets;
 
 public:
     //constructeurs
@@ -217,7 +226,7 @@ public:
     unsigned int getNbJetonsScience() const {return nb_jetons;}; //ok
     SymbolesScience getSymbolesScience() const {return symboles_science;}; //ok
     CapaciteJeton getCapacitesJetons() const {return capacites;}; //ok
-    EffetsGuilde getEffetsGuilde() const { return effets_guilde;} ; //ok
+    Effets getEffetsGuilde() const { return effets;} ; //ok
     SymbolesChainage getSymbolesChainage() const {return symboles_chainage;}; //ok
     unsigned int getNbCartesType(std::string type) const; // review
     //getteurs de ressources produites. par ex: 2 bois ou 3 verres
@@ -295,7 +304,7 @@ public:
     void choisirJeton(); // à faire 
     
     //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
-    //Action choisir_action(PlateauCartes& p); // à faire plus tard
+    Action choisir_action(PlateauCartes& p); // à faire plus tard
 
 
 /*
