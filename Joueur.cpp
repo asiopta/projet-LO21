@@ -900,33 +900,33 @@ void Joueur::choisirJeton(){
 }
 
 
-/*
-void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
-    Carte* c = p.trouverCarteDansPlateau(carte);
-    if((c != NULL) && estConstructible(carte)){
-        monnaie -= getCout(carte);
-        p.enleverCarteDuPlateau(c);
-        unsigned int nb = getNbCartesConstruites();
-        cartes_construite[nb] = &carte;
-        //addSymboleChainage(carte);
-    }
-    else{
-        SetException("Impossible de construire la carte!");
-    }
-}
+
+// void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
+//     Carte* c = p.trouverCarteDansPlateau(carte);
+//     if((c != NULL) && estConstructible(carte)){
+//         monnaie -= getCout(carte);
+//         p.enleverCarteDuPlateau(c);
+//         unsigned int nb = getNbCartesConstruites();
+//         cartes_construite[nb] = &carte;
+//         //addSymboleChainage(carte);
+//     }
+//     else{
+//         SetException("Impossible de construire la carte!");
+//     }
+// }
 
 
 
 
 
-//méthodes de vérification 
-bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCout() donc pas grave pour l'instant
-    //!rajouter les liens de chainage.....
-    SymboleChainage lien_chainage = carte.getSymboleChainageEntre();
-    if(getCout(carte) < getMonnaie() || possedeSymboleChainage(lien_chainage)) return true;
-    else return false;
-}
+// //méthodes de vérification 
+// bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCout() donc pas grave pour l'instant
+//     //!rajouter les liens de chainage.....
+//     SymboleChainage lien_chainage = carte.getSymboleChainageEntre();
+//     if(getCout(carte) < getMonnaie() || possedeSymboleChainage(lien_chainage)) return true;
+//     else return false;
+// }
 
-*/
+
 /*-------------------------------------PlateauCarte-------------------------------------*/
  

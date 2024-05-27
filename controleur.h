@@ -66,7 +66,7 @@ private:
 
 public:
     //Constructeurs/destructeurs
-	Controleur(); //intialise le jeu: Plateau / joueurs / tour = 1
+	Controleur::Controleur() : joueur1(new Joueur()), joueur2(new Joueur()), plateau(joueur1, joueur2) {}
     // = delete parcequ'on va jamais les utiliser
     Controleur(const Controleur& c) = delete;
 	Controleur& operator=(const Controleur& c) = delete;

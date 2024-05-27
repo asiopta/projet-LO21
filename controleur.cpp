@@ -40,12 +40,6 @@ bool Plateau::isEtatFinal() {
 /*---------------------classe Controleur-----------------------------------*/
 
 
-Controleur::Controleur(){
-    joueur1 = new Joueur();
-    joueur2 = new Joueur();
-    plateau = Plateau(joueur1, joueur2);
-}
-
 bool Controleur::gagne(Joueur* joueur){
     bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur);
     bool victoireScience = joueur1->gagneScientifiquement();
@@ -214,4 +208,5 @@ Action* Controleur::actionsLegales(){
 Controleur::~Controleur(){
     delete joueur1;
     delete joueur2;
+    delete &plateau;
 }
