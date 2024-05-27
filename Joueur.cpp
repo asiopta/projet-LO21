@@ -756,14 +756,24 @@ void Joueur::updateEffetsGuilde(Carte* carte){
 }
 
 void Joueur::addCarte(Carte* carte){
-    updatePtVictoireCarte(carte);
-    updateSymbolesChainageCarte(carte);
-    if(carte->get_type() == TypeCarte::CarteRessourcePrimaire || carte->get_type() == TypeCarte::CarteRessourceSecondaire){
+    if( carte->get_type()==TypeCarte::Merveille){
+        Merveille* merveille = dynamic_cast<Merveille*>(carte);;
+        setMerveille(merveille);
         updateRessourcesCarte(carte);
     }
-    if(carte->get_type() == TypeCarte::CarteScience) updateSymbolesScienceCarte(carte);
-    if(carte->get_type()== TypeCarte::CarteGuilde) updateEffetsGuilde(carte);
-    
+    else{
+        unsigned int nb = getNbCartesConstruites();
+        cartes_construite[nb] = carte;
+        updatePtVictoireCarte(carte);
+        updateSymbolesChainageCarte(carte);
+        if(carte->get_type() == TypeCarte::CarteRessourcePrimaire || carte->get_type() == TypeCarte::CarteRessourceSecondaire){
+            updateRessourcesCarte(carte);
+        }
+        //!comment faire si c'est carteCommerce et ca produit deux trucs
+
+        if(carte->get_type() == TypeCarte::CarteScience) updateSymbolesScienceCarte(carte);
+        if(carte->get_type()== TypeCarte::CarteGuilde) updateEffetsGuilde(carte);
+    }
 } 
 
 
