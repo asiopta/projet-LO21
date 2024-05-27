@@ -1,4 +1,8 @@
 #include "Carte.h"
+#include <iostream>
+#include <string>
+
+
 
 
 /*-------------------------------------Enumerations-------------------------------------*/
@@ -762,7 +766,7 @@ void Merveille::exec_gagner_monnaie_3(Joueur& joueur1) const{joueur1.gagnerArgen
 void Merveille::exec_perdre_monnaie_3(Joueur& joueur2) const{joueur2.gagnerArgent(-3);}
 
 void Merveille::exec_avancee_militaire(Joueur& joueur2, PlateauMilitaire& plateau_militaire) const{
-    plateau_militaire.update_avance(avance_militaire,joueur1);
+    plateau_militaire.update_avance(avance_militaire,joueur2);
 }
 
 

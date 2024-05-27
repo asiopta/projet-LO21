@@ -23,25 +23,8 @@ JetonScience::JetonScience(CapaciteScience capacite) : capacite(capacite) {} //r
 
 CapaciteScience JetonScience::get_capacite() const{return capacite;}
 
-//fonction d'execution de la capacite du jeton science
-void JetonScience::exec_capacite_science(Joueur* joueur) const{
-    switch (capacite) {
-        case CapaciteScience::agriculture: exec_agriculture(joueur); break;
-        case CapaciteScience::architecture: exec_architecture(joueur); break;
-        case CapaciteScience::economie: exec_economie(joueur); break;
-        case CapaciteScience::loi: exec_loi(joueur); break;
-        case CapaciteScience::maconnerie: exec_maconnerie(joueur); break;
-        case CapaciteScience::urbanisme: exec_urbanisme(joueur); break;
-        case CapaciteScience::theologie: exec_theologie(joueur); break;
-        case CapaciteScience::strategie: exec_strategie(joueur); break;
-        case CapaciteScience::philosophie: exec_philosophie(joueur); break;
-        case CapaciteScience::mathematique: exec_mathematique(joueur); break;
-        default:
-            std::cout << "Erreur";
-    }
-    delete this; //on supprime le jeton science après avoir executé son effet
-}
 
+//fonctions d'execution des capacités des jetons science
 void exec_agriculture(Joueur* joueur) {
     // implementation of exec_agriculture
     //Le joueur prend immédiatement 6 pièce de monnaie et 4 point de victoire 
@@ -113,6 +96,26 @@ void exec_mathematique(Joueur* joueur) {
     //!ajouter dans joueur un attribut qui compte le nombre de jeton science possédé
     //!ajouter dans joueur un bool effet_mathematique
 }
+
+
+void JetonScience::exec_capacite_science(Joueur* joueur) const{
+    switch (capacite) {
+        case CapaciteScience::agriculture: exec_agriculture(joueur); break;
+        case CapaciteScience::architecture: exec_architecture(joueur); break;
+        case CapaciteScience::economie: exec_economie(joueur); break;
+        case CapaciteScience::loi: exec_loi(joueur); break;
+        case CapaciteScience::maconnerie: exec_maconnerie(joueur); break;
+        case CapaciteScience::urbanisme: exec_urbanisme(joueur); break;
+        case CapaciteScience::theologie: exec_theologie(joueur); break;
+        case CapaciteScience::strategie: exec_strategie(joueur); break;
+        case CapaciteScience::philosophie: exec_philosophie(joueur); break;
+        case CapaciteScience::mathematique: exec_mathematique(joueur); break;
+        default:
+            std::cout << "Erreur";
+    }
+    delete this; //on supprime le jeton science après avoir executé son effet
+}
+
 
 /*--------------------------------------------------------------------------*/
 

@@ -1,4 +1,4 @@
-
+#pragma once
 #include <iostream>
 #include <string>
 using namespace std;
@@ -6,6 +6,7 @@ using namespace std;
 #include "Joueur.h"
 #include "Plateau.h"
 #include "controleur.h"
+#include "const_and_enum.h"
 
 using namespace std;
 

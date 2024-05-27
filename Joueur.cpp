@@ -81,7 +81,7 @@ void Joueur::setRessource(RessourceSecondaire rs, unsigned int quantite){
 }
 
 /*---------classe CapaciteJetons------------------------*/
-void Joueur::addCapaciteJeton(CapaciteScience capacite){
+void Joueur::addCapaciteJeton(const CapaciteScience& capacite){
     switch (capacite)
     {
     case CapaciteScience::architecture: capacites.architecture = true; break;

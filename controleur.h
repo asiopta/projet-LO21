@@ -6,6 +6,14 @@
 #include "Joueur.h"
 
 
+//! Predeclaration de classe
+class Joueur;
+class Carte;
+class PlateauMilitaire;
+class PlateauScience;
+class PlateauCartes;
+
+
 /*---------------------------Plateau général-------------------------*/
 using Action = std::tuple<Carte*, std::string>;
  
@@ -21,9 +29,8 @@ public:
     Plateau(Joueur& joueur1, Joueur& joueur2); //initialise les 3 plateaux (militaire, science, cartes
 
     Plateau& operator=(const Plateau& plateau) = default; // potentiellement à refaire
-    Plateau operator==(const Plateau& plateau); //à faire //? a t-on vraiment besoin de ca?
-    //!non, jamais on va l'utiliser
-
+    Plateau operator==(const Plateau& plateau); 
+    
     //getteurs
     PlateauMilitaire* getPlateauMilitaire(){return plateau_militaire;};
     PlateauScience* getPlateauScience(){ return plateau_science;};

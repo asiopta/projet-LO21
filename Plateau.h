@@ -4,45 +4,23 @@
 #include <tuple>
 #include "Joueur.h"
 #include "Carte.h"
+#include "const_and_enum.h"
 
+//! CONSTANTES
 const unsigned int LargeurPlateauMilitaire = 9; //la largeur maxe du plateau militaire
 const unsigned int TAILLE_CARTE_EN_JEU = 21; //nombre de cartes en jeu
 const unsigned int TAILLE_DEFAUSSES = 60; //nombre de cartes defaussées
 const unsigned int TAILLE_MERVEILLES = 8; //nombre de merveilles
 
+//! Predeclaration de classe
+class Joueur;
+class Carte;
+class Merveille;
 
-enum class CapaciteScience{
-    none,
-    agriculture,
-    architecture,
-    economie,
-    loi,
-    maconnerie,
-    urbanisme,
-    theologie,
-    strategie,
-    philosophie,
-    mathematique
-};
+//! Définition des classes
 
-//surcharge de l'opérateur << pour afficher CapaciteScience
-std::ostream& operator<<(std::ostream& f, const CapaciteScience& capacite) {
-    switch (capacite) {
-        case CapaciteScience::agriculture: f << "Agriculture"; break;
-        case CapaciteScience::architecture: f << "Architecture"; break;
-        case CapaciteScience::economie: f << "Économie"; break;
-        case CapaciteScience::loi: f << "Loi"; break;
-        case CapaciteScience::maconnerie: f << "Maçonnerie"; break;
-        case CapaciteScience::urbanisme: f << "Urbanisme"; break;
-        case CapaciteScience::theologie: f << "Théologie"; break;
-        case CapaciteScience::strategie: f << "Stratégie"; break;
-        case CapaciteScience::philosophie: f << "Philosophie"; break;
-        case CapaciteScience::mathematique: f << "Mathématique"; break;
-        default:
-            f.setstate(std::ios_base::failbit);
-    }
-    return f;
-}
+
+
 
 /*-------------------------------------JetonScience-------------------------------------*/
 class JetonScience {

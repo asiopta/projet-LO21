@@ -5,6 +5,15 @@
 #include "Plateau.h"
 #include "controleur.h"
 
+//!predeclaration de classe
+
+class Carte;
+class Merveille;
+class PlateauCartes;
+class PlateauMilitaire;
+class PlateauScience;
+
+
 const unsigned int NB_MERVEILLES_JOUEUR = 4;
 using Action = std::tuple<Carte*, std::string>; 
 
@@ -220,7 +229,7 @@ public:
     void setPtVictoire(unsigned int p){ pt_victoire = p;}; //ok
     void setRessource(RessourcePrimaire rp, unsigned int quantite); //review
     void setRessource(RessourceSecondaire rs, unsigned int quantite); //review
-    void addCapaciteJeton(CapaciteScience jeton); //review
+    void addCapaciteJeton(const CapaciteScience& jeton); //review
     void setMerveille(Merveille* merveille); // !!! A definir !!!
     
     
@@ -299,4 +308,4 @@ public:
 
 
 
-TypeCarte hashit(std::string const& type);
+// TypeCarte hashit(std::string const& type);
