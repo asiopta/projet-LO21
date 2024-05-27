@@ -81,6 +81,34 @@ void Joueur::setRessource(RessourceSecondaire rs, unsigned int quantite){
     }
 }
 
+unsigned int Joueur::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const{
+    switch (symbole){
+        case RessourcePrimaire::bois: 
+            return ressources.bois;
+            break;
+
+        case RessourcePrimaire::pierre: 
+            return ressources.pierre;
+            break;
+
+        case RessourcePrimaire::brique: 
+            return ressources.brique;
+            break;
+
+        case RessourcePrimaire::none: break;
+    }
+}
+
+unsigned int Joueur::getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const{
+    switch (symbole){
+        case RessourceSecondaire::verre: return ressources.verre; break;
+        case RessourceSecondaire::parchemin: return ressources.parchemin; break;
+        case RessourceSecondaire::none: break;
+    }
+}
+
+
+
 /*---------classe CapaciteJetons------------------------*/
 void Joueur::addCapaciteJeton(const CapaciteScience& capacite){
     switch (capacite)
@@ -678,7 +706,7 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 }
 
 //méthodes qui permettent de rajouter une carte
-void Joueur::updateRessourcesCarte(Carte* carte){ //! erreur non expliqué
+void Joueur::updateRessourcesCarte(Carte* carte){
     unsigned int nb =0;
     nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
     ajouterRessource(RessourcePrimaire::bois, nb);
@@ -737,22 +765,22 @@ void Joueur::addCarte(Carte* carte){
 void Joueur::retirerCarte(Carte* carte){
     if(carte->get_type() == TypeCarte::CarteRessourcePrimaire || carte->get_type() == TypeCarte::CarteRessourceSecondaire){
         unsigned int nb =0;
-        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+        nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
         retirerRessource(RessourcePrimaire::bois, nb);
 
-        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique);
+        nb = carte->getQuantRessPrimProd(RessourcePrimaire::brique);
         retirerRessource(RessourcePrimaire::brique, nb);
 
-        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre);
+        nb = carte->getQuantRessPrimProd(RessourcePrimaire::pierre);
         retirerRessource(RessourcePrimaire::pierre, nb);
 
-        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+        nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
         retirerRessource(RessourcePrimaire::bois, nb);
 
-        nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre);
+        nb = carte->getQuantRessSecondProd(RessourceSecondaire::verre);
         retirerRessource(RessourceSecondaire::verre, nb);
 
-        nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
+        nb = carte->getQuantRessSecondProd(RessourceSecondaire::parchemin);
         retirerRessource(RessourceSecondaire::parchemin, nb);
     }
 }
