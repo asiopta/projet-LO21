@@ -1,3 +1,4 @@
+#pragma once
 #include "Carte.h"
 #include <iostream>
 #include <string>

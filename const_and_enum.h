@@ -1,3 +1,5 @@
+#ifndef CONST_AND_ENUM_H
+#define CONST_AND_ENUM_H
 
 const unsigned int Taille_cout_primaire = 5;
 const unsigned int Taille_cout_secondaire = 3;
@@ -73,8 +75,7 @@ enum class EffetGuilde{
     guilde_magistrats,
     guilde_tacticiens,
     guilde_scientifiques,
-    guilde_usuriers,
-    none
+    guilde_usuriers
 };
 
 
@@ -113,3 +114,5 @@ enum class CapaciteScience{
     philosophie,
     mathematique
 };
+
+#endif // CONST_AND_ENUM_H

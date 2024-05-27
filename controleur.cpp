@@ -1,4 +1,4 @@
-#include "Joueur.h"
+#pragma once
 #include <string.h>
 #include <string>
 #include <vector>

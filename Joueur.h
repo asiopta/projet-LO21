@@ -4,6 +4,8 @@
 #include "Carte.h"
 #include "Plateau.h"
 #include "controleur.h"
+#include "const_and_enum.h"
+
 
 //!predeclaration de classe
 

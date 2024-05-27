@@ -1,3 +1,4 @@
+#pragma once
 #include "Joueur.h"
 #include <string.h>
 #include <string>
@@ -674,22 +675,23 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 
 //méthodes qui permettent de rajouter une carte
 void Joueur::updateRessourcesCarte(Carte* carte){ //! erreur non expliqué
-    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
+    unsigned int nb =0;
+    nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
     ajouterRessource(RessourcePrimaire::bois, nb);
 
-    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::brique);
+    nb = carte->getQuantRessPrimProd(RessourcePrimaire::brique);
     ajouterRessource(RessourcePrimaire::brique, nb);
 
-    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::pierre);
+    nb = carte->getQuantRessPrimProd(RessourcePrimaire::pierre);
     ajouterRessource(RessourcePrimaire::pierre, nb);
 
-    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
+    nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
     ajouterRessource(RessourcePrimaire::bois, nb);
 
-    unsigned int nb = carte->getQuantRessSecondProd(RessourceSecondaire::verre);
+    nb = carte->getQuantRessSecondProd(RessourceSecondaire::verre);
     ajouterRessource(RessourceSecondaire::verre, nb);
 
-    unsigned int nb = carte->getQuantRessSecondProd(RessourceSecondaire::parchemin);
+    nb = carte->getQuantRessSecondProd(RessourceSecondaire::parchemin);
     ajouterRessource(RessourceSecondaire::parchemin, nb);
 }
 

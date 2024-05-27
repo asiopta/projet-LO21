@@ -6,6 +6,7 @@
 #include "Carte.h"
 #include "const_and_enum.h"
 
+
 //! CONSTANTES
 const unsigned int LargeurPlateauMilitaire = 9; //la largeur maxe du plateau militaire
 const unsigned int TAILLE_CARTE_EN_JEU = 21; //nombre de cartes en jeu
