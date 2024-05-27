@@ -51,8 +51,8 @@ public:
 class Controleur {
 private:
 	//Pioche* pioche=nullptr;
-    Joueur joueur1;
-    Joueur joueur2;
+    Joueur* joueur1;
+    Joueur* joueur2;
     Plateau plateau;
     unsigned int tour = 1;
 

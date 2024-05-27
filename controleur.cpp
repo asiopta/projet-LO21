@@ -5,6 +5,8 @@
 #include <iostream>
 #include "controleur.h"
 
+class Joueur;
+
 
 
 /*-------------------------------------Plateau-------------------------------------*/
@@ -39,8 +41,8 @@ bool Plateau::isEtatFinal() {
 
 
 Controleur::Controleur(){
-    joueur1 = Joueur();
-    joueur2 = Joueur();
+    joueur1 = new Joueur();
+    joueur2 = new Joueur();
     plateau = Plateau(joueur1, joueur2);
 }
 
