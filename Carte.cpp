@@ -548,22 +548,6 @@ CarteGuilde::CarteGuilde(const CarteGuilde& c)
     effet_guilde = c.effet_guilde;
 }
 
-void CarteGuilde::exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const{
-    switch (effet_guilde) {
-        case EffetGuilde::guilde_armateurs: exec_guilde_armateurs(joueur1, joueur2); break;
-        case EffetGuilde::guilde_batisseurs: exec_guilde_batisseurs(joueur1, joueur2); break;
-        case EffetGuilde::guilde_commercants: exec_guilde_commerce(joueur1, joueur2); break;
-        case EffetGuilde::guilde_scientifiques: exec_guilde_scientifiques(joueur1, joueur2); break;
-        case EffetGuilde::guilde_tacticiens: exec_guilde_tacticiens(joueur1, joueur2); break;
-        case EffetGuilde::guilde_magistrats: exec_guilde_magistrats(joueur1, joueur2); break;
-        case EffetGuilde::guilde_usuriers: exec_guilde_usuriers(joueur1, joueur2); break;
-
-        default:
-            std::cout << "Erreur";
-    }
-}
-
-
 void exec_guilde_armateurs(Joueur& joueur1, Joueur& joueur2){
     //le joueur1 recoit un nombre de pièce équivalent au nombre de cartes marron et gris dans la cité qui en possède le plus grand nombre
     unsigned int nbcartej1 =  joueur1.getNbCartesType("RessourcePrimaire")+joueur1.getNbCartesType("RessourceSecondaire");// j'ai corrigé une erreur. t'avais mis RessourcePrimaire 2 fois
@@ -614,6 +598,24 @@ void exec_guilde_magistrats(Joueur& joueur1, Joueur& joueur2){
 void exec_guilde_usuriers(Joueur& joueur1, Joueur& joueur2){
     // 1 point de victoire pour le joueur1 par lot de 3 pièces d'or possédé par le joueur le plus riche
 }
+
+void CarteGuilde::exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const{
+    switch (effet_guilde) {
+        case EffetGuilde::guilde_armateurs: exec_guilde_armateurs(joueur1, joueur2); break;
+        case EffetGuilde::guilde_batisseurs: exec_guilde_batisseurs(joueur1, joueur2); break;
+        case EffetGuilde::guilde_commercants: exec_guilde_commerce(joueur1, joueur2); break;
+        case EffetGuilde::guilde_scientifiques: exec_guilde_scientifiques(joueur1, joueur2); break;
+        case EffetGuilde::guilde_tacticiens: exec_guilde_tacticiens(joueur1, joueur2); break;
+        case EffetGuilde::guilde_magistrats: exec_guilde_magistrats(joueur1, joueur2); break;
+        case EffetGuilde::guilde_usuriers: exec_guilde_usuriers(joueur1, joueur2); break;
+
+        default:
+            std::cout << "Erreur";
+    }
+}
+
+
+
 
 
 /*--------------------------------------------------------------------------*/

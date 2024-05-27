@@ -124,7 +124,6 @@ public:
     bool get_contrepatrie()const {return contrepartie;}
     Capacite get_capacite()const {return capacite;}
     unsigned int getPtVictoire()const override{return pt_victoire;}
-    unsigned int getPtVictoire()const override {return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
     SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
     unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;

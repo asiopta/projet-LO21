@@ -732,22 +732,23 @@ void Joueur::addCarte(Carte* carte){
 
 void Joueur::retirerCarte(Carte* carte){
     if(carte->get_type() == TypeCarte::CarteRessourcePrimaire || carte->get_type() == TypeCarte::CarteRessourceSecondaire){
-        unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+        unsigned int nb =0;
+        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
         retirerRessource(RessourcePrimaire::bois, nb);
 
-        unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique);
+        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique);
         retirerRessource(RessourcePrimaire::brique, nb);
 
-        unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre);
+        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre);
         retirerRessource(RessourcePrimaire::pierre, nb);
 
-        unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
         retirerRessource(RessourcePrimaire::bois, nb);
 
-        unsigned int nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre);
+        nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre);
         retirerRessource(RessourceSecondaire::verre, nb);
 
-        unsigned int nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
+        nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
         retirerRessource(RessourceSecondaire::parchemin, nb);
     }
 }
