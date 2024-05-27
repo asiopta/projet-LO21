@@ -292,10 +292,10 @@ public:
 
 
     //c'est une fonction qui choisit un jeton dans le plateau et le construit
-    void choisirJeton(); // à faire 
+    //void choisirJeton(); // à faire 
     
     //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
-    Action choisir_action(PlateauCartes& p); // à faire plus tard
+    //Action choisir_action(PlateauCartes& p); // à faire plus tard
 
 
 /*
