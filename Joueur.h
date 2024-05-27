@@ -221,8 +221,6 @@ public:
     SymbolesChainage getSymbolesChainage() const {return symboles_chainage;}; //ok
     unsigned int getNbCartesType(std::string type) const; // review
     //getteurs de ressources produites. par ex: 2 bois ou 3 verres
-    unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const; //ok
-    unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ; //ok
     Ressource* getRessources(){return &ressources;}; //review
     bool getRejouer() const {return rejouer;}; //ok
 
