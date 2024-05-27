@@ -118,13 +118,6 @@ public:
 
 /**
  * si on veut faire un IA plus tard, il faut penser à rajouter les fonctions:
- * TODO: bool actionEstLegale(Controleur& c, Action& a);
-** le problème c'est comment modéliser l'action. Cette fonction sera aussi utilise pour la classe Joueur
-** pour s'assurer que les joueur effectuent une action légale à chaque fois
-
-* TODO: Action* actionsLégales(Controleur& c, Joueur& j);
- * --> retourne un tableau contenant ttes les actions légales pour un joueur donné à cet instant du jeu
-
 // action est un tuple (carte, défausser/construire)
 * 
 */
