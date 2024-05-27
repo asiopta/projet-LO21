@@ -14,6 +14,7 @@ class Merveille;
 class PlateauCartes;
 class PlateauMilitaire;
 class PlateauScience;
+class JetonScience;
 
 
 const unsigned int NB_MERVEILLES_JOUEUR = 4;

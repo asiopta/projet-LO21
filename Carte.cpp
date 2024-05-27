@@ -759,7 +759,7 @@ void Merveille::exec_jouer_carte_defausse(Joueur& joueur1, PlateauCartes& platea
 }
 
 void Merveille::exec_choisir_jeton_science(Joueur& joueur1, PlateauScience& plateau_science) const{
-    JetonScience* liste_jeton = plateau_science.tirer_jeton_out_game();
+    JetonScience** liste_jeton = plateau_science.tirer_jeton_out_game();
     joueur1.choisirJetonScienceParmis3(liste_jeton);
 }
 
