@@ -459,25 +459,25 @@ bool Joueur::possedeSymboleChainage(SymboleChainage s) const {
 void Joueur::addEffetGuilde(EffetGuilde effet) {
     switch(effet) {
         case EffetGuilde::guilde_armateurs:
-            effets_guilde.guilde_armateurs = true;
+            effets.guilde_armateurs = true;
             break;
         case EffetGuilde::guilde_batisseurs:
-            effets_guilde.guilde_batisseurs = true;
+            effets.guilde_batisseurs = true;
             break;
         case EffetGuilde::guilde_commercants:
-            effets_guilde.guilde_commercants = true;
+            effets.guilde_commercants = true;
             break;
         case EffetGuilde::guilde_magistrats:
-            effets_guilde.guilde_magistrats = true;
+            effets.guilde_magistrats = true;
             break;
         case EffetGuilde::guilde_tacticiens:
-            effets_guilde.guilde_tacticiens = true;
+            effets.guilde_tacticiens = true;
             break;
         case EffetGuilde::guilde_scientifiques:
-            effets_guilde.guilde_scientifiques = true;
+            effets.guilde_scientifiques = true;
             break;
         case EffetGuilde::guilde_usuriers:
-            effets_guilde.guilde_usuriers = true;
+            effets.guilde_usuriers = true;
             break;
         case EffetGuilde::none:
             break;
@@ -490,25 +490,25 @@ void Joueur::addEffetGuilde(EffetGuilde effet) {
 void Joueur::removeEffetGuilde(EffetGuilde effet) {
     switch(effet) {
         case EffetGuilde::guilde_armateurs:
-            effets_guilde.guilde_armateurs = false;
+            effets.guilde_armateurs = false;
             break;
         case EffetGuilde::guilde_batisseurs:
-            effets_guilde.guilde_batisseurs = false;
+            effets.guilde_batisseurs = false;
             break;
         case EffetGuilde::guilde_commercants:
-            effets_guilde.guilde_commercants = false;
+            effets.guilde_commercants = false;
             break;
         case EffetGuilde::guilde_magistrats:
-            effets_guilde.guilde_magistrats = false;
+            effets.guilde_magistrats = false;
             break;
         case EffetGuilde::guilde_tacticiens:
-            effets_guilde.guilde_tacticiens = false;
+            effets.guilde_tacticiens = false;
             break;
         case EffetGuilde::guilde_scientifiques:
-            effets_guilde.guilde_scientifiques = false;
+            effets.guilde_scientifiques = false;
             break;
         case EffetGuilde::guilde_usuriers:
-            effets_guilde.guilde_usuriers = false;
+            effets.guilde_usuriers = false;
             break;
         case EffetGuilde::none:
             break;
@@ -527,7 +527,7 @@ Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false){
     capacites = CapaciteJeton();
     symboles_science = SymbolesScience();
     symboles_chainage = SymbolesChainage();
-    effets_guilde = EffetsGuilde();
+    effets = Effets();
     for(int i=0; i<60; i++) cartes_construite[i] = nullptr;
     for(int i=0; i<4; i++) merveille_construite[i] = nullptr;
     for(int i=0; i<4; i++) merveille_non_construite[i] = nullptr;
@@ -535,7 +535,7 @@ Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false){
 
 Joueur::Joueur(const Joueur& j): monnaie(j.monnaie), pt_victoire(j.pt_victoire), nb_jetons(j.nb_jetons),
 rejouer(j.rejouer), ressources(j.ressources), capacites(j.capacites), symboles_science(j.symboles_science),
-symboles_chainage(j.symboles_chainage), effets_guilde(j.effets_guilde)
+symboles_chainage(j.symboles_chainage), effets(j.effets)
 {
     for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
     for(int i=0; i<4; i++) merveille_construite[i] = j.merveille_construite[i];
@@ -554,7 +554,7 @@ Joueur& Joueur::operator=(const Joueur& j){
         capacites = j.capacites;
         symboles_science = j.symboles_science;
         symboles_chainage = j.symboles_chainage;
-        effets_guilde = j.effets_guilde;
+        effets = j.effets;
         free(cartes_construite);
         free(merveille_construite);
         free(merveille_non_construite);
@@ -713,23 +713,47 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 //méthodes qui permettent de rajouter une carte
 void Joueur::updateRessourcesCarte(Carte* carte){
     unsigned int nb =0;
-    nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
-    ajouterRessource(RessourcePrimaire::bois, nb);
+    if(carte->get_type() == TypeCarte::CarteCommerce){
+        CarteCommerce* commerce = dynamic_cast<CarteCommerce*>(carte);
+        if(commerce->get_contrepatrie()){
+            if(carte->getQuantRessPrimProd(RessourcePrimaire::bois) == 1)
+                effets.depot_bois = true;
+            
+            if(carte->getQuantRessPrimProd(RessourcePrimaire::brique) == 1)
+                effets.depot_argile = true;
 
-    nb = carte->getQuantRessPrimProd(RessourcePrimaire::brique);
-    ajouterRessource(RessourcePrimaire::brique, nb);
+            if(carte->getQuantRessPrimProd(RessourcePrimaire::pierre) == 1)
+                effets.depot_pierre = true;
+            
+            if(carte->getQuantRessSecondProd(RessourceSecondaire::verre) == 1 && carte->getQuantRessSecondProd(RessourceSecondaire::parchemin) == 1)
+                effets.douanes = true;
 
-    nb = carte->getQuantRessPrimProd(RessourcePrimaire::pierre);
-    ajouterRessource(RessourcePrimaire::pierre, nb);
+        }
+        if(commerce->get_choix()){
+            if(carte->getQuantRessPrimProd(RessourcePrimaire::bois) == 1 && carte->getQuantRessPrimProd(RessourcePrimaire::brique) == 1 
+            && carte->getQuantRessPrimProd(RessourcePrimaire::pierre) == 1) ressources.caravanserail = true;
 
-    nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
-    ajouterRessource(RessourcePrimaire::bois, nb);
+            if(carte->getQuantRessSecondProd(RessourceSecondaire::verre) == 1 && carte->getQuantRessSecondProd(RessourceSecondaire::parchemin) == 1)
+                ressources.forum = true;
+        }
 
-    nb = carte->getQuantRessSecondProd(RessourceSecondaire::verre);
-    ajouterRessource(RessourceSecondaire::verre, nb);
+    }
+    else{
+        nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
+        ajouterRessource(RessourcePrimaire::bois, nb);
 
-    nb = carte->getQuantRessSecondProd(RessourceSecondaire::parchemin);
-    ajouterRessource(RessourceSecondaire::parchemin, nb);
+        nb = carte->getQuantRessPrimProd(RessourcePrimaire::brique);
+        ajouterRessource(RessourcePrimaire::brique, nb);
+
+        nb = carte->getQuantRessPrimProd(RessourcePrimaire::pierre);
+        ajouterRessource(RessourcePrimaire::pierre, nb);
+
+        nb = carte->getQuantRessSecondProd(RessourceSecondaire::verre);
+        ajouterRessource(RessourceSecondaire::verre, nb);
+
+        nb = carte->getQuantRessSecondProd(RessourceSecondaire::parchemin);
+        ajouterRessource(RessourceSecondaire::parchemin, nb);
+    }
 }
 
 void Joueur::updatePtVictoireCarte(Carte* carte){
@@ -771,6 +795,7 @@ void Joueur::addCarte(Carte* carte){
         }
         //!comment faire si c'est carteCommerce et ca produit deux trucs
 
+
         if(carte->get_type() == TypeCarte::CarteScience) updateSymbolesScienceCarte(carte);
         if(carte->get_type()== TypeCarte::CarteGuilde) updateEffetsGuilde(carte);
     }
@@ -803,38 +828,68 @@ void Joueur::retirerCarte(Carte* carte){
 
 //construire une carte
 unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
-    //En cours
-    //COÛT = 2 + nombre de symboles de la même ressource produite par les
-    //cartes marron et grises de la cité adverse
+    //! ne prend pas en compte les capacites de carteCommerce
     if(possedeSymboleChainage(carte.getSymboleChainageEntre())) return 0;
     unsigned int cout = 0;
+    bool forum = ressources.forum;
+    bool caravanserail = ressources.caravanserail;
 
     // gérer ressources primaires
     int diff_pierre = carte.getQuantRessPrimNess(RessourcePrimaire::pierre) - getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre);
-    if(diff_pierre > 0) {
-        cout += diff_pierre * (2 + adversaire.getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre));
-    }
-
     int diff_bois = carte.getQuantRessPrimNess(RessourcePrimaire::bois) - getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+    int diff_brique = carte.getQuantRessPrimNess(RessourcePrimaire::brique) - getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique);
+
+
+    if(diff_pierre > 0) {
+        if(caravanserail){
+            diff_pierre --;
+            caravanserail = false;
+        }
+        if(effets.depot_pierre) cout += diff_pierre;
+        else cout += diff_pierre * (2 + adversaire.getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre));
+    }
+    
     if(diff_bois > 0) {
-        cout += diff_bois * (2 + adversaire.getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois));
+        if(caravanserail){
+            diff_bois --;
+            caravanserail = false;
+        }
+        if(effets.depot_bois) cout += diff_bois;
+        else cout += diff_bois * (2 + adversaire.getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois));
     }
 
-    int diff_brique = carte.getQuantRessPrimNess(RessourcePrimaire::brique) - getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique);
     if(diff_brique > 0) {
-        cout += diff_brique * (2 + adversaire.getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique));
+        if(caravanserail){
+            diff_brique --;
+            caravanserail = false;
+        }
+        if(effets.depot_argile) cout+= diff_brique;
+        else cout += diff_brique * (2 + adversaire.getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique));
     }
 
     // gérer ressources secondaires
     int diff_verre = carte.getQuantRessSecondNess(RessourceSecondaire::verre) - getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre);
+    int diff_parchemin = carte.getQuantRessSecondNess(RessourceSecondaire::parchemin) - getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
+
     if(diff_verre > 0) {
-        cout += diff_verre * (2 + adversaire.getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre));
+        if(forum){
+            diff_verre --;
+            forum = false;
+        }
+        if(effets.douanes) cout+= diff_verre;
+        else cout += diff_verre * (2 + adversaire.getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre));
     }
 
-    int diff_parchemin = carte.getQuantRessSecondNess(RessourceSecondaire::parchemin) - getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
+    
     if(diff_parchemin > 0) {
-        cout += diff_parchemin * (2 + adversaire.getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin));
+        if(forum){
+            diff_parchemin --;
+            forum = false;
+        }
+        if(effets.douanes) cout+= diff_parchemin;
+        else cout += diff_parchemin * (2 + adversaire.getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin));
     }
+
 
     return cout;
 }
