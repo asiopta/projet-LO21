@@ -81,6 +81,34 @@ void Joueur::setRessource(RessourceSecondaire rs, unsigned int quantite){
     }
 }
 
+unsigned int Joueur::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const{
+    switch (symbole){
+        case RessourcePrimaire::bois: 
+            return ressources.bois;
+            break;
+
+        case RessourcePrimaire::pierre: 
+            return ressources.pierre;
+            break;
+
+        case RessourcePrimaire::brique: 
+            return ressources.brique;
+            break;
+
+        case RessourcePrimaire::none: break;
+    }
+}
+
+unsigned int Joueur::getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const{
+    switch (symbole){
+        case RessourceSecondaire::verre: return ressources.verre; break;
+        case RessourceSecondaire::parchemin: return ressources.parchemin; break;
+        case RessourceSecondaire::none: break;
+    }
+}
+
+
+
 /*---------classe CapaciteJetons------------------------*/
 void Joueur::addCapaciteJeton(const CapaciteScience& capacite){
     switch (capacite)
@@ -494,8 +522,12 @@ void Joueur::removeEffetGuilde(EffetGuilde effet) {
 
 /*------------------classe Joueur----------------------*/
 //constructeurs
-Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false), ressources(), capacites()
-, symboles_science(), symboles_chainage(), effets_guilde(){
+Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false){
+    ressources = Ressource();
+    capacites = CapaciteJeton();
+    symboles_science = SymbolesScience();
+    symboles_chainage = SymbolesChainage();
+    effets_guilde = EffetsGuilde();
     for(int i=0; i<60; i++) cartes_construite[i] = nullptr;
     for(int i=0; i<4; i++) merveille_construite[i] = nullptr;
     for(int i=0; i<4; i++) merveille_non_construite[i] = nullptr;
@@ -657,6 +689,11 @@ unsigned int Joueur::getNbCartesType(std::string type) const {
     }
 }
 
+void Joueur::setMerveille(Merveille* merveille){
+    unsigned int nb = getNbMerveillesNonConstruites();
+    if(nb == 5) throw SetException("erreur: impossible d'ajouter une merveille. limite atteinte");
+    merveille_non_construite[nb] = merveille;
+}
 
 
 //d'autres méthodes utiles
@@ -674,7 +711,7 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 }
 
 //méthodes qui permettent de rajouter une carte
-void Joueur::updateRessourcesCarte(Carte* carte){ //! erreur non expliqué
+void Joueur::updateRessourcesCarte(Carte* carte){
     unsigned int nb =0;
     nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
     ajouterRessource(RessourcePrimaire::bois, nb);
@@ -719,36 +756,46 @@ void Joueur::updateEffetsGuilde(Carte* carte){
 }
 
 void Joueur::addCarte(Carte* carte){
-    updatePtVictoireCarte(carte);
-    updateSymbolesChainageCarte(carte);
-    if(carte->get_type() == TypeCarte::CarteRessourcePrimaire || carte->get_type() == TypeCarte::CarteRessourceSecondaire){
+    if( carte->get_type()==TypeCarte::Merveille){
+        Merveille* merveille = dynamic_cast<Merveille*>(carte);;
+        setMerveille(merveille);
         updateRessourcesCarte(carte);
     }
-    if(carte->get_type() == TypeCarte::CarteScience) updateSymbolesScienceCarte(carte);
-    if(carte->get_type()== TypeCarte::CarteGuilde) updateEffetsGuilde(carte);
-    
+    else{
+        unsigned int nb = getNbCartesConstruites();
+        cartes_construite[nb] = carte;
+        updatePtVictoireCarte(carte);
+        updateSymbolesChainageCarte(carte);
+        if(carte->get_type() == TypeCarte::CarteRessourcePrimaire || carte->get_type() == TypeCarte::CarteRessourceSecondaire){
+            updateRessourcesCarte(carte);
+        }
+        //!comment faire si c'est carteCommerce et ca produit deux trucs
+
+        if(carte->get_type() == TypeCarte::CarteScience) updateSymbolesScienceCarte(carte);
+        if(carte->get_type()== TypeCarte::CarteGuilde) updateEffetsGuilde(carte);
+    }
 } 
 
 
 void Joueur::retirerCarte(Carte* carte){
     if(carte->get_type() == TypeCarte::CarteRessourcePrimaire || carte->get_type() == TypeCarte::CarteRessourceSecondaire){
         unsigned int nb =0;
-        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+        nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
         retirerRessource(RessourcePrimaire::bois, nb);
 
-        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique);
+        nb = carte->getQuantRessPrimProd(RessourcePrimaire::brique);
         retirerRessource(RessourcePrimaire::brique, nb);
 
-        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre);
+        nb = carte->getQuantRessPrimProd(RessourcePrimaire::pierre);
         retirerRessource(RessourcePrimaire::pierre, nb);
 
-        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+        nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
         retirerRessource(RessourcePrimaire::bois, nb);
 
-        nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre);
+        nb = carte->getQuantRessSecondProd(RessourceSecondaire::verre);
         retirerRessource(RessourceSecondaire::verre, nb);
 
-        nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
+        nb = carte->getQuantRessSecondProd(RessourceSecondaire::parchemin);
         retirerRessource(RessourceSecondaire::parchemin, nb);
     }
 }
@@ -790,6 +837,11 @@ unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
     }
 
     return cout;
+}
+
+
+void Joueur::choisirJeton(){
+    return;
 }
 
 
