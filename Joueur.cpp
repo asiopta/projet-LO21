@@ -494,8 +494,12 @@ void Joueur::removeEffetGuilde(EffetGuilde effet) {
 
 /*------------------classe Joueur----------------------*/
 //constructeurs
-Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false), ressources(), capacites()
-, symboles_science(), symboles_chainage(), effets_guilde(){
+Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false){
+    ressources = Ressource();
+    capacites = CapaciteJeton();
+    symboles_science = SymbolesScience();
+    symboles_chainage = SymbolesChainage();
+    effets_guilde = EffetsGuilde();
     for(int i=0; i<60; i++) cartes_construite[i] = nullptr;
     for(int i=0; i<4; i++) merveille_construite[i] = nullptr;
     for(int i=0; i<4; i++) merveille_non_construite[i] = nullptr;
