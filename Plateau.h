@@ -3,47 +3,25 @@
 #include <string>
 #include <tuple>
 #include "Joueur.h"
-#include "setup.h"
 #include "Carte.h"
+#include "const_and_enum.h"
 
+
+//! CONSTANTES
 const unsigned int LargeurPlateauMilitaire = 9; //la largeur maxe du plateau militaire
 const unsigned int TAILLE_CARTE_EN_JEU = 21; //nombre de cartes en jeu
 const unsigned int TAILLE_DEFAUSSES = 60; //nombre de cartes defaussées
 const unsigned int TAILLE_MERVEILLES = 8; //nombre de merveilles
 
+//! Predeclaration de classe
+class Joueur;
+class Carte;
+class Merveille;
 
-enum class CapaciteScience{
-    none,
-    agriculture,
-    architecture,
-    economie,
-    loi,
-    maconnerie,
-    urbanisme,
-    theologie,
-    strategie,
-    philosophie,
-    mathematique
-};
+//! Définition des classes
 
-//surcharge de l'opérateur << pour afficher CapaciteScience
-std::ostream& operator<<(std::ostream& f, const CapaciteScience& capacite) {
-    switch (capacite) {
-        case CapaciteScience::agriculture: f << "Agriculture"; break;
-        case CapaciteScience::architecture: f << "Architecture"; break;
-        case CapaciteScience::economie: f << "Économie"; break;
-        case CapaciteScience::loi: f << "Loi"; break;
-        case CapaciteScience::maconnerie: f << "Maçonnerie"; break;
-        case CapaciteScience::urbanisme: f << "Urbanisme"; break;
-        case CapaciteScience::theologie: f << "Théologie"; break;
-        case CapaciteScience::strategie: f << "Stratégie"; break;
-        case CapaciteScience::philosophie: f << "Philosophie"; break;
-        case CapaciteScience::mathematique: f << "Mathématique"; break;
-        default:
-            f.setstate(std::ios_base::failbit);
-    }
-    return f;
-}
+
+
 
 /*-------------------------------------JetonScience-------------------------------------*/
 class JetonScience {
@@ -132,34 +110,43 @@ class PlateauMilitaire{
 class PlateauCartes{
 private:
     unsigned int age;
-    Carte** cartes_en_jeu; //tableau dynamique de pointeurs de Carte
-    Merveille** merveilles; //tableau dynamique de pointeurs de Merveille
-    Carte** defausses;
+    Carte* cartes_en_jeu[TAILLE_CARTE_EN_JEU]; //tableau dynamique de pointeurs de Carte 
+    Merveille* merveilles[TAILLE_MERVEILLES]; //tableau dynamique de pointeurs de Merveille
+    Carte* defausses[TAILLE_DEFAUSSES];
 
 public:
     PlateauCartes();
+
+    //**Actions du PlateauCarte**//
     void addAge(); //modifie carte_en_jeu en tirant de nouvelles cartes en jeu d'age age
     void ajouterCarte(Carte* carte); //ajoute la carte dans carte_en_jeu
     void prendreCarte(Carte* carte); //prend la carte si elle est accessible
     void defausserCarte(Carte* carte); //defausse la carte si elle est accessible
     void prendreMerveille(Merveille* merveille); //prend la merveille si elle est accessible
-    void tirerCarteRandom(); // tire les cartes pour l'age donné /!\ supprime les cartes déjà présente dans cartes_en_jeu
-    void tirerMerveilleRandom();
 
+    //**Initialisation**//
+
+    void initPlateauCarte(); //initialise le plateau de carte
+    void initCarteRandom(unsigned int nombre_carte,unsigned int taille_tableau, Carte** tableau_cartes); //renvoie un tableau de pointeurs de Carte de taille nombre_carte tiré aléatoirement dans cartes
+    void initMerveilleRandom(unsigned int nombre_merveille,unsigned int taille_tableau, Merveille** tableau_merveilles);
+    //**Verification d'états des cartes**//
     bool estEnJeu(Carte* carte) const; //verifie que la carte est dans carte_en_jeu
     bool estAccessible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est accessible
     bool estVisible(Carte* carte) const; //verifie que la carte est dans carte_en_jeu et est visible
 
+    //**Getters**//
     unsigned int getAge() const{return age;} //renvoie l'age du plateau
-    Carte** getCartesEnJeu() const{return cartes_en_jeu;}
-    Carte** getDefausse() const{return defausses;}
-    Merveille** getMerveilles() const {return merveilles;}
-    Carte** getCartesAccessibles() const; //renvoie un tableau de pointeurs de Carte accessibles
+    Carte** getCartesEnJeu() const{return const_cast<Carte**>(cartes_en_jeu);}
+    Carte** getDefausse() const{return const_cast<Carte**>(defausses);}
+    Merveille** getMerveilles() const {return const_cast<Merveille**>(merveilles);}
+    Carte** getCartesAccessibles() const; //renvoie un tableau de pointeus de Carte accessibles
     Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
     unsigned int getNbMerveilles() const; //renvoie le nombre de merveilles restantes
+
+    bool estVide() const; //! renvoie si il ya encore des carte sur le plateau ou pas, que ce soit l'age
    ~PlateauCartes();
 
-   bool estVide() const; //! renvoie si il ya encore des carte sur le plateau ou pas, que ce soit l'age
+   
 };
 
 

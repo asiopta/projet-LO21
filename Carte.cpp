@@ -1,4 +1,9 @@
+#pragma once
 #include "Carte.h"
+#include <iostream>
+#include <string>
+
+
 
 
 /*-------------------------------------Enumerations-------------------------------------*/
@@ -442,8 +447,8 @@ CarteScience::CarteScience() : Carte(){
         pt_victoire = 0;
         capacite = Capacite::ajouter_symbole_science;
     }
-CarteScience::CarteScience(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, SymboleScience symb_science, unsigned int pt_vict)
-    :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteScience::CarteScience(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, SymboleScience symb_science, unsigned int pt_vict)
+    :Carte(n,a, cout, pt_primaire, pt_secondaire, false, false, 0){
         symbole_chainage_entre = symb_chain_entre;
         symbole_chainage_sortie = symb_chain_sortie;
 
@@ -477,8 +482,8 @@ CartePrestige::CartePrestige()
         symbole_chainage_sortie = SymboleChainage::none;
         pt_victoire = 0;
     }
-CartePrestige::CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict)
-    :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CartePrestige::CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict)
+    :Carte(n,a, cout, pt_primaire, pt_secondaire, false, false, 0){
         symbole_chainage_entre=symb_chain_entre;
         symbole_chainage_sortie=symb_chain_sortie;
         pt_victoire=pt_vict;
@@ -504,8 +509,8 @@ CarteMilitaire::CarteMilitaire()
     nb_symbole_militaire = 0;
     capacite = Capacite::avancee_militaire;
 }
-CarteMilitaire::CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, unsigned int nb_militaire)
-    :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteMilitaire::CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, unsigned int nb_militaire)
+    :Carte(n,a, cout, pt_primaire, pt_secondaire, false, false, 0){
     symbole_chainage_entre=symb_chain_entre;
     symbole_chainage_sortie=symb_chain_sortie;
     nb_symbole_militaire=nb_militaire;
@@ -534,30 +539,14 @@ CarteGuilde::CarteGuilde()
 :Carte(){
     effet_guilde = EffetGuilde::guilde_armateurs;
 }
-CarteGuilde::CarteGuilde(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos, EffetGuilde effet)
-:Carte(n, a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
+CarteGuilde::CarteGuilde(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, EffetGuilde effet)
+:Carte(n, a, cout, pt_primaire, pt_secondaire, false, false, 0){
     effet_guilde = effet;
 }
 CarteGuilde::CarteGuilde(const CarteGuilde& c)
 :Carte(c){
     effet_guilde = c.effet_guilde;
 }
-
-void CarteGuilde::exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const{
-    switch (effet_guilde) {
-        case EffetGuilde::guilde_armateurs: exec_guilde_armateurs(joueur1, joueur2); break;
-        case EffetGuilde::guilde_batisseurs: exec_guilde_batisseurs(joueur1, joueur2); break;
-        case EffetGuilde::guilde_commercants: exec_guilde_commerce(joueur1, joueur2); break;
-        case EffetGuilde::guilde_scientifiques: exec_guilde_scientifiques(joueur1, joueur2); break;
-        case EffetGuilde::guilde_tacticiens: exec_guilde_tacticiens(joueur1, joueur2); break;
-        case EffetGuilde::guilde_magistrats: exec_guilde_magistrats(joueur1, joueur2); break;
-        case EffetGuilde::guilde_usuriers: exec_guilde_usuriers(joueur1, joueur2); break;
-
-        default:
-            std::cout << "Erreur";
-    }
-}
-
 
 void exec_guilde_armateurs(Joueur& joueur1, Joueur& joueur2){
     //le joueur1 recoit un nombre de pièce équivalent au nombre de cartes marron et gris dans la cité qui en possède le plus grand nombre
@@ -610,6 +599,24 @@ void exec_guilde_usuriers(Joueur& joueur1, Joueur& joueur2){
     // 1 point de victoire pour le joueur1 par lot de 3 pièces d'or possédé par le joueur le plus riche
 }
 
+void CarteGuilde::exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const{
+    switch (effet_guilde) {
+        case EffetGuilde::guilde_armateurs: exec_guilde_armateurs(joueur1, joueur2); break;
+        case EffetGuilde::guilde_batisseurs: exec_guilde_batisseurs(joueur1, joueur2); break;
+        case EffetGuilde::guilde_commercants: exec_guilde_commerce(joueur1, joueur2); break;
+        case EffetGuilde::guilde_scientifiques: exec_guilde_scientifiques(joueur1, joueur2); break;
+        case EffetGuilde::guilde_tacticiens: exec_guilde_tacticiens(joueur1, joueur2); break;
+        case EffetGuilde::guilde_magistrats: exec_guilde_magistrats(joueur1, joueur2); break;
+        case EffetGuilde::guilde_usuriers: exec_guilde_usuriers(joueur1, joueur2); break;
+
+        default:
+            std::cout << "Erreur";
+    }
+}
+
+
+
+
 
 /*--------------------------------------------------------------------------*/
 
@@ -628,11 +635,12 @@ Merveille::Merveille()
     pt_victoire = 0;
     avance_militaire = 0;
 }
-    Merveille::Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_vict, unsigned int av_milit,std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos)
-    :Carte(n,a, cout, pt_primaire, pt_secondaire, acc, fv, pos){
+    Merveille::Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_vict, unsigned int av_milit,bool choix, std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire)
+    :Carte(n,a, cout, pt_primaire, pt_secondaire, 1, 1, 0){
         production_primaire = new RessourcePrimaire[Taille_prod_primaire];
         production_secondaire = new RessourceSecondaire[Taille_prod_secondaire];
         capacite = new Capacite[Taille_capacite];
+        this->choix = choix;
 
         int i = 0;
         for (const auto& prod : prod_primaire){
@@ -751,7 +759,7 @@ void Merveille::exec_jouer_carte_defausse(Joueur& joueur1, PlateauCartes& platea
 }
 
 void Merveille::exec_choisir_jeton_science(Joueur& joueur1, PlateauScience& plateau_science) const{
-    JetonScience* liste_jeton = plateau_science.tirer_jeton_out_game();
+    JetonScience** liste_jeton = plateau_science.tirer_jeton_out_game();
     joueur1.choisirJetonScienceParmis3(liste_jeton);
 }
 
@@ -761,7 +769,7 @@ void Merveille::exec_gagner_monnaie_3(Joueur& joueur1) const{joueur1.gagnerArgen
 void Merveille::exec_perdre_monnaie_3(Joueur& joueur2) const{joueur2.gagnerArgent(-3);}
 
 void Merveille::exec_avancee_militaire(Joueur& joueur2, PlateauMilitaire& plateau_militaire) const{
-    plateau_militaire.update_avance(avance_militaire,joueur1);
+    plateau_militaire.update_avance(avance_militaire,joueur2);
 }
 
 

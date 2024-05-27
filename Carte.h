@@ -1,111 +1,16 @@
 #pragma once
 #include "Joueur.h"
 #include "Plateau.h"
-#include "setup.h"
 #include <iostream>
 #include <string>
+#include "const_and_enum.h"
 
+//! Predeclaration de classe
+class Joueur;
+class PlateauMilitaire;
+class PlateauScience;
+class PlateauCartes;
 
-/*-------------------------------------CONSTANTES DE L'ENVIRONEMENT-------------------------------------*/
-const unsigned int Taille_cout_primaire = 5;
-const unsigned int Taille_cout_secondaire = 3;
-const unsigned int Taille_prod_primaire = 3;
-const unsigned int Taille_prod_secondaire = 2;
-const unsigned int Taille_capacite = 3;
-
-enum class TypeCarte{
-    CarteRessourcePrimaire,
-    CarteRessourceSecondaire,
-    CarteCommerce,
-    CarteGuilde,
-    CarteMilitaire,
-    CartePrestige, 
-    CarteScience,
-    Merveille
-};
-
-enum class RessourcePrimaire {
-    none,
-    pierre,
-    bois,
-    brique
-};
-
-
-enum class RessourceSecondaire {
-    none,
-    verre,
-    parchemin
-};
-
-
-enum class SymboleChainage{
-    none,
-    jarre,
-    toneau,
-    masque,
-    temple,
-    soleil,
-    goute,
-    lune,
-    pilier,
-    cible,
-    casque,
-    fer_a_cheval,
-    epee,
-    tour,
-    lyre,
-    engrenage,
-    livre,
-    lampe
-};
-
-
-enum class SymboleScience{
-    none,
-    roue,
-    plume,
-    pilon,
-    balance,
-    globe_terrestre,
-    fil_a_plomb,
-    bateau,
-};
-
-
-enum class EffetGuilde{
-    none,
-    guilde_armateurs,
-    guilde_batisseurs,
-    guilde_commercants,
-    guilde_magistrats,
-    guilde_tacticiens,
-    guilde_scientifiques,
-    guilde_usuriers,
-    none
-};
-
-
-enum class Capacite{
-    none, //pas de capacité
-    rejouer, //reservé à Merveille
-    detruire_carte_marron, //reservé à Merveille
-    detruire_carte_grise, //reservé à Merveille
-    jouer_carte_defausse, //reservé à Merveille
-    gagner_monnaie_3, //reservé à Merveille
-    gagner_monnaie_4, //reserve à CarteCommerce
-    gagner_monnaie_6, //reservé à CarteCommerce et Merveille
-    gagner_monnaie_12, //reservé à Merveille
-    gagner_monnaie_2_par_merveille, //reservé à CarteCommerce
-    gagner_monnaie_carte_marron, //reservé à CarteCommerce
-    gagner_monnaie_carte_grise, //reservé à CarteCommerce
-    gagner_monnaie_carte_rouge, //reservé à CarteCommerce
-    gagner_monnaie_carte_jaune, //reservé à CarteCommerce
-    perdre_monnaie_3, //reservé à Merveille
-    avancee_militaire, //pour Merveille et CarteMilitaire
-    choisir_jeton_science, //pour Merveille
-    ajouter_symbole_science //pour CarteScience
-};
 
 
 class Carte{
@@ -219,7 +124,6 @@ public:
     bool get_contrepatrie()const {return contrepartie;}
     Capacite get_capacite()const {return capacite;}
     unsigned int getPtVictoire()const override{return pt_victoire;}
-    unsigned int getPtVictoire()const override {return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
     SymboleChainage getSymboleChainageSortie() const override {return symbole_chainage_sortie;}
     unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;
@@ -251,7 +155,7 @@ private:
     //Capacite capacite; //il faut pt étre pas rajouter ca ici. On déclence la capacite ssi il ya deux cartes avec meme symbole scientifique
 public:
     CarteScience();
-    CarteScience(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, SymboleScience symb_science, unsigned int pt_vict);
+    CarteScience(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, SymboleScience symb_science, unsigned int pt_vict);
     
     //constructeur de recopie
     CarteScience(const CarteScience &c);
@@ -281,7 +185,7 @@ private:
 
 public:
     CartePrestige();
-    CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict);
+    CartePrestige(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, SymboleChainage symb_chain_entre,SymboleChainage symb_chain_sortie, unsigned int pt_vict);
     CartePrestige(const CartePrestige& c);
     unsigned int getPtVictoire()const override{return pt_victoire;}
     SymboleChainage getSymboleChainageEntre() const override {return symbole_chainage_entre;}
@@ -304,7 +208,7 @@ private:
 public:
 
     CarteMilitaire();
-    CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, unsigned int nb_militaire);
+    CarteMilitaire(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, SymboleChainage symb_chain_entre, SymboleChainage symb_chain_sortie, unsigned int nb_militaire);
     CarteMilitaire(const CarteMilitaire& c);
 
     unsigned int get_nb_symbole_militaire() const {return nb_symbole_militaire;}
@@ -331,7 +235,7 @@ private:
     EffetGuilde effet_guilde;
 public:
     CarteGuilde();
-    CarteGuilde(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0, EffetGuilde effet);
+    CarteGuilde(std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, EffetGuilde effet);
     CarteGuilde(const CarteGuilde& c);
 
     EffetGuilde get_effet_guilde(){return effet_guilde;}
@@ -355,7 +259,7 @@ private:
 
 public:
     Merveille();
-    Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_victoire, unsigned int av_milit, bool choix, std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc = false, bool fv = false, unsigned int pos = 0);
+    Merveille(std::initializer_list<RessourcePrimaire> prod_primaire, std::initializer_list<RessourceSecondaire> prod_secondaire, std::initializer_list<Capacite> capa, unsigned int pt_victoire, unsigned int av_milit, bool choix, std::string n, unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire);
     Merveille(const Merveille& c);
 
     bool get_choix()const {return choix;}

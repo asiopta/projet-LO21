@@ -1,3 +1,4 @@
+#pragma once
 #include "Joueur.h"
 #include <string.h>
 #include <string>
@@ -81,7 +82,7 @@ void Joueur::setRessource(RessourceSecondaire rs, unsigned int quantite){
 }
 
 /*---------classe CapaciteJetons------------------------*/
-void Joueur::addCapaciteJeton(CapaciteScience capacite){
+void Joueur::addCapaciteJeton(const CapaciteScience& capacite){
     switch (capacite)
     {
     case CapaciteScience::architecture: capacites.architecture = true; break;
@@ -674,22 +675,23 @@ void Joueur::gagnerPtVictoire(unsigned int p){
 
 //méthodes qui permettent de rajouter une carte
 void Joueur::updateRessourcesCarte(Carte* carte){ //! erreur non expliqué
-    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
+    unsigned int nb =0;
+    nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
     ajouterRessource(RessourcePrimaire::bois, nb);
 
-    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::brique);
+    nb = carte->getQuantRessPrimProd(RessourcePrimaire::brique);
     ajouterRessource(RessourcePrimaire::brique, nb);
 
-    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::pierre);
+    nb = carte->getQuantRessPrimProd(RessourcePrimaire::pierre);
     ajouterRessource(RessourcePrimaire::pierre, nb);
 
-    unsigned int nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
+    nb = carte->getQuantRessPrimProd(RessourcePrimaire::bois);
     ajouterRessource(RessourcePrimaire::bois, nb);
 
-    unsigned int nb = carte->getQuantRessSecondProd(RessourceSecondaire::verre);
+    nb = carte->getQuantRessSecondProd(RessourceSecondaire::verre);
     ajouterRessource(RessourceSecondaire::verre, nb);
 
-    unsigned int nb = carte->getQuantRessSecondProd(RessourceSecondaire::parchemin);
+    nb = carte->getQuantRessSecondProd(RessourceSecondaire::parchemin);
     ajouterRessource(RessourceSecondaire::parchemin, nb);
 }
 
@@ -730,22 +732,23 @@ void Joueur::addCarte(Carte* carte){
 
 void Joueur::retirerCarte(Carte* carte){
     if(carte->get_type() == TypeCarte::CarteRessourcePrimaire || carte->get_type() == TypeCarte::CarteRessourceSecondaire){
-        unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+        unsigned int nb =0;
+        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
         retirerRessource(RessourcePrimaire::bois, nb);
 
-        unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique);
+        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::brique);
         retirerRessource(RessourcePrimaire::brique, nb);
 
-        unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre);
+        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::pierre);
         retirerRessource(RessourcePrimaire::pierre, nb);
 
-        unsigned int nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
+        nb = getQuantiteDeRessourcePrimaire(RessourcePrimaire::bois);
         retirerRessource(RessourcePrimaire::bois, nb);
 
-        unsigned int nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre);
+        nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::verre);
         retirerRessource(RessourceSecondaire::verre, nb);
 
-        unsigned int nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
+        nb = getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin);
         retirerRessource(RessourceSecondaire::parchemin, nb);
     }
 }

@@ -3,8 +3,19 @@
 #include <string>
 #include "Carte.h"
 #include "Plateau.h"
-#include "setup.h"
 #include "controleur.h"
+#include "const_and_enum.h"
+
+
+//!predeclaration de classe
+
+class Carte;
+class Merveille;
+class PlateauCartes;
+class PlateauMilitaire;
+class PlateauScience;
+class JetonScience;
+
 
 const unsigned int NB_MERVEILLES_JOUEUR = 4;
 using Action = std::tuple<Carte*, std::string>; 
@@ -66,7 +77,7 @@ TODO: choisirJetons()
 private:
     Carte* cartes_construite[60];
     Merveille* merveille_construite[4];
-    Merveille* merveille_non_construite[5]; //? UPDATE : changé 4 en 5 car on peut voler des merveilles à l'adversaire
+    Merveille* merveille_non_construite[5];
     unsigned int nb_jetons;
     unsigned int monnaie;
     unsigned int pt_victoire;
@@ -221,7 +232,7 @@ public:
     void setPtVictoire(unsigned int p){ pt_victoire = p;}; //ok
     void setRessource(RessourcePrimaire rp, unsigned int quantite); //review
     void setRessource(RessourceSecondaire rs, unsigned int quantite); //review
-    void addCapaciteJeton(CapaciteScience jeton); //review
+    void addCapaciteJeton(const CapaciteScience& jeton); //review
     void setMerveille(Merveille* merveille); // !!! A definir !!! //rajouter merveilles à celles non construites
     
     
@@ -298,4 +309,4 @@ public:
 
 
 
-TypeCarte hashit(std::string const& type);
+// TypeCarte hashit(std::string const& type);
