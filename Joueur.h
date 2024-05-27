@@ -222,7 +222,7 @@ public:
     void setRessource(RessourcePrimaire rp, unsigned int quantite); //review
     void setRessource(RessourceSecondaire rs, unsigned int quantite); //review
     void addCapaciteJeton(CapaciteScience jeton); //review
-    void setMerveille(Merveille* merveille); // !!! A definir !!!
+    void setMerveille(Merveille* merveille); // !!! A definir !!! //rajouter merveilles à celles non construites
     
     
     //méthodes de l'attribut rejouer
@@ -263,8 +263,6 @@ public:
     void gagnerPtVictoire(unsigned int p); //ok
 
     //méthodes de vérification
-    bool estConstructible(const Carte& carte) const; // review
-    //! en gros est ce qu'on a les ressources necessaires pour construire la carte
 
     //déconstruire une carte
     void retirerCarte(Carte* carte); //! à utiliser que avec CarteRessourcesPrimaire/Secondaire
