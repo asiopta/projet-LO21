@@ -753,7 +753,7 @@ void Merveille::exec_jouer_carte_defausse(Joueur& joueur1, PlateauCartes& platea
 
 
     Carte* carte_choisit = joueur1.choisirCarteDefausse(); //? demander au joueur de choisir une carte de la defause 
-    joueur1.construireCarte(*carte_choisit); 
+    joueur1.construireCarte(*carte_choisit); //! construireCarte est dans Controleur.cpp
 
 
 }

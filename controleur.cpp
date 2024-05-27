@@ -36,7 +36,13 @@ bool Plateau::isEtatFinal() {
 
 
 /*---------------------classe Controleur-----------------------------------*/
-/*
+
+
+Controleur::Controleur(){
+    joueur1 = Joueur();
+    joueur2 = Joueur();
+    plateau = Plateau(joueur1, joueur2);
+}
 
 bool Controleur::gagne(Joueur& joueur){
     bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur);
@@ -48,7 +54,7 @@ bool Controleur::gagne(Joueur& joueur){
 bool Controleur::jeuEstFinie(){
     return plateau.isEtatFinal() || gagne(joueur1) || gagne(joueur2);
 }
-*/
+
 
 //méthodes de handler
 Controleur::Handler Controleur::handler = Handler(); 

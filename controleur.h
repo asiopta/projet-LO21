@@ -51,9 +51,9 @@ public:
 class Controleur {
 private:
 	//Pioche* pioche=nullptr;
-	Plateau plateau;
     Joueur joueur1;
     Joueur joueur2;
+    Plateau plateau;
     unsigned int tour = 1;
 
     struct Handler{
@@ -66,7 +66,7 @@ private:
 
 public:
     //Constructeurs/destructeurs
-	Controleur(): joueur1(), joueur2(), plateau(joueur1, joueur2){}; //intialise le jeu: Plateau / joueurs / tour = 1
+	Controleur(); //intialise le jeu: Plateau / joueurs / tour = 1
     ~Controleur() = default; //libere tout l'espace
     // = delete parcequ'on va jamais les utiliser
     Controleur(const Controleur& c) = delete;
@@ -100,6 +100,7 @@ public:
 
     bool jeuEstFinie(); // plateau.IsEtatFinal() || joueur1 a gagné || joueur2 a gagné //review
     unsigned int gagnant(); //retourne le gagnant du match //review
+    bool gagne(Joueur& joueur);
 
     bool estConstructible(Carte* carte);
     void construireCarte(Carte* carte); //review
