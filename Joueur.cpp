@@ -689,6 +689,11 @@ unsigned int Joueur::getNbCartesType(std::string type) const {
     }
 }
 
+void Joueur::setMerveille(Merveille* merveille){
+    unsigned int nb = getNbMerveillesNonConstruites();
+    if(nb == 5) throw SetException("erreur: impossible d'ajouter une merveille. limite atteinte");
+    merveille_non_construite[nb] = merveille;
+}
 
 
 //d'autres méthodes utiles
@@ -822,6 +827,11 @@ unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
     }
 
     return cout;
+}
+
+
+void Joueur::choisirJeton(){
+    return;
 }
 
 
