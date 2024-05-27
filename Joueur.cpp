@@ -1,4 +1,4 @@
-#pragma once
+
 #include "Joueur.h"
 #include <string.h>
 #include <string>

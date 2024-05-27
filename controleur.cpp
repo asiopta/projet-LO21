@@ -1,44 +1,18 @@
-#pragma once
+
 #include <string.h>
 #include <string>
 #include <vector>
 #include <iostream>
 #include "controleur.h"
 
-class Joueur;
-
-
-
-/*-------------------------------------Plateau-------------------------------------*/
-
-
-Plateau::Plateau(Joueur* joueur1, Joueur* joueur2){
-    plateau_cartes = new PlateauCartes();
-    plateau_cartes->addAge(); //! la fonction addage set a initialiser les cartes en jeu
-    plateau_science = new PlateauScience();
-    plateau_militaire = new PlateauMilitaire(0, joueur1, joueur2);
-}
-
-Plateau::~Plateau(){
-    delete plateau_cartes;
-    delete plateau_science;
-    delete plateau_militaire;
-}
-
-bool Plateau::isEtatFinal() {
-    return (plateau_cartes->estVide() && plateau_cartes->getAge() == 3 );
-        
-}
-
-
-
-
-
 
 
 
 /*---------------------classe Controleur-----------------------------------*/
-
+Controleur::Controleur() : plateau(joueur1, joueur2){
+    joueur1 = new Joueur();
+    joueur2 = new Joueur();
+}
 
 bool Controleur::gagne(Joueur* joueur){
     bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur);
@@ -209,4 +183,28 @@ Controleur::~Controleur(){
     delete joueur1;
     delete joueur2;
     delete &plateau;
+}
+
+
+
+
+/*-------------------------------------Plateau-------------------------------------*/
+
+
+Plateau::Plateau(Joueur* joueur1, Joueur* joueur2){
+    plateau_cartes = new PlateauCartes();
+    plateau_cartes->addAge(); //! la fonction addage set a initialiser les cartes en jeu
+    plateau_science = new PlateauScience();
+    plateau_militaire = new PlateauMilitaire(0, joueur1, joueur2);
+}
+
+Plateau::~Plateau(){
+    delete plateau_cartes;
+    delete plateau_science;
+    delete plateau_militaire;
+}
+
+bool Plateau::isEtatFinal() {
+    return (plateau_cartes->estVide() && plateau_cartes->getAge() == 3 );
+        
 }

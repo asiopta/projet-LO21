@@ -1,17 +1,16 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "Joueur.h"
 #include "Carte.h"
 #include "Plateau.h"
-#include "Joueur.h"
+
 
 
 //! Predeclaration de classe
 class Joueur;
 class Carte;
-class PlateauMilitaire;
-class PlateauScience;
-class PlateauCartes;
+
 
 
 /*---------------------------Plateau général-------------------------*/
@@ -66,7 +65,7 @@ private:
 
 public:
     //Constructeurs/destructeurs
-	Controleur::Controleur() : joueur1(new Joueur()), joueur2(new Joueur()), plateau(joueur1, joueur2) {}
+	Controleur(); //initialise les 2 joueurs et le plateau
     // = delete parcequ'on va jamais les utiliser
     Controleur(const Controleur& c) = delete;
 	Controleur& operator=(const Controleur& c) = delete;

@@ -1,4 +1,4 @@
-#pragma once
+
 #include "Plateau.h"
 #include <iostream>
 #include <vector>
