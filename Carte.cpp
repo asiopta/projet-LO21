@@ -467,8 +467,8 @@ CarteScience::CarteScience(const CarteScience &c)
         capacite = Capacite::ajouter_symbole_science;
     }
 
-void CarteScience::exec_capacite(Joueur& joueur1) const{
-    joueur1.addSymboleScience(symbole_science); //error résolu
+void CarteScience::exec_capacite(Joueur* joueur1) const{
+    joueur1->addSymboleScience(symbole_science); //error résolu
 }
 
 /*--------------------------------------------------------------------------*/
@@ -525,7 +525,7 @@ CarteMilitaire::CarteMilitaire(const CarteMilitaire& c)
         capacite = c.capacite;
 }
 
-void CarteMilitaire::exec_capacite(Joueur& joueur_adverse, PlateauMilitaire& plateau_militaire){ //!error
+void CarteMilitaire::exec_capacite(Joueur* joueur_adverse, PlateauMilitaire& plateau_militaire){ //!error
     plateau_militaire.update_avance(nb_symbole_militaire,joueur_adverse);
 }
 
@@ -708,7 +708,7 @@ void Merveille::addCapacite(Capacite c){
     }
 }
 
-void Merveille::exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes& plateau_carte, PlateauMilitaire& plateau_militaire, PlateauScience& plateau_science) const{
+void Merveille::exec_capacite(Joueur* joueur1, Joueur* joueur2, PlateauCartes& plateau_carte, PlateauMilitaire& plateau_militaire, PlateauScience& plateau_science) const{
     for(int i=0; i<Taille_capacite; i++){
         switch (capacite[i]) {
             case Capacite::none: break;
@@ -735,40 +735,40 @@ void Merveille::exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes& p
 
 
 
-void Merveille::exec_rejouer(Joueur& joueur1) const{
-    joueur1.setRejouerTrue(); //! setRejouer est une méthode qui met l'attribut rejouer à True
+void Merveille::exec_rejouer(Joueur* joueur1) const{
+    joueur1->setRejouerTrue(); //! setRejouer est une méthode qui met l'attribut rejouer à True
 }
-void Merveille::exec_detruire_carte_marron(Joueur& joueur1, Joueur& joueur2) const{
+void Merveille::exec_detruire_carte_marron(Joueur* joueur1, Joueur* joueur2) const{
 
-    CarteRessourcePrimaire* carte_choisit = joueur1.choisirCarteMarronAutreJoueur(); //? demander au joueur 1 de choisir une carte marron du joueur 2
-    joueur2.retirerCarte(carte_choisit); //!definir retirerCarte
-}
-
-void Merveille::exec_detruire_carte_grise(Joueur& joueur1, Joueur& joueur2) const{
-
-    CarteRessourceSecondaire* carte_choisit = joueur1.choisirCarteGriseAutreJoueur(); //? demander au joueur 1 de choisir une carte grise du joueur 2
-    joueur2.retirerCarte(carte_choisit); 
-}
-void Merveille::exec_jouer_carte_defausse(Joueur& joueur1, PlateauCartes& plateau_carte) const{
-
-
-    Carte* carte_choisit = joueur1.choisirCarteDefausse(); //? demander au joueur de choisir une carte de la defause 
-    joueur1.construireCarte(*carte_choisit); //! construireCarte est dans Controleur.cpp
-
-
+    CarteRessourcePrimaire* carte_choisit = joueur1->choisirCarteMarronAutreJoueur(); //? demander au joueur 1 de choisir une carte marron du joueur 2
+    joueur2->retirerCarte(carte_choisit); //!definir retirerCarte
 }
 
-void Merveille::exec_choisir_jeton_science(Joueur& joueur1, PlateauScience& plateau_science) const{
+void Merveille::exec_detruire_carte_grise(Joueur* joueur1, Joueur* joueur2) const{
+
+    CarteRessourceSecondaire* carte_choisit = joueur1->choisirCarteGriseAutreJoueur(); //? demander au joueur 1 de choisir une carte grise du joueur 2
+    joueur2->retirerCarte(carte_choisit); 
+}
+void Merveille::exec_jouer_carte_defausse(Joueur* joueur1, PlateauCartes& plateau_carte) const{
+
+
+    Carte* carte_choisit = joueur1->choisirCarteDefausse(); //? demander au joueur de choisir une carte de la defause 
+    joueur1->construireCarte(*carte_choisit); //! construireCarte est dans Controleur.cpp
+
+
+}
+
+void Merveille::exec_choisir_jeton_science(Joueur* joueur1, PlateauScience& plateau_science) const{
     JetonScience** liste_jeton = plateau_science.tirer_jeton_out_game();
-    joueur1.choisirJetonScienceParmis3(liste_jeton);
+    joueur1->choisirJetonScienceParmis3(liste_jeton);
 }
 
-void Merveille::exec_gagner_monnaie_12(Joueur& joueur1) const{joueur1.gagnerArgent(12);}
-void Merveille::exec_gagner_monnaie_6(Joueur& joueur1) const{joueur1.gagnerArgent(6);}
-void Merveille::exec_gagner_monnaie_3(Joueur& joueur1) const{joueur1.gagnerArgent(3);}
-void Merveille::exec_perdre_monnaie_3(Joueur& joueur2) const{joueur2.gagnerArgent(-3);}
+void Merveille::exec_gagner_monnaie_12(Joueur* joueur1) const{joueur1->gagnerArgent(12);}
+void Merveille::exec_gagner_monnaie_6(Joueur* joueur1) const{joueur1->gagnerArgent(6);}
+void Merveille::exec_gagner_monnaie_3(Joueur* joueur1) const{joueur1->gagnerArgent(3);}
+void Merveille::exec_perdre_monnaie_3(Joueur* joueur2) const{joueur2->gagnerArgent(-3);}
 
-void Merveille::exec_avancee_militaire(Joueur& joueur2, PlateauMilitaire& plateau_militaire) const{
+void Merveille::exec_avancee_militaire(Joueur* joueur2, PlateauMilitaire& plateau_militaire) const{
     plateau_militaire.update_avance(avance_militaire,joueur2);
 }
 

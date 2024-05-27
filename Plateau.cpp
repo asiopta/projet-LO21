@@ -278,17 +278,17 @@ PlateauScience::~PlateauScience() {
 
 
 //constructeur de PlateauMilitaire
-PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur& joueur_derr, Joueur& autre_joueur)
+PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur* joueur_derr, Joueur* autre_joueur)
     : avance(a), joueur_derriere(joueur_derr)
 {
-    liste_jetons_malus[0] = new JetonMalus(2, 3, &joueur_derr);
-    liste_jetons_malus[1] = new JetonMalus(5, 6, &joueur_derr);
-    liste_jetons_malus[2] = new JetonMalus(2, 3, &autre_joueur);
-    liste_jetons_malus[3] = new JetonMalus(5, 6, &autre_joueur);
+    liste_jetons_malus[0] = new JetonMalus(2, 3, joueur_derr);
+    liste_jetons_malus[1] = new JetonMalus(5, 6, joueur_derr);
+    liste_jetons_malus[2] = new JetonMalus(2, 3, autre_joueur);
+    liste_jetons_malus[3] = new JetonMalus(5, 6, autre_joueur);
 
 }
 
-void PlateauMilitaire::update_avance(unsigned int ajout, Joueur& joueur_cible){
+void PlateauMilitaire::update_avance(unsigned int ajout, Joueur* joueur_cible){
     //ajoute l'avancé militaire ajout en direction du joueur_cible
     if (joueur_cible == joueur_derriere) { 
         avance += ajout; //si je joueur cible est le joueur le plus derriere, on avance le pion dans sa direction et c'est tout
@@ -305,15 +305,15 @@ void PlateauMilitaire::update_avance(unsigned int ajout, Joueur& joueur_cible){
 JetonMalus* PlateauMilitaire::jeton_malus_ici() const{
     for(int i = 0; i < Dim_jetons_malus; i++){
         if (liste_jetons_malus[i] != nullptr){
-            if (liste_jetons_malus[i]->get_malus() != 0 and liste_jetons_malus[i]->get_positon() == avance  and liste_jetons_malus[i]->get_joueur() == &joueur_derriere) {
+            if (liste_jetons_malus[i]->get_malus() != 0 and liste_jetons_malus[i]->get_positon() == avance  and liste_jetons_malus[i]->get_joueur() == joueur_derriere) {
                 return liste_jetons_malus[i];
             }
         }
     }
 }
 
-bool PlateauMilitaire::gagneMilitairement(Joueur& joueur) const {
-    if (avance >= avance_win && &joueur != &joueur_derriere){
+bool PlateauMilitaire::gagneMilitairement(Joueur* joueur) const {
+    if (avance >= avance_win && joueur != joueur_derriere){
         return true;
     }
     else {

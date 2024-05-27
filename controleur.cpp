@@ -12,7 +12,7 @@ class Joueur;
 /*-------------------------------------Plateau-------------------------------------*/
 
 
-Plateau::Plateau(Joueur& joueur1, Joueur& joueur2){
+Plateau::Plateau(Joueur* joueur1, Joueur* joueur2){
     plateau_cartes = new PlateauCartes();
     plateau_cartes->addAge(); //! la fonction addage set a initialiser les cartes en jeu
     plateau_science = new PlateauScience();
@@ -46,7 +46,7 @@ Controleur::Controleur(){
     plateau = Plateau(joueur1, joueur2);
 }
 
-bool Controleur::gagne(Joueur& joueur){
+bool Controleur::gagne(Joueur* joueur){
     bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur);
     bool victoireScience = 0 ;
     return victoireMilitaire || victoireScience;
@@ -71,7 +71,7 @@ void Controleur::libererInstance(){
 }
 
 //méthodes utiles
-Joueur& Controleur::quiJoue(){
+Joueur* Controleur::quiJoue(){
     if(tour == 1) return joueur1;
     if(tour == 2) return joueur2;
     else SetException("erreur: joueur non reconnu!");
@@ -79,7 +79,7 @@ Joueur& Controleur::quiJoue(){
 
 
  bool Controleur::jeuEstFinie(){
-    return (plateau.isEtatFinal() || joueur1.gagneScientifiquement() || joueur2.gagneScientifiquement() ||
+    return (plateau.isEtatFinal() || joueur1->gagneScientifiquement() || joueur2->gagneScientifiquement() ||
         plateau.getPlateauMilitaire()->gagneMilitairement(joueur1) || plateau.getPlateauMilitaire()->gagneMilitairement(joueur2));
 
  }
@@ -88,24 +88,24 @@ Joueur& Controleur::quiJoue(){
  unsigned int Controleur::gagnant(){
     if(jeuEstFinie() == false) SetException("erreur: jeu pas fini"); return 0;
 
-    if(joueur1.gagneScientifiquement() || plateau.getPlateauMilitaire()->gagneMilitairement(joueur1)) return 1;
-    if(joueur2.gagneScientifiquement() || plateau.getPlateauMilitaire()->gagneMilitairement(joueur2)) return 2;
+    if(joueur1->gagneScientifiquement() || plateau.getPlateauMilitaire()->gagneMilitairement(joueur1)) return 1;
+    if(joueur2->gagneScientifiquement() || plateau.getPlateauMilitaire()->gagneMilitairement(joueur2)) return 2;
     else{
-        if(joueur1.getPtVictoire() > joueur2.getPtVictoire()) return 1;
+        if(joueur1->getPtVictoire() > joueur2->getPtVictoire()) return 1;
         else return 2;
     }
 
  }
 
-Joueur& Controleur::autreJoueur(Joueur& j){
+Joueur* Controleur::autreJoueur(Joueur* j){
     if(j == joueur1) return joueur2;
     if(j == joueur2) return joueur1;
     else SetException("erreur: joueur non reconnu");
 }
 
 bool Controleur::estConstructible(Carte* carte){
-    Joueur& j = quiJoue();
-    int diff = j.getMonnaie() - j.getCout(*carte, autreJoueur(j));
+    Joueur* j = quiJoue();
+    int diff = j->getMonnaie() - j->getCout(*carte, *autreJoueur(j));
     if(diff< 0) return false;
     else return true;
 }
@@ -115,13 +115,13 @@ bool Controleur::estConstructible(Carte* carte){
     //si la carte est accessible
     if(plateau.getPlateauCartes()->estAccessible(carte)){
         //niveau argent joueur
-        Joueur& j = quiJoue();
-        int diff = j.getMonnaie() - j.getCout(*carte, autreJoueur(j));
+        Joueur* j = quiJoue();
+        int diff = j->getMonnaie() - j->getCout(*carte, *autreJoueur(j));
         if(diff < 0) SetException(" erreur: joueur n'a pas assez d'argent et de ressources");
-        j.setMonnaie(diff);
+        j->setMonnaie(diff);
 
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
-        j.addCarte(carte);
+        j->addCarte(carte);
         if(carte->get_type() == TypeCarte::Merveille) plateau.getPlateauCartes()->prendreMerveille(dynamic_cast<Merveille*>(carte));
         else plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
         // leurs effets se fait au niveau de classe Joueur
@@ -148,8 +148,8 @@ void Controleur::defausserCarte(Carte* carte){
     if(plateau.getPlateauCartes()->estAccessible(carte)){
 
         //niveau argent joueur
-        Joueur& j = quiJoue();
-        j.setMonnaie(j.getMonnaie() + j.getCout(*carte, autreJoueur(j)));
+        Joueur* j = quiJoue();
+        j->setMonnaie(j->getMonnaie() + j->getCout(*carte, *autreJoueur(j)));
 
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
         if(carte->get_type() == TypeCarte::Merveille) SetException("erreur: impossible de défausser une merveille");
@@ -213,5 +213,9 @@ Action* Controleur::actionsLegales(){
 
     for(i; i<=60; i++) std::make_tuple( nullptr , "ignore");
 
-
 } 
+
+Controleur::~Controleur(){
+    delete joueur1;
+    delete joueur2;
+}

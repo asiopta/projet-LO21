@@ -13,7 +13,7 @@ using namespace std;
 
 //!--------------------------------LA FONCTION RECURSIVE QUI GERE LE JEU------------------------------------------*/
 
-int SevenWondersDuel(Controleur& controleur, Joueur& joueur_actif){ //le 1er joueur donnée en argument est le joueur qui joue
+int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er joueur donnée en argument est le joueur qui joue
 
     //** VERIFICATION DE LA VICTOIRE D'UN DES JOUEURS **//
     if (controleur.jeuEstFinie()) {
@@ -23,7 +23,7 @@ int SevenWondersDuel(Controleur& controleur, Joueur& joueur_actif){ //le 1er jou
     controleur.addTour(); //ajoute un tour à la partie
     //** CHOIX D'UNE ACTION POUR LE JOUEUR ACTIF **//
     while (true) {
-        Action action = joueur_actif.choisir_action(*(controleur.getPlateau().getPlateauCartes())); 
+        Action action = joueur_actif->choisir_action(*(controleur.getPlateau().getPlateauCartes())); 
         if (controleur.actionEstLegale(action)){
             controleur.playAction(action);
             break;
@@ -41,8 +41,8 @@ int SevenWondersDuel(Controleur& controleur, Joueur& joueur_actif){ //le 1er jou
     }
     else{
             //** PASSAGE AU TOUR SUIVANT **//
-        if (joueur_actif.getRejouer() == 1){ //gestion du second tour de jeu en cas de Rejouer == TRUE 
-            joueur_actif.setRejouerFalse();
+        if (joueur_actif->getRejouer() == 1){ //gestion du second tour de jeu en cas de Rejouer == TRUE 
+            joueur_actif->setRejouerFalse();
             SevenWondersDuel(controleur, joueur_actif); //le joueur rejoue
         }
         else{
@@ -59,8 +59,8 @@ const unsigned int NB_CHOIX_MERVEILLE = 4;
 
 void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
     if (joueur == 1){
-        Merveille* choix = jeu->getJoueur1().choisir_merveille(merveilles); //!!! A DEFINIR !!!//
-        jeu->getJoueur1().setMerveille(choix);
+        Merveille* choix = jeu->getJoueur1()->choisir_merveille(merveilles); //!!! A DEFINIR !!!//
+        jeu->getJoueur1()->setMerveille(choix);
         for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
             if (merveilles[i] == choix){
                 merveilles[i] = nullptr;
@@ -69,8 +69,8 @@ void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
     }
 
     else{
-        Merveille* choix = jeu->getJoueur2().choisir_merveille(merveilles); //!!! A DEFINIR !!!//
-        jeu->getJoueur2().setMerveille(choix);
+        Merveille* choix = jeu->getJoueur2()->choisir_merveille(merveilles); //!!! A DEFINIR !!!//
+        jeu->getJoueur2()->setMerveille(choix);
         for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
             if (merveilles[i] == choix){
                 merveilles[i] = nullptr;

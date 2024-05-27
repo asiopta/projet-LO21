@@ -26,7 +26,7 @@ private:
 
 public:
     //constructeurs/destructeur
-    Plateau(Joueur& joueur1, Joueur& joueur2); //initialise les 3 plateaux (militaire, science, cartes
+    Plateau(Joueur* joueur1, Joueur* joueur2); //initialise les 3 plateaux (militaire, science, cartes
 
     Plateau& operator=(const Plateau& plateau) = default; // potentiellement à refaire
     Plateau operator==(const Plateau& plateau); 
@@ -83,11 +83,11 @@ public:
 	const Plateau& getPlateau() const { return plateau; }
     Plateau& getPlateau() { return plateau; }
 
-    Joueur& getJoueur1() { return joueur1; };
-    const Joueur& getJoueur1() const{ return joueur1; };
+    Joueur* getJoueur1() { return joueur1; };
+    
 
-    Joueur& getJoueur2() { return joueur2; };
-    const Joueur& getJoueur2() const{ return joueur2; };
+    Joueur* getJoueur2() { return joueur2; };
+    
 
     int getTour() { return tour;};
     void addTour() { tour ++;};
@@ -95,12 +95,12 @@ public:
 
     //autres méthodes utiles
     //bool gagne(Joueur& joueur);
-    Joueur& quiJoue(); //retourne le joueur dont il est le tour de jouer //review
-    Joueur& autreJoueur(Joueur& j);
+    Joueur* quiJoue(); //retourne le joueur dont il est le tour de jouer //review
+    Joueur* autreJoueur(Joueur* j);
 
     bool jeuEstFinie(); // plateau.IsEtatFinal() || joueur1 a gagné || joueur2 a gagné //review
     unsigned int gagnant(); //retourne le gagnant du match //review
-    bool gagne(Joueur& joueur);
+    bool gagne(Joueur* joueur);
 
     bool estConstructible(Carte* carte);
     void construireCarte(Carte* carte); //review
@@ -113,6 +113,7 @@ public:
 
     Action* actionsLegales(); //review
         //renvoie une liste de ttes les actions légales que le joueurs, dont il est le tour de jouer, peut faire.
+    ~Controleur	();
     
 
 };

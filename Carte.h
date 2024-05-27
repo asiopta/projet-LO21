@@ -170,7 +170,7 @@ public:
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
     void set_symbole_science(SymboleScience s){symbole_science = s;}
 
-    void exec_capacite(Joueur& joueur1) const; //
+    void exec_capacite(Joueur* joueur1) const; //
     TypeCarte get_type() const override {return TypeCarte::CarteScience;};
     //destructeur
     virtual ~CarteScience(){};
@@ -220,7 +220,7 @@ public:
     void set_nb_symbole_militaire(unsigned int nb){nb_symbole_militaire=nb;}
 
 
-    void exec_capacite(Joueur& joueur_adverse, PlateauMilitaire& plateau_militaire) ;
+    void exec_capacite(Joueur* joueur_adverse, PlateauMilitaire& plateau_militaire) ;
     TypeCarte get_type() const override {return TypeCarte::CarteMilitaire;}; 
 
     //destructeur
@@ -266,17 +266,17 @@ public:
     void addCapacite(Capacite c); 
     
     void set_choix(bool c){choix = c;}
-    void exec_capacite(Joueur& joueur1, Joueur& joueur2, PlateauCartes& plateau_carte, PlateauMilitaire& plateau_militaire, PlateauScience& plateau_science) const;
-    void exec_rejouer(Joueur& joueur1) const;
-    void exec_detruire_carte_marron(Joueur& joueur1, Joueur& joueur2) const;
-    void exec_detruire_carte_grise(Joueur& joueur1, Joueur& joueur2) const;
-    void exec_jouer_carte_defausse(Joueur& joueur1, PlateauCartes& plateau_carte) const;
-    void exec_gagner_monnaie_12(Joueur& joueur1) const;
-    void exec_gagner_monnaie_3(Joueur& joueur1) const;
-    void exec_gagner_monnaie_6(Joueur& joueur1) const;
-    void exec_perdre_monnaie_3(Joueur& joueur1) const;
-    void exec_avancee_militaire(Joueur& joueur1, PlateauMilitaire& plateau_militaire) const;
-    void exec_choisir_jeton_science(Joueur& joueur1, PlateauScience& plateau_science) const;
+    void exec_capacite(Joueur* joueur1, Joueur* joueur2, PlateauCartes& plateau_carte, PlateauMilitaire& plateau_militaire, PlateauScience& plateau_science) const;
+    void exec_rejouer(Joueur* joueur1) const;
+    void exec_detruire_carte_marron(Joueur* joueur1, Joueur* joueur2) const;
+    void exec_detruire_carte_grise(Joueur* joueur1, Joueur* joueur2) const;
+    void exec_jouer_carte_defausse(Joueur* joueur1, PlateauCartes& plateau_carte) const;
+    void exec_gagner_monnaie_12(Joueur* joueur1) const;
+    void exec_gagner_monnaie_3(Joueur* joueur1) const;
+    void exec_gagner_monnaie_6(Joueur* joueur1) const;
+    void exec_perdre_monnaie_3(Joueur* joueur1) const;
+    void exec_avancee_militaire(Joueur* joueur1, PlateauMilitaire& plateau_militaire) const;
+    void exec_choisir_jeton_science(Joueur* joueur1, PlateauScience& plateau_science) const;
 
     unsigned int getPtVictoire()const override{return pt_victoire;}
     unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;
