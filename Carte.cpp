@@ -6,6 +6,7 @@
 
 
 
+
 /*-------------------------------------Enumerations-------------------------------------*/
 
 std::ostream& operator<<(std::ostream& f, const RessourcePrimaire& r){
@@ -735,32 +736,58 @@ void Merveille::exec_capacite(Joueur* joueur1, Joueur* joueur2, PlateauCartes& p
 
 
 
+
+
 void Merveille::exec_rejouer(Joueur* joueur1) const{
     joueur1->setRejouerTrue(); //! setRejouer est une méthode qui met l'attribut rejouer à True
 }
 void Merveille::exec_detruire_carte_marron(Joueur* joueur1, Joueur* joueur2) const{
+    unsigned int taille_tableau = joueur2->getNbCartesConstruites();
+    Carte** tableau_choix_possible = new Carte*[joueur2->getNbCartesConstruites()];
+    Carte** joueur2_cartes_construite = joueur2->getCartesConstruites();
 
-    CarteRessourcePrimaire* carte_choisit = joueur1->choisirCarteMarronAutreJoueur(); //? demander au joueur 1 de choisir une carte marron du joueur 2
-    joueur2->retirerCarte(carte_choisit); //!definir retirerCarte
+
+    for (int i = 0; i<taille_tableau; i++){
+        if (joueur2_cartes_construite[i]->get_type() != TypeCarte::CarteRessourcePrimaire){
+            tableau_choix_possible[i] = joueur2_cartes_construite[i];
+        }
+        else {tableau_choix_possible[i] = nullptr;}
+    }
+
+    Carte* carte_choisit = choisirCarte(tableau_choix_possible,taille_tableau); 
+    joueur2->retirerCarte(carte_choisit); //!une fois la carte choisit, on retire la carte du joueur 2
 }
 
 void Merveille::exec_detruire_carte_grise(Joueur* joueur1, Joueur* joueur2) const{
+    unsigned int taille_tableau = joueur2->getNbCartesConstruites();
+    Carte** tableau_choix_possible = new Carte*[joueur2->getNbCartesConstruites()];
+    Carte** joueur2_cartes_construite = joueur2->getCartesConstruites();
 
-    CarteRessourceSecondaire* carte_choisit = joueur1->choisirCarteGriseAutreJoueur(); //? demander au joueur 1 de choisir une carte grise du joueur 2
-    joueur2->retirerCarte(carte_choisit); 
+
+    for (int i = 0; i<taille_tableau; i++){
+        if (joueur2_cartes_construite[i]->get_type() != TypeCarte::CarteRessourceSecondaire){
+            tableau_choix_possible[i] = joueur2_cartes_construite[i];
+        }
+        else {tableau_choix_possible[i] = nullptr;}
+    }
+
+    Carte* carte_choisit = choisirCarte(tableau_choix_possible,taille_tableau); //demande au joueur actif de choisit la carte grise du joueur 2
+    joueur2->retirerCarte(carte_choisit); //! une fois la carte choisit, on retire la carte du joueur 2
 }
+
+
 void Merveille::exec_jouer_carte_defausse(Joueur* joueur1, PlateauCartes& plateau_carte) const{
 
-
-    Carte* carte_choisit = joueur1->choisirCarteDefausse(); //? demander au joueur de choisir une carte de la defause 
-    joueur1->construireCarte(*carte_choisit); //! construireCarte est dans Controleur.cpp
+    Carte* carte_choisit = choisirCarte(plateau_carte.getDefausse(), TAILLE_DEFAUSSES); 
+    // joueur1->construireCarte(*carte_choisit); //! construireCarte est dans Controleur.cpp
 
 
 }
 
 void Merveille::exec_choisir_jeton_science(Joueur* joueur1, PlateauScience& plateau_science) const{
     JetonScience** liste_jeton = plateau_science.tirer_jeton_out_game();
-    joueur1->choisirJetonScience(liste_jeton, 3);
+    JetonScience* choix = choisirJetonScience(liste_jeton, 3); //une fois le choix executé par le joueur
+    joueur1->construireJeton(choix); //on construit le jeton choisit
 }
 
 void Merveille::exec_gagner_monnaie_12(Joueur* joueur1) const{joueur1->gagnerArgent(12);}

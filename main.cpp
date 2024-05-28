@@ -59,7 +59,7 @@ const unsigned int NB_CHOIX_MERVEILLE = 4;
 
 void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
     if (joueur == 1){
-        Merveille* choix = jeu->getJoueur1()->choisir_merveille(merveilles); //!!! A DEFINIR !!!//
+        Merveille* choix = choisirCarte(merveilles, 4); //!!! A DEFINIR !!!//
         jeu->getJoueur1()->setMerveille(choix);
         for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
             if (merveilles[i] == choix){
@@ -69,7 +69,7 @@ void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
     }
 
     else{
-        Merveille* choix = jeu->getJoueur2()->choisir_merveille(merveilles); //!!! A DEFINIR !!!//
+        Merveille* choix = choisirCarte(merveilles, 4); //!!! A DEFINIR !!!//
         jeu->getJoueur2()->setMerveille(choix);
         for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
             if (merveilles[i] == choix){

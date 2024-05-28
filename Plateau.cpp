@@ -49,7 +49,7 @@ void exec_economie(Joueur* joueur) {
 void exec_loi(Joueur* joueur) {
     // implementation of exec_loi
     //Rapport un symbole science balance
-    joueur->addSymboleScience(SymboleScience::balance); //addSymboleScience est une méthode de la classe Joueur qui ajoute un symbole science balance
+    joueur->addSymboleBalance(); //addSymboleScience est une méthode de la classe Joueur qui ajoute un symbole science balance
 }
 
 void exec_maconnerie(Joueur* joueur) {

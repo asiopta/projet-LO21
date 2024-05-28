@@ -155,4 +155,7 @@ std::ostream& operator <<(std::ostream& f, CapaciteScience c){
 }
 
 
+
+
+
 #endif // CONST_AND_ENUM_H

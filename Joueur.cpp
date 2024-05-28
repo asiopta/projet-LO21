@@ -124,7 +124,7 @@ void Joueur::addCapaciteJeton(const CapaciteScience& capacite){
     }
 }
 
-void Joueur::construireJeton(JetonScience& jeton){
+void Joueur::construireJeton(JetonScience* jeton){
     // switch (jeton)
     // {
     // case CapaciteScience::loi: symboles_science.autre = true; break;
@@ -137,7 +137,7 @@ void Joueur::construireJeton(JetonScience& jeton){
     //     break;
     // default: addCapaciteJeton(jeton); break;
     // }
-    jeton.exec_capacite_science(this);
+    jeton->exec_capacite_science(this);
 
     //! + gerer le fait que le jeton n'est plus prenable
 
@@ -159,36 +159,36 @@ unsigned int Joueur::getNbSymbolesScience()const{
     return res;
 }
 
-void Joueur::addSymboleScience(const SymboleScience s){
+void Joueur::addSymboleScience(const SymboleScience s, PlateauScience* plateau_science){
     switch (s)
     {
     case SymboleScience::roue: 
         symboles_science.roue++;
-        if(symboles_science.roue == 2) choisirJeton();
+        if(symboles_science.roue == 2) construireJeton(choisirJetonScience(plateau_science->getJetonInGame(), 5));
         break;
     case SymboleScience::plume:
         symboles_science.plume++;
-        if(symboles_science.plume == 2) choisirJeton();
+        if(symboles_science.plume == 2) construireJeton(choisirJetonScience(plateau_science->getJetonInGame(), 5));
         break;
     case SymboleScience::pilon:
         symboles_science.pilon++;
-        if(symboles_science.pilon == 2) choisirJeton();
+        if(symboles_science.pilon == 2) construireJeton(choisirJetonScience(plateau_science->getJetonInGame(), 5));
         break;
     case SymboleScience::balance:
         symboles_science.balance++;
-        if(symboles_science.balance ==2) choisirJeton();
+        if(symboles_science.balance ==2) construireJeton(choisirJetonScience(plateau_science->getJetonInGame(), 5));;
         break;
     case SymboleScience::globe_terrestre:
         symboles_science.globe_terrestre++;
-        if(symboles_science.globe_terrestre == 2) choisirJeton();
+        if(symboles_science.globe_terrestre == 2) construireJeton(choisirJetonScience(plateau_science->getJetonInGame(), 5));;
         break;
     case SymboleScience::fil_a_plomb:
         symboles_science.fil_a_plomb++;
-        if(symboles_science.fil_a_plomb == 2) choisirJeton();
+        if(symboles_science.fil_a_plomb == 2) construireJeton(choisirJetonScience(plateau_science->getJetonInGame(), 5));;
         break;
     case SymboleScience::bateau:
         symboles_science.bateau++;
-        if(symboles_science.bateau == 2) choisirJeton();
+        if(symboles_science.bateau == 2) construireJeton(choisirJetonScience(plateau_science->getJetonInGame(), 5));;
         break;
     default:
         break;
@@ -767,9 +767,9 @@ void Joueur::updateSymbolesChainageCarte(Carte* carte){
 }
 
 
-void Joueur::updateSymbolesScienceCarte(Carte* carte){
+void Joueur::updateSymbolesScienceCarte(Carte* carte, PlateauScience* plateau_sciencea){
     if(carte->get_type()== TypeCarte::CarteScience){
-        addSymboleScience(carte->getSymboleScience());
+        addSymboleScience(carte->getSymboleScience(), plateau_sciencea);
     }
 }
 
@@ -896,9 +896,7 @@ unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
 }
 
 
-void Joueur::choisirJeton(){
-    return;
-}
+
 
 
 

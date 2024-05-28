@@ -67,9 +67,9 @@ private:
     const int Dim_jetons_in_game = 5; //est la dimension du tableau jeton_in_game
     const int Dim_liste_position = 5; //est la dimension du tableau liste_position
     const int Dim_jetons_out_game = 5; //est la dimension du tableau jeton_out_game
-    JetonScience **jeton_in_game;
-    unsigned int *liste_position;
-    JetonScience **jeton_out_game;
+    JetonScience** jeton_in_game;
+    unsigned int* liste_position;
+    JetonScience** jeton_out_game;
 
 public:
     PlateauScience();
@@ -78,6 +78,7 @@ public:
     void retirer_jeton_in_game(JetonScience& jeton);
     void ajouter_jeton_in_game(JetonScience& jeton);
     void ajouter_jeton_out_game(JetonScience& jeton);
+    JetonScience** getJetonInGame() const{return jeton_in_game;}
     ~PlateauScience();
 };
 
@@ -150,7 +151,21 @@ public:
 };
 
 
-
+//!FONCTION DE CHOIX pour les jetons science 
+//généralement taille du tableau vaut un nombre entre 1 et 5
+JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau){
+    std::cout << "Choisissez un jeton science parmi les suivants: " << std::endl;
+    for (int i = 0; i<3; i++){
+        std::cout << i+1 << " : " << liste_jetons[i]->get_capacite() << std::endl;
+    }
+    int choix;
+    std::cin >> choix;
+    while (choix <= 0 || choix > 3){
+        std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et 3" << std::endl;
+        std::cin >> choix;
+    return liste_jetons[choix-1];
+    }
+}
 
 
 

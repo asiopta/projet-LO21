@@ -68,7 +68,8 @@ class Joueur{
 TODO: estConstructible()
 TODO: changer la fonction construireCarte(carte);
 TODO; defausserCarte(carte)
-TODO: choisirJetons()
+//TODO: choisirJetons()
+
 
 
 
@@ -234,6 +235,7 @@ public:
     unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const ; //ok
     Ressource* getRessources(){return &ressources;}; //review
     bool getRejouer() const {return rejouer;}; //ok
+    Carte** getCartesConstruites() {return cartes_construite;}; //review
 
 
     //setteurs générales
@@ -251,12 +253,14 @@ public:
 
 
     //méthodes de jetons
-    void construireJeton(JetonScience& jeton); //construit le jeton pour le joueur
+    void construireJeton(JetonScience* jeton); //construit le jeton pour le joueur
+    
     
     //méthodes de l'attribut symboles_science
     unsigned int getNbSymbolesScience()const; //review
     bool gagneScientifiquement() const {return getNbSymbolesScience() >= 6;};//review
-    void addSymboleScience(const SymboleScience s); //review
+    void addSymboleScience(const SymboleScience s, PlateauScience* plateau_science); //review
+    void addSymboleBalance() {symboles_science.balance++;}; //review
     void removeSymboleScience(SymboleScience& s); // review
 
 
@@ -292,7 +296,7 @@ public:
     //! à utiliser qd on contruit une carte 
     void updatePtVictoireCarte(Carte* carte); //review
     void updateSymbolesChainageCarte(Carte* carte); // review
-    void updateSymbolesScienceCarte(Carte* carte); //review
+    void updateSymbolesScienceCarte(Carte* carte, PlateauScience* plateau_science); //review
     void updateEffetsGuilde(Carte* carte); //review
     void addCarte(Carte* carte); // review
 
@@ -300,9 +304,7 @@ public:
     unsigned int getCout(const Carte& carte, Joueur& adversaire); //review
 
 
-    //c'est une fonction qui choisit un jeton dans le plateau et le construit
-    void choisirJeton(); // à faire 
-    
+
     //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
     Action choisir_action(PlateauCartes& p); // à faire plus tard
 
