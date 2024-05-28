@@ -85,7 +85,7 @@ bool Controleur::estConstructible(Carte* carte){
         j->setMonnaie(diff);
 
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
-        j->addCarte(carte);
+        j->addCarte(carte, plateau.getPlateauScience());
         if(carte->get_type() == TypeCarte::Merveille) plateau.getPlateauCartes()->prendreMerveille(dynamic_cast<Merveille*>(carte));
         else plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
         // leurs effets se fait au niveau de classe Joueur

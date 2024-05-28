@@ -779,7 +779,7 @@ void Joueur::updateEffetsGuilde(Carte* carte){
     }
 }
 
-void Joueur::addCarte(Carte* carte){
+void Joueur::addCarte(Carte* carte, PlateauScience* plateau_science){
     if( carte->get_type()==TypeCarte::Merveille){
         //!corriger ca
         Merveille* merveille = dynamic_cast<Merveille*>(carte);;
@@ -797,7 +797,7 @@ void Joueur::addCarte(Carte* carte){
         //!comment faire si c'est carteCommerce et ca produit deux trucs
 
 
-        if(carte->get_type() == TypeCarte::CarteScience) updateSymbolesScienceCarte(carte);
+        if(carte->get_type() == TypeCarte::CarteScience) updateSymbolesScienceCarte(carte, plateau_science);
         if(carte->get_type()== TypeCarte::CarteGuilde) updateEffetsGuilde(carte);
     }
 } 

@@ -298,7 +298,7 @@ public:
     void updateSymbolesChainageCarte(Carte* carte); // review
     void updateSymbolesScienceCarte(Carte* carte, PlateauScience* plateau_science); //review
     void updateEffetsGuilde(Carte* carte); //review
-    void addCarte(Carte* carte); // review
+    void addCarte(Carte* carte, PlateauScience* plateau_science); // review
 
     //construire une carte
     unsigned int getCout(const Carte& carte, Joueur& adversaire); //review
