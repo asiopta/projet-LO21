@@ -468,8 +468,8 @@ CarteScience::CarteScience(const CarteScience &c)
         capacite = Capacite::ajouter_symbole_science;
     }
 
-void CarteScience::exec_capacite(Joueur* joueur1) const{
-    joueur1->addSymboleScience(symbole_science); //error résolu
+void CarteScience::exec_capacite(Joueur* joueur1, PlateauScience* plateau_science) const{
+    joueur1->addSymboleScience(symbole_science, plateau_science); //error résolu
 }
 
 /*--------------------------------------------------------------------------*/

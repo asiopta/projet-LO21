@@ -170,7 +170,7 @@ public:
     void set_pt_victoire(unsigned int n){pt_victoire =n;}
     void set_symbole_science(SymboleScience s){symbole_science = s;}
 
-    void exec_capacite(Joueur* joueur1) const; //
+    void exec_capacite(Joueur* joueur1, PlateauScience* plateau_science) const; //
     TypeCarte get_type() const override {return TypeCarte::CarteScience;};
     //destructeur
     virtual ~CarteScience(){};
