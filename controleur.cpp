@@ -143,7 +143,6 @@ void Controleur::playAction(Action& action){
 
 bool Controleur::actionEstLegale(Action& action){
     Carte* carte = std::get<0>(action);
-    //!prendre en compte les merveilles
     if(plateau.getPlateauCartes()->estAccessible(carte)){
         if(std::get<1>(action) == "defausser")
             return true;
@@ -154,16 +153,22 @@ bool Controleur::actionEstLegale(Action& action){
         else 
             throw SetException("erreur: action non reconnue;");
     }
+    if(carte->get_type() == TypeCarte::Merveille){
+        if(std::get<1>(action) == "construire"){
+            Merveille* merveille = dynamic_cast<Merveille*>(carte);
+            return quiJoue()->isInMerveillesNonConstruites(merveille) && estConstructible(carte);
+        }
+        else return false;
+    }
     else return false;
 }
 
 
 Action* Controleur::actionsLegales(){
-    //!merveilles
+    //Cartes
     Action* res = new Action[60];
     int j = 0;
-    int i = 0;
-    for(i; i<TAILLE_CARTE_EN_JEU; i++){
+    for(int i= 0; i<TAILLE_CARTE_EN_JEU; i++){
         Carte* carte= plateau.getPlateauCartes()->getCartesEnJeu()[i];
         if(carte->est_accessible()){
             if(estConstructible(carte)){
@@ -175,9 +180,17 @@ Action* Controleur::actionsLegales(){
         }
     }
     //merveilles
-    
+    Joueur* joueur = quiJoue();
+    Merveille** liste = joueur->getMerveillesNonConstruites();
+    for(int i =0; i<joueur->getNbMerveillesNonConstruites(); i++){
+        if(estConstructible(liste[i])){
+            res[j] = std::make_tuple(liste[i], "construire");
+            j++;
+        }
+    }
 
-    for(i; i<=60; i++) std::make_tuple( nullptr , "ignore");
+
+    for(j; j<=60; j++) std::make_tuple( nullptr , "ignore");
 
 } 
 

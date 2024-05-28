@@ -529,8 +529,8 @@ Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false){
     symboles_chainage = SymbolesChainage();
     effets = Effets();
     for(int i=0; i<60; i++) cartes_construite[i] = nullptr;
-    for(int i=0; i<4; i++) merveille_construite[i] = nullptr;
-    for(int i=0; i<4; i++) merveille_non_construite[i] = nullptr;
+    for(int i=0; i<5; i++) merveille_construite[i] = nullptr;
+    for(int i=0; i<5; i++) merveille_non_construite[i] = nullptr;
 }
 
 Joueur::Joueur(const Joueur& j): monnaie(j.monnaie), pt_victoire(j.pt_victoire), nb_jetons(j.nb_jetons),
@@ -538,8 +538,8 @@ rejouer(j.rejouer), ressources(j.ressources), capacites(j.capacites), symboles_s
 symboles_chainage(j.symboles_chainage), effets(j.effets)
 {
     for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
-    for(int i=0; i<4; i++) merveille_construite[i] = j.merveille_construite[i];
-    for(int i=0; i<4; i++) merveille_non_construite[i] = j.merveille_non_construite[i];
+    for(int i=0; i<5; i++) merveille_construite[i] = j.merveille_construite[i];
+    for(int i=0; i<5; i++) merveille_non_construite[i] = j.merveille_non_construite[i];
 
 }
 
@@ -559,8 +559,8 @@ Joueur& Joueur::operator=(const Joueur& j){
         free(merveille_construite);
         free(merveille_non_construite);
         for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
-        for(int i=0; i<4; i++) merveille_construite[i] = j.merveille_construite[i];
-        for(int i=0; i<4; i++) merveille_non_construite[i] = j.merveille_non_construite[i];
+        for(int i=0; i<5; i++) merveille_construite[i] = j.merveille_construite[i];
+        for(int i=0; i<5; i++) merveille_non_construite[i] = j.merveille_non_construite[i];
     }
     return *this;
 }
@@ -589,7 +589,7 @@ unsigned int Joueur::getNbCartesConstruites() const{
 
 unsigned int Joueur::getNbMerveillesConstruites() const {
     unsigned int i = 0;
-    while(i<4 && merveille_construite[i]!= NULL){
+    while(i<5 && merveille_construite[i]!= NULL){
         i++;
     }
     return i;
@@ -597,7 +597,7 @@ unsigned int Joueur::getNbMerveillesConstruites() const {
 
 unsigned int Joueur::getNbMerveillesNonConstruites()const{
     unsigned int i = 0;
-    while(i<4 && merveille_non_construite[i]!= NULL){
+    while(i<5 && merveille_non_construite[i]!= NULL){
         i++;
     }
     return i;
@@ -687,6 +687,14 @@ unsigned int Joueur::getNbCartesType(std::string type) const {
         default:
             return 0;
     }
+}
+
+
+bool Joueur::isInMerveillesNonConstruites(Merveille* merveille){
+    for(int i=0; i< getNbMerveillesNonConstruites(); i++){
+        if(merveille_non_construite[i] == merveille) return true;
+    }
+    return false;
 }
 
 void Joueur::setMerveille(Merveille* merveille){
@@ -781,9 +789,20 @@ void Joueur::updateEffetsGuilde(Carte* carte){
 
 void Joueur::addCarte(Carte* carte, PlateauScience* plateau_science){
     if( carte->get_type()==TypeCarte::Merveille){
-        //!corriger ca
-        Merveille* merveille = dynamic_cast<Merveille*>(carte);;
-        setMerveille(merveille);
+        Merveille* merveille = dynamic_cast<Merveille*>(carte);
+        bool found = false;
+        unsigned int nb = getNbMerveillesNonConstruites();
+        for(int i=0; i<nb; i++){
+            if (merveille_non_construite[i] == merveille)
+                found = true;
+            
+            if (found && i < nb - 1) 
+                merveille_non_construite[i] = merveille_non_construite[i + 1];
+        }
+        if (found) {
+            merveille_non_construite[nb - 1] = nullptr;
+            merveille_construite[getNbMerveillesConstruites()] = merveille;
+        }
         updateRessourcesCarte(carte);
     }
     else{
@@ -794,7 +813,6 @@ void Joueur::addCarte(Carte* carte, PlateauScience* plateau_science){
         if(carte->get_type() == TypeCarte::CarteRessourcePrimaire || carte->get_type() == TypeCarte::CarteRessourceSecondaire){
             updateRessourcesCarte(carte);
         }
-        //!comment faire si c'est carteCommerce et ca produit deux trucs
 
 
         if(carte->get_type() == TypeCarte::CarteScience) updateSymbolesScienceCarte(carte, plateau_science);

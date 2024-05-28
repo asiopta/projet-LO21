@@ -77,7 +77,7 @@ TODO; defausserCarte(carte)
 
 private:
     Carte* cartes_construite[60];
-    Merveille* merveille_construite[4];
+    Merveille* merveille_construite[5];
     Merveille* merveille_non_construite[5];
     unsigned int nb_jetons;
     unsigned int monnaie;
@@ -236,7 +236,9 @@ public:
     Ressource* getRessources(){return &ressources;}; //review
     bool getRejouer() const {return rejouer;}; //ok
     Carte** getCartesConstruites() {return cartes_construite;}; //review
-
+    
+    Merveille** getMerveillesNonConstruites(){ return merveille_non_construite;}
+    bool isInMerveillesNonConstruites(Merveille* merveille);
 
     //setteurs générales
     void setMonnaie(unsigned int argent){ monnaie = argent; }; //ok
