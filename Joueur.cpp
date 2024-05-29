@@ -144,6 +144,60 @@ void Joueur::construireJeton(JetonScience* jeton){
 
 }
 
+//TODO //////////////////////////////////////////////////////////////////
+//!FONCTION DE CHOIX
+
+Carte* Joueur::choisirCarte(Carte** liste_cartes, unsigned int taille_tableau){
+    //prend en argument une liste de pointeurs vers des cartes accessibles, et demande au joueur d'en choisir une
+    //renvoie un pointeur vers la carte choisit
+    std::cout << "Choisissez une carte parmi les suivantes: " << std::endl;
+    for (int i = 0; i<taille_tableau; i++){
+        std::cout << i+1 << " : " << liste_cartes[i]->getNom() << std::endl;
+    }
+    int choix;
+    std::cin >> choix;
+    while (choix <= 0 || choix > taille_tableau){
+        std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << taille_tableau << std::endl;
+        std::cin >> choix;
+    return liste_cartes[choix-1];
+    }
+}
+
+//!surcharge pour les merveilles
+Merveille* Joueur::choisirCarte(Merveille** liste_merveilles, unsigned int taille_tableau){
+    //prend en argument une liste de pointeurs vers des cartes accessibles, et demande au joueur d'en choisir une
+    //renvoie un pointeur vers la carte choisit
+    std::cout << "Choisissez une merveille parmi les suivantes: " << std::endl;
+    for (int i = 0; i<taille_tableau; i++){
+        std::cout << i+1 << " : " << liste_merveilles[i]->getNom() << std::endl;
+    }
+    int choix;
+    std::cin >> choix;
+    while (choix <= 0 || choix > taille_tableau){
+        std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << taille_tableau << std::endl;
+        std::cin >> choix;
+    return liste_merveilles[choix-1];
+    }
+}
+
+//!FONCTION DE CHOIX pour les jetons science 
+//généralement taille du tableau vaut un nombre entre 1 et 5
+JetonScience* Joueur::choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau){
+    std::cout << "Choisissez un jeton science parmi les suivants: " << std::endl;
+    for (int i = 0; i<3; i++){
+        // std::cout << i+1 << " : " << liste_jetons[i]->get_capacite() << std::endl;
+        std::cout << "ceci est un teste"; //TODO TESTE
+    }
+    int choix;
+    std::cin >> choix;
+    while (choix <= 0 || choix > 3){
+        std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et 3" << std::endl;
+        std::cin >> choix;
+    return liste_jetons[choix-1];
+    }
+}
+//TODO //////////////////////////////////////////////////////////////////
+
 
 /*---------------Classe SymbolesScience----------------*/
 unsigned int Joueur::getNbSymbolesScience()const{

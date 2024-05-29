@@ -11,6 +11,8 @@ using namespace std;
 using namespace std;
 
 
+
+
 //!--------------------------------LA FONCTION RECURSIVE QUI GERE LE JEU------------------------------------------*/
 
 int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er joueur donnée en argument est le joueur qui joue
@@ -59,8 +61,9 @@ const unsigned int NB_CHOIX_MERVEILLE = 4;
 
 void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
     if (joueur == 1){
-        Merveille* choix = choisirCarte(merveilles, 4); //!!! A DEFINIR !!!//
-        jeu->getJoueur1()->setMerveille(choix);
+        Joueur* joueur1 = jeu->getJoueur1();
+        Merveille* choix = joueur1->choisirCarte(merveilles, 4); //!!! A DEFINIR !!!//
+        joueur1->setMerveille(choix);
         for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
             if (merveilles[i] == choix){
                 merveilles[i] = nullptr;
@@ -69,8 +72,9 @@ void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
     }
 
     else{
-        Merveille* choix = choisirCarte(merveilles, 4); //!!! A DEFINIR !!!//
-        jeu->getJoueur2()->setMerveille(choix);
+        Joueur* joueur2 = jeu->getJoueur2();
+        Merveille* choix = joueur2->choisirCarte(merveilles, 4); //!!! A DEFINIR !!!//
+        joueur2->setMerveille(choix);
         for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
             if (merveilles[i] == choix){
                 merveilles[i] = nullptr;

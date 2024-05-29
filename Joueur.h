@@ -312,7 +312,9 @@ public:
 
     //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
     Action choisir_action(PlateauCartes& p); // à faire plus tard
-
+    Carte* choisirCarte(Carte** liste_cartes, unsigned int taille_tableau);
+    Merveille* choisirCarte(Merveille** liste_merveilles, unsigned int taille_tableau);
+    JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau);
 
 /*
     + get_cout(Carte) -> unsigned int (monnaie) //** existe deja dans carte ?

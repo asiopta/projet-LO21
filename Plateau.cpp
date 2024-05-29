@@ -17,6 +17,8 @@ const unsigned int NB_CARTE_AGE_3_TOT = 20;
 const int NB_CARTE_GUILDE_TOT= 7;
 const int NB_CARTE_GUILDE_JEU = 3;
 
+
+
 /*-------------------------------------JetonScience-------------------------------------*/
 
 JetonScience::JetonScience() : capacite(CapaciteScience::none) {} //si vous n'arrivez pas à lire le none, verifier qu'il y est bien dans le enum de CapaciteScience
