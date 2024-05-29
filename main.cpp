@@ -16,7 +16,7 @@ using namespace std;
 //!--------------------------------LA FONCTION RECURSIVE QUI GERE LE JEU------------------------------------------*/
 
 int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er joueur donnée en argument est le joueur qui joue
-
+    cout << "Je suis la";
     //** VERIFICATION DE LA VICTOIRE D'UN DES JOUEURS **//
     if (controleur.jeuEstFinie()) {
         return controleur.gagnant();
@@ -25,7 +25,7 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     controleur.addTour(); //ajoute un tour à la partie
     //** CHOIX D'UNE ACTION POUR LE JOUEUR ACTIF **//
     while (true) {
-        Action action = joueur_actif->choisir_action(*(controleur.getPlateau().getPlateauCartes())); 
+        Action action = joueur_actif->choisir_action(controleur.getPlateau().getPlateauCartes()); 
         if (controleur.actionEstLegale(action)){
             controleur.playAction(action);
             break;
@@ -86,16 +86,17 @@ void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
 int main(){
 
     //!INITIALISATION DU JEU
-
+    try{
     cout << "Bienvenue dans 7 Wonders Duel!" << endl;
-    Controleur* jeu =  new Controleur(); // initialisation du jeu via le controleur
+    Controleur* jeu =  new Controleur();// initialisation du jeu via le controleur}
 
-    
+
     //!CHOIX DES MERVEILLES
     Merveille** merveille = jeu->getPlateau().getPlateauCartes()->getMerveilles(); //recuperation des merveilles
     Merveille** merveilles_etape_1; //creation du premier lot de 4 merveilles
     for (int i = 0; i < NB_CHOIX_MERVEILLE; i++){
         merveilles_etape_1[i] = merveille[i];
+
     }
     Merveille** merveilles_etape_2; //creation du deuxieme lot de 4 merveilles
     for (int i =0; i < NB_CHOIX_MERVEILLE; i++){
@@ -122,7 +123,11 @@ int main(){
         cout << "Le joueur 2 a gagné!" << endl;
     }
     delete jeu;
-    return 0;
+    return 0;}
+
+    catch (...) {
+        std::cerr << "Une exception inconnue a été lancée" << std::endl;
+        return 1;}
 }
 
 

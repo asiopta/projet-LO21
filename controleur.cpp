@@ -10,9 +10,13 @@
 
 /*---------------------classe Controleur-----------------------------------*/
 Controleur::Controleur() : plateau(joueur1, joueur2){
+    std::cout << "Controleur créé" << std::endl;
     joueur1 = new Joueur();
     joueur2 = new Joueur();
+    throw std::runtime_error("Erreur dans le constructeur");
 }
+
+
 
 bool Controleur::gagne(Joueur* joueur){
     bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur);

@@ -196,7 +196,23 @@ JetonScience* Joueur::choisirJetonScience(JetonScience** liste_jetons, unsigned 
     return liste_jetons[choix-1];
     }
 }
-//TODO //////////////////////////////////////////////////////////////////
+
+//Rappel : using Action = std::tuple<Carte*, std::string>; 
+
+Action Joueur::choisir_action(PlateauCartes* plateau_cartes){
+    Carte** cartes = plateau_cartes->getCartesAccessibles();
+    // unsigned int taille = plateau_cartes->getNbCartesAccessibles();
+    Carte* carte = choisirCarte(cartes, 10);
+
+    std::string action;
+    std::cout << "Voulez-vous construire ou defausser la carte ?" << std::endl;
+    std::cin >> action;
+    while (action != "construire" && action != "defausser"){
+        std::cout << "Action invalide, veuillez choisir entre 'construire' et 'defausser'" << std::endl;
+        std::cin >> action;
+    }
+    return std::make_tuple(carte, action);
+}
 
 
 /*---------------Classe SymbolesScience----------------*/
