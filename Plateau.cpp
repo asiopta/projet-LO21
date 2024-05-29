@@ -134,6 +134,10 @@ JetonMalus::JetonMalus(unsigned int m, unsigned int position, Joueur* j) : malus
     }
 }
 
+bool JetonMalus::operator==(const JetonMalus& other) const {
+    //compair address of other and this
+    return this == &other;
+}
 
 
 

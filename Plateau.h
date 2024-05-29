@@ -59,10 +59,7 @@ public:
     ~JetonMalus() = default;
 };
 
-bool JetonMalus::operator==(const JetonMalus& other) const {
-    //compair address of other and this
-    return this == &other;
-}
+
 
 
 /*-------------------------------------PlateauScience-------------------------------------*/
@@ -160,7 +157,8 @@ public:
 JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau){
     std::cout << "Choisissez un jeton science parmi les suivants: " << std::endl;
     for (int i = 0; i<3; i++){
-        std::cout << i+1 << " : " << liste_jetons[i]->get_capacite() << std::endl;
+        // std::cout << i+1 << " : " << liste_jetons[i]->get_capacite() << std::endl;
+        std::cout << "ceci est un teste"; //TODO TESTE
     }
     int choix;
     std::cin >> choix;
