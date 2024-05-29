@@ -1,3 +1,6 @@
+#ifndef CARTE_H
+#define CARTE_H
+
 #pragma once
 #include "Joueur.h"
 #include "Plateau.h"
@@ -330,3 +333,4 @@ Merveille* choisirCarte(Merveille** liste_merveilles, unsigned int taille_tablea
 
 
 
+#endif

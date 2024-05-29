@@ -1,3 +1,6 @@
+#ifndef JOUEUR_H
+#define JOUEUR_H
+
 #pragma once
 #include <iostream>
 #include <string>
@@ -323,3 +326,5 @@ public:
 
 
 // TypeCarte hashit(std::string const& type);
+
+#endif

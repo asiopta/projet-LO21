@@ -1,3 +1,7 @@
+#ifndef PLATEAU_H
+#define PLATEAU_H
+
+
 #pragma once
 #include <iostream>
 #include <string>
@@ -170,4 +174,4 @@ JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int tail
 
 
 
-
+#endif //PLATEAU_H

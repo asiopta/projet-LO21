@@ -1,3 +1,6 @@
+#ifndef CONTROLEUR_H
+#define CONTROLEUR_H
+
 #pragma once
 #include <iostream>
 #include <string>
@@ -122,4 +125,4 @@ public:
 * 
 */
 
-
+#endif
