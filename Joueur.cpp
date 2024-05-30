@@ -180,7 +180,12 @@ Merveille* Joueur::choisirCarte(Merveille** liste_merveilles, unsigned int taill
     }
 }
 
-//!FONCTION DE CHOIX pour les jetons science 
+//*FONCTION DE CHOIX pour les jetons science 
+//! le choix doit se faire sur le nombre de Jetons qui restent sur le plateauScience et non pas sur 3 jetons seulement
+
+//! à ne pas confondre avec le choix effectué qu'on construit une merveille spécéfique où on choisit parmi 3 jetons qui
+//!ne sont pas dans le plateuScience
+
 //généralement taille du tableau vaut un nombre entre 1 et 5
 JetonScience* Joueur::choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau){
     std::cout << "Choisissez un jeton science parmi les suivants: " << std::endl;
@@ -198,11 +203,12 @@ JetonScience* Joueur::choisirJetonScience(JetonScience** liste_jetons, unsigned 
 }
 
 //Rappel : using Action = std::tuple<Carte*, std::string>; 
-
+//! faut plutot utiliser la fonction actionsLegales du controleur, c'est plus simple et plus complète parceque ca prend
+//! en compte les merveilles
 Action Joueur::choisir_action(PlateauCartes* plateau_cartes){
     Carte** cartes = plateau_cartes->getCartesAccessibles();
-    // unsigned int taille = plateau_cartes->getNbCartesAccessibles();
-    Carte* carte = choisirCarte(cartes, 10);
+    unsigned int taille = plateau_cartes->getNbCartesAccessibles();
+    Carte* carte = choisirCarte(cartes, taille);
 
     std::string action;
     std::cout << "Voulez-vous construire ou defausser la carte ?" << std::endl;
@@ -917,7 +923,6 @@ void Joueur::retirerCarte(Carte* carte){
 
 //construire une carte
 unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
-    //! ne prend pas en compte les capacites de carteCommerce
     if(possedeSymboleChainage(carte.getSymboleChainageEntre())) return 0;
     unsigned int cout = 0;
     bool forum = ressources.forum;
@@ -988,19 +993,6 @@ unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
 
 
 
-// void Joueur::construireCarte(Carte& carte, PlateauCartes& p){
-//     Carte* c = p.trouverCarteDansPlateau(carte);
-//     if((c != NULL) && estConstructible(carte)){
-//         monnaie -= getCout(carte);
-//         p.enleverCarteDuPlateau(c);
-//         unsigned int nb = getNbCartesConstruites();
-//         cartes_construite[nb] = &carte;
-//         //addSymboleChainage(carte);
-//     }
-//     else{
-//         SetException("Impossible de construire la carte!");
-//     }
-// }
 
 
 
