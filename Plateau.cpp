@@ -399,6 +399,13 @@ bool PlateauCartes::estAccessible(Carte* carte) const{
     return false;
 }
 
+void PlateauCartes::rendreAccessible(Carte* carte){
+    if(this->estEnJeu(carte)){
+        carte->set_accessible();
+    }
+    else throw SetException("erreur: carte n'est pas en jeu.");
+}
+
 bool PlateauCartes::estVisible(Carte* carte) const{
     if (this->estEnJeu(carte)){ //si la carte est en jeu
         return carte->est_facevisible();

@@ -125,6 +125,7 @@ public:
     void prendreCarte(Carte* carte); //prend la carte si elle est accessible
     void defausserCarte(Carte* carte); //defausse la carte si elle est accessible
     void prendreMerveille(Merveille* merveille); //prend la merveille si elle est accessible
+    void rendreAccessible(Carte* carte);
 
     //**Initialisation**//
 
