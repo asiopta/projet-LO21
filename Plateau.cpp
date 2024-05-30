@@ -407,6 +407,7 @@ bool PlateauCartes::estVisible(Carte* carte) const{
 }
 
 Carte** PlateauCartes::getCartesAccessibles() const{
+    /*
     Carte** cartes_accessibles = new Carte*[TAILLE_CARTE_EN_JEU];
     for(int i =0; i< TAILLE_CARTE_EN_JEU; i++){
         if (cartes_en_jeu[i]->est_accessible()){
@@ -414,14 +415,52 @@ Carte** PlateauCartes::getCartesAccessibles() const{
         }
     }
     return cartes_accessibles;
+    */
+
+    Carte** cartes_accessibles = new Carte*[TAILLE_CARTE_EN_JEU];
+    size_t j = 0;
+    for(int i =0; i< TAILLE_CARTE_EN_JEU; i++){
+        if (cartes_en_jeu[i]->est_accessible()){
+            cartes_accessibles[j] = cartes_en_jeu[i];
+            j++;
+        }
+    }
+    for(j; j<TAILLE_CARTE_EN_JEU; j++){
+        cartes_accessibles[j] = nullptr;
+    }
+    return cartes_accessibles;
+}
+
+unsigned int PlateauCartes::getNbCartesAccessibles() const{
+    unsigned int res = 0;
+    for(int i =0; i< TAILLE_CARTE_EN_JEU; i++){
+        if (cartes_en_jeu[i]->est_accessible()){
+            res++;
+        }
+    }
+    return res;
 }
 
 Carte** PlateauCartes::getCartesVisibles() const{
+    /*
     Carte** cartes_visibles = new Carte*[TAILLE_CARTE_EN_JEU];
     for(int i =0; i< TAILLE_CARTE_EN_JEU; i++){
         if (cartes_en_jeu[i]->est_facevisible()){
             cartes_visibles[i] = cartes_en_jeu[i];
         }
+    }
+    return cartes_visibles;
+    */
+    Carte** cartes_visibles = new Carte*[TAILLE_CARTE_EN_JEU];
+    size_t j = 0;
+    for(int i =0; i< TAILLE_CARTE_EN_JEU; i++){
+        if (cartes_en_jeu[i]->est_facevisible()){
+            cartes_visibles[j] = cartes_en_jeu[i];
+            j++;
+        }
+    }
+    for(j; j<TAILLE_CARTE_EN_JEU; j++){
+        cartes_visibles[j] = nullptr;
     }
     return cartes_visibles;
 }

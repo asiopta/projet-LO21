@@ -249,7 +249,7 @@ public:
     void setRessource(RessourcePrimaire rp, unsigned int quantite); //review
     void setRessource(RessourceSecondaire rs, unsigned int quantite); //review
     void addCapaciteJeton(const CapaciteScience& jeton); //review
-    void setMerveille(Merveille* merveille); // !!! A definir !!! //rajouter merveilles à celles non construites
+    void setMerveille(Merveille* merveille); //rajoute merveilles à celles non construites
     
     
     //méthodes de l'attribut rejouer
