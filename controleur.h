@@ -83,11 +83,9 @@ public:
     //! non etant donnée quelles seront init par le controleur, et qu'on va pas les modifier après
 	const Plateau& getPlateau() const { return plateau; }
     Plateau& getPlateau() { return plateau; }
-
     Joueur* getJoueur1() { return joueur1; };
-    
-
     Joueur* getJoueur2() { return joueur2; };
+    unsigned int getTotalCartesAccessibles();
     
 
     int getTour() { return tour;};

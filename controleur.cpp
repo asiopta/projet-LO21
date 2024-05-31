@@ -29,7 +29,11 @@ bool Controleur::jeuEstFinie(){
     return plateau.isEtatFinal() || gagne(joueur1) || gagne(joueur2);
 }
 
-
+unsigned int Controleur::getTotalCartesAccessibles(){
+    unsigned int res = plateau.getPlateauCartes()->getNbCartesAccessibles();
+    res += quiJoue()->getNbMerveillesNonConstruites();
+    return res;
+}
 
 //méthodes de handler
 Controleur::Handler Controleur::handler = Handler(); 
