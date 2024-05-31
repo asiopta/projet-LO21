@@ -1,7 +1,6 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
 #include "Carte.h"
 #include "Joueur.h"
 #include "Plateau.h"
@@ -9,7 +8,7 @@ using namespace std;
 #include "const_and_enum.h"
 
 
-
+using namespace std;
 
 
 //!--------------------------------LA FONCTION RECURSIVE QUI GERE LE JEU------------------------------------------*/
@@ -91,7 +90,7 @@ int main(){
     //!INITIALISATION DU JEU
     try{
     cout << "Bienvenue dans 7 Wonders Duel!" << endl;
-    Controleur* jeu =  new Controleur();// initialisation du jeu via le controleur}
+    Controleur* jeu =  new Controleur();// initialisation du jeu via le controleur
 
 
     //!CHOIX DES MERVEILLES

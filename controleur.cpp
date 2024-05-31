@@ -9,11 +9,10 @@
 
 
 /*---------------------classe Controleur-----------------------------------*/
-Controleur::Controleur() : plateau(joueur1, joueur2){
+Controleur::Controleur(): joueur1(new Joueur()), joueur2(new Joueur()), plateau(Plateau(joueur1, joueur2)){
     std::cout << "Controleur créé" << std::endl;
-    joueur1 = new Joueur();
-    joueur2 = new Joueur();
-    throw std::runtime_error("Erreur dans le constructeur");
+
+    //throw std::runtime_error("Erreur dans le constructeur");
 }
 
 

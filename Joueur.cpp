@@ -1006,23 +1006,6 @@ unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
 
 
 
-
-
-
-
-
-
-
-
-// //méthodes de vérification 
-// bool Joueur::estConstructible(const Carte& carte) const{ //! erreur due à getCout() donc pas grave pour l'instant
-//     //!rajouter les liens de chainage.....
-//     SymboleChainage lien_chainage = carte.getSymboleChainageEntre();
-//     if(getCout(carte) < getMonnaie() || possedeSymboleChainage(lien_chainage)) return true;
-//     else return false;
-// }
-
-
 /*-------------------------------------IARandom-------------------------------------*/
 
 Action IARandom::choisir_action(Action* actions){
