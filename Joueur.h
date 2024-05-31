@@ -316,7 +316,8 @@ public:
     Merveille* choisirCarte(Merveille** liste_merveilles, unsigned int taille_tableau);
     JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau);
     Action choisir_action(PlateauCartes* p); 
-    
+    Action choisir_action(Action* actions); 
+    //* une fonction qui prend en entrée les Controleur::actionsLegales() et retourne l'action choisie par le joueur 
 
 /*
     + get_cout(Carte) -> unsigned int (monnaie) //** existe deja dans carte ?

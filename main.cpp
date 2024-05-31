@@ -24,8 +24,11 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
 
     controleur.addTour(); //ajoute un tour à la partie
     //** CHOIX D'UNE ACTION POUR LE JOUEUR ACTIF **//
+    Action* actions_legales = controleur.actionsLegales();
     while (true) {
-        Action action = joueur_actif->choisir_action(controleur.getPlateau().getPlateauCartes()); 
+        //! j'ai fait un changement ici qui facilitera bcp le travail
+        //Action action = joueur_actif->choisir_action(controleur.getPlateau().getPlateauCartes()); 
+        Action action = joueur_actif->choisir_action(actions_legales);
         if (controleur.actionEstLegale(action)){
             controleur.playAction(action);
             break;
@@ -34,6 +37,7 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
             cout << "Action illégale, veuillez choisir une action legale" << endl;
         }
     } //!While True tant que le joueur n'as pas choisir une action légale
+    free(actions_legales);
 
     //** VERIFICATION DE LA FIN DE L'AGE **//
     if (controleur.getPlateau().getPlateauCartes()->estVide()){
@@ -43,7 +47,7 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     }
     else{
             //** PASSAGE AU TOUR SUIVANT **//
-        if (joueur_actif->getRejouer() == 1){ //gestion du second tour de jeu en cas de Rejouer == TRUE 
+        if (joueur_actif->getRejouer() == true){ //gestion du second tour de jeu en cas de Rejouer == TRUE 
             joueur_actif->setRejouerFalse();
             SevenWondersDuel(controleur, joueur_actif); //le joueur rejoue
         }
@@ -123,11 +127,11 @@ int main(){
         cout << "Le joueur 2 a gagné!" << endl;
     }
     delete jeu;
-    return 0;}
-
-    catch (...) {
+    return 0;
+    }catch (...) {
         std::cerr << "Une exception inconnue a été lancée" << std::endl;
-        return 1;}
+        return 1;
+    }
 }
 
 

@@ -89,7 +89,22 @@ public:
     
 
     int getTour() { return tour;};
-    void addTour() { tour ++;};
+    void addTour() {
+        if(tour == 1){
+            if(joueur1->getRejouer()) return ;
+            else{
+                tour = 2;
+                return;
+            }
+        } 
+        if(tour==2){
+            if(joueur2->getRejouer()) return;
+            else{
+                tour = 1;
+                return;
+            }
+        }
+    };
 	
 
     //autres méthodes utiles

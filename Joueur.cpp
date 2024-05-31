@@ -159,8 +159,8 @@ Carte* Joueur::choisirCarte(Carte** liste_cartes, unsigned int taille_tableau){
     while (choix <= 0 || choix > taille_tableau){
         std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << taille_tableau << std::endl;
         std::cin >> choix;
-    return liste_cartes[choix-1];
     }
+    return liste_cartes[choix-1];
 }
 
 //!surcharge pour les merveilles
@@ -176,8 +176,8 @@ Merveille* Joueur::choisirCarte(Merveille** liste_merveilles, unsigned int taill
     while (choix <= 0 || choix > taille_tableau){
         std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << taille_tableau << std::endl;
         std::cin >> choix;
-    return liste_merveilles[choix-1];
     }
+    return liste_merveilles[choix-1];
 }
 
 //*FONCTION DE CHOIX pour les jetons science 
@@ -198,8 +198,8 @@ JetonScience* Joueur::choisirJetonScience(JetonScience** liste_jetons, unsigned 
     while (choix <= 0 || choix > 3){
         std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et 3" << std::endl;
         std::cin >> choix;
-    return liste_jetons[choix-1];
     }
+    return liste_jetons[choix-1];
 }
 
 //Rappel : using Action = std::tuple<Carte*, std::string>; 
@@ -220,6 +220,22 @@ Action Joueur::choisir_action(PlateauCartes* plateau_cartes){
     return std::make_tuple(carte, action);
 }
 
+Action Joueur::choisir_action(Action* actions){
+    std::cout << "Choisissez une action parmi les suivantes: " << std::endl;
+    int i = 0;
+    for (i; i<60; i++){
+        if(std::get<1>(actions[i]) != "ignore"){
+            std::cout << i+1 << " : " << std::get<1>(actions[i]) << " "<<std::get<0>(actions[i])->getNom() << std::endl;
+        }
+    }
+    int choix;
+    std::cin >> choix;
+    while (choix <= 0 || choix > i-1){
+        std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << i << std::endl;
+        std::cin >> choix;
+    }
+    return actions[choix-1];
+}
 
 /*---------------Classe SymbolesScience----------------*/
 unsigned int Joueur::getNbSymbolesScience()const{
