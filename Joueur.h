@@ -9,6 +9,10 @@
 #include "controleur.h"
 #include "const_and_enum.h"
 
+#include <tuple>
+#include <cstdlib>
+#include <ctime>
+#include <random>
 
 //!predeclaration de classe
 
@@ -328,6 +332,13 @@ public:
 };
 
 
+
+class IARandom: public Joueur{
+
+
+public:
+    Action choisir_action(Action* actions); 
+};
 
 
 // TypeCarte hashit(std::string const& type);

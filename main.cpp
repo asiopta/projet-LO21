@@ -8,7 +8,6 @@ using namespace std;
 #include "controleur.h"
 #include "const_and_enum.h"
 
-using namespace std;
 
 
 
