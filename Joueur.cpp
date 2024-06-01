@@ -615,11 +615,9 @@ void Joueur::removeEffetGuilde(EffetGuilde effet) {
 /*------------------classe Joueur----------------------*/
 //constructeurs
 Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false){
-<<<<<<< HEAD
+
     std::cout<< "Ici Joueur::Joueur()" <<std::endl;
-=======
-    std:: cout<< "constructeur de Joueur"<< std::endl;
->>>>>>> b1c975403553089954e373ce7de29b601f1e392f
+
     ressources = Ressource();
     capacites = CapaciteJeton();
     symboles_science = SymbolesScience();
