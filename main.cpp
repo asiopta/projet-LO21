@@ -96,13 +96,13 @@ int main(){
 
     //!CHOIX DES MERVEILLES
     Merveille** merveille = jeu->getPlateau().getPlateauCartes()->getMerveilles(); //recuperation des merveilles
-    Merveille** merveilles_etape_1; //creation du premier lot de 4 merveilles
+    Merveille** merveilles_etape_1 = new Merveille*[NB_CHOIX_MERVEILLE]; //creation du premier lot de 4 merveilles
 
     for (int i = 0; i < NB_CHOIX_MERVEILLE; i++){
         merveilles_etape_1[i] = merveille[i];
     }
     cout<<"Premier lot de merveille initialisé" <<endl;
-    Merveille** merveilles_etape_2; //creation du deuxieme lot de 4 merveilles
+    Merveille** merveilles_etape_2 = new Merveille*[NB_CHOIX_MERVEILLE]; //creation du deuxieme lot de 4 merveilles
     for (int i =0; i < NB_CHOIX_MERVEILLE; i++){
         merveilles_etape_2[i] = merveille[i+NB_CHOIX_MERVEILLE];
     }
