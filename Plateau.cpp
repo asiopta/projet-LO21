@@ -22,7 +22,7 @@ const int NB_CARTE_GUILDE_JEU = 3;
 /*-------------------------------------JetonScience-------------------------------------*/
 
 JetonScience::JetonScience() : capacite(CapaciteScience::none) {} //si vous n'arrivez pas à lire le none, verifier qu'il y est bien dans le enum de CapaciteScience
-JetonScience::JetonScience(CapaciteScience capacite) : capacite(capacite) {} //rafrechir la memoire si vous ne voyez pas le enum CapaciteScience
+JetonScience::JetonScience(CapaciteScience capacite) : capacite(capacite) {std::cout<<"ici JetonScience::JetonScience()"<<std::endl;} //rafrechir la memoire si vous ne voyez pas le enum CapaciteScience
 
 CapaciteScience JetonScience::get_capacite() const{return capacite;}
 
@@ -126,8 +126,9 @@ void JetonScience::exec_capacite_science(Joueur* joueur) const{
 /*-------------------------------------JetonMalus-------------------------------------*/
 
 //constructeur de JetonMalus
-JetonMalus::JetonMalus() : malus(0), position(0), joueur(nullptr) {}
+JetonMalus::JetonMalus() : malus(0), position(0), joueur(nullptr) {std::cout<<"ici JetonMalus::JetonMalus()"<<std::endl;}
 JetonMalus::JetonMalus(unsigned int m, unsigned int position, Joueur* j) : malus(m), joueur(j) {
+    std::cout<<"ici JetonMalus::JetonMalus()"<<std::endl;
     if (position > LargeurPlateauMilitaire) {
         throw("Erreur JetonMilitaire : position invalide, en dehors du PlateauMilitaire"); //si on defini une position en dehors du plateau militaire, on renvoie une erreur
     }
@@ -159,6 +160,7 @@ void JetonMalus::exec_malus(){
 
 //constructeur par defaut de PlateauScience
 PlateauScience::PlateauScience() {
+    std::cout<<"ici PlateauScience::PlateauScience"<<std::endl;
     jeton_in_game = new JetonScience*[Dim_jetons_in_game];
     liste_position = new unsigned int[Dim_liste_position];
     jeton_out_game = new JetonScience*[Dim_jetons_out_game];
@@ -286,7 +288,8 @@ PlateauScience::~PlateauScience() {
 //constructeur de PlateauMilitaire
 PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur* joueur_derr, Joueur* autre_joueur)
     : avance(a), joueur_derriere(joueur_derr)
-{
+{   
+    std::cout<<"ici JetonMalus::JetonMalus()"<<std::endl;
     liste_jetons_malus[0] = new JetonMalus(2, 3, joueur_derr);
     liste_jetons_malus[1] = new JetonMalus(5, 6, joueur_derr);
     liste_jetons_malus[2] = new JetonMalus(2, 3, autre_joueur);
@@ -350,8 +353,10 @@ PlateauMilitaire::~PlateauMilitaire() {
 
 /*-------------------------------------PlateauCarte-------------------------------------*/
 
+//!constructeur de plateauCarte 
 PlateauCartes::PlateauCartes() 
 {
+    std::cout<<"ici PlateauCarte::Plateau::Carte()"<<std::endl;
     age = 0; //on commence a 0 car on effectue un addAge() au début de la partie dans le contstructeur de Plateau
     Carte** cartes_en_jeu = new Carte*[TAILLE_CARTE_EN_JEU];
     Carte** defausses = new Carte*[TAILLE_DEFAUSSES];
