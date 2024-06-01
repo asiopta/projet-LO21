@@ -635,27 +635,29 @@ symboles_chainage(j.symboles_chainage), effets(j.effets)
 
 }
 
-Joueur& Joueur::operator=(const Joueur& j){
-    if(this != &j){
-        monnaie = j.monnaie;
-        pt_victoire = j.pt_victoire;
-        ressources = j.ressources;
-        rejouer = j.rejouer;
-        nb_jetons = j.nb_jetons;
-        ressources = j.ressources;
-        capacites = j.capacites;
-        symboles_science = j.symboles_science;
-        symboles_chainage = j.symboles_chainage;
-        effets = j.effets;
-        free(cartes_construite);
-        free(merveille_construite);
-        free(merveille_non_construite);
-        for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
-        for(int i=0; i<5; i++) merveille_construite[i] = j.merveille_construite[i];
-        for(int i=0; i<5; i++) merveille_non_construite[i] = j.merveille_non_construite[i];
-    }
-    return *this;
-}
+//! Il semblerai qu'on en ai pas besoin
+// Joueur& Joueur::operator=(const Joueur& j){
+//     if(this != &j){
+//         monnaie = j.monnaie;
+//         pt_victoire = j.pt_victoire;
+//         ressources = j.ressources;
+//         rejouer = j.rejouer;
+//         nb_jetons = j.nb_jetons;
+//         ressources = j.ressources;
+//         capacites = j.capacites;
+//         symboles_science = j.symboles_science;
+//         symboles_chainage = j.symboles_chainage;
+//         effets = j.effets;
+//         //free(cartes_construite);
+//         //free(merveille_construite);
+//         //free(merveille_non_construite);
+////! ne pas faire de free ou de delete sur des tableau non alloué dynamiquement 
+//         for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
+//         for(int i=0; i<5; i++) merveille_construite[i] = j.merveille_construite[i];
+//         for(int i=0; i<5; i++) merveille_non_construite[i] = j.merveille_non_construite[i];
+//     }
+//     return *this;
+// }
 
 bool Joueur::operator==(const Joueur& j){
     return this == &j;

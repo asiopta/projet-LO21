@@ -316,6 +316,7 @@ JetonMalus* PlateauMilitaire::jeton_malus_ici() const{
             }
         }
     }
+    return nullptr; // si aucun jeton trouvé on renvoie nullptr
 }
 
 bool PlateauMilitaire::gagneMilitairement(Joueur* joueur) const {
@@ -701,8 +702,10 @@ void PlateauCartes::initPlateauCarte(){
         }
 
         initMerveilleRandom(NB_MERVEILLES_JEU,NB_MERVEILLES_TOT, LISTE_MERVEILLES);
-        delete[] LISTE_MERVEILLES;
-        delete[] LISTE_CARTE_AGE_1;
+        //* Remarque, on a deja suprimé les cartes non utilisées dans la fonction initCarteRandom
+        // delete[] LISTE_MERVEILLES;
+        // delete[] LISTE_CARTE_AGE_1;
+        //! on delet les element du tableau mais pas les tableau car il ne sont pas alloué dynamiquement 
     }
     else if (age == 2){
         //initialisation des cartes en jeu pour l'age 2
@@ -830,7 +833,7 @@ void PlateauCartes::initPlateauCarte(){
         }
         //supression de la liste de cartes
         //* Remarque, on a deja suprimé les cartes non utilisées dans la fonction initCarteRandom
-        delete[] LISTE_CARTE_AGE_2;
+        // delete[] LISTE_CARTE_AGE_2;
 
     }
     else if (age == 3){
@@ -991,7 +994,7 @@ void PlateauCartes::initPlateauCarte(){
         }
 
 
-        delete[] LISTE_CARTE_AGE_3;
+        // delete[] LISTE_CARTE_AGE_3;
 
     }
     else {throw ("Erreur dans init_carte_en_jeu : age invalide");}
@@ -1043,9 +1046,10 @@ PlateauCartes::~PlateauCartes(){
     for (int i = 0; i < TAILLE_MERVEILLES; i++){
         delete merveilles[i];
     }
-    delete[] cartes_en_jeu;
-    delete[] defausses;
-    delete[] merveilles;
+    // delete[] cartes_en_jeu;
+    // delete[] defausses; 
+    // delete[] merveilles;
+    //! voir ligne 704 pour les explications 
 }
 
 

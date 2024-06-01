@@ -115,22 +115,22 @@ bool Controleur::estConstructible(Carte* carte){
  }
 
 
-    void Controleur::addTour() {
-        if(tour == 1){
-            if(joueur1->getRejouer()) return ;
-            else{
-                tour = 2;
-                return;
-            }
-        } 
-        if(tour==2){
-            if(joueur2->getRejouer()) return;
-            else{
-                tour = 1;
-                return;
-            }
+void Controleur::addTour() {
+    if(tour == 1){
+        if(joueur1->getRejouer()) return ;
+        else{
+            tour = 2;
+            return;
         }
-    };
+    } 
+    if(tour==2){
+        if(joueur2->getRejouer()) return;
+        else{
+            tour = 1;
+            return;
+        }
+    }
+};
 
 
 void Controleur::defausserCarte(Carte* carte){
