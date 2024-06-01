@@ -90,7 +90,7 @@ int main(){
     //!INITIALISATION DU JEU
     try{
     cout << "Bienvenue dans Seven Wonders Duel!" << endl;
-    Controleur* jeu =  new Controleur();// initialisation du jeu via le controleur
+    Controleur* jeu =  &Controleur::getInstance();// initialisation du jeu via le controleur
 
 
     //!CHOIX DES MERVEILLES
