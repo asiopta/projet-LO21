@@ -160,10 +160,14 @@ void JetonMalus::exec_malus(){
 
 //constructeur par defaut de PlateauScience
 PlateauScience::PlateauScience() {
-    std::cout<<"ici PlateauScience::PlateauScience"<<std::endl;
+    std::cout<<"ici PlateauScience::PlateauScience"<<std::endl; //!test
+    
     jeton_in_game = new JetonScience*[Dim_jetons_in_game];
+    std::cout<<"Init de jeton in game fini"<<std::endl; //!test
     liste_position = new unsigned int[Dim_liste_position];
+    std::cout<<"Init de liste_positon fini"<<std::endl; //!test
     jeton_out_game = new JetonScience*[Dim_jetons_out_game];
+    std::cout<<"Init de jeton out game fini"<<std::endl; //!test
 
     std::vector<CapaciteScience> capacites = {
         CapaciteScience::agriculture,
@@ -192,6 +196,7 @@ PlateauScience::PlateauScience() {
     for (int i = 0; i < Dim_liste_position; i++) {
         liste_position[i] = i+1;
     }
+    std::cout<<"Changement de value des listes + fin du constructeur JetonScience"<<std::endl; //!test
 }
 
 
@@ -289,7 +294,7 @@ PlateauScience::~PlateauScience() {
 PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur* joueur_derr, Joueur* autre_joueur)
     : avance(a), joueur_derriere(joueur_derr)
 {   
-    std::cout<<"ici JetonMalus::JetonMalus()"<<std::endl;
+    std::cout<<"ici PlateauMilitaire::PlateauMilitaire"<<std::endl;
     liste_jetons_malus[0] = new JetonMalus(2, 3, joueur_derr);
     liste_jetons_malus[1] = new JetonMalus(5, 6, joueur_derr);
     liste_jetons_malus[2] = new JetonMalus(2, 3, autre_joueur);
