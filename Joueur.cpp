@@ -615,6 +615,7 @@ void Joueur::removeEffetGuilde(EffetGuilde effet) {
 /*------------------classe Joueur----------------------*/
 //constructeurs
 Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false){
+    std:: cout<< "constructeur de Joueur"<< std::endl;
     ressources = Ressource();
     capacites = CapaciteJeton();
     symboles_science = SymbolesScience();
@@ -629,6 +630,7 @@ Joueur::Joueur(const Joueur& j): monnaie(j.monnaie), pt_victoire(j.pt_victoire),
 rejouer(j.rejouer), ressources(j.ressources), capacites(j.capacites), symboles_science(j.symboles_science),
 symboles_chainage(j.symboles_chainage), effets(j.effets)
 {
+    std:: cout<< "constructeur de recopie de Joueur."<< std::endl;
     for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
     for(int i=0; i<5; i++) merveille_construite[i] = j.merveille_construite[i];
     for(int i=0; i<5; i++) merveille_non_construite[i] = j.merveille_non_construite[i];
@@ -665,6 +667,7 @@ bool Joueur::operator==(const Joueur& j){
 
 //destructeur
 Joueur::~Joueur(){
+    std::cout << "destructeur de joueur" << std::endl;
     for(int i=0; i< getNbCartesConstruites(); i++) free(cartes_construite[i]);
     for(int i=0; i< getNbMerveillesConstruites(); i++) free(merveille_construite[i]);
     for(int i=0; i< getNbMerveillesNonConstruites(); i++) free(merveille_non_construite[i]);
