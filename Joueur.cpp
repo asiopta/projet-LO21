@@ -95,7 +95,7 @@ unsigned int Joueur::getQuantiteDeRessourcePrimaire(const RessourcePrimaire& sym
             return ressources.brique;
             break;
 
-        case RessourcePrimaire::none: break;
+        default: return 0; break;
     }
 }
 
@@ -103,7 +103,7 @@ unsigned int Joueur::getQuantiteDeRessourceSecondaire(const RessourceSecondaire&
     switch (symbole){
         case RessourceSecondaire::verre: return ressources.verre; break;
         case RessourceSecondaire::parchemin: return ressources.parchemin; break;
-        case RessourceSecondaire::none: break;
+        default : return 0; break;
     }
 }
 
@@ -704,6 +704,7 @@ TypeCarte hashit(std::string const& type){
     if(type=="Militaire") return TypeCarte::CarteMilitaire;
     if(type=="Prestige") return TypeCarte::CartePrestige;
     if(type=="Science") return TypeCarte::CarteScience;
+    else return TypeCarte::none;
  }
 
 unsigned int Joueur::getNbCartesType(std::string type) const {

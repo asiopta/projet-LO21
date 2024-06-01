@@ -8,6 +8,7 @@ const unsigned int Taille_prod_secondaire = 2;
 const unsigned int Taille_capacite = 3;
 
 enum class TypeCarte{
+    none,
     CarteRessourcePrimaire,
     CarteRessourceSecondaire,
     CarteCommerce,

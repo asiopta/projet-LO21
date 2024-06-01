@@ -215,14 +215,15 @@ Action* Controleur::actionsLegales(){
     }
 
 
-    for(j; j<=60; j++) std::make_tuple( nullptr , "ignore");
-
-} 
+    for(j; j<=60; j++) {res[j] = std::make_tuple( nullptr , "ignore");}
+    return res;
+}
 
 Controleur::~Controleur(){
     delete joueur1;
     delete joueur2;
-    delete &plateau;
+    // delete &plateau; 
+    //! changment à venir : modif le plateau en Plateau* plateau dans Controleur car je pense que l'erreur d'allocation memoir vient de la. 
 }
 
 
