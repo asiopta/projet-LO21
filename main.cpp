@@ -35,7 +35,7 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
             cout << "Action illégale, veuillez choisir une action legale" << endl;
         }
     } //!While True tant que le joueur n'as pas choisir une action légale
-    free(actions_legales);
+    //free(actions_legales);
 
     //** VERIFICATION DE LA FIN DE L'AGE **//
     if (controleur.getPlateau().getPlateauCartes()->estVide()){
@@ -90,7 +90,8 @@ int main(){
     //!INITIALISATION DU JEU
     try{
     cout << "Bienvenue dans Seven Wonders Duel!" << endl;
-    Controleur* jeu =  new Controleur();// initialisation du jeu via le controleur
+    //Controleur* jeu =  new Controleur();
+    Controleur* jeu =  &Controleur::getInstance();// initialisation du jeu via le controleur
 
 
     //!CHOIX DES MERVEILLES
