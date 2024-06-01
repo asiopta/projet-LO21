@@ -10,10 +10,10 @@
 
 /*---------------------classe Controleur-----------------------------------*/
 Controleur::Controleur(): plateau(Plateau(joueur1, joueur2)){
-    std::cout << "Controleur créé" << std::endl;
+    std::cout << "Ici Controleur::Controleur() : construction du controleur pour cette partie" << std::endl;
     joueur1 = new Joueur();
     joueur2 = new Joueur();
-    throw std::runtime_error("Erreur dans le constructeur");
+    std::cout << "Ici Controleur::Controleur : fin de la construction" << std::endl ;//! test
 }
 
 

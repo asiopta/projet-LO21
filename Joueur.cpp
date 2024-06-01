@@ -616,7 +616,7 @@ void Joueur::removeEffetGuilde(EffetGuilde effet) {
 //constructeurs
 Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false){
 
-    std::cout<< "Ici Joueur::Joueur()" <<std::endl;
+    std::cout<< "Ici Joueur::Joueur()" <<std::endl; //! test
 
     ressources = Ressource();
     capacites = CapaciteJeton();
@@ -626,6 +626,7 @@ Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false){
     for(int i=0; i<60; i++) cartes_construite[i] = nullptr;
     for(int i=0; i<5; i++) merveille_construite[i] = nullptr;
     for(int i=0; i<5; i++) merveille_non_construite[i] = nullptr;
+    std::cout<< "fin de Joueur::Joueur()" <<std::endl; //! test
 }
 
 Joueur::Joueur(const Joueur& j): monnaie(j.monnaie), pt_victoire(j.pt_victoire), nb_jetons(j.nb_jetons),

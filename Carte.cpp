@@ -103,6 +103,7 @@ std::ostream& operator<<(std::ostream& f, const Capacite& capacite) {
 
 /*-------------------------------------CARTE-------------------------------------*/
 Carte::Carte(){
+    
     cout_construction =0;
     materiaux_construction_primaires = new RessourcePrimaire[Taille_cout_primaire];
     materiaux_construction_secondaires = new RessourceSecondaire[Taille_cout_secondaire];
@@ -116,6 +117,7 @@ Carte::Carte(){
 }
 
 Carte::Carte(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos){
+    std::cout << "Ici Carte::Carte() : debut" << std::endl;
     cout_construction = cout;
     materiaux_construction_primaires = new RessourcePrimaire[Taille_cout_primaire];
     materiaux_construction_secondaires = new RessourceSecondaire[Taille_cout_secondaire];
@@ -231,6 +233,7 @@ unsigned int Carte::getQuantRessSecondNess(RessourceSecondaire rs) const{
 
 
 Carte::~Carte(){
+    std::cout << "Ici Carte::~Carte() : debut" << std::endl; //!test
      delete[] materiaux_construction_primaires;
      delete[] materiaux_construction_secondaires;
 }

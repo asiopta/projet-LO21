@@ -128,13 +128,14 @@ void JetonScience::exec_capacite_science(Joueur* joueur) const{
 //constructeur de JetonMalus
 JetonMalus::JetonMalus() : malus(0), position(0), joueur(nullptr) {std::cout<<"ici JetonMalus::JetonMalus()"<<std::endl;}
 JetonMalus::JetonMalus(unsigned int m, unsigned int position, Joueur* j) : malus(m), joueur(j) {
-    std::cout<<"ici JetonMalus::JetonMalus()"<<std::endl;
+    std::cout<<"ici JetonMalus::JetonMalus() : debut de construction"<<std::endl; //!test
     if (position > LargeurPlateauMilitaire) {
         throw("Erreur JetonMilitaire : position invalide, en dehors du PlateauMilitaire"); //si on defini une position en dehors du plateau militaire, on renvoie une erreur
     }
     else {
         this->position = position;
     }
+    std::cout<<"ici JetonMalus::JetonMalus() : fin de construction"<<std::endl; //!test
 }
 
 bool JetonMalus::operator==(const JetonMalus& other) const {
@@ -294,11 +295,18 @@ PlateauScience::~PlateauScience() {
 PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur* joueur_derr, Joueur* autre_joueur)
     : avance(a), joueur_derriere(joueur_derr)
 {   
+    liste_jetons_malus = new JetonMalus*[Dim_jetons_malus];
     std::cout<<"ici PlateauMilitaire::PlateauMilitaire"<<std::endl;
     liste_jetons_malus[0] = new JetonMalus(2, 3, joueur_derr);
-    liste_jetons_malus[1] = new JetonMalus(5, 6, joueur_derr);
+    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 1 construit"<<std::endl; //!test
+    // liste_jetons_malus[1] = new JetonMalus(5, 6, joueur_derr);
+    liste_jetons_malus[1] = new JetonMalus(2, 3, joueur_derr);
+    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 2 construit"<<std::endl; //!test
     liste_jetons_malus[2] = new JetonMalus(2, 3, autre_joueur);
+    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 3 construit"<<std::endl; //!test
     liste_jetons_malus[3] = new JetonMalus(5, 6, autre_joueur);
+    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 4 construit"<<std::endl; //!test
+    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : fin de construction"<<std::endl; //!test
 
 }
 
@@ -1030,7 +1038,7 @@ void PlateauCartes::initCarteRandom(unsigned int nombre_carte,unsigned int taill
     }
     std::cout<<"ici initCarteRandom : fin de la suppression des cartes non utilisées"<<std::endl; //!teste
     // delete[] tableau_cartes; 
-    //! ne pas delete les tablon non aloué dynamiquement 
+    //! ne pas delete les tableaux non aloué dynamiquement 
 }
 
 void PlateauCartes::initMerveilleRandom(unsigned int nombre_merveille, unsigned int taille_tableau, Merveille** tableau_merveilles){
