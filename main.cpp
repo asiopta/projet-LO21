@@ -17,14 +17,12 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     std::cout << "debut de SevenWondersDuel" << std::endl; //!teste
     //** VERIFICATION DE LA VICTOIRE D'UN DES JOUEURS **//
     if (controleur.jeuEstFinie()) { //OK
-        std::cout << "gagnant?" << std::endl; //!teste
         return controleur.gagnant(); //OK
     } //!condition d'arret de la fonction recursive SevenWondersDuel
 
     controleur.addTour(); //OK
     //** CHOIX D'UNE ACTION POUR LE JOUEUR ACTIF **//
-    Action* actions_legales = controleur.actionsLegales(); //TODO : corriger l'erreur ici
-    cout << "Actions legales initialisées" << endl; //!teste
+    Action* actions_legales = controleur.actionsLegales();
     bool boucle = true;
     while (boucle) {
 
@@ -69,7 +67,7 @@ const unsigned int NB_CHOIX_MERVEILLE = 4;
 void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
     if (joueur == 1){
         Joueur* joueur1 = jeu->getJoueur1();
-        Merveille* choix = joueur1->choisirCarte(merveilles, 4); //!!! A DEFINIR !!!//
+        Merveille* choix = joueur1->choisirCarte(merveilles, 4); 
         joueur1->setMerveille(choix);
         bool found = false;
         for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
@@ -82,7 +80,7 @@ void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
 
     else{
         Joueur* joueur2 = jeu->getJoueur2();
-        Merveille* choix = joueur2->choisirCarte(merveilles, 4); //!!! A DEFINIR !!!//
+        Merveille* choix = joueur2->choisirCarte(merveilles, 4);
         joueur2->setMerveille(choix);
         for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
             if (merveilles[i] == choix){
