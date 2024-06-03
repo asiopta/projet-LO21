@@ -99,6 +99,7 @@ bool Controleur::estConstructible(Carte* carte){
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
         j->addCarte(carte, plateau.getPlateauScience());
         if(carte->get_type() == TypeCarte::Merveille){
+            //! erreur probablement ici
             plateau.getPlateauCartes()->prendreMerveille(dynamic_cast<Merveille*>(carte));
 
         }
