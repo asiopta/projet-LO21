@@ -170,7 +170,8 @@ Merveille* Joueur::choisirCarte(Merveille** liste_merveilles, unsigned int taill
     //renvoie un pointeur vers la carte choisit
     std::cout << "Choisissez une merveille parmi les suivantes: " << std::endl;
     for (int i = 0; i<taille_tableau; i++){
-        std::cout << i+1 << " : " << liste_merveilles[i]->getNom() << std::endl;
+        if(liste_merveilles[i] != nullptr)
+            std::cout << i+1 << " : " << liste_merveilles[i]->getNom() << std::endl;
     }
     int choix;
     std::cin >> choix;
