@@ -207,7 +207,8 @@ Action* Controleur::actionsLegales(){
                     res[j] = std::make_tuple( carte , "construire");
                     j++;
                     std::cout << "J" << j << std::endl; //!teste
-                }
+                } else{ std::cout << "Ici Controleur::actionsLegales() : carte non constructible" << std::endl;} //!teste
+
                 res[j] = std::make_tuple( carte , "defausser");
                 j++;
                 std::cout << "J" << j << std::endl; //!teste
@@ -222,16 +223,26 @@ Action* Controleur::actionsLegales(){
     }
     //merveilles
     Joueur* joueur = quiJoue();
+    if(joueur == joueur1)
+        std::cout << "Ici Controleur::actionsLegales() : joueur1" << std::endl; //!teste
+    if(joueur == joueur2)
+        std::cout << "Ici Controleur::actionsLegales() : joueur2" << std::endl; //!teste
+
     Merveille** liste = joueur->getMerveillesNonConstruites();
+
+
     for(int i =0; i<joueur->getNbMerveillesNonConstruites(); i++){
+        std::cout << "Ici Controleur::actionsLegales() : merveilles non construites" << i+1 << std::endl; //!teste
         if(estConstructible(liste[i])){
+            std::cout << "Ici Controleur::actionsLegales() : merveille constructible" << std::endl; //!teste
             res[j] = std::make_tuple(liste[i], "construire");
             j++;
+            std::cout << "J" << j << std::endl; //!teste
         }
     }
 
 
-    for(j; j<=60; j++) {res[j] = std::make_tuple( nullptr , "ignore");}
+    for(j; j<60; j++) {res[j] = std::make_tuple( nullptr , "ignore"); std::cout << "J" << j << std::endl;} //!teste
     return res;
 }
 
