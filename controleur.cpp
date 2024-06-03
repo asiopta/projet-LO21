@@ -139,30 +139,34 @@ void Controleur::addTour() {
 
 void Controleur::defausserCarte(Carte* carte){
     if(plateau.getPlateauCartes()->estAccessible(carte)){
-
         //niveau argent joueur
         Joueur* j = quiJoue();
+
         j->setMonnaie(j->getMonnaie() + j->getCout(*carte, *autreJoueur(j)));
 
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
-        if(carte->get_type() == TypeCarte::Merveille) SetException("erreur: impossible de défausser une merveille");
+        if(carte->get_type() == TypeCarte::Merveille) throw SetException("erreur: impossible de défausser une merveille");
         else{
             plateau.getPlateauCartes()->prendreCarte(carte); 
             plateau.getPlateauCartes()->defausserCarte(carte);
+            return;
         }
 
     }
-    else SetException("erreur: carte non accessible!");
+    else throw SetException("erreur: carte non accessible!");
 }
 
 void Controleur::playAction(Action& action){
     Carte* carte = std::get<0>(action);
     if(plateau.getPlateauCartes()->estAccessible(carte)){
-        if(std::get<1>(action) == "defausser")
+        if(std::get<1>(action) == "defausser"){
             defausserCarte(carte);
-
-        if(std::get<1>(action) == "construire")
+            return;
+        }
+        if(std::get<1>(action) == "construire"){
             construireCarte(carte);
+            return;
+        }
 
         else 
             throw SetException("erreur: action non reconnue;");
