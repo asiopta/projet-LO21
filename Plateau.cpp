@@ -312,6 +312,7 @@ PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur* joueur_derr, Joueur* 
 
 void PlateauMilitaire::update_avance(unsigned int ajout, Joueur* joueur_cible){
     //ajoute l'avancé militaire ajout en direction du joueur_cible
+    std::cout<<"PlateauMilitaire: update_avance()"<<std::endl; //!test
     if (joueur_cible == joueur_derriere) { 
         avance += ajout; //si je joueur cible est le joueur le plus derriere, on avance le pion dans sa direction et c'est tout
     }
@@ -337,6 +338,7 @@ JetonMalus* PlateauMilitaire::jeton_malus_ici() const{
 
 bool PlateauMilitaire::gagneMilitairement(Joueur* joueur) const {
     if (avance >= avance_win && joueur != joueur_derriere){
+        std::cout<<"avance: "<<avance << "  joueur:" << (joueur != joueur_derriere) <<std::endl; //!test
         return true;
     }
     else {

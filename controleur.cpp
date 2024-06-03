@@ -10,7 +10,7 @@
 
 /*---------------------classe Controleur-----------------------------------*/
 Controleur::Controleur(): plateau(Plateau(joueur1, joueur2)){
-    std::cout << "Ici Controleur::Controleur() : construction du controleur pour cette partie" << std::endl;
+    std::cout << "Ici Controleur::Controleur() : construction du controleur pour cette partie" << std::endl; //!test
     joueur1 = new Joueur();
     joueur2 = new Joueur();
     std::cout << "Ici Controleur::Controleur : fin de la construction" << std::endl ;//! test
@@ -19,13 +19,17 @@ Controleur::Controleur(): plateau(Plateau(joueur1, joueur2)){
 
 
 bool Controleur::gagne(Joueur* joueur){
-    bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur);
-    bool victoireScience = joueur1->gagneScientifiquement();
+    bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur); //!test
+    bool victoireScience = joueur1->gagneScientifiquement(); //!test
+    std::cout<< "victoire militaire:"<<victoireMilitaire << " victoire science:" << victoireScience << std::endl; //!test
     return victoireMilitaire || victoireScience;
 }
 
 
 bool Controleur::jeuEstFinie(){
+    std::cout<< "plateau etat final:"<<plateau.isEtatFinal()<< std::endl; //!test
+    std::cout<< " j1 GAGNE:" << gagne(joueur1)  << std::endl; //!test
+    std::cout<< " j2 GAGNE:" << gagne(joueur2)  << std::endl; //!test
     return plateau.isEtatFinal() || gagne(joueur1) || gagne(joueur2);
 }
 
@@ -273,6 +277,9 @@ Plateau::~Plateau(){
 }
 
 bool Plateau::isEtatFinal() {
+    std::cout << "plateau vide: "<<plateau_cartes->estVide()<< std::endl; //!teste
+    unsigned int age = plateau_cartes->getAge(); //!teste
+    std:: cout << "dernier age: "<< (age == 3); //!teste
     return (plateau_cartes->estVide() && plateau_cartes->getAge() == 3 );
         
 }
