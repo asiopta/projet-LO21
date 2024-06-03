@@ -41,24 +41,27 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     if (controleur.getPlateau().getPlateauCartes()->estVide()){
         //changement d'age
         controleur.getPlateau().getPlateauCartes()->addAge();
-        SevenWondersDuel(controleur, controleur.getPlateau().getPlateauMilitaire()->getJoueurDerriere());
+        return SevenWondersDuel(controleur, controleur.getPlateau().getPlateauMilitaire()->getJoueurDerriere());
     }
     else{
             //** PASSAGE AU TOUR SUIVANT **//
         if (joueur_actif->getRejouer() == true){ //gestion du second tour de jeu en cas de Rejouer == TRUE 
             joueur_actif->setRejouerFalse();
-            SevenWondersDuel(controleur, joueur_actif); //le joueur rejoue
+            return SevenWondersDuel(controleur, joueur_actif); //le joueur rejoue
+            
         }
         else{
             if(joueur_actif == controleur.getJoueur1()){ //changement de joueur actif
-                SevenWondersDuel(controleur, controleur.getJoueur2()); 
+                return SevenWondersDuel(controleur, controleur.getJoueur2()); 
             }
             else{
-                SevenWondersDuel(controleur, controleur.getJoueur1());
+                return SevenWondersDuel(controleur, controleur.getJoueur1());
             }
         }
     }
 }
+
+
 const unsigned int NB_CHOIX_MERVEILLE = 4;
 
 void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){

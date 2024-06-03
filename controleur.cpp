@@ -51,7 +51,7 @@ void Controleur::libererInstance(){
 Joueur* Controleur::quiJoue(){
     if(tour == 1) return joueur1;
     if(tour == 2) return joueur2;
-    else SetException("erreur: joueur non reconnu!");
+    else throw SetException("erreur: joueur non reconnu!");
 }
 
 
@@ -72,7 +72,7 @@ Joueur* Controleur::quiJoue(){
 Joueur* Controleur::autreJoueur(Joueur* j){
     if(j == joueur1) return joueur2;
     if(j == joueur2) return joueur1;
-    else SetException("erreur: joueur non reconnu");
+    else throw SetException("erreur: joueur non reconnu");
 }
 
 bool Controleur::estConstructible(Carte* carte){
