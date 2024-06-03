@@ -24,12 +24,13 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     //** CHOIX D'UNE ACTION POUR LE JOUEUR ACTIF **//
     Action* actions_legales = controleur.actionsLegales(); //TODO : corriger l'erreur ici
     cout << "Actions legales initialisées" << endl; //!teste
-    while (true) {
+    bool boucle = true;
+    while (boucle) {
 
         Action action = joueur_actif->choisir_action(actions_legales);
         if (controleur.actionEstLegale(action)){
             controleur.playAction(action);
-            break;
+            boucle = false;
         }
         else{
             cout << "Action illégale, veuillez choisir une action legale" << endl;
