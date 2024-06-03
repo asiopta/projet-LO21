@@ -195,6 +195,7 @@ Action* Controleur::actionsLegales(){
     int j = 0;
     for(int i= 0; i<TAILLE_CARTE_EN_JEU-1; i++){
         Carte* carte= plateau.getPlateauCartes()->getCartesEnJeu()[i];
+        std::cout << "\nIci Controleur::actionsLegales() : carte" << i+1 << std::endl; //!teste
         if(carte != nullptr){
             std::cout << "Nom : " << carte->getNom() << std::endl; //!teste
             std::cout << "Ici Controleur::actionsLegales() : carte en jeu" << std::endl; //!teste

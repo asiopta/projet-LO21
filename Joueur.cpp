@@ -164,6 +164,7 @@ Carte* Joueur::choisirCarte(Carte** liste_cartes, unsigned int taille_tableau){
     return liste_cartes[choix-1];
 }
 
+
 //!surcharge pour les merveilles
 Merveille* Joueur::choisirCarte(Merveille** liste_merveilles, unsigned int taille_tableau){
     //prend en argument une liste de pointeurs vers des cartes accessibles, et demande au joueur d'en choisir une

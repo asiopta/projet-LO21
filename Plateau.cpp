@@ -366,6 +366,7 @@ PlateauMilitaire::~PlateauMilitaire() {
 
 /*-------------------------------------PlateauCarte-------------------------------------*/
 
+
 //!constructeur de plateauCarte 
 PlateauCartes::PlateauCartes() 
 {
@@ -386,12 +387,11 @@ PlateauCartes::PlateauCartes()
     // for(int i=0; i<TAILLE_MERVEILLES; i++){
     //     merveilles[i] = nullptr;
     // }
-    addAge(); 
 }
 
 void PlateauCartes::addAge(){
-    std::cout << "ici addAge : "<<age <<std::endl;
     age++;
+    std::cout << "ici addAge : "<<age <<std::endl;
     initPlateauCarte();
 }
 
@@ -606,6 +606,9 @@ void PlateauCartes::initPlateauCarte(){
                 Capacite::rejouer, Capacite::perdre_monnaie_3}, 3, 0, false, "LaViaAppia",1, 0, {RessourcePrimaire::brique, 
                 RessourcePrimaire::brique, RessourcePrimaire::pierre, RessourcePrimaire::pierre, RessourcePrimaire::none}, {RessourceSecondaire::parchemin, RessourceSecondaire::none, RessourceSecondaire::none} )
         };
+
+        initMerveilleRandom(NB_MERVEILLES_JEU,NB_MERVEILLES_TOT, LISTE_MERVEILLES);
+
         Carte* LISTE_CARTE_AGE_1[NB_CARTE_AGE_1_TOT] = {
             //! LISTE DE TOUTES LES CARTES DE L'AGE 1
 
@@ -730,7 +733,7 @@ void PlateauCartes::initPlateauCarte(){
             }
         }
 
-        initMerveilleRandom(NB_MERVEILLES_JEU,NB_MERVEILLES_TOT, LISTE_MERVEILLES);
+        
         //* Remarque, on a deja suprimé les cartes non utilisées dans la fonction initCarteRandom
         // delete[] LISTE_MERVEILLES;
         // delete[] LISTE_CARTE_AGE_1;
