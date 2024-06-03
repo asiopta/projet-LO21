@@ -87,34 +87,42 @@ void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
 
 int main(){
 
+
     //!INITIALISATION DU JEU
     try{
-    cout << "Bienvenue dans Seven Wonders Duel!" << endl;
-    //Controleur* jeu =  new Controleur();
+    std::cout << "Bienvenue dans Seven Wonders Duel!" << endl; //!teste
+    // Controleur* jeu =  new Controleur();
     Controleur* jeu =  &Controleur::getInstance();// initialisation du jeu via le controleur
 
 
     //!CHOIX DES MERVEILLES
     Merveille** merveille = jeu->getPlateau().getPlateauCartes()->getMerveilles(); //recuperation des merveilles
+    for (int i = 0; i < NB_CHOIX_MERVEILLE*2; i++){ //!teste
+        std::cout << "Merveille " << i << " : " << merveille[i]->getNom() << endl; //!teste
+    } //!teste
     Merveille** merveilles_etape_1 = new Merveille*[NB_CHOIX_MERVEILLE]; //creation du premier lot de 4 merveilles
 
     for (int i = 0; i < NB_CHOIX_MERVEILLE; i++){
         merveilles_etape_1[i] = merveille[i];
     }
-    cout<<"Premier lot de merveille initialisé" <<endl;
+    std::cout<<"Premier lot de merveille initialisé" <<endl; //!teste
     Merveille** merveilles_etape_2 = new Merveille*[NB_CHOIX_MERVEILLE]; //creation du deuxieme lot de 4 merveilles
     for (int i =0; i < NB_CHOIX_MERVEILLE; i++){
         merveilles_etape_2[i] = merveille[i+NB_CHOIX_MERVEILLE];
     }
-    cout<<"Deuxième lot de merveille initialisé" <<endl;
+    std::cout<<"Deuxième lot de merveille initialisé" <<endl; //!teste
 
-    cout<<"A vous de choisir deux merveilles dans le premier lot !" <<endl;
+    for (int i = 0; i < NB_CHOIX_MERVEILLE; i++){ //!teste
+        std::cout << "Merveille " << i << " : " << merveilles_etape_1[i] << endl; //!teste
+    } //!teste
+
+    std::cout<<"A vous de choisir deux merveilles dans le premier lot !" <<endl;
     //choix des merveilles pour le 1er lot de 4 merveilles
     choix_merveille(jeu, merveilles_etape_1, 1);
     choix_merveille(jeu, merveilles_etape_1, 2);
     choix_merveille(jeu, merveilles_etape_1, 2);
     choix_merveille(jeu, merveilles_etape_1, 1);
-    cout<<"A vous de choisir deux merveilles dans le deuxième lot !" <<endl;
+    std::cout<<"A vous de choisir deux merveilles dans le deuxième lot !" <<endl;
     //choix des merveilles pour le 2eme lot de 4 merveilles
     choix_merveille(jeu, merveilles_etape_2, 2);
     choix_merveille(jeu, merveilles_etape_2, 1);
@@ -123,13 +131,13 @@ int main(){
 
 
     //!LANCEMENT DU JEU
-    cout << "Lancement de la boucle de jeu !!"<<endl;
+    std::cout << "Lancement de la boucle de jeu !!"<<endl;
     int gagnant  = SevenWondersDuel(*jeu, jeu->getJoueur1()); 
     if (gagnant == 1){
-        cout << "Le joueur 1 a gagné!" << endl;
+        std::cout << "Le joueur 1 a gagné!" << endl;
     }
     else{
-        cout << "Le joueur 2 a gagné!" << endl;
+        std::cout << "Le joueur 2 a gagné!" << endl;
     }
     delete jeu;
     return 0;

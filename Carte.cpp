@@ -117,7 +117,8 @@ Carte::Carte(){
 }
 
 Carte::Carte(std::string n,unsigned int a, unsigned int cout, std::initializer_list<RessourcePrimaire> pt_primaire, std::initializer_list<RessourceSecondaire> pt_secondaire, bool acc, bool fv, unsigned int pos){
-    std::cout << "Ici Carte::Carte() : debut" << std::endl;
+
+    nom = n;
     cout_construction = cout;
     materiaux_construction_primaires = new RessourcePrimaire[Taille_cout_primaire];
     materiaux_construction_secondaires = new RessourceSecondaire[Taille_cout_secondaire];

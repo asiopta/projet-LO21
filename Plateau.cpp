@@ -375,20 +375,22 @@ PlateauCartes::PlateauCartes()
     Carte** defausses = new Carte*[TAILLE_DEFAUSSES];
     Merveille** merveilles = new Merveille*[TAILLE_MERVEILLES];
 
-    int i = 0;
-    for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++) {
-        cartes_en_jeu[i] = nullptr;
-        i++;
-    }
-    for(int i=0; i<TAILLE_DEFAUSSES; i++){
-        defausses[i] = nullptr;
-    }
-    for(int i=0; i<TAILLE_MERVEILLES; i++){
-        merveilles[i] = nullptr;
-    }
+    // int i = 0;
+    // for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++) {
+    //     cartes_en_jeu[i] = nullptr;
+    //     i++;
+    // }
+    // for(int i=0; i<TAILLE_DEFAUSSES; i++){
+    //     defausses[i] = nullptr;
+    // }
+    // for(int i=0; i<TAILLE_MERVEILLES; i++){
+    //     merveilles[i] = nullptr;
+    // }
+    addAge(); 
 }
 
 void PlateauCartes::addAge(){
+    std::cout << "ici addAge : "<<age <<std::endl;
     age++;
     initPlateauCarte();
 }
@@ -705,7 +707,15 @@ void PlateauCartes::initPlateauCarte(){
                 RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
                 RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::engrenage, SymboleScience::pilon, 0)
         };
-        
+        //! test
+        for(int i =0; i<NB_CARTE_AGE_1_TOT; i++){
+            if (i < NB_CARTES_AGE_1_JEU){
+                std::cout << "i = " << LISTE_CARTE_AGE_1[i]->getPrix() << std::endl;
+            }
+        }
+        //! fin test
+
+
         //*ajout des cartes dans le plateau
         initCarteRandom(NB_CARTES_AGE_1_JEU,NB_CARTE_AGE_1_TOT, LISTE_CARTE_AGE_1);
 
