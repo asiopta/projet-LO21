@@ -150,6 +150,7 @@ void Joueur::construireJeton(JetonScience* jeton){
 Carte* Joueur::choisirCarte(Carte** liste_cartes, unsigned int taille_tableau){
     //prend en argument une liste de pointeurs vers des cartes accessibles, et demande au joueur d'en choisir une
     //renvoie un pointeur vers la carte choisit
+    std::cout << "Ici Joueur::choisirCarte() : debut " << std::endl;
     std::cout << "Choisissez une carte parmi les suivantes: " << std::endl;
     for (int i = 0; i<taille_tableau; i++){
         std::cout << i+1 << " : " << liste_cartes[i]->getNom() << std::endl;
