@@ -190,18 +190,26 @@ bool Controleur::actionEstLegale(Action& action){
 
 
 Action* Controleur::actionsLegales(){
-    //Cartes
+    std::cout << "Ici Controleur::actionsLegales() : initialisation des actions légales" << std::endl; //!teste
     Action* res = new Action[60];
     int j = 0;
     for(int i= 0; i<TAILLE_CARTE_EN_JEU; i++){
         Carte* carte= plateau.getPlateauCartes()->getCartesEnJeu()[i];
+        std::cout << "Nom : " << carte->getNom() << std::endl; //!teste
+        std::cout << "Ici Controleur::actionsLegales() : carte en jeu" << std::endl; //!teste
         if(carte->est_accessible()){
+            std::cout << "Ici Controleur::actionsLegales() : carte accessible" << std::endl; //!teste
             if(estConstructible(carte)){
+                std::cout << "Ici Controleur::actionsLegales() : carte constructible" << std::endl; //!teste
+                
                 res[j] = std::make_tuple( carte , "construire");
                 j++;
+                std::cout << "J" << j << std::endl; //!teste
             }
             res[j] = std::make_tuple( carte , "defausser");
             j++;
+            std::cout << "J" << j << std::endl; //!teste
+
         }
     }
     //merveilles

@@ -25,8 +25,7 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     Action* actions_legales = controleur.actionsLegales(); //TODO : corriger l'erreur ici
     cout << "Actions legales initialisées" << endl; //!teste
     while (true) {
-        //! j'ai fait un changement ici qui facilitera bcp le travail
-        //Action action = joueur_actif->choisir_action(controleur.getPlateau().getPlateauCartes()); 
+
         Action action = joueur_actif->choisir_action(actions_legales);
         if (controleur.actionEstLegale(action)){
             controleur.playAction(action);
