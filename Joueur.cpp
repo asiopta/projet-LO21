@@ -174,12 +174,13 @@ Merveille* Joueur::choisirCarte(Merveille** liste_merveilles, unsigned int taill
             std::cout << i+1 << " : " << liste_merveilles[i]->getNom() << std::endl;
     }
     int choix;
-    std::cin >> choix;
-    while (choix <= 0 || choix > taille_tableau){
+    std::cin>> choix;
+    choix--;
+    if(choix < 0 || choix > taille_tableau || liste_merveilles[choix]== nullptr){
         std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << taille_tableau << std::endl;
-        std::cin >> choix;
+        return choisirCarte(liste_merveilles, taille_tableau);
     }
-    return liste_merveilles[choix-1];
+    return liste_merveilles[choix];
 }
 
 //*FONCTION DE CHOIX pour les jetons science 
