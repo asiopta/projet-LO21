@@ -226,16 +226,17 @@ Action Joueur::choisir_action(PlateauCartes* plateau_cartes){
 
 Action Joueur::choisir_action(Action* actions){
     std::cout << "Choisissez une action parmi les suivantes: " << std::endl;
-    int i = 0;
-    for (i; i<60; i++){
+    int count = 0;
+    for (int i=0; i<60; i++){
         if(std::get<1>(actions[i]) != "ignore"){
             std::cout << i+1 << " : " << std::get<1>(actions[i]) << " "<<std::get<0>(actions[i])->getNom() <<std::endl;
+            count++;
         }
     }
     int choix;
     std::cin >> choix;
-    while (choix <= 0 || choix > i-1){
-        std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << i << std::endl;
+    while (choix <= 0 || choix > count){
+        std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << count << std::endl;
         std::cin >> choix;
     }
     return actions[choix-1];
