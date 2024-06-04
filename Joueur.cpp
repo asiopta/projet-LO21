@@ -1015,7 +1015,8 @@ unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
         if(effets.douanes) cout+= diff_parchemin;
         else cout += diff_parchemin * (2 + adversaire.getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin));
     }
-
+    
+    cout += carte.getPrix();
     std::cout<< "cout de "<< carte.getNom()  << " ="<< cout << std::endl; //!test
     return cout;
 }
