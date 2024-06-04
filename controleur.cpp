@@ -86,7 +86,7 @@ bool Controleur::estConstructible(Carte* carte){
     else return true;
 }
 
-
+//! à debugguer
  void Controleur::construireCarte(Carte* carte){
     //si la carte est accessible
     if(plateau.getPlateauCartes()->estAccessible(carte)){
@@ -100,7 +100,9 @@ bool Controleur::estConstructible(Carte* carte){
         j->addCarte(carte, plateau.getPlateauScience());
         if(carte->get_type() == TypeCarte::Merveille){
             //! erreur probablement ici
-            plateau.getPlateauCartes()->prendreMerveille(dynamic_cast<Merveille*>(carte));
+            Merveille* merveille = dynamic_cast<Merveille*>(carte);
+            plateau.getPlateauCartes()->prendreMerveille(merveille);
+            std::cout<< "construireCarte: merveille prise!" << std::endl; //!test
 
         }
         else plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
@@ -110,12 +112,14 @@ bool Controleur::estConstructible(Carte* carte){
         if(carte->get_type() == TypeCarte::CarteMilitaire){
             CarteMilitaire* carte_militaire = dynamic_cast<CarteMilitaire*>(carte);
             carte_militaire->exec_capacite(j, *plateau.getPlateauMilitaire());
+            std::cout<< "construireCarte: capacite militaire executée!" << std::endl; //!test
         }
 
         //si c'est une merveille
         if(carte->get_type() == TypeCarte::Merveille){
             Merveille* merveille = dynamic_cast<Merveille*>(carte);
             merveille->exec_capacite(joueur1, joueur2, *plateau.getPlateauCartes(), *plateau.getPlateauMilitaire(), *plateau.getPlateauScience());
+            std::cout<< "construireCarte: capacite merveille executée!" << std::endl; //!test
 
         }
     }
