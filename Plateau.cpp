@@ -495,12 +495,52 @@ Carte** PlateauCartes::getCartesVisibles() const{
     return cartes_visibles;
 }
 
+void PlateauCartes::update_accessibilite(){ //update l'accessibilité des cartes en jeu
+
+    if (age == 1){ //! normalement ok
+        int compteur_ligne = 0;
+        for(unsigned int i=0; i<14; i++){
+            if (i == 2 || i == 5 || i == 9){compteur_ligne++;} //incrementation des lignes a chaques passage a la ligne suivantes
+            if (cartes_en_jeu[i+compteur_ligne+2] == nullptr && cartes_en_jeu[i+compteur_ligne+3]  !=nullptr){ //les cartes à ce niveau ont deja été prises 
+                if (cartes_en_jeu[i] != nullptr){
+                    rendreAccessible(cartes_en_jeu[i]);
+                }
+            }
+        }
+    }
+    
+    else if (age == 2){
+        std::vector<std::vector<unsigned int>> liste_adjacence = {{6}, {6,7}, {7, 8}, {8, 9}, {9, 10}, {10}, {11}, {11, 12}, {12, 13},{13, 14}, {14},{15}, {15, 16}, {16, 17}, {17}, {18}, {18, 19}, {19}};
+        for(unsigned int i = 0; i < liste_adjacence.size(); i++){
+            for(unsigned int j = 0; j < liste_adjacence[i].size(); j++){
+                if (cartes_en_jeu[liste_adjacence[i][j]] != nullptr){
+                    break;
+                }
+                
+                if (cartes_en_jeu[i] != nullptr){rendreAccessible(cartes_en_jeu[i]);}
+            }
+        }
+    }
+    else if (age == 3){
+        std::vector<std::vector<unsigned int>> liste_adjacence = {{2, 3}, {3, 4}, {5, 6}, {6, 7}, {7, 8}, {9}, {9}, {10}, {10}, {11, 12}, {13, 14}, {15}, {15, 16}, {16, 17}, {17}, {18}, {18, 19}, {19}};
+        for(unsigned int i = 0; i < liste_adjacence.size(); i++){
+            for(unsigned int j = 0; j < liste_adjacence[i].size(); j++){
+                if (cartes_en_jeu[liste_adjacence[i][j]] != nullptr){
+                    break;
+                }
+                if (cartes_en_jeu[i] != nullptr){rendreAccessible(cartes_en_jeu[i]);}
+            }
+        }
+    }
+}
+
 void PlateauCartes::prendreCarte(Carte* carte){
     for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
         if (cartes_en_jeu[i] == carte){
             cartes_en_jeu[i] = nullptr;
         }
     }
+    update_accessibilite();
 }
 
 void PlateauCartes::defausserCarte(Carte* carte){
