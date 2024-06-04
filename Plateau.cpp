@@ -312,14 +312,12 @@ PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur* joueur_derr, Joueur* 
 
 void PlateauMilitaire::update_avance(unsigned int ajout, Joueur* joueur_cible){
     //ajoute l'avancé militaire ajout en direction du joueur_cible
-    std::cout<<"PlateauMilitaire: update_avance()"<<std::endl; //!test
     if (joueur_cible == joueur_derriere) { 
         avance += ajout; //si je joueur cible est le joueur le plus derriere, on avance le pion dans sa direction et c'est tout
     }
     else {
-        avance -= ajout;
-        if (avance < 0) { // si le joueur cible n'est pas le joueur le plus derriere, on avance le pion en direction de l'autre joueur
-            avance = -avance; //si avance < 0, on le rend positif et on change le joueur derriere
+        if (avance - ajout < 0) { // si le joueur cible n'est pas le joueur le plus derriere, on avance le pion en direction de l'autre joueur
+            avance = ajout-avance; //si avance < 0, on le rend positif et on change le joueur derriere
             joueur_derriere = joueur_cible;
         }
     }
