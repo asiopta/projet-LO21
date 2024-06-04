@@ -62,7 +62,7 @@ Joueur* Controleur::quiJoue(){
 
 
  unsigned int Controleur::gagnant(){
-    if(jeuEstFinie() == false) SetException("erreur: jeu pas fini"); return 0;
+    if(jeuEstFinie() == false) throw SetException("erreur: jeu pas fini"); return 0;
 
     if(joueur1->gagneScientifiquement() || plateau.getPlateauMilitaire()->gagneMilitairement(joueur1)) return 1;
     if(joueur2->gagneScientifiquement() || plateau.getPlateauMilitaire()->gagneMilitairement(joueur2)) return 2;
@@ -88,7 +88,6 @@ bool Controleur::estConstructible(Carte* carte){
 
 //! à debugguer
  void Controleur::construireCarte(Carte* carte){
-    std::cout<< "construireCarte: debut!" << std::endl; //!test
     //si la carte est accessible
     if(carte->get_type() == TypeCarte::Merveille){
         Joueur* j = quiJoue();
@@ -99,17 +98,12 @@ bool Controleur::estConstructible(Carte* carte){
         j->addCarte(carte, plateau.getPlateauScience());
 
         Merveille* merveille = dynamic_cast<Merveille*>(carte);
-        std::cout<< "construireCarte: merveille à prendre!" << std::endl; //!test
         plateau.getPlateauCartes()->prendreMerveille(merveille);
-        std::cout<< "construireCarte: merveille prise!" << std::endl; //!test
 
-        std::cout<< "construireCarte: capacite merveille à executer!" << std::endl; //!test
         merveille->exec_capacite(joueur1, joueur2, *plateau.getPlateauCartes(), *plateau.getPlateauMilitaire(), *plateau.getPlateauScience());
-        std::cout<< "construireCarte: capacite merveille executée!" << std::endl; //!test
     }
     else{
         if(plateau.getPlateauCartes()->estAccessible(carte)){
-            std::cout<< "construireCarte: carte accessible!" << std::endl; //!test
             //niveau argent joueur
             Joueur* j = quiJoue();
             int diff = j->getMonnaie() - j->getCout(*carte, *autreJoueur(j));
@@ -124,9 +118,7 @@ bool Controleur::estConstructible(Carte* carte){
             //si c'est une carteMilitaire
             if(carte->get_type() == TypeCarte::CarteMilitaire){
                 CarteMilitaire* carte_militaire = dynamic_cast<CarteMilitaire*>(carte);
-                std::cout<< "construireCarte: capacite militaire à executer!" << std::endl; //!test
                 carte_militaire->exec_capacite(j, *plateau.getPlateauMilitaire());
-                std::cout<< "construireCarte: capacite militaire executée!" << std::endl; //!test
             }
         }
         else SetException("erreur: carte non accessible!");
@@ -172,22 +164,18 @@ void Controleur::defausserCarte(Carte* carte){
 }
 
 void Controleur::playAction(Action& action){
-    std::cout<< "playAction!" << std::endl; //!test
     Carte* carte = std::get<0>(action);
     if(carte->get_type() == TypeCarte::Merveille){
-        std::cout<< "construireCarte: merveille à construire!" << std::endl; //!test
         construireCarte(carte);
         return;
     } 
     else{
         if(plateau.getPlateauCartes()->estAccessible(carte)){
-            std::cout<< "playAction: carte accessible!" << std::endl; //!test
             if(std::get<1>(action) == "defausser"){
                 defausserCarte(carte);
                 return;
             }
             if(std::get<1>(action) == "construire"){
-                std::cout<< "playAction: carte à construire!" << std::endl; //!test
                 construireCarte(carte);
                 return;
             }
@@ -200,7 +188,6 @@ void Controleur::playAction(Action& action){
 }
 
 bool Controleur::actionEstLegale(Action& action){
-    std::cout<< "actionEstLegale!" << std::endl; //!test
     Carte* carte = std::get<0>(action);
     if(plateau.getPlateauCartes()->estAccessible(carte)){
         if(std::get<1>(action) == "defausser")
@@ -224,59 +211,38 @@ bool Controleur::actionEstLegale(Action& action){
 
 
 Action* Controleur::actionsLegales(){
-    std::cout << "Ici Controleur::actionsLegales() : initialisation des actions légales" << std::endl; //!teste
     Action* res = new Action[60];
     int j = 0;
     for(int i= 0; i<TAILLE_CARTE_EN_JEU-1; i++){
         Carte* carte= plateau.getPlateauCartes()->getCartesEnJeu()[i];
-        std::cout << "\nIci Controleur::actionsLegales() : carte" << i+1 << std::endl; //!teste
         if(carte != nullptr){
-            std::cout << "Nom : " << carte->getNom() << std::endl; //!teste
-            std::cout << "Ici Controleur::actionsLegales() : carte en jeu" << std::endl; //!teste
             if(carte->est_accessible()){
-                std::cout << "Ici Controleur::actionsLegales() : carte accessible" << std::endl; //!teste
                 if(estConstructible(carte)){
-                    std::cout << "Ici Controleur::actionsLegales() : carte constructible" << std::endl; //!teste
                     
                     res[j] = std::make_tuple( carte , "construire");
                     j++;
-                    std::cout << "J" << j << std::endl; //!teste
-                } else{ std::cout << "Ici Controleur::actionsLegales() : carte non constructible" << std::endl;} //!teste
+                }
 
                 res[j] = std::make_tuple( carte , "defausser");
                 j++;
-                std::cout << "J" << j << std::endl; //!teste
 
-            }else{
-            std::cout << "Ici Controleur::actionsLegales() : carte non accessible" << std::endl; //!teste
             }
-        } else{
-            std::cout << "Ici Controleur::actionsLegales() : carte== nullptr" << std::endl; //!teste
         }
         
     }
     //merveilles
     Joueur* joueur = quiJoue();
-    if(joueur == joueur1)
-        std::cout << "Ici Controleur::actionsLegales() : joueur1" << std::endl; //!teste
-    if(joueur == joueur2)
-        std::cout << "Ici Controleur::actionsLegales() : joueur2" << std::endl; //!teste
-
     Merveille** liste = joueur->getMerveillesNonConstruites();
 
-
     for(int i =0; i<joueur->getNbMerveillesNonConstruites(); i++){
-        std::cout << "Ici Controleur::actionsLegales() : merveilles non construites" << i+1 << std::endl; //!teste
         if(estConstructible(liste[i])){
-            std::cout << "Ici Controleur::actionsLegales() : merveille constructible" << std::endl; //!teste
             res[j] = std::make_tuple(liste[i], "construire");
             j++;
-            std::cout << "J" << j << std::endl; //!teste
         }
     }
 
 
-    for(j; j<60; j++) {res[j] = std::make_tuple( nullptr , "ignore"); std::cout << "J" << j << std::endl;} //!teste
+    for(j; j<60; j++) {res[j] = std::make_tuple( nullptr , "ignore");}
     return res;
 }
 
