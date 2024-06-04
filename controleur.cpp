@@ -93,7 +93,9 @@ bool Controleur::estConstructible(Carte* carte){
         Joueur* j = quiJoue();
         int diff = j->getMonnaie() - j->getCout(*carte, *autreJoueur(j));
         if(diff < 0) throw SetException(" erreur: joueur n'a pas assez d'argent et de ressources");
+        // std::cout<< "argent joueur avant: "<< j->getMonnaie() << std::endl; //!test
         j->setMonnaie(diff);
+        // std::cout<< "argent joueur apres: "<< j->getMonnaie() << std::endl; //!test
 
         j->addCarte(carte, plateau.getPlateauScience());
 
@@ -108,8 +110,9 @@ bool Controleur::estConstructible(Carte* carte){
             Joueur* j = quiJoue();
             int diff = j->getMonnaie() - j->getCout(*carte, *autreJoueur(j));
             if(diff < 0) throw SetException(" erreur: joueur n'a pas assez d'argent et de ressources");
+            std::cout<< "argent joueur avant : "<< j->getMonnaie() << std::endl; //!test
             j->setMonnaie(diff);
-
+            std::cout<< "argent joueur apres: "<< j->getMonnaie() << std::endl; //!test
             //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
             j->addCarte(carte, plateau.getPlateauScience());
             plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
@@ -148,8 +151,10 @@ void Controleur::defausserCarte(Carte* carte){
     if(plateau.getPlateauCartes()->estAccessible(carte)){
         //niveau argent joueur
         Joueur* j = quiJoue();
-
-        j->setMonnaie(j->getMonnaie() + j->getCout(*carte, *autreJoueur(j)));
+        std::cout<< "argent joueur avant: "<< j->getMonnaie() << std::endl; //!test
+        // std::cout<< "cout carte: "<< j->getCout(*carte, *autreJoueur(j))<< std::endl; //!test
+        j->gagnerArgent(j->getCout(*carte, *autreJoueur(j)));
+        std::cout<< "argent joueur apres: "<< j->getMonnaie() << std::endl; //!test
 
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
         if(carte->get_type() == TypeCarte::Merveille) throw SetException("erreur: impossible de défausser une merveille");

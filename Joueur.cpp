@@ -229,7 +229,7 @@ Action Joueur::choisir_action(Action* actions){
     int i = 0;
     for (i; i<60; i++){
         if(std::get<1>(actions[i]) != "ignore"){
-            std::cout << i+1 << " : " << std::get<1>(actions[i]) << " "<<std::get<0>(actions[i])->getNom() << std::endl;
+            std::cout << i+1 << " : " << std::get<1>(actions[i]) << " "<<std::get<0>(actions[i])->getNom() <<std::endl;
         }
     }
     int choix;
@@ -543,7 +543,7 @@ bool Joueur::possedeSymboleChainage(SymboleChainage s) const {
         case SymboleChainage::lampe:
             return symboles_chainage.lampe;
         case SymboleChainage::none:
-            return true;
+            return false;
             break;
         default:
             SetException("erreur: symbole chainage n'existe pas");
@@ -952,7 +952,10 @@ void Joueur::retirerCarte(Carte* carte){
 
 //construire une carte
 unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
-    if(possedeSymboleChainage(carte.getSymboleChainageEntre())) return 0;
+    if(possedeSymboleChainage(carte.getSymboleChainageEntre())){
+        // std::cout<< "a symbole chainage" << std::endl; //!test
+        return 0;
+    }
     unsigned int cout = 0;
     bool forum = ressources.forum;
     bool caravanserail = ressources.caravanserail;
@@ -1013,7 +1016,7 @@ unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
         else cout += diff_parchemin * (2 + adversaire.getQuantiteDeRessourceSecondaire(RessourceSecondaire::parchemin));
     }
 
-
+    std::cout<< "cout de "<< carte.getNom()  << " ="<< cout << std::endl; //!test
     return cout;
 }
 
