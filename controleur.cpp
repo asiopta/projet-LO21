@@ -88,42 +88,49 @@ bool Controleur::estConstructible(Carte* carte){
 
 //! à debugguer
  void Controleur::construireCarte(Carte* carte){
+    std::cout<< "construireCarte: debut!" << std::endl; //!test
     //si la carte est accessible
-    if(plateau.getPlateauCartes()->estAccessible(carte)){
-        //niveau argent joueur
+    if(carte->get_type() == TypeCarte::Merveille){
         Joueur* j = quiJoue();
         int diff = j->getMonnaie() - j->getCout(*carte, *autreJoueur(j));
-        if(diff < 0) SetException(" erreur: joueur n'a pas assez d'argent et de ressources");
+        if(diff < 0) throw SetException(" erreur: joueur n'a pas assez d'argent et de ressources");
         j->setMonnaie(diff);
 
-        //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
         j->addCarte(carte, plateau.getPlateauScience());
-        if(carte->get_type() == TypeCarte::Merveille){
-            //! erreur probablement ici
-            Merveille* merveille = dynamic_cast<Merveille*>(carte);
-            plateau.getPlateauCartes()->prendreMerveille(merveille);
-            std::cout<< "construireCarte: merveille prise!" << std::endl; //!test
 
-        }
-        else plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
-        // leurs effets se fait au niveau de classe Joueur
+        Merveille* merveille = dynamic_cast<Merveille*>(carte);
+        std::cout<< "construireCarte: merveille à prendre!" << std::endl; //!test
+        plateau.getPlateauCartes()->prendreMerveille(merveille);
+        std::cout<< "construireCarte: merveille prise!" << std::endl; //!test
 
-        //si c'est une carteMilitaire
-        if(carte->get_type() == TypeCarte::CarteMilitaire){
-            CarteMilitaire* carte_militaire = dynamic_cast<CarteMilitaire*>(carte);
-            carte_militaire->exec_capacite(j, *plateau.getPlateauMilitaire());
-            std::cout<< "construireCarte: capacite militaire executée!" << std::endl; //!test
-        }
-
-        //si c'est une merveille
-        if(carte->get_type() == TypeCarte::Merveille){
-            Merveille* merveille = dynamic_cast<Merveille*>(carte);
-            merveille->exec_capacite(joueur1, joueur2, *plateau.getPlateauCartes(), *plateau.getPlateauMilitaire(), *plateau.getPlateauScience());
-            std::cout<< "construireCarte: capacite merveille executée!" << std::endl; //!test
-
-        }
+        std::cout<< "construireCarte: capacite merveille à executer!" << std::endl; //!test
+        merveille->exec_capacite(joueur1, joueur2, *plateau.getPlateauCartes(), *plateau.getPlateauMilitaire(), *plateau.getPlateauScience());
+        std::cout<< "construireCarte: capacite merveille executée!" << std::endl; //!test
     }
-    else SetException("erreur: carte non accessible!");
+    else{
+        if(plateau.getPlateauCartes()->estAccessible(carte)){
+            std::cout<< "construireCarte: carte accessible!" << std::endl; //!test
+            //niveau argent joueur
+            Joueur* j = quiJoue();
+            int diff = j->getMonnaie() - j->getCout(*carte, *autreJoueur(j));
+            if(diff < 0) throw SetException(" erreur: joueur n'a pas assez d'argent et de ressources");
+            j->setMonnaie(diff);
+
+            //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
+            j->addCarte(carte, plateau.getPlateauScience());
+            plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
+            // leurs effets se fait au niveau de classe Joueur
+
+            //si c'est une carteMilitaire
+            if(carte->get_type() == TypeCarte::CarteMilitaire){
+                CarteMilitaire* carte_militaire = dynamic_cast<CarteMilitaire*>(carte);
+                std::cout<< "construireCarte: capacite militaire à executer!" << std::endl; //!test
+                carte_militaire->exec_capacite(j, *plateau.getPlateauMilitaire());
+                std::cout<< "construireCarte: capacite militaire executée!" << std::endl; //!test
+            }
+        }
+        else SetException("erreur: carte non accessible!");
+    }
  }
 
 
@@ -165,24 +172,35 @@ void Controleur::defausserCarte(Carte* carte){
 }
 
 void Controleur::playAction(Action& action){
+    std::cout<< "playAction!" << std::endl; //!test
     Carte* carte = std::get<0>(action);
-    if(plateau.getPlateauCartes()->estAccessible(carte)){
-        if(std::get<1>(action) == "defausser"){
-            defausserCarte(carte);
-            return;
-        }
-        if(std::get<1>(action) == "construire"){
-            construireCarte(carte);
-            return;
-        }
+    if(carte->get_type() == TypeCarte::Merveille){
+        std::cout<< "construireCarte: merveille à construire!" << std::endl; //!test
+        construireCarte(carte);
+        return;
+    } 
+    else{
+        if(plateau.getPlateauCartes()->estAccessible(carte)){
+            std::cout<< "playAction: carte accessible!" << std::endl; //!test
+            if(std::get<1>(action) == "defausser"){
+                defausserCarte(carte);
+                return;
+            }
+            if(std::get<1>(action) == "construire"){
+                std::cout<< "playAction: carte à construire!" << std::endl; //!test
+                construireCarte(carte);
+                return;
+            }
 
-        else 
-            throw SetException("erreur: action non reconnue;");
+            else 
+                throw SetException("erreur: action non reconnue;");
+        }
+        else throw SetException("erreur: carte non acessible");
     }
-    else throw SetException("erreur: carte non acessible");
 }
 
 bool Controleur::actionEstLegale(Action& action){
+    std::cout<< "actionEstLegale!" << std::endl; //!test
     Carte* carte = std::get<0>(action);
     if(plateau.getPlateauCartes()->estAccessible(carte)){
         if(std::get<1>(action) == "defausser")

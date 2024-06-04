@@ -27,8 +27,10 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     while (boucle) {
 
         Action action = joueur_actif->choisir_action(actions_legales);
+        std::cout<< "boucle du jeu: action est choisie!" << std::endl; //!test
         if (controleur.actionEstLegale(action)){
             controleur.playAction(action);
+            std::cout<< "boucle du jeu: action est exécutée!" << std::endl; //!test
             boucle = false;
         }
         else{
