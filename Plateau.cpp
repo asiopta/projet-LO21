@@ -528,12 +528,9 @@ void PlateauCartes::prendreCarte(Carte* carte){ //! fonction OK
 }
 
 void PlateauCartes::defausserCarte(Carte* carte){
-    for (int i = 0; i < TAILLE_DEFAUSSES; i++){
-        if (defausses[i] == nullptr){
-            defausses[i] = carte;
-            break;
-        }
-    }
+    defausses[taille_defausse] = carte;
+    taille_defausse++;
+    if (taille_defausse >= TAILLE_CARTE_EN_JEU){throw "Dans PlateauCartes::defausserCarte, la taille de la defausse est superieur à la taille max";}
 }
 
 void PlateauCartes::prendreMerveille(Merveille* merveille){

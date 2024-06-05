@@ -115,6 +115,7 @@ private:
     Carte* cartes_en_jeu[TAILLE_CARTE_EN_JEU]; //tableau dynamique de pointeurs de Carte 
     Merveille* merveilles[TAILLE_MERVEILLES]; //tableau dynamique de pointeurs de Merveille
     Carte* defausses[TAILLE_DEFAUSSES];
+    unsigned int taille_defausse = 0; 
 
 public:
     PlateauCartes();
@@ -141,6 +142,7 @@ public:
     unsigned int getAge() const{return age;} //renvoie l'age du plateau
     Carte** getCartesEnJeu() const{return const_cast<Carte**>(cartes_en_jeu);}
     Carte** getDefausse() const{return const_cast<Carte**>(defausses);}
+    unsigned int getTailleDefausse() const {return taille_defausse;}
     Merveille** getMerveilles() const {return const_cast<Merveille**>(merveilles);}
     Carte** getCartesAccessibles() const; //renvoie un tableau de pointeus de Carte accessibles
     Carte** getCartesVisibles() const; //renvoie un tableau de pointeurs de Carte visibles
