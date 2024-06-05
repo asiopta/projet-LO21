@@ -225,11 +225,16 @@ Action Joueur::choisir_action(PlateauCartes* plateau_cartes){
 }
 
 Action Joueur::choisir_action(Action* actions){
+    Controleur* jeu =  &Controleur::getInstance();
+    Joueur* advers = jeu->autreJoueur(this);
+    std::cout<< "Vous avez: "<< getMonnaie() << " pieces." << std::endl;
     std::cout << "Choisissez une action parmi les suivantes: " << std::endl;
     int count = 0;
     for (int i=0; i<60; i++){
         if(std::get<1>(actions[i]) != "ignore"){
-            std::cout << i+1 << " : " << std::get<1>(actions[i]) << " "<<std::get<0>(actions[i])->getNom() <<std::endl;
+            Carte* carte = std::get<0>(actions[i]);
+            std::cout << i+1 << " : " << std::get<1>(actions[i]) << " "<<carte->getNom() 
+            << " /Cout = " << getCout(*carte, *advers)<<std::endl;
             count++;
         }
     }
@@ -1018,7 +1023,7 @@ unsigned int Joueur::getCout(const Carte& carte, Joueur& adversaire) {
     }
     
     cout += carte.getPrix();
-    std::cout<< "cout de "<< carte.getNom()  << " ="<< cout << std::endl; //!test
+    // std::cout<< "cout de "<< carte.getNom()  << " ="<< cout << std::endl; //!test
     return cout;
 }
 

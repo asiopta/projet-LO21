@@ -15,21 +15,23 @@ using namespace std;
 
 int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er joueur donnée en argument est le joueur qui joue
     std::cout << "debut de SevenWondersDuel" << std::endl; //!teste
+    std::cout<< "C'est le tour du joueur " << controleur.getTour() << std::endl;
     //** VERIFICATION DE LA VICTOIRE D'UN DES JOUEURS **//
     if (controleur.jeuEstFinie()) { //OK
         return controleur.gagnant(); //OK
     } //!condition d'arret de la fonction recursive SevenWondersDuel
 
-    controleur.addTour(); //OK
+    
     //** CHOIX D'UNE ACTION POUR LE JOUEUR ACTIF **//
+
     Action* actions_legales = controleur.actionsLegales();
     bool boucle = true;
     while (boucle) {
         Action action = joueur_actif->choisir_action(actions_legales);
-        std::cout<< "boucle du jeu: action est choisie!" << std::endl; //!test
+        // std::cout<< "boucle du jeu: action est choisie!" << std::endl; //!test
         if (controleur.actionEstLegale(action)){
             controleur.playAction(action);
-            std::cout<< "boucle du jeu: action est exécutée!" << std::endl; //!test
+            // std::cout<< "boucle du jeu: action est exécutée!" << std::endl; //!test
             boucle = false;
         }
         else{
@@ -38,6 +40,7 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     } //!While True tant que le joueur n'as pas choisir une action légale
     //free(actions_legales);
 
+    controleur.addTour(); //OK
     //** VERIFICATION DE LA FIN DE L'AGE **//
     if (controleur.getPlateau().getPlateauCartes()->estVide()){
         //changement d'age
