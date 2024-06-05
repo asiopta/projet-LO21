@@ -780,8 +780,8 @@ void Merveille::exec_detruire_carte_grise(Joueur* joueur1, Joueur* joueur2) cons
 
 
 void Merveille::exec_jouer_carte_defausse(Joueur* joueur1, PlateauCartes& plateau_carte) const{
-
-    Carte* carte_choisit = joueur1->choisirCarte(plateau_carte.getDefausse(), TAILLE_DEFAUSSES); 
+    std::cout << "ici Merveille::exec_jouer_carte_defausse, " << std::endl; //!teste
+    Carte* carte_choisit = joueur1->choisirCarte(plateau_carte.getDefausse(), plateau_carte.getTailleDefausse()); 
     // joueur1->construireCarte(*carte_choisit); //! construireCarte est dans Controleur.cpp
 
 
