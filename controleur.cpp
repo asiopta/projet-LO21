@@ -10,10 +10,10 @@
 
 /*---------------------classe Controleur-----------------------------------*/
 Controleur::Controleur(): plateau(Plateau(joueur1, joueur2)){
-    std::cout << "Ici Controleur::Controleur() : construction du controleur pour cette partie" << std::endl; //!test
+    // std::cout << "Ici Controleur::Controleur() : construction du controleur pour cette partie" << std::endl; //!test
     joueur1 = new Joueur();
     joueur2 = new Joueur();
-    std::cout << "Ici Controleur::Controleur : fin de la construction" << std::endl ;//! test
+    // std::cout << "Ici Controleur::Controleur : fin de la construction" << std::endl ;//! test
 }
 
 
@@ -21,15 +21,15 @@ Controleur::Controleur(): plateau(Plateau(joueur1, joueur2)){
 bool Controleur::gagne(Joueur* joueur){
     bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur); //!test
     bool victoireScience = joueur1->gagneScientifiquement(); //!test
-    std::cout<< "victoire militaire:"<<victoireMilitaire << " victoire science:" << victoireScience << std::endl; //!test
+    // std::cout<< "victoire militaire:"<<victoireMilitaire << " victoire science:" << victoireScience << std::endl; //!test
     return victoireMilitaire || victoireScience;
 }
 
 
 bool Controleur::jeuEstFinie(){
-    std::cout<< "plateau etat final:"<<plateau.isEtatFinal()<< std::endl; //!test
-    std::cout<< " j1 GAGNE:" << gagne(joueur1)  << std::endl; //!test
-    std::cout<< " j2 GAGNE:" << gagne(joueur2)  << std::endl; //!test
+    // std::cout<< "plateau etat final:"<<plateau.isEtatFinal()<< std::endl; //!test
+    // std::cout<< " j1 GAGNE:" << gagne(joueur1)  << std::endl; //!test
+    // std::cout<< " j2 GAGNE:" << gagne(joueur2)  << std::endl; //!test
     return plateau.isEtatFinal() || gagne(joueur1) || gagne(joueur2);
 }
 
@@ -86,7 +86,7 @@ bool Controleur::estConstructible(Carte* carte){
     else return true;
 }
 
-//! à debugguer
+
  void Controleur::construireCarte(Carte* carte){
     //si la carte est accessible
     if(carte->get_type() == TypeCarte::Merveille){
@@ -110,9 +110,9 @@ bool Controleur::estConstructible(Carte* carte){
             Joueur* j = quiJoue();
             int diff = j->getMonnaie() - j->getCout(*carte, *autreJoueur(j));
             if(diff < 0) throw SetException(" erreur: joueur n'a pas assez d'argent et de ressources");
-            std::cout<< "argent joueur avant : "<< j->getMonnaie() << std::endl; //!test
+            std::cout<< "argent joueur avant construire: "<< j->getMonnaie() << std::endl; //!test
             j->setMonnaie(diff);
-            std::cout<< "argent joueur apres: "<< j->getMonnaie() << std::endl; //!test
+            std::cout<< "argent joueur apres construire: "<< j->getMonnaie() << std::endl; //!test
             //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
             j->addCarte(carte, plateau.getPlateauScience());
             plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
@@ -151,10 +151,10 @@ void Controleur::defausserCarte(Carte* carte){
     if(plateau.getPlateauCartes()->estAccessible(carte)){
         //niveau argent joueur
         Joueur* j = quiJoue();
-        std::cout<< "argent joueur avant: "<< j->getMonnaie() << std::endl; //!test
+        std::cout<< "argent joueur avant defausser: "<< j->getMonnaie() << std::endl; //!test
         // std::cout<< "cout carte: "<< j->getCout(*carte, *autreJoueur(j))<< std::endl; //!test
         j->gagnerArgent(j->getCout(*carte, *autreJoueur(j)));
-        std::cout<< "argent joueur apres: "<< j->getMonnaie() << std::endl; //!test
+        std::cout<< "argent joueur apres defausser: "<< j->getMonnaie() << std::endl; //!test
 
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
         if(carte->get_type() == TypeCarte::Merveille) throw SetException("erreur: impossible de défausser une merveille");
@@ -167,6 +167,7 @@ void Controleur::defausserCarte(Carte* carte){
     }
     else throw SetException("erreur: carte non accessible!");
 }
+
 
 void Controleur::playAction(Action& action){
     Carte* carte = std::get<0>(action);
@@ -191,6 +192,7 @@ void Controleur::playAction(Action& action){
         else throw SetException("erreur: carte non acessible");
     }
 }
+
 
 bool Controleur::actionEstLegale(Action& action){
     Carte* carte = std::get<0>(action);
@@ -260,7 +262,6 @@ Controleur::~Controleur(){
 
 
 
-
 /*-------------------------------------Plateau-------------------------------------*/
 
 
@@ -278,12 +279,10 @@ Plateau::~Plateau(){
 }
 
 bool Plateau::isEtatFinal() {
-    std::cout << "plateau vide: "<<plateau_cartes->estVide()<< std::endl; //!teste
-    unsigned int age = plateau_cartes->getAge(); //!teste
-    std:: cout << "dernier age: "<< (age == 3); //!teste
+    // std::cout << "plateau vide: "<<plateau_cartes->estVide()<< std::endl; //!teste
+    // unsigned int age = plateau_cartes->getAge(); //!teste
+    // std:: cout << "dernier age: "<< (age == 3); //!teste
     return (plateau_cartes->estVide() && plateau_cartes->getAge() == 3 );
         
 }
-
-
 

@@ -568,8 +568,9 @@ bool PlateauCartes::estVide() const{
 
 
 void PlateauCartes::initPlateauCarte(){
-    std::cout << "ici debut initPlateauCarte" <<std::endl;
+    std::cout << "ici debut initPlateauCarte" <<std::endl; //! test
     if (age == 1){
+        std::cout<< "initialisation d'age 1!"<< std::endl; //! test
         //initialisation des cartes en jeu pour l'age 1
         Merveille* LISTE_MERVEILLES[NB_MERVEILLES_TOT] = {
             //!LISTE DE TOUTE LES MERVEILLES
@@ -736,13 +737,13 @@ void PlateauCartes::initPlateauCarte(){
                 RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
                 RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::engrenage, SymboleScience::pilon, 0)
         };
-        //! test
-        for(int i =0; i<NB_CARTE_AGE_1_TOT; i++){
-            if (i < NB_CARTES_AGE_1_JEU){
-                std::cout << "i = " << LISTE_CARTE_AGE_1[i]->getPrix() << std::endl;
-            }
-        }
-        //! fin test
+        // //! test
+        // for(int i =0; i<NB_CARTE_AGE_1_TOT; i++){
+        //     if (i < NB_CARTES_AGE_1_JEU){
+        //         std::cout << "i = " << LISTE_CARTE_AGE_1[i]->getPrix() << std::endl;
+        //     }
+        // }
+        // //! fin test
 
 
         //*ajout des cartes dans le plateau
@@ -758,7 +759,7 @@ void PlateauCartes::initPlateauCarte(){
                 i_counter++;
             }
         }
-
+        std::cout<< "age 1 initialisé correctement" << std::endl; //! test
         
         //* Remarque, on a deja suprimé les cartes non utilisées dans la fonction initCarteRandom
         // delete[] LISTE_MERVEILLES;
@@ -766,6 +767,7 @@ void PlateauCartes::initPlateauCarte(){
         //! on delet les element du tableau mais pas les tableau car il ne sont pas alloué dynamiquement 
     }
     else if (age == 2){
+        std::cout<< "initialisation d'age 2!"<< std::endl; //! test
         //initialisation des cartes en jeu pour l'age 2
         Carte* LISTE_CARTE_AGE_2[NB_CARTE_AGE_2_TOT] = {
             //! LISTE DE TOUTES LES CARTES DE L'AGE 2
@@ -892,9 +894,10 @@ void PlateauCartes::initPlateauCarte(){
         //supression de la liste de cartes
         //* Remarque, on a deja suprimé les cartes non utilisées dans la fonction initCarteRandom
         // delete[] LISTE_CARTE_AGE_2;
-
+        std::cout<< "initialisation d'age 2 réussi!"<< std::endl; //! test
     }
     else if (age == 3){
+        std::cout<< "initialisation d'age 3!"<< std::endl; //! test
         //initialisation des cartes en jeu pour l'age 3
         Carte* LISTE_CARTE_AGE_3[NB_CARTE_AGE_3_TOT] = {
             //! LISTE DES CARTES DE L'AGE 3
@@ -1053,7 +1056,7 @@ void PlateauCartes::initPlateauCarte(){
 
 
         // delete[] LISTE_CARTE_AGE_3;
-
+        std::cout<< "initialisation d'age 3 réussi!"<< std::endl; //! test
     }
     else {throw ("Erreur dans init_carte_en_jeu : age invalide");}
     std::cout << "Fin de initPlateauCarte" <<std::endl;
@@ -1061,21 +1064,21 @@ void PlateauCartes::initPlateauCarte(){
 }
 
 void PlateauCartes::initCarteRandom(unsigned int nombre_carte,unsigned int taille_tableau, Carte** tableau_cartes){
-    std::cout<<"ici initCarteRandom : debut de la fonction"<<std::endl; //!teste
+    // std::cout<<"ici initCarteRandom : debut de la fonction"<<std::endl; //!teste
     if (nombre_carte > TAILLE_CARTE_EN_JEU){throw ("Erreur dans tirerCarteRandom : nombre de carte invalide");}
 
     std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
     std::mt19937 gen(rd());
     std::shuffle(tableau_cartes, tableau_cartes + nombre_carte, gen); //mélange d'une liste de cartes 
-    std::cout<<"ici initCarteRandom : fin du shuffle"<<std::endl; //!teste
+    // std::cout<<"ici initCarteRandom : fin du shuffle"<<std::endl; //!teste
     for (int i = 0; i < nombre_carte; i++){
         cartes_en_jeu[i] = tableau_cartes[i]; //ajout des nombre_carte premières cartes de la liste mélangée
     }
-    std::cout<<"ici initCarteRandom : fin de l'ajout des cartes"<<std::endl; //!teste
+    // std::cout<<"ici initCarteRandom : fin de l'ajout des cartes"<<std::endl; //!teste
     for (int i = nombre_carte; i < taille_tableau ; i++){
         delete tableau_cartes[i]; //on delete les cartes non utilisées
     }
-    std::cout<<"ici initCarteRandom : fin de la suppression des cartes non utilisées"<<std::endl; //!teste
+    // std::cout<<"ici initCarteRandom : fin de la suppression des cartes non utilisées"<<std::endl; //!teste
     // delete[] tableau_cartes; 
     //! ne pas delete les tableaux non aloué dynamiquement 
 }
