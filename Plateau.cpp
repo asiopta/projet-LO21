@@ -312,7 +312,7 @@ PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur* joueur_derr, Joueur* 
 
 void PlateauMilitaire::update_avance(unsigned int ajout, Joueur* joueur_cible){
     //ajoute l'avancé militaire ajout en direction du joueur_cible
-    if (joueur_cible == joueur_derriere) { 
+    if (joueur_cible == joueur_derriere) {
         avance += ajout; //si je joueur cible est le joueur le plus derriere, on avance le pion dans sa direction et c'est tout
     }
     else {
