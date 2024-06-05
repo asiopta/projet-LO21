@@ -74,8 +74,15 @@ Joueur* Controleur::quiJoue(){
  }
 
 Joueur* Controleur::autreJoueur(Joueur* j){
-    if(j == joueur1) return joueur2;
-    if(j == joueur2) return joueur1;
+    std::cout<< "autreJoueur?" << std::endl; //! test
+    if(j == joueur1){
+        std::cout<< "c'est joueur 2" << std::endl; //! test
+        return joueur2;
+    }
+    if(j == joueur2){
+        std::cout<< "c'est joueur 1" << std::endl; //! test
+        return joueur1;
+    }
     else throw SetException("erreur: joueur non reconnu");
 }
 

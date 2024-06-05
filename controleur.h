@@ -31,7 +31,7 @@ public:
     Plateau(Joueur* joueur1, Joueur* joueur2); //initialise les 3 plateaux (militaire, science, cartes
 
     Plateau& operator=(const Plateau& plateau) = default; // potentiellement à refaire
-    Plateau operator==(const Plateau& plateau); 
+    // Plateau operator==(const Plateau& plateau); 
     
     //getteurs
     PlateauMilitaire* getPlateauMilitaire(){return plateau_militaire;};
