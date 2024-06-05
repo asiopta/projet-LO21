@@ -168,6 +168,7 @@ void Controleur::defausserCarte(Carte* carte){
     else throw SetException("erreur: carte non accessible!");
 }
 
+
 void Controleur::playAction(Action& action){
     Carte* carte = std::get<0>(action);
     if(carte->get_type() == TypeCarte::Merveille){
@@ -191,6 +192,7 @@ void Controleur::playAction(Action& action){
         else throw SetException("erreur: carte non acessible");
     }
 }
+
 
 bool Controleur::actionEstLegale(Action& action){
     Carte* carte = std::get<0>(action);
@@ -260,7 +262,6 @@ Controleur::~Controleur(){
 
 
 
-
 /*-------------------------------------Plateau-------------------------------------*/
 
 
@@ -284,6 +285,4 @@ bool Plateau::isEtatFinal() {
     return (plateau_cartes->estVide() && plateau_cartes->getAge() == 3 );
         
 }
-
-
 
