@@ -225,8 +225,13 @@ Action Joueur::choisir_action(PlateauCartes* plateau_cartes){
 }
 
 Action Joueur::choisir_action(Action* actions){
+    std::cout<< "get Instance?" << std:: endl; //! test
     Controleur* jeu =  &Controleur::getInstance();
+    std::cout<< "get Instance ok" << std:: endl; //! test
+    std::cout<< "get adversaire?" << std:: endl; //! test
     Joueur* advers = jeu->autreJoueur(this);
+    std::cout<< "get adversaire ok" << std:: endl; //! test
+    
     std::cout<< "Vous avez: "<< getMonnaie() << " pieces." << std::endl;
     std::cout << "Choisissez une action parmi les suivantes: " << std::endl;
     int count = 0;

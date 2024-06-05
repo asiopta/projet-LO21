@@ -18,16 +18,20 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     std::cout<< "C'est le tour du joueur " << controleur.getTour() << std::endl;
     //** VERIFICATION DE LA VICTOIRE D'UN DES JOUEURS **//
     if (controleur.jeuEstFinie()) { //OK
+        // std::cout<< "jeu est fini?"<< std:: endl; //! test
         return controleur.gagnant(); //OK
     } //!condition d'arret de la fonction recursive SevenWondersDuel
 
     
     //** CHOIX D'UNE ACTION POUR LE JOUEUR ACTIF **//
-
+    // std::cout<< "action légales?" << std:: endl; //! test
     Action* actions_legales = controleur.actionsLegales();
+    // std::cout<< "actions légales ok" << std:: endl; //! test
     bool boucle = true;
     while (boucle) {
+        std::cout<< "choisir action?" << std:: endl; //! test
         Action action = joueur_actif->choisir_action(actions_legales);
+        std::cout<< "choisir action ok?" << std:: endl; //! test
         // std::cout<< "boucle du jeu: action est choisie!" << std::endl; //!test
         if (controleur.actionEstLegale(action)){
             controleur.playAction(action);
