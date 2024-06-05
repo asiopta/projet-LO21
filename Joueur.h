@@ -217,7 +217,7 @@ public:
     //constructeurs
     Joueur(); // review
     Joueur(const Joueur& j); //review
-    Joueur& operator=(const Joueur& j); //review
+    // Joueur& operator=(const Joueur& j); //review
     bool operator==(const Joueur& j); // review
 
     //destructeur

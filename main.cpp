@@ -48,8 +48,13 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     //** VERIFICATION DE LA FIN DE L'AGE **//
     if (controleur.getPlateau().getPlateauCartes()->estVide()){
         //changement d'age
+        std::cout<< "add age?" << std::endl; //! test
         controleur.getPlateau().getPlateauCartes()->addAge();
-        return SevenWondersDuel(controleur, controleur.getPlateau().getPlateauMilitaire()->getJoueurDerriere());
+        std::cout<< "add age ok" << std::endl; //! test
+        std::cout<< "joueur derriere?" << std::endl; //! test
+        Joueur* joueur_derriere = controleur.getPlateau().getPlateauMilitaire()->getJoueurDerriere();
+        std::cout<< "joueur derriere ok" << std::endl; //! test
+        return SevenWondersDuel(controleur, joueur_derriere);
     }
     else{
             //** PASSAGE AU TOUR SUIVANT **//

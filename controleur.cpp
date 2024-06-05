@@ -109,7 +109,9 @@ bool Controleur::estConstructible(Carte* carte){
         Merveille* merveille = dynamic_cast<Merveille*>(carte);
         plateau.getPlateauCartes()->prendreMerveille(merveille);
 
-        merveille->exec_capacite(joueur1, joueur2, *plateau.getPlateauCartes(), *plateau.getPlateauMilitaire(), *plateau.getPlateauScience());
+        merveille->exec_capacite(quiJoue(), autreJoueur(quiJoue()), *plateau.getPlateauCartes(), *plateau.getPlateauMilitaire(), *plateau.getPlateauScience()); 
+        //* erreur corrigée
+
     }
     else{
         if(plateau.getPlateauCartes()->estAccessible(carte)){
@@ -128,7 +130,7 @@ bool Controleur::estConstructible(Carte* carte){
             //si c'est une carteMilitaire
             if(carte->get_type() == TypeCarte::CarteMilitaire){
                 CarteMilitaire* carte_militaire = dynamic_cast<CarteMilitaire*>(carte);
-                carte_militaire->exec_capacite(j, *plateau.getPlateauMilitaire());
+                carte_militaire->exec_capacite(autreJoueur(j), *plateau.getPlateauMilitaire()); //* erreur corrigée
             }
         }
         else SetException("erreur: carte non accessible!");
