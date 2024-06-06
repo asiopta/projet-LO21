@@ -9,12 +9,10 @@
 
 
 /*---------------------classe Controleur-----------------------------------*/
-Controleur::Controleur(): plateau(Plateau(joueur1, joueur2)){
+Controleur::Controleur(): joueur1(new Joueur()), joueur2(new Joueur()), plateau(Plateau(joueur1, joueur2)){
     // std::cout << "Ici Controleur::Controleur() : construction du controleur pour cette partie" << std::endl; //!test
-    joueur1 = new Joueur();
-    joueur2 = new Joueur();
     // plateau = Plateau(joueur1, joueur2);
-    std:: cout <<"Constructeur Controleur: joueur1: "<< joueur1 << " /joueur2: " << joueur2 << std::endl;
+    // std:: cout <<"Constructeur Controleur: joueur1: "<< joueur1 << " /joueur2: " << joueur2 << std::endl;
 
     // std::cout << "Ici Controleur::Controleur : fin de la construction" << std::endl ;//! test
 }
@@ -22,8 +20,8 @@ Controleur::Controleur(): plateau(Plateau(joueur1, joueur2)){
 
 
 bool Controleur::gagne(Joueur* joueur){
-    bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur); //!test
-    bool victoireScience = joueur1->gagneScientifiquement(); //!test
+    bool victoireMilitaire = plateau.getPlateauMilitaire()->gagneMilitairement(joueur); 
+    bool victoireScience = joueur1->gagneScientifiquement(); 
     // std::cout<< "victoire militaire:"<<victoireMilitaire << " victoire science:" << victoireScience << std::endl; //!test
     return victoireMilitaire || victoireScience;
 }
@@ -77,14 +75,14 @@ Joueur* Controleur::quiJoue(){
  }
 
 Joueur* Controleur::autreJoueur(Joueur* j){
-    std::cout<< "autreJoueur?" << std::endl; //! test
-    std::cout<< "autreJoueur: " << j<<std::endl; //! test
+    // std::cout<< "autreJoueur?" << std::endl; //! test
+    // std::cout<< "autreJoueur: " << j<<std::endl; //! test
     if(j == joueur1){
-        std::cout<< "c'est joueur 2" << std::endl; //! test
+        // std::cout<< "c'est joueur 2" << std::endl; //! test
         return joueur2;
     }
     if(j == joueur2){
-        std::cout<< "c'est joueur 1" << std::endl; //! test
+        // std::cout<< "c'est joueur 1" << std::endl; //! test
         return joueur1;
     }
     else throw SetException("erreur: joueur non reconnu");
