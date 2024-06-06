@@ -137,7 +137,7 @@ bool Controleur::estConstructible(Carte* carte){
 
             if(carte->get_type() == TypeCarte::CarteCommerce){
                 CarteCommerce* carte_commerce = dynamic_cast<CarteCommerce*>(carte);
-                carte_commerce->exec_capacite(*j);
+                //carte_commerce->exec_capacite(*j); //! exec_capacite à DEFINIR
             }
         }
         else SetException("erreur: carte non accessible!");
