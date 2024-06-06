@@ -13,6 +13,9 @@ Controleur::Controleur(): plateau(Plateau(joueur1, joueur2)){
     // std::cout << "Ici Controleur::Controleur() : construction du controleur pour cette partie" << std::endl; //!test
     joueur1 = new Joueur();
     joueur2 = new Joueur();
+    // plateau = Plateau(joueur1, joueur2);
+    std:: cout <<"Constructeur Controleur: joueur1: "<< joueur1 << " /joueur2: " << joueur2 << std::endl;
+
     // std::cout << "Ici Controleur::Controleur : fin de la construction" << std::endl ;//! test
 }
 
@@ -75,6 +78,7 @@ Joueur* Controleur::quiJoue(){
 
 Joueur* Controleur::autreJoueur(Joueur* j){
     std::cout<< "autreJoueur?" << std::endl; //! test
+    std::cout<< "autreJoueur: " << j<<std::endl; //! test
     if(j == joueur1){
         std::cout<< "c'est joueur 2" << std::endl; //! test
         return joueur2;
@@ -275,10 +279,13 @@ Controleur::~Controleur(){
 
 
 Plateau::Plateau(Joueur* joueur1, Joueur* joueur2){
+    std:: cout <<"Constructeur Plateau: joueur1: "<< joueur1 << " /joueur2: " << joueur2 << std::endl;
+
     plateau_cartes = new PlateauCartes();
     plateau_cartes->addAge(); //! la fonction addage set a initialiser les cartes en jeu
     plateau_science = new PlateauScience();
     plateau_militaire = new PlateauMilitaire(0, joueur1, joueur2);
+    std:: cout <<"Constructeur Plateau: joueur1: "<< joueur1 << " /joueur2: " << joueur2 << std::endl;
 }
 
 Plateau::~Plateau(){

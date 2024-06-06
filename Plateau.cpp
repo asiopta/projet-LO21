@@ -306,6 +306,9 @@ PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur* joueur_derr, Joueur* 
     std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 3 construit"<<std::endl; //!test
     liste_jetons_malus[3] = new JetonMalus(5, 6, autre_joueur);
     std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 4 construit"<<std::endl; //!test
+
+    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : joueur_derriere= "<< joueur_derriere <<std::endl; //!test
+
     std::cout<<"ici PlateauMilitaire::PlateauMilitaire : fin de construction"<<std::endl; //!test
 
 }
@@ -313,12 +316,18 @@ PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur* joueur_derr, Joueur* 
 void PlateauMilitaire::update_avance(unsigned int ajout, Joueur* joueur_cible){
     //ajoute l'avancé militaire ajout en direction du joueur_cible
     if (joueur_cible == joueur_derriere) {
+        std::cout<<"ici PlateauMilitaire::update_avance : joueur_derriere= "<< joueur_derriere <<std::endl; //!test
+        std::cout<<"ici PlateauMilitaire::PlateauMilitaire : joueur_cible= "<< joueur_cible <<std::endl; //!test
+
+
         avance += ajout; //si je joueur cible est le joueur le plus derriere, on avance le pion dans sa direction et c'est tout
     }
     else {
         if (avance - ajout < 0) { // si le joueur cible n'est pas le joueur le plus derriere, on avance le pion en direction de l'autre joueur
             avance = ajout-avance; //si avance < 0, on le rend positif et on change le joueur derriere
             joueur_derriere = joueur_cible;
+            std::cout<<"ici PlateauMilitaire::update_avance : joueur_derriere= "<< joueur_derriere <<std::endl; //!test
+            std::cout<<"ici PlateauMilitaire::PlateauMilitaire : joueur_cible= "<< joueur_cible <<std::endl; //!test
         }
     }
 }

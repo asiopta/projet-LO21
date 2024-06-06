@@ -15,7 +15,7 @@ using namespace std;
 
 int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er joueur donnée en argument est le joueur qui joue
     std::cout << "debut de SevenWondersDuel" << std::endl; //!teste
-    std::cout<< "C'est le tour du joueur " << controleur.getTour() << std::endl;
+    std::cout<< "C'est le tour du joueur " << controleur.getTour() <<"/ "<< controleur.quiJoue() <<std::endl;
     //** VERIFICATION DE LA VICTOIRE D'UN DES JOUEURS **//
     if (controleur.jeuEstFinie()) { //OK
         // std::cout<< "jeu est fini?"<< std:: endl; //! test
@@ -48,12 +48,13 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     //** VERIFICATION DE LA FIN DE L'AGE **//
     if (controleur.getPlateau().getPlateauCartes()->estVide()){
         //changement d'age
-        std::cout<< "add age?" << std::endl; //! test
+        // std::cout<< "add age?" << std::endl; //! test
         controleur.getPlateau().getPlateauCartes()->addAge();
-        std::cout<< "add age ok" << std::endl; //! test
-        std::cout<< "joueur derriere?" << std::endl; //! test
+        // std::cout<< "add age ok" << std::endl; //! test
+        std::cout<< "joueur derriere?"<<std::endl; //! test
         Joueur* joueur_derriere = controleur.getPlateau().getPlateauMilitaire()->getJoueurDerriere();
-        std::cout<< "joueur derriere ok" << std::endl; //! test
+        std::cout<< "joueur derriere ok: "<< joueur_derriere << std::endl; //! test
+        std::cout<< "joueur 1: "<< controleur.getJoueur1() << "/ joueur2: " << controleur.getJoueur2() << std::endl;
         return SevenWondersDuel(controleur, joueur_derriere);
     }
     else{

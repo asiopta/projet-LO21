@@ -529,7 +529,9 @@ CarteMilitaire::CarteMilitaire(const CarteMilitaire& c)
 }
 
 void CarteMilitaire::exec_capacite(Joueur* joueur_adverse, PlateauMilitaire& plateau_militaire){ //!error
+    std::cout<< "exec_capacite_militaire: joueur_adverse = " << joueur_adverse << std::endl; //! test
     plateau_militaire.update_avance(nb_symbole_militaire,joueur_adverse);
+    std::cout<< "exec_capacite_militaire: joueur derriere = " << plateau_militaire.getJoueurDerriere();
 }
 
 
