@@ -134,6 +134,11 @@ bool Controleur::estConstructible(Carte* carte){
                 CarteMilitaire* carte_militaire = dynamic_cast<CarteMilitaire*>(carte);
                 carte_militaire->exec_capacite(autreJoueur(j), *plateau.getPlateauMilitaire()); //* erreur corrigée
             }
+
+            if(carte->get_type() == TypeCarte::CarteCommerce){
+                CarteCommerce* carte_commerce = dynamic_cast<CarteCommerce*>(carte);
+                carte_commerce->exec_capacite(*j);
+            }
         }
         else SetException("erreur: carte non accessible!");
     }
