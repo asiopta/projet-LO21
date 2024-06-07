@@ -169,7 +169,10 @@ void Controleur::defausserCarte(Carte* carte){
         Joueur* j = quiJoue();
         std::cout<< "argent joueur avant defausser: "<< j->getMonnaie() << std::endl; //!test
         // std::cout<< "cout carte: "<< j->getCout(*carte, *autreJoueur(j))<< std::endl; //!test
-        j->gagnerArgent(j->getCout(*carte, *autreJoueur(j)));
+        unsigned int cout_defauss = 2;
+        cout_defauss += j->getNbCartesType("RessourcePrimaire");
+        cout_defauss += j->getNbCartesType("RessourceSecondaire");
+        j->gagnerArgent(cout_defauss);
         std::cout<< "argent joueur apres defausser: "<< j->getMonnaie() << std::endl; //!test
 
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
