@@ -227,12 +227,12 @@ Action Joueur::choisir_action(PlateauCartes* plateau_cartes){
 }
 
 Action Joueur::choisir_action(Action* actions){
-    std::cout<< "get Instance?" << std:: endl; //! test
+    // std::cout<< "get Instance?" << std:: endl; //! test
     Controleur* jeu =  &Controleur::getInstance();
-    std::cout<< "get Instance ok" << std:: endl; //! test
-    std::cout<< "get adversaire?" << std:: endl; //! test
+    // std::cout<< "get Instance ok" << std:: endl; //! test
+    // std::cout<< "get adversaire?" << std:: endl; //! test
     Joueur* advers = jeu->autreJoueur(this);
-    std::cout<< "get adversaire ok" << std:: endl; //! test
+    // std::cout<< "get adversaire ok" << std:: endl; //! test
     
     std::cout<< "Vous avez: "<< getMonnaie() << " pieces." << std::endl;
     std::cout << "Choisissez une action parmi les suivantes: " << std::endl;
@@ -240,9 +240,23 @@ Action Joueur::choisir_action(Action* actions){
     for (int i=0; i<60; i++){
         if(std::get<1>(actions[i]) != "ignore"){
             Carte* carte = std::get<0>(actions[i]);
-            std::cout << i+1 << " : " << std::get<1>(actions[i]) << " "<<carte->getNom() 
-            << " /Cout = " << getCout(*carte, *advers)<<std::endl;
-            count++;
+            
+            if(std::get<1>(actions[i]) == "construire"){
+                std::cout << i+1 << " : construire " <<carte->getNom() 
+                    << " /Cout = " << getCout(*carte, *advers)<<std::endl;
+                count++;
+            }
+            else{
+                unsigned int cout_defauss = 2 + getNbCartesType("RessourcePrimaire") + getNbCartesType("RessourceSecondaire");
+                // std::cout<< "defausserCarte: nb cartesprim: "<< getNbCartesType("RessourcePrimaire")<< std::endl; //!test
+                // std::cout<< "defausserCarte: nb cartessec: "<< getNbCartesType("RessourceSecondaire")<< std::endl; //!test
+                // std::cout<< "defausserCarte: cout_defauss = : "<< cout_defauss<< std::endl; //!test
+
+
+                std::cout << i+1 << " : defausser "<<carte->getNom() << " /Cout = " << cout_defauss <<std::endl;
+                count++;
+            }
+            
         }
     }
     int choix;
