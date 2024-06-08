@@ -128,14 +128,14 @@ void JetonScience::exec_capacite_science(Joueur* joueur) const{
 //constructeur de JetonMalus
 JetonMalus::JetonMalus() : malus(0), position(0), joueur(nullptr) {std::cout<<"ici JetonMalus::JetonMalus()"<<std::endl;}
 JetonMalus::JetonMalus(unsigned int m, unsigned int position, Joueur* j) : malus(m), joueur(j) {
-    std::cout<<"ici JetonMalus::JetonMalus() : debut de construction"<<std::endl; //!test
+    // std::cout<<"ici JetonMalus::JetonMalus() : debut de construction"<<std::endl; //!test
     if (position > LargeurPlateauMilitaire) {
         throw("Erreur JetonMilitaire : position invalide, en dehors du PlateauMilitaire"); //si on defini une position en dehors du plateau militaire, on renvoie une erreur
     }
     else {
         this->position = position;
     }
-    std::cout<<"ici JetonMalus::JetonMalus() : fin de construction"<<std::endl; //!test
+    // std::cout<<"ici JetonMalus::JetonMalus() : fin de construction"<<std::endl; //!test
 }
 
 bool JetonMalus::operator==(const JetonMalus& other) const {
@@ -161,14 +161,14 @@ void JetonMalus::exec_malus(){
 
 //constructeur par defaut de PlateauScience
 PlateauScience::PlateauScience() {
-    std::cout<<"ici PlateauScience::PlateauScience"<<std::endl; //!test
+    // std::cout<<"ici PlateauScience::PlateauScience"<<std::endl; //!test
     
     jeton_in_game = new JetonScience*[Dim_jetons_in_game];
-    std::cout<<"Init de jeton in game fini"<<std::endl; //!test
+    // std::cout<<"Init de jeton in game fini"<<std::endl; //!test
     liste_position = new unsigned int[Dim_liste_position];
-    std::cout<<"Init de liste_positon fini"<<std::endl; //!test
+    // std::cout<<"Init de liste_positon fini"<<std::endl; //!test
     jeton_out_game = new JetonScience*[Dim_jetons_out_game];
-    std::cout<<"Init de jeton out game fini"<<std::endl; //!test
+    // std::cout<<"Init de jeton out game fini"<<std::endl; //!test
 
     std::vector<CapaciteScience> capacites = {
         CapaciteScience::agriculture,
@@ -191,26 +191,26 @@ PlateauScience::PlateauScience() {
     for (int i = 0; i < Dim_jetons_in_game; i++) {
         jeton_in_game[i] = new JetonScience(capacites[j]);
         j++;
-        std::cout<<"construct Plateauscience: jetons in game" << jeton_in_game[i]->get_capacite()<<std::endl; //!test
+        // std::cout<<"construct Plateauscience: jetons in game" << jeton_in_game[i]->get_capacite()<<std::endl; //!test
 
     }
     for (int i = 0; i < Dim_jetons_out_game ; i++) {
         jeton_out_game[i] = new JetonScience(capacites[j]);
         j++;
-        std::cout<<"construct Plateauscience: jeton out game" << jeton_out_game[i]->get_capacite()<<std::endl; //!test
+        // std::cout<<"construct Plateauscience: jeton out game" << jeton_out_game[i]->get_capacite()<<std::endl; //!test
 
     }
     for (int i = 0; i < Dim_liste_position; i++) {
         liste_position[i] = i+1;
     }
-    std::cout<<"Changement de value des listes + fin du constructeur JetonScience"<<std::endl; //!test
+    // std::cout<<"Changement de value des listes + fin du constructeur JetonScience"<<std::endl; //!test
 }
 
 
 //ajoute un jeton science dans le tableau jeton_in_game
 void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
     for (int i = 0; i < Dim_jetons_in_game; i++) {
-        if (jeton_in_game[i]->get_capacite() != CapaciteScience::none) { //! changement de signe effectué
+        if (jeton_in_game[i]->get_capacite() == CapaciteScience::none) { //! changement de signe effectué
             jeton_in_game[i] = &jeton;
             liste_position[i] = i+1;
         }
@@ -220,7 +220,7 @@ void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
 
 void PlateauScience::ajouter_jeton_out_game(JetonScience& jeton) {
     for (int i = 0; i < Dim_jetons_out_game; i++) {
-        if (jeton_out_game[i]->get_capacite() != CapaciteScience::none) { //! changement de signe effectué
+        if (jeton_out_game[i]->get_capacite() == CapaciteScience::none) { //! changement de signe effectué
             jeton_out_game[i] = &jeton;
             liste_position[i] = i+1;
         }
@@ -272,6 +272,8 @@ JetonScience** PlateauScience::tirer_jeton_out_game(){ //renvoie un tableau de 3
 
     for (int i = 0; i < Dim_resultat; i++) {
         resultat[i] = jeton_out_game[liste[indices_choisis[i]]];
+        std::cout<<"tirer_jeton_out_game: jeton: "<< resultat[i]->get_capacite() <<std::endl; //!test
+
     }
     return resultat;
 }
