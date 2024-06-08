@@ -196,8 +196,7 @@ Merveille* Joueur::choisirCarte(Merveille** liste_merveilles, unsigned int taill
 JetonScience* Joueur::choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau){
     std::cout << "Choisissez un jeton science parmi les suivants: " << std::endl;
     for (int i = 0; i<taille_tableau; i++){
-        // std::cout << i+1 << " : " << liste_jetons[i]->get_capacite() << std::endl;
-        std::cout << "ceci est un teste"; //TODO TESTE
+        std::cout << i+1 << " : " << liste_jetons[i]->get_capacite() << std::endl;
     }
     int choix;
     std::cin >> choix;

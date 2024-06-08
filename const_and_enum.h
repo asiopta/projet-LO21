@@ -117,7 +117,7 @@ enum class CapaciteScience{
 };
 
 
-
+std::ostream& operator<<(std::ostream& f,CapaciteScience capacite_science);
 
 
 

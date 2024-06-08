@@ -790,8 +790,14 @@ void Merveille::exec_jouer_carte_defausse(Joueur* joueur1, PlateauCartes& platea
 }
 
 void Merveille::exec_choisir_jeton_science(Joueur* joueur1, PlateauScience& plateau_science) const{
+    std::cout << "ici Merveille::exec_choisir_jeton_science " << std::endl; //!teste
     JetonScience** liste_jeton = plateau_science.tirer_jeton_out_game();
+    // for(size_t i=0; i<3; i++){
+    //     std::cout << "jeton "<< i<< ": " << liste_jeton[i]  << std::endl; //!teste
+    // }
+    std::cout << "tirer_jeton_out_game(): ok " << std::endl; //!teste
     JetonScience* choix = joueur1->choisirJetonScience(liste_jeton, 3); //une fois le choix executé par le joueur
+    std::cout << "choisir_jeton: ok " << std::endl; //!teste
     joueur1->construireJeton(choix); //on construit le jeton choisit
 }
 

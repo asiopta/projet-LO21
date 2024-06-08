@@ -187,12 +187,18 @@ PlateauScience::PlateauScience() {
     std::mt19937 g(rd());
     std::shuffle(capacites.begin(), capacites.end(), g);
 
-
+    int j = 0;
     for (int i = 0; i < Dim_jetons_in_game; i++) {
-        jeton_in_game[i] = new JetonScience(capacites[i]);
+        jeton_in_game[i] = new JetonScience(capacites[j]);
+        j++;
+        std::cout<<"construct Plateauscience: jetons in game" << jeton_in_game[i]->get_capacite()<<std::endl; //!test
+
     }
-    for (int i = Dim_jetons_in_game; i < Dim_jetons_out_game; i++) {
-        jeton_out_game[i] = new JetonScience(capacites[i]);
+    for (int i = 0; i < Dim_jetons_out_game ; i++) {
+        jeton_out_game[i] = new JetonScience(capacites[j]);
+        j++;
+        std::cout<<"construct Plateauscience: jeton out game" << jeton_out_game[i]->get_capacite()<<std::endl; //!test
+
     }
     for (int i = 0; i < Dim_liste_position; i++) {
         liste_position[i] = i+1;
@@ -204,8 +210,7 @@ PlateauScience::PlateauScience() {
 //ajoute un jeton science dans le tableau jeton_in_game
 void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
     for (int i = 0; i < Dim_jetons_in_game; i++) {
-        if (jeton_in_game[i]->get_capacite() == CapaciteScience::none) { ////la capacité de JetonScience est inacessible directement. Comme c'est privé 
-                                                                        // Erreur corrigé en rajoutant une méthode get_capacite() dans la classe JetonScience
+        if (jeton_in_game[i]->get_capacite() != CapaciteScience::none) { //! changement de signe effectué
             jeton_in_game[i] = &jeton;
             liste_position[i] = i+1;
         }
@@ -215,7 +220,7 @@ void PlateauScience::ajouter_jeton_in_game(JetonScience& jeton) {
 
 void PlateauScience::ajouter_jeton_out_game(JetonScience& jeton) {
     for (int i = 0; i < Dim_jetons_out_game; i++) {
-        if (jeton_out_game[i]->get_capacite() == CapaciteScience::none) {
+        if (jeton_out_game[i]->get_capacite() != CapaciteScience::none) { //! changement de signe effectué
             jeton_out_game[i] = &jeton;
             liste_position[i] = i+1;
         }
@@ -1128,4 +1133,45 @@ PlateauCartes::~PlateauCartes(){
 
 
 
-
+std::ostream& operator<<(std::ostream& os, CapaciteScience capacite_science) {
+    switch (capacite_science) {
+        case CapaciteScience::none:
+            os << "none";
+            break;
+        case CapaciteScience::agriculture:
+            os << "agriculture";
+            break;
+        case CapaciteScience::architecture:
+            os << "architecture";
+            break;
+        case CapaciteScience::economie:
+            os << "economie";
+            break;
+        case CapaciteScience::loi:
+            os << "loi";
+            break;
+        case CapaciteScience::maconnerie:
+            os << "maconnerie";
+            break;
+        case CapaciteScience::urbanisme:
+            os << "urbanisme";
+            break;
+        case CapaciteScience::theologie:
+            os << "theologie";
+            break;
+        case CapaciteScience::strategie:
+            os << "strategie";
+            break;
+        case CapaciteScience::philosophie:
+            os << "philosophie";
+            break;
+        case CapaciteScience::mathematique:
+            os << "mathematique";
+            break;
+        default:
+            os << "capacite_merveille non reconnue!";
+            throw SetException("capacite_merveille non reconnue!");
+            break;
+    }
+    return os;
+}
