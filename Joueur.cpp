@@ -195,8 +195,16 @@ Merveille* Joueur::choisirCarte(Merveille** liste_merveilles, unsigned int taill
 //généralement taille du tableau vaut un nombre entre 1 et 5
 JetonScience* Joueur::choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau){
     std::cout << "Choisissez un jeton science parmi les suivants: " << std::endl;
+    unsigned int compteur = 1; // permet de compter les jetons sciences dispo
     for (int i = 0; i<taille_tableau; i++){
-        std::cout << i+1 << " : " << liste_jetons[i]->get_capacite() << std::endl;
+        if (liste_jetons[i] != nullptr){
+            std::cout << compteur << " : " << liste_jetons[i]->get_capacite() << std::endl;
+            compteur++;
+        }
+    }
+    if (compteur == 0){ //si il n'y a plus de jetons science disponibles in game 
+        std::cout << "Il n'y a plus de jetons science disponibles" << std::endl;
+        return nullptr;
     }
     int choix;
     std::cin >> choix;
