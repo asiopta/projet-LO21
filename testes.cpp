@@ -42,8 +42,6 @@ int main(){
             cout << "Carte construite 3: " << jeu->getJoueur1()->getCartesConstruites()[2]->getNom();
             cout << "Carte construite 4: " << jeu->getJoueur1()->getCartesConstruites()[3]->getNom();
 
-            cout << 
-
         }
     }
     return 0;

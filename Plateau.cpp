@@ -407,7 +407,7 @@ PlateauCartes::PlateauCartes()
 
 void PlateauCartes::addAge(){
     age++;
-    std::cout << "ici addAge : "<<age <<std::endl;
+    std::cout << "###################################################ici addAge : "<<age <<std::endl;
     initPlateauCarte();
 }
 
@@ -510,11 +510,13 @@ Carte** PlateauCartes::getCartesVisibles() const{
 }
 
 void PlateauCartes::update_accessibilite(){ //! fonction OK
+    std::cout << "PlateauCartes::update_accessibilite : age :"<< age << std::endl;
     std::vector<std::vector<unsigned int>> liste_adjacence;
     if (age == 1){
         liste_adjacence = {{2, 3}, {3, 4}, {5, 6}, {6, 7}, {7, 8}, {9, 10}, {10,11}, {11, 12}, {12, 13}, {14, 15}, {15, 16}, {16, 17}, {17, 18}, {18, 19}};
     }
     else if (age == 2){
+        std::cout << "PlateauCartes::update_accessibilite age 2" << std::endl;
         liste_adjacence = {{6}, {6,7}, {7, 8}, {8, 9}, {9, 10}, {10}, {11}, {11, 12}, {12, 13},{13, 14}, {14},{15}, {15, 16}, {16, 17}, {17}, {18}, {18, 19}, {19}};
     }
     else if (age == 3){
@@ -524,20 +526,24 @@ void PlateauCartes::update_accessibilite(){ //! fonction OK
 
     for(unsigned int i = 0; i < liste_adjacence.size(); i++){
         unsigned int compteur = 0;
-
         for(unsigned int j = 0; j < liste_adjacence[i].size(); j++){
-            if (cartes_en_jeu[liste_adjacence[i][j]] == nullptr){
+
+            if (cartes_en_jeu[liste_adjacence[i][j]] == nullptr){ 
                 compteur += 1;
+            
             }
-            if (cartes_en_jeu[i] != nullptr && compteur == liste_adjacence[i].size()){rendreAccessible(cartes_en_jeu[i]); std::cout << "TEST"<< std::endl;}
+            if (cartes_en_jeu[i] != nullptr && compteur == liste_adjacence[i].size()){rendreAccessible(cartes_en_jeu[i]); std::cout << "element "<< i << " rendu accessible" << std::endl;}
         }
     }
 }
 
 void PlateauCartes::prendreCarte(Carte* carte){ //! fonction OK
+    // std::cout << "PlateauCartes::prendreCarte" << std::endl; /!test
     for (int i = 0; i < TAILLE_CARTE_EN_JEU; i++){
         if (cartes_en_jeu[i] == carte && cartes_en_jeu[i] != nullptr){
+            // if (age == 2) std::cout << "PlateauCartes::prendreCarte : carte prise n°"<< i << std::endl; /!test
             cartes_en_jeu[i] = nullptr;
+            // if (age == 2) std::cout << "PlateauCartes::prendreCarte : carte prise n°"<< i << " supprimée" << std::endl; /!test
         }
     }
     update_accessibilite();
@@ -750,13 +756,6 @@ void PlateauCartes::initPlateauCarte(){
                 RessourcePrimaire::none, RessourcePrimaire::none, RessourcePrimaire::none}, {RessourceSecondaire::none, 
                 RessourceSecondaire::none, RessourceSecondaire::none}, SymboleChainage::none, SymboleChainage::engrenage, SymboleScience::pilon, 0)
         };
-        // //! test
-        // for(int i =0; i<NB_CARTE_AGE_1_TOT; i++){
-        //     if (i < NB_CARTES_AGE_1_JEU){
-        //         std::cout << "i = " << LISTE_CARTE_AGE_1[i]->getPrix() << std::endl;
-        //     }
-        // }
-        // //! fin test
 
 
         //*ajout des cartes dans le plateau
@@ -899,11 +898,13 @@ void PlateauCartes::initPlateauCarte(){
         for(int j = 0; j < 5; j++){ //rangé 0 à 4
             for(int _ =0; _ <j+2; _++){
                 if (j%2 ==0){cartes_en_jeu[i_counter]->set_face_visible();}//carte visible pour toutes les lignes paires
-                if (j==0){cartes_en_jeu[i_counter]->set_accessible();}//carte accessible pour la dernière ligne
+                // if (j==0){cartes_en_jeu[i_counter]->set_accessible();}//carte accessible pour la dernière ligne
                 cartes_en_jeu[i_counter]->set_position(NB_CARTES_AGE_2_JEU-1-i_counter);
                 i_counter++;
             }
         }
+        cartes_en_jeu[19]->set_accessible(); //carte accessible pour la dernière ligne
+        cartes_en_jeu[18]->set_accessible(); //carte accessible pour la dernière ligne
         //supression de la liste de cartes
         //* Remarque, on a deja suprimé les cartes non utilisées dans la fonction initCarteRandom
         // delete[] LISTE_CARTE_AGE_2;
