@@ -99,6 +99,7 @@ class PlateauMilitaire{
         void retirer_jeton_malus(JetonMalus& jeton);
         JetonMalus* jeton_malus_ici() const; //renvoie un jeton malus vide si il n'y en a pas, et le jeton malus sinon
         Joueur* getJoueurDerriere() const{return joueur_derriere;}
+        unsigned int getAvance() const{return avance;}
         ~PlateauMilitaire();
 
         //Joueur& gagneMilitairement();

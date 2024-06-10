@@ -99,6 +99,7 @@ public:
     //bool gagne(Joueur& joueur);
     Joueur* quiJoue(); //retourne le joueur dont il est le tour de jouer //review
     Joueur* autreJoueur(Joueur* j);
+    Joueur* determineGagnant(); //détermine le gagnant du match à la fin de l'age 3
 
     bool jeuEstFinie(); // plateau.IsEtatFinal() || joueur1 a gagné || joueur2 a gagné //review
     unsigned int gagnant(); //retourne le gagnant du match //review

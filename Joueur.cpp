@@ -140,8 +140,6 @@ void Joueur::construireJeton(JetonScience* jeton){
     jeton->exec_capacite_science(this);
 
     //! + gerer le fait que le jeton n'est plus prenable
-
-
 }
 
 //TODO //////////////////////////////////////////////////////////////////

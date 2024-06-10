@@ -281,6 +281,78 @@ Action* Controleur::actionsLegales(){
     return res;
 }
 
+Joueur* Controleur::determineGagnant(){
+
+    //! point  de victoires provenant des cartes 
+    unsigned int pt_vict_1 = joueur1->getPtVictoire(); //points de victoires provenant des cartes 
+    unsigned int pt_vict_2 = joueur2->getPtVictoire();
+
+    //! points de victoires provenant du militaire
+    unsigned int avance = plateau.getPlateauMilitaire()->getAvance();
+    Joueur* joueur_derriere = plateau.getPlateauMilitaire()->getJoueurDerriere();
+
+    if (avance >= 1 and avance < 3) {
+        if (joueur_derriere == joueur1) {pt_vict_2 += 2;}
+        else {pt_vict_1 += 2;}
+    }
+    else if (avance >= 3 and avance < 6) {
+        if (joueur_derriere == joueur1) {pt_vict_2 += 5;}
+        else {pt_vict_1 += 5;}
+    }
+    else if (avance >= 6) {
+        if (joueur_derriere == joueur1) {pt_vict_2 += 10;}
+        else {pt_vict_1 += 10;}
+    }
+
+    //!point de victoire des pièces de monnaie
+    unsigned int monnaie = joueur1->getMonnaie();
+    monnaie = monnaie / 3;
+    pt_vict_1 += monnaie;
+    monnaie = joueur2->getMonnaie();
+    monnaie = monnaie / 3;
+    pt_vict_2 += monnaie;
+
+    //!point de victoire des effets de cartes guildes : 
+    unsigned int nb_max_Armateurs = std::max(joueur1->getNbCartesType("CarteRessourcePrimaire")+joueur1->getNbCartesType("CarteRessourceSecondaire"), joueur2->getNbCartesType("CarteRessourcePrimaire")+joueur2->getNbCartesType("CarteRessourceSecondaire"));
+    unsigned int nb_max_Batisseurs = std::max(2*joueur1->getNbCartesType("CarteMerveille"), 2*joueur2->getNbCartesType("CarteMerveille"));
+    unsigned int nb_max_Commercant = std::max(joueur1->getNbCartesType("CarteCommerce"), joueur2->getNbCartesType("CarteCommerce"));
+    unsigned int nb_max_Magistrat = std::max(joueur1->getNbCartesType("CartePrestige"), joueur2->getNbCartesType("CartePrestige"));
+    unsigned int nb_max_Tacticiens = std::max(joueur1->getNbCartesType("CarteMilitaire"), joueur2->getNbCartesType("CarteMilitaire"));
+    unsigned int nb_max_Scientifiques = std::max(joueur1->getNbCartesType("CarteScience"), joueur2->getNbCartesType("CarteScience"));
+    unsigned int nb_max_Usuriers = std::max(joueur1->getMonnaie(), joueur2->getMonnaie());
+
+    if(joueur1->getEffetsGuilde().guilde_armateurs){pt_vict_1 = nb_max_Armateurs;}
+    if(joueur1->getEffetsGuilde().guilde_batisseurs){pt_vict_1 += nb_max_Batisseurs;}
+    if(joueur1->getEffetsGuilde().guilde_commercants){pt_vict_1 += nb_max_Commercant;}
+    if(joueur1->getEffetsGuilde().guilde_magistrats){pt_vict_1 += nb_max_Magistrat;}
+    if(joueur1->getEffetsGuilde().guilde_tacticiens){pt_vict_1 += nb_max_Tacticiens;}
+    if(joueur1->getEffetsGuilde().guilde_scientifiques){pt_vict_1 += nb_max_Scientifiques;}
+    if(joueur1->getEffetsGuilde().guilde_usuriers){pt_vict_1 += nb_max_Usuriers;}
+
+    if(joueur2->getEffetsGuilde().guilde_armateurs){pt_vict_2 = nb_max_Armateurs;}
+    if(joueur2->getEffetsGuilde().guilde_batisseurs){pt_vict_2 += nb_max_Batisseurs;}
+    if(joueur2->getEffetsGuilde().guilde_commercants){pt_vict_2 += nb_max_Commercant;}
+    if(joueur2->getEffetsGuilde().guilde_magistrats){pt_vict_2 += nb_max_Magistrat;}
+    if(joueur2->getEffetsGuilde().guilde_tacticiens){pt_vict_2 += nb_max_Tacticiens;}
+    if(joueur2->getEffetsGuilde().guilde_scientifiques){pt_vict_2 += nb_max_Scientifiques;}
+    if(joueur2->getEffetsGuilde().guilde_usuriers){pt_vict_2 += nb_max_Usuriers;}
+
+
+    if (pt_vict_1 > pt_vict_2) {return joueur1;}
+    else if (pt_vict_1 < pt_vict_2) {return joueur2;}
+    else {
+        if (joueur1->getNbCartesType("CartePrestige")> joueur2->getNbCartesType("CartePrestige")){
+            return joueur1;
+        }
+        else if (joueur1->getNbCartesType("CartePrestige")< joueur2->getNbCartesType("CartePrestige")){
+            return joueur2;
+        }
+        else {
+            return nullptr;
+        }
+    }
+}
+
 Controleur::~Controleur(){
     delete joueur1;
     delete joueur2;
