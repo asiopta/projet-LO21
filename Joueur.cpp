@@ -256,7 +256,7 @@ Action Joueur::choisir_action(Action* actions){
             Carte* carte = std::get<0>(actions[i]);
             
             if(std::get<1>(actions[i]) == "construire"){
-                std::cout << i+1 << " : construire " << carte->get_type() << " "<<carte->getNom() 
+                std::cout << i+1 << " : construire (" << carte->get_type() << ") "<<carte->getNom() 
                     << " /Cout = " << getCout(*carte, *advers)<<std::endl;
                 count++;
             }
@@ -267,7 +267,7 @@ Action Joueur::choisir_action(Action* actions){
                 // std::cout<< "defausserCarte: cout_defauss = : "<< cout_defauss<< std::endl; //!test
 
 
-                std::cout << i+1 << " : defausser "<<carte->getNom() << " /Cout = " << cout_defauss <<std::endl;
+                std::cout << i+1 << " : defausser (" << carte->get_type() << ") "<<carte->getNom() << " /Cout = " << cout_defauss <<std::endl;
                 count++;
             }
             
@@ -1082,14 +1082,22 @@ Action IARandom::choisir_action(Action* actions){
 
     // Get a random index
     int randomIndex = dis(gen);
-
     Action resultat = actions[randomIndex];
-    Controleur* jeu = &Controleur::getInstance();
-    std::cout<<"action effectuée par l'IA: "<<std::get<1>(resultat) 
-    << " ("<< std::get<0>(resultat)->get_type() << ") "
-    <<std::get<0>(resultat)->getNom()<< "/ Cout = "<<
-    getCout(*std::get<0>(resultat), *jeu->autreJoueur(this)) << std::endl;
-    // Return the action at the random index
+    Controleur* jeu = &Controleur::getInstance();    
+
+    if(std::get<1>(resultat) == "construire"){
+        std::cout<<"action effectuée par l'IA: "<<std::get<1>(resultat) 
+        << " ("<< std::get<0>(resultat)->get_type() << ") "
+        <<std::get<0>(resultat)->getNom()<< "/ Cout = "<<
+        getCout(*std::get<0>(resultat), *jeu->autreJoueur(this)) << std::endl;
+    }
+    else{
+        unsigned int cout_defauss = 2 + getNbCartesType("RessourcePrimaire") + getNbCartesType("RessourceSecondaire");
+        std::cout<<"action effectuée par l'IA: "<<std::get<1>(resultat) 
+        << " ("<< std::get<0>(resultat)->get_type() << ") "
+        <<std::get<0>(resultat)->getNom()<< "/ Cout = "<<
+        cout_defauss << std::endl;
+    }
     return actions[randomIndex];
 }
  
