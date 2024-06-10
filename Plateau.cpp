@@ -249,7 +249,7 @@ void PlateauScience::retirer_jeton_out_game(JetonScience& jeton) { //meme chose 
 }
 
 
-
+/*
 JetonScience** PlateauScience::tirer_jeton_out_game(){ //renvoie un tableau de 3 jetons science tiré depuis l'exterieur du jeu. 
     const unsigned int Dim_resultat = 3;
     JetonScience** resultat = new JetonScience*[Dim_resultat]; //génère un tableau de 3 jetons science
@@ -272,11 +272,48 @@ JetonScience** PlateauScience::tirer_jeton_out_game(){ //renvoie un tableau de 3
 
     for (int i = 0; i < Dim_resultat; i++) {
         resultat[i] = jeton_out_game[liste[indices_choisis[i]]];
+
         std::cout<<"tirer_jeton_out_game: jeton: "<< resultat[i]->get_capacite() <<std::endl; //!test
 
     }
     return resultat;
 }
+*/
+
+JetonScience** PlateauScience::tirer_jeton_out_game() { 
+    const unsigned int Dim_resultat = 3;
+    JetonScience** resultat = new JetonScience*[Dim_resultat]; // Génère un tableau de 3 jetons science
+
+    std::vector<JetonScience*> valid_jetons;
+    for (int i = 0; i < Dim_jetons_out_game; i++) {
+        if (jeton_out_game[i] != nullptr) {
+            valid_jetons.push_back(jeton_out_game[i]);
+        }
+    }
+
+    if (valid_jetons.size() < Dim_resultat) {
+        delete[] resultat;
+        throw SetException("tirer_jeton_out_game: pas assez de jetons valides pour choisir");
+    }
+
+    // Initialisation du générateur de nombres aléatoires
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // Mélangez la liste pour faciliter la sélection aléatoire sans remise
+    std::shuffle(valid_jetons.begin(), valid_jetons.end(), gen);
+
+    // Choix des premiers Dim_resultat éléments après mélange
+    for (unsigned int i = 0; i < Dim_resultat; i++) {
+        resultat[i] = valid_jetons[i];
+
+        std::cout << "tirer_jeton_out_game: jeton: " << resultat[i]->get_capacite() << std::endl; //!test
+    }
+
+    return resultat;
+}
+
+
 
 PlateauScience::~PlateauScience() {
     for (int i = 0; i < Dim_jetons_in_game; i++) {
