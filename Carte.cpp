@@ -747,16 +747,17 @@ void Merveille::exec_rejouer(Joueur* joueur1) const{
 }
 
 void Merveille::exec_detruire_carte_marron(Joueur* joueur1, Joueur* joueur2) const{
-    unsigned int taille_tableau = joueur2->getNbCartesConstruites();
+    unsigned int taille_tableau = joueur2->getNbCartesType("RessourcePrimaire");   
+    if(taille_tableau == 0) return;
     Carte** tableau_choix_possible = new Carte*[joueur2->getNbCartesConstruites()];
     Carte** joueur2_cartes_construite = joueur2->getCartesConstruites();
 
-
-    for (int i = 0; i<taille_tableau; i++){
-        if (joueur2_cartes_construite[i]->get_type() != TypeCarte::CarteRessourcePrimaire){
-            tableau_choix_possible[i] = joueur2_cartes_construite[i];
+    int j = 0;
+    for (int i = 0; i<joueur2->getNbCartesConstruites(); i++){
+        if (joueur2_cartes_construite[i]->get_type() == TypeCarte::CarteRessourcePrimaire){
+            tableau_choix_possible[j] = joueur2_cartes_construite[i];
+            j++;
         }
-        else {tableau_choix_possible[i] = nullptr;}
     }
 
     Carte* carte_choisit = joueur1->choisirCarte(tableau_choix_possible,taille_tableau); 
@@ -764,22 +765,31 @@ void Merveille::exec_detruire_carte_marron(Joueur* joueur1, Joueur* joueur2) con
 }
 
 void Merveille::exec_detruire_carte_grise(Joueur* joueur1, Joueur* joueur2) const{
-    unsigned int taille_tableau = joueur2->getNbCartesConstruites();
+    unsigned int taille_tableau = joueur2->getNbCartesType("RessourceSecondaire");
+    // std::cout << "exec_detruire_carte_grise: taille_tableau: " << taille_tableau <<std::endl; //!test
     if(taille_tableau == 0) return;
     Carte** tableau_choix_possible = new Carte*[joueur2->getNbCartesConstruites()];
     Carte** joueur2_cartes_construite = joueur2->getCartesConstruites();
 
-
-    for (int i = 0; i<taille_tableau; i++){
-        if (joueur2_cartes_construite[i]->get_type() != TypeCarte::CarteRessourceSecondaire){
-            tableau_choix_possible[i] = joueur2_cartes_construite[i];
+    int j = 0;
+    for (int i = 0; i<joueur2->getNbCartesConstruites(); i++){
+        if (joueur2_cartes_construite[i]->get_type() == TypeCarte::CarteRessourceSecondaire){
+            std::cout << "exec_detruire_carte_grise: carte_construite: " << joueur2_cartes_construite[i]->getNom() << " " << j <<std::endl; //!test
+            tableau_choix_possible[j] = joueur2_cartes_construite[i];
+            j++;
         }
-        else {tableau_choix_possible[i] = nullptr;}
     }
+    // for(int i =0; i< j; i++){
+    //     std::cout << "exec_detruire_carte_grise: tableau choix possible: " << tableau_choix_possible[i]->getNom() << " " << i <<std::endl; //!test
+
+    // }
 
     Carte* carte_choisit = joueur1->choisirCarte(tableau_choix_possible,taille_tableau); //demande au joueur actif de choisit la carte grise du joueur 2
+    // std::cout << "exec_detruire_carte_grise: carte choisi ok " << carte_choisit->getNom()<<std::endl; //!test
+
     joueur2->retirerCarte(carte_choisit); //! une fois la carte choisit, on retire la carte du joueur 2
-    
+    // std::cout << "exec_detruire_carte_grise: carte retirée ok" << std::endl; //!test
+
 }
 
 
@@ -822,6 +832,41 @@ Merveille::~Merveille(){
 /*--------------------------------------------------------------------------*/
 
 
+std::ostream& operator<<(std::ostream& os, TypeCarte type) {
+    switch (type) {
+        case TypeCarte::none:
+            os << "none";
+            break;
+        case TypeCarte::CarteRessourcePrimaire:
+            os << "CarteRessourcePrimaire";
+            break;
+        case TypeCarte::CarteRessourceSecondaire:
+            os << "CarteRessourceSecondaire";
+            break;
+        case TypeCarte::CarteCommerce:
+            os << "CarteCommerce";
+            break;
+        case TypeCarte::CarteGuilde:
+            os << "CarteGuilde";
+            break;
+        case TypeCarte::CarteMilitaire:
+            os << "CarteMilitaire";
+            break;
+        case TypeCarte::CartePrestige:
+            os << "CartePrestige";
+            break;
+        case TypeCarte::CarteScience:
+            os << "CarteScience";
+            break;
+        case TypeCarte::Merveille:
+            os << "Merveille";
+            break;
+        default:
+            throw SetException("type inconnu!");
+            break;
+    }
+    return os;
+}
 
 
 
