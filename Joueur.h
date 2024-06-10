@@ -333,11 +333,15 @@ public:
 
 
 
+
 class IARandom: public Joueur{
 
 
 public:
     Action choisir_action(Action* actions); 
+    Carte* choisirCarte(Carte** liste_cartes, unsigned int taille_tableau);
+    JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau);
+
 };
 
 

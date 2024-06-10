@@ -1086,3 +1086,22 @@ Action IARandom::choisir_action(Action* actions){
 }
  
 
+Carte* IARandom::choisirCarte(Carte** liste_cartes, unsigned int taille_tableau){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, taille_tableau-1);
+
+    int randomIndex = dis(gen);
+    return liste_cartes[randomIndex];
+}
+
+
+JetonScience* IARandom::choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, taille_tableau-1);
+
+    int randomIndex = dis(gen);
+    return liste_jetons[randomIndex];
+}
+
