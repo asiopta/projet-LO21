@@ -154,8 +154,12 @@ Carte* Joueur::choisirCarte(Carte** liste_cartes, unsigned int taille_tableau){
     if (taille_tableau == 0) return nullptr;
     std::cout << "Ici Joueur::choisirCarte() : debut " << std::endl;
     std::cout << "Choisissez une carte parmi les suivantes: " << std::endl;
+    int j = 1;
     for (int i = 0; i<taille_tableau; i++){
-        std::cout << i+1 << " : " << liste_cartes[i]->getNom() << std::endl;
+        if(liste_cartes[i] != nullptr){
+            std::cout << j << " : " << liste_cartes[i]->getNom() << std::endl;
+            j++;
+        }
     }
     int choix;
     std::cin >> choix;

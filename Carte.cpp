@@ -748,7 +748,6 @@ void Merveille::exec_rejouer(Joueur* joueur1) const{
 
 void Merveille::exec_detruire_carte_marron(Joueur* joueur1, Joueur* joueur2) const{
     unsigned int taille_tableau = joueur2->getNbCartesConstruites();
-    if(taille_tableau == 0) return;
     Carte** tableau_choix_possible = new Carte*[joueur2->getNbCartesConstruites()];
     Carte** joueur2_cartes_construite = joueur2->getCartesConstruites();
 
