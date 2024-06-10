@@ -351,17 +351,17 @@ PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur* joueur_derr, Joueur* 
     liste_jetons_malus[3] = new JetonMalus(5, 6, autre_joueur);
     std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 4 construit"<<std::endl; //!test
 
-    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : joueur_derriere= "<< joueur_derriere <<std::endl; //!test
+    // std::cout<<"ici PlateauMilitaire::PlateauMilitaire : joueur_derriere= "<< joueur_derriere <<std::endl; //!test
 
-    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : fin de construction"<<std::endl; //!test
+    // std::cout<<"ici PlateauMilitaire::PlateauMilitaire : fin de construction"<<std::endl; //!test
 
 }
 
 void PlateauMilitaire::update_avance(unsigned int ajout, Joueur* joueur_cible){
     //ajoute l'avancé militaire ajout en direction du joueur_cible
     if (joueur_cible == joueur_derriere) {
-        std::cout<<"ici PlateauMilitaire::update_avance : joueur_derriere= "<< joueur_derriere <<std::endl; //!test
-        std::cout<<"ici PlateauMilitaire::PlateauMilitaire : joueur_cible= "<< joueur_cible <<std::endl; //!test
+        // std::cout<<"ici PlateauMilitaire::update_avance : joueur_derriere= "<< joueur_derriere <<std::endl; //!test
+        // std::cout<<"ici PlateauMilitaire::PlateauMilitaire : joueur_cible= "<< joueur_cible <<std::endl; //!test
 
 
         avance += ajout; //si je joueur cible est le joueur le plus derriere, on avance le pion dans sa direction et c'est tout
@@ -370,8 +370,8 @@ void PlateauMilitaire::update_avance(unsigned int ajout, Joueur* joueur_cible){
         if (avance - ajout < 0) { // si le joueur cible n'est pas le joueur le plus derriere, on avance le pion en direction de l'autre joueur
             avance = ajout-avance; //si avance < 0, on le rend positif et on change le joueur derriere
             joueur_derriere = joueur_cible;
-            std::cout<<"ici PlateauMilitaire::update_avance : joueur_derriere= "<< joueur_derriere <<std::endl; //!test
-            std::cout<<"ici PlateauMilitaire::PlateauMilitaire : joueur_cible= "<< joueur_cible <<std::endl; //!test
+            // std::cout<<"ici PlateauMilitaire::update_avance : joueur_derriere= "<< joueur_derriere <<std::endl; //!test
+            // std::cout<<"ici PlateauMilitaire::PlateauMilitaire : joueur_cible= "<< joueur_cible <<std::endl; //!test
         }
     }
 }
@@ -624,9 +624,9 @@ bool PlateauCartes::estVide() const{
 
 
 void PlateauCartes::initPlateauCarte(){
-    std::cout << "ici debut initPlateauCarte" <<std::endl; //! test
+    // std::cout << "ici debut initPlateauCarte" <<std::endl; //! test
     if (age == 1){
-        std::cout<< "initialisation d'age 1!"<< std::endl; //! test
+        // std::cout<< "initialisation d'age 1!"<< std::endl; //! test
         //initialisation des cartes en jeu pour l'age 1
         Merveille* LISTE_MERVEILLES[NB_MERVEILLES_TOT] = {
             //!LISTE DE TOUTE LES MERVEILLES

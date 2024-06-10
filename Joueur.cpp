@@ -1084,14 +1084,22 @@ Action IARandom::choisir_action(Action* actions){
 
     // Get a random index
     int randomIndex = dis(gen);
-
     Action resultat = actions[randomIndex];
-    Controleur* jeu = &Controleur::getInstance();
-    std::cout<<"action effectuée par l'IA: "<<std::get<1>(resultat) 
-    << " ("<< std::get<0>(resultat)->get_type() << ") "
-    <<std::get<0>(resultat)->getNom()<< "/ Cout = "<<
-    getCout(*std::get<0>(resultat), *jeu->autreJoueur(this)) << std::endl;
-    // Return the action at the random index
+    Controleur* jeu = &Controleur::getInstance();    
+
+    if(std::get<1>(resultat) == "construire"){
+        std::cout<<"action effectuée par l'IA: "<<std::get<1>(resultat) 
+        << " ("<< std::get<0>(resultat)->get_type() << ") "
+        <<std::get<0>(resultat)->getNom()<< "/ Cout = "<<
+        getCout(*std::get<0>(resultat), *jeu->autreJoueur(this)) << std::endl;
+    }
+    else{
+        unsigned int cout_defauss = 2 + getNbCartesType("RessourcePrimaire") + getNbCartesType("RessourceSecondaire");
+        std::cout<<"action effectuée par l'IA: "<<std::get<1>(resultat) 
+        << " ("<< std::get<0>(resultat)->get_type() << ") "
+        <<std::get<0>(resultat)->getNom()<< "/ Cout = "<<
+        cout_defauss << std::endl;
+    }
     return actions[randomIndex];
 }
  
