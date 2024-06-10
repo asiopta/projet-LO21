@@ -292,7 +292,7 @@ public:
 };
 
 
-
+std::ostream& operator<<(std::ostream& f, TypeCarte type);
 
 
 

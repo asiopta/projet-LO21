@@ -154,8 +154,12 @@ Carte* Joueur::choisirCarte(Carte** liste_cartes, unsigned int taille_tableau){
     if (taille_tableau == 0) return nullptr;
     std::cout << "Ici Joueur::choisirCarte() : debut " << std::endl;
     std::cout << "Choisissez une carte parmi les suivantes: " << std::endl;
+    int j = 1;
     for (int i = 0; i<taille_tableau; i++){
-        std::cout << i+1 << " : " << liste_cartes[i]->getNom() << std::endl;
+        if(liste_cartes[i] != nullptr){
+            std::cout << j << " : " << liste_cartes[i]->getNom() << std::endl;
+            j++;
+        }
     }
     int choix;
     std::cin >> choix;
@@ -171,6 +175,9 @@ Carte* Joueur::choisirCarte(Carte** liste_cartes, unsigned int taille_tableau){
 Merveille* Joueur::choisirCarte(Merveille** liste_merveilles, unsigned int taille_tableau){
     //prend en argument une liste de pointeurs vers des cartes accessibles, et demande au joueur d'en choisir une
     //renvoie un pointeur vers la carte choisit
+    std::cout << "choisirCarte: taille_tableau" << taille_tableau<<std::endl; //!test
+
+    if (taille_tableau == 0) return nullptr;
     std::cout << "Choisissez une merveille parmi les suivantes: " << std::endl;
     for (int i = 0; i<taille_tableau; i++){
         if(liste_merveilles[i] != nullptr)
@@ -183,6 +190,8 @@ Merveille* Joueur::choisirCarte(Merveille** liste_merveilles, unsigned int taill
         std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << taille_tableau << std::endl;
         return choisirCarte(liste_merveilles, taille_tableau);
     }
+    std::cout << "choisirCarte: OK " << std::endl;
+
     return liste_merveilles[choix];
 }
 
@@ -241,7 +250,7 @@ Action Joueur::choisir_action(Action* actions){
     Joueur* advers = jeu->autreJoueur(this);
     // std::cout<< "get adversaire ok" << std:: endl; //! test
     
-    std::cout<< "Vous avez: "<< getMonnaie() << " pieces." << std::endl;
+    std::cout<< "Vous avez: "<< this->getMonnaie() << " pieces." << std::endl;
     std::cout << "Choisissez une action parmi les suivantes: " << std::endl;
     int count = 0;
     for (int i=0; i<60; i++){
@@ -249,7 +258,7 @@ Action Joueur::choisir_action(Action* actions){
             Carte* carte = std::get<0>(actions[i]);
             
             if(std::get<1>(actions[i]) == "construire"){
-                std::cout << i+1 << " : construire " <<carte->getNom() 
+                std::cout << i+1 << " : construire " << carte->get_type() << " "<<carte->getNom() 
                     << " /Cout = " << getCout(*carte, *advers)<<std::endl;
                 count++;
             }
@@ -1076,3 +1085,23 @@ Action IARandom::choisir_action(Action* actions){
     return actions[randomIndex];
 }
  
+
+Carte* IARandom::choisirCarte(Carte** liste_cartes, unsigned int taille_tableau){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, taille_tableau-1);
+
+    int randomIndex = dis(gen);
+    return liste_cartes[randomIndex];
+}
+
+
+JetonScience* IARandom::choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, taille_tableau-1);
+
+    int randomIndex = dis(gen);
+    return liste_jetons[randomIndex];
+}
+
