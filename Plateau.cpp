@@ -1138,7 +1138,8 @@ void PlateauCartes::initMerveilleRandom(unsigned int nombre_merveille, unsigned 
     if (nombre_merveille > TAILLE_MERVEILLES){throw ("Erreur dans tirerMerveilleRandom : nombre de merveille invalide");}
     std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
     std::mt19937 gen(rd());
-    std::shuffle(tableau_merveilles, tableau_merveilles + nombre_merveille, gen); //mélange d'une liste de cartes
+    std::cout << "AVANT SHUFFLE" << std::endl; //!test
+    std::shuffle(tableau_merveilles, tableau_merveilles + nombre_merveille +4, gen); //mélange d'une liste de cartes
     for (int i = 0; i < nombre_merveille; i++){
         merveilles[i] = tableau_merveilles[i]; //ajout des TAILLE_MERVEILLES premières merveilles de la liste mélangée
     }
