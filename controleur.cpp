@@ -337,6 +337,8 @@ Joueur* Controleur::determineGagnant(){
     if(joueur2->getEffetsGuilde().guilde_scientifiques){pt_vict_2 += nb_max_Scientifiques;}
     if(joueur2->getEffetsGuilde().guilde_usuriers){pt_vict_2 += nb_max_Usuriers;}
 
+    std::cout << "Point de victoire du joueur 1 : " << pt_vict_1 << std::endl;
+    std::cout << "Point de victoire du joueur 2 : " << pt_vict_2 << std::endl;
 
     if (pt_vict_1 > pt_vict_2) {return joueur1;}
     else if (pt_vict_1 < pt_vict_2) {return joueur2;}

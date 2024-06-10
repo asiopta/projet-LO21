@@ -49,13 +49,29 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     if (controleur.getPlateau().getPlateauCartes()->estVide()){
         //changement d'age
         // std::cout<< "add age?" << std::endl; //! test
-        controleur.getPlateau().getPlateauCartes()->addAge();
-        // std::cout<< "add age ok" << std::endl; //! test
-        std::cout<< "joueur derriere?"<<std::endl; //! test
-        Joueur* joueur_derriere = controleur.getPlateau().getPlateauMilitaire()->getJoueurDerriere();
-        std::cout<< "joueur derriere ok: "<< joueur_derriere << std::endl; //! test
-        std::cout<< "joueur 1: "<< controleur.getJoueur1() << "/ joueur2: " << controleur.getJoueur2() << std::endl;
-        return SevenWondersDuel(controleur, joueur_derriere);
+        if (controleur.getPlateau().getPlateauCartes()->getAge() < 3){
+            controleur.getPlateau().getPlateauCartes()->addAge();
+            // std::cout<< "add age ok" << std::endl; //! test
+            std::cout<< "joueur derriere?"<<std::endl; //! test
+            Joueur* joueur_derriere = controleur.getPlateau().getPlateauMilitaire()->getJoueurDerriere();
+            std::cout<< "joueur derriere ok: "<< joueur_derriere << std::endl; //! test
+            std::cout<< "joueur 1: "<< controleur.getJoueur1() << "/ joueur2: " << controleur.getJoueur2() << std::endl;
+            return SevenWondersDuel(controleur, joueur_derriere);
+        }
+        else {
+            std::cout<< "fin de l'age 3" << std::endl;
+            std::cout<<"fin du jeu !" << std::endl;
+            Joueur* joueur_gagnant = controleur.determineGagnant();
+            if (joueur_gagnant == controleur.getJoueur1()){
+                std::cout << "Le joueur 1 a gagné!" << endl;
+            }
+            else if (joueur_gagnant == controleur.getJoueur2()){
+                std::cout << "Le joueur 2 a gagné!" << endl;
+            }
+            else {
+                std::cout << "Egalité!" << endl;
+            }
+        }
     }
     else{
             //** PASSAGE AU TOUR SUIVANT **//
