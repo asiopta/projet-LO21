@@ -258,7 +258,7 @@ Action Joueur::choisir_action(Action* actions){
             Carte* carte = std::get<0>(actions[i]);
             
             if(std::get<1>(actions[i]) == "construire"){
-                std::cout << i+1 << " : construire " << carte->get_type() << " "<<carte->getNom() 
+                std::cout << i+1 << " : construire (" << carte->get_type() << ") "<<carte->getNom() 
                     << " /Cout = " << getCout(*carte, *advers)<<std::endl;
                 count++;
             }
@@ -269,7 +269,7 @@ Action Joueur::choisir_action(Action* actions){
                 // std::cout<< "defausserCarte: cout_defauss = : "<< cout_defauss<< std::endl; //!test
 
 
-                std::cout << i+1 << " : defausser "<<carte->getNom() << " /Cout = " << cout_defauss <<std::endl;
+                std::cout << i+1 << " : defausser (" << carte->get_type() << ") "<<carte->getNom() << " /Cout = " << cout_defauss <<std::endl;
                 count++;
             }
             
