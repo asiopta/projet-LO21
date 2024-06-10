@@ -748,6 +748,7 @@ void Merveille::exec_rejouer(Joueur* joueur1) const{
 
 void Merveille::exec_detruire_carte_marron(Joueur* joueur1, Joueur* joueur2) const{
     unsigned int taille_tableau = joueur2->getNbCartesConstruites();
+    if(taille_tableau == 0) return;
     Carte** tableau_choix_possible = new Carte*[joueur2->getNbCartesConstruites()];
     Carte** joueur2_cartes_construite = joueur2->getCartesConstruites();
 
@@ -765,6 +766,7 @@ void Merveille::exec_detruire_carte_marron(Joueur* joueur1, Joueur* joueur2) con
 
 void Merveille::exec_detruire_carte_grise(Joueur* joueur1, Joueur* joueur2) const{
     unsigned int taille_tableau = joueur2->getNbCartesConstruites();
+    if(taille_tableau == 0) return;
     Carte** tableau_choix_possible = new Carte*[joueur2->getNbCartesConstruites()];
     Carte** joueur2_cartes_construite = joueur2->getCartesConstruites();
 
@@ -778,6 +780,7 @@ void Merveille::exec_detruire_carte_grise(Joueur* joueur1, Joueur* joueur2) cons
 
     Carte* carte_choisit = joueur1->choisirCarte(tableau_choix_possible,taille_tableau); //demande au joueur actif de choisit la carte grise du joueur 2
     joueur2->retirerCarte(carte_choisit); //! une fois la carte choisit, on retire la carte du joueur 2
+    
 }
 
 
