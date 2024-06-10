@@ -1072,15 +1072,25 @@ Action IARandom::choisir_action(Action* actions){
     if (std::get<1>(actions[0])== "ignore") {
         throw std::invalid_argument("The actions array is empty or invalid.");
     }
-
+    int cmpt = 0;
+    while(std::get<1>(actions[cmpt]) != "ignore"){
+        cmpt++;
+    }
+    cmpt--;
     // Seed the random number generator
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, 59);
+    std::uniform_int_distribution<> dis(0, cmpt);
 
     // Get a random index
     int randomIndex = dis(gen);
 
+    Action resultat = actions[randomIndex];
+    Controleur* jeu = &Controleur::getInstance();
+    std::cout<<"action effectuée par l'IA: "<<std::get<1>(resultat) 
+    << " ("<< std::get<0>(resultat)->get_type() << ") "
+    <<std::get<0>(resultat)->getNom()<< "/ Cout = "<<
+    getCout(*std::get<0>(resultat), *jeu->autreJoueur(this)) << std::endl;
     // Return the action at the random index
     return actions[randomIndex];
 }

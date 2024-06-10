@@ -17,6 +17,9 @@ Controleur::Controleur(): joueur1(new Joueur()), joueur2(new Joueur()), plateau(
     // std::cout << "Ici Controleur::Controleur : fin de la construction" << std::endl ;//! test
 }
 
+Controleur::Controleur(std::string player):joueur1(new Joueur()), joueur2(new IARandom()), plateau(Plateau(joueur1, joueur2)){
+
+}
 
 
 bool Controleur::gagne(Joueur* joueur){
@@ -47,6 +50,12 @@ Controleur& Controleur::getInstance(){
     if(handler.instance == nullptr) handler.instance = new Controleur;
     return *handler.instance;
 }
+
+Controleur& Controleur::getInstance(const std::string p){
+    if(handler.instance == nullptr) handler.instance = new Controleur("IA");
+    return *handler.instance;
+}
+
 void Controleur::libererInstance(){
     delete handler.instance;
     handler.instance = nullptr;

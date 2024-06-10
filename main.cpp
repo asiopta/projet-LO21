@@ -111,7 +111,21 @@ int main(){
     try{
     std::cout << "Bienvenue dans Seven Wonders Duel!" << endl;
     // Controleur* jeu =  new Controleur();
-    Controleur* jeu =  &Controleur::getInstance();// initialisation du jeu via le controleur
+    std::cout << "Voulez vous jouer:" << endl;
+    std::cout << "1/ PVP" << endl;
+    std::cout << "2/ PVIA" << endl;
+    int p;
+    std:: cin >> p;
+    while(p != 1 && p!=2){
+        std::cout<< "choix invalide. veuillez réessayer!";
+        std::cin>> p;
+    }
+    Controleur* jeu;
+    if(p == 1)
+        jeu =  &Controleur::getInstance();// initialisation du jeu via le controleur
+    if(p==2){
+        jeu =  &Controleur::getInstance("IA");
+    }
 
 
     //!CHOIX DES MERVEILLES

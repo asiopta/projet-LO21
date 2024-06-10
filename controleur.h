@@ -69,12 +69,14 @@ private:
 public:
     //Constructeurs/destructeurs
 	Controleur(); //initialise les 2 joueurs et le plateau
+    Controleur(std::string player);
     // = delete parcequ'on va jamais les utiliser
     Controleur(const Controleur& c) = delete;
 	Controleur& operator=(const Controleur& c) = delete;
 
     //méthodes de handler
     static Controleur& getInstance();//renvoie l'instance de handler //review
+    static Controleur& getInstance(const std::string p);
     static void libererInstance();// libère l'instance de handler //review
 
 
