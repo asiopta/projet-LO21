@@ -474,42 +474,82 @@ Joueur "2" -- "1" PlateauMilitaire
 
 '-------------------------------GESTION DU PLATEAU DE JEU------------------------
 
+'comment gérer la class ressource ????
 
 'Cette classe decrit l'etat du plateau de jeu à chaque instant
 class Joueur{
-    - carte_construite : &Carte[60]
-    - merveille_construite : &Merveille[4]
-    - jeton_construit : &JetonScience[6]
-    - symboles_science: &SymboleScience[6]
+    - cartes_construite : *Carte[60]
+    - merveille_construite : *Merveille[5]
+    - merveille_non_construite : *Merveille[5]
     - monnaie : unsigned int
     - pt_victoire: unsigned int
+    - nb_jetons : unsigned int
+    - rejouer : bool
+    - ressources : Ressource
+    - capacites : CapaciteJeton
+    - symboles_science : SymbolesScience
+    - symboles_chainage : SymbolesChainage
+    - effets : Effets
 
-    +Joueur() -> None
-    +~Joueur() -> None
+    + unsigned int getMonnaie() const;
+    + unsigned int getPtVictoire()const; 
+    + unsigned int getNbCartesConstruites() const;
+    + unsigned int getNbMerveillesConstruites()const;
+    + unsigned int getNbMerveillesNonConstruites()const;
+    + unsigned int getNbJetonsScience() const;
+    + SymbolesScience getSymbolesScience() const; 
+    + CapaciteJeton getCapacitesJetons() const; 
+    + Effets getEffetsGuilde() const; 
+    + SymbolesChainage getSymbolesChainage() const ; 
+    + unsigned int getNbCartesType(std::string type) const; 
+    + unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const; 
+    + unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const;
+    + Ressource* getRessources(); 
+    + bool getRejouer() const; 
+    + Carte** getCartesConstruites(); 
+    + Merveille** getMerveillesNonConstruites();
+    + bool isInMerveillesNonConstruites(Merveille* merveille);
 
-    + getMonnaie() -> unsigned int
-    + getPtVcitoire() -> unsigned int
-    + getNbCartesConstruites() -> int
-    + getNbMerveillesConstruites() -> int
-    + getNbJetonsScience() -> int
-    + getNbSymbolesScience() -> int
-    + getQuantiteDeRessourcePrimaire(const RessourcePrimaire&) -> int
-    + getQuantiteDeRessourceSecondaire(const RessourceSecondaire& ) -> int
-    + getCout(const Carte&) -> int
+    + void setMonnaie(unsigned int argent); 
+    + void setPtVictoire(unsigned int p); 
+    + void setRessource(RessourcePrimaire rp, unsigned int quantite); 
+    + void setRessource(RessourceSecondaire rs, unsigned int quantite); 
+    + void addCapaciteJeton(const CapaciteScience& jeton); 
+    + void setMerveille(Merveille* merveille); 
+    + void setRejouerTrue(); 
+    + void setRejouerFalse(); 
 
-    + setMonnaie(unsigned int ) -> None
-    + setPtVictoire(unsigned int ) -> None
-    + gagnerArgent(unsigned int) -> None
-    + gagnerPtVictoire(unsigned int) -> None
-
-    + estConstructible(const Carte&, const PlateauCartes&) -> bool
-    
-    + construireCarte(Carte& , PlateauCartes& ) -> None
-    + choisir_action(PlateauCartes& ) -> None
-
-
-    + const est_constructible(const &Merveille, const &PlateauCarte) -> bool
-    + construire_merveille(&Merveille, &Carte, &PlateauCarte) -> None
+    + void construireJeton(JetonScience* jeton);  
+    + unsigned int getNbSymbolesScience()const; 
+    + bool gagneScientifiquement() const ;
+    + void addSymboleScience(const SymboleScience s, PlateauScience* plateau_science);
+    + void addSymboleBalance(); 
+    + void removeSymboleScience(SymboleScience& s); 
+    + void ajouterRessource(RessourcePrimaire rp, unsigned int quant); 
+    + void ajouterRessource(RessourceSecondaire rs, unsigned int quant); 
+    + void retirerRessource(RessourcePrimaire rp, unsigned int quant); 
+    + void retirerRessource(RessourceSecondaire rs, unsigned int quant); 
+    + void addEffetGuilde(EffetGuilde effet);
+    + void removeEffetGuilde(EffetGuilde effet);
+    + void setSymboleChainage(SymboleChainage s, bool var); 
+    + void addSymboleChainage(SymboleChainage s); 
+    + void removeSymboleChainage(SymboleChainage s); 
+    + bool possedeSymboleChainage(SymboleChainage s) const; 
+    + void gagnerArgent(int argent); 
+    + void gagnerPtVictoire(unsigned int p); 
+    + void retirerCarte(Carte* carte); 
+    + void updateRessourcesCarte(Carte* carte); 
+    + void updatePtVictoireCarte(Carte* carte); 
+    + void updateSymbolesChainageCarte(Carte* carte); 
+    + void updateSymbolesScienceCarte(Carte* carte, PlateauScience* plateau_science); 
+    + void updateEffetsGuilde(Carte* carte); 
+    + void addCarte(Carte* carte, PlateauScience* plateau_science); 
+    + unsigned int getCout(const Carte& carte, Joueur& adversaire); 
+    + virtual Carte* choisirCarte(Carte** liste_cartes, unsigned int taille_tableau);
+    + Merveille* choisirCarte(Merveille** liste_merveilles, unsigned int taille_tableau);
+    + virtual JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau);
+    + Action choisir_action(PlateauCartes* p); 
+    + virtual Action choisir_action(Action* actions); 
 }
 '60 car 20*3 = 60 le nombre de carte max qu'un joueur vera dans sa partie
 'La fonction Verifie que la carte est accessible sur le Plateau (probablement via une méthode implémenté dans Plateau),
@@ -534,5 +574,13 @@ class Joueur{
 
 'Choisir action Carte, demande au joueur de Choisir une carte ACCESSIBLE, une fois la carte choisit elle est soit defaussé, soit construite, soit elle construit une merveille
 Joueur "2" -- "*" Carte
+
+class IARandom{
+    + Action choisir_action(Action* actions) override ; 
+    + Carte* choisirCarte(Carte** liste_cartes, unsigned int taille_tableau) override;
+    + JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau) override;
+}
+
+IARandom --|> Joueur
 
 @enduml
