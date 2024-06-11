@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>images/test1.png</file>
         <file>images/card_test.jpeg</file>
+        <file>images/back.jpeg</file>
+        <file>images/plateau_militaire.png</file>
     </qresource>
 </RCC>

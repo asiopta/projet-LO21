@@ -1,6 +1,7 @@
 #include <QtWidgets>
 #include <iostream>
 #include <string>
+#include "VueMenu.h"
 
 
 
@@ -112,6 +113,7 @@ public:
 
 class CardWidget : public QWidget {
 
+
 public:
     CardWidget(const Card& card, QWidget *parent = nullptr) : QWidget(parent), mCard(card) {
         setFixedSize(100, 150); // Set fixed size for each card widget
@@ -154,13 +156,15 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
 
-    QWidget window;
+   /* QWidget window;
     window.setWindowTitle("Exemple liste de cartes");
     window.resize(1200,600);
 
     QVBoxLayout layout(&window);
 
     QList<Card> cards;
+
+
 
     cards.append(Card("Scierie",2,3,":/images/card_test.jpeg"));
     cards.append(Card("Google",2,3,":/images/test1.png"));
@@ -175,9 +179,9 @@ int main(int argc, char *argv[]) {
 
     }
 
-    window.setLayout(&layout);
-
-    window.show();
+    window.setLayout(&layout);*/
+    VueMENU menu = VueMENU(nullptr, &app);
+    menu.show();
     return app.exec();
 }
 

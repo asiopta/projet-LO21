@@ -1,0 +1,10 @@
+debug/Carte.o
+debug/Joueur.o
+debug/Plateau.o
+debug/VueJeu.o
+debug/VueMenu.o
+debug/controleur.o
+debug/main.o
+debug/qrc_images.o
+debug/moc_VueJeu.o
+debug/moc_VueMenu.o

@@ -1,0 +1,10 @@
+release/Carte.o
+release/Joueur.o
+release/Plateau.o
+release/VueJeu.o
+release/VueMenu.o
+release/controleur.o
+release/main.o
+release/qrc_images.o
+release/moc_VueJeu.o
+release/moc_VueMenu.o
