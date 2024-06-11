@@ -340,16 +340,16 @@ PlateauMilitaire::PlateauMilitaire(unsigned int a, Joueur* joueur_derr, Joueur* 
     : avance(a), joueur_derriere(joueur_derr)
 {   
     liste_jetons_malus = new JetonMalus*[Dim_jetons_malus];
-    std::cout<<"ici PlateauMilitaire::PlateauMilitaire"<<std::endl;
+    // std::cout<<"ici PlateauMilitaire::PlateauMilitaire"<<std::endl;
     liste_jetons_malus[0] = new JetonMalus(2, 3, joueur_derr);
-    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 1 construit"<<std::endl; //!test
+    // std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 1 construit"<<std::endl; //!test
     // liste_jetons_malus[1] = new JetonMalus(5, 6, joueur_derr);
     liste_jetons_malus[1] = new JetonMalus(2, 3, joueur_derr);
-    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 2 construit"<<std::endl; //!test
+    // std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 2 construit"<<std::endl; //!test
     liste_jetons_malus[2] = new JetonMalus(2, 3, autre_joueur);
-    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 3 construit"<<std::endl; //!test
+    // std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 3 construit"<<std::endl; //!test
     liste_jetons_malus[3] = new JetonMalus(5, 6, autre_joueur);
-    std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 4 construit"<<std::endl; //!test
+    // std::cout<<"ici PlateauMilitaire::PlateauMilitaire : jeton 4 construit"<<std::endl; //!test
 
     // std::cout<<"ici PlateauMilitaire::PlateauMilitaire : joueur_derriere= "<< joueur_derriere <<std::endl; //!test
 
@@ -423,7 +423,7 @@ PlateauMilitaire::~PlateauMilitaire() {
 //!constructeur de plateauCarte 
 PlateauCartes::PlateauCartes() 
 {
-    std::cout<<"ici PlateauCarte::Plateau::Carte()"<<std::endl;
+    // std::cout<<"ici PlateauCarte::Plateau::Carte()"<<std::endl;
     age = 0; //on commence a 0 car on effectue un addAge() au début de la partie dans le contstructeur de Plateau
     Carte** cartes_en_jeu = new Carte*[TAILLE_CARTE_EN_JEU];
     Carte** defausses = new Carte*[TAILLE_DEFAUSSES];
@@ -444,7 +444,7 @@ PlateauCartes::PlateauCartes()
 
 void PlateauCartes::addAge(){
     age++;
-    std::cout << "###################################################ici addAge : "<<age <<std::endl;
+    std::cout << "Passage à l'âge suivant : Age "<<age <<std::endl;
     initPlateauCarte();
 }
 
@@ -547,13 +547,13 @@ Carte** PlateauCartes::getCartesVisibles() const{
 }
 
 void PlateauCartes::update_accessibilite(){ //! fonction OK
-    std::cout << "PlateauCartes::update_accessibilite : age :"<< age << std::endl;
+    // std::cout << "PlateauCartes::update_accessibilite : age :"<< age << std::endl; //! test
     std::vector<std::vector<unsigned int>> liste_adjacence;
     if (age == 1){
         liste_adjacence = {{2, 3}, {3, 4}, {5, 6}, {6, 7}, {7, 8}, {9, 10}, {10,11}, {11, 12}, {12, 13}, {14, 15}, {15, 16}, {16, 17}, {17, 18}, {18, 19}};
     }
     else if (age == 2){
-        std::cout << "PlateauCartes::update_accessibilite age 2" << std::endl;
+        // std::cout << "PlateauCartes::update_accessibilite age 2" << std::endl; //! test
         liste_adjacence = {{6}, {6,7}, {7, 8}, {8, 9}, {9, 10}, {10}, {11}, {11, 12}, {12, 13},{13, 14}, {14},{15}, {15, 16}, {16, 17}, {17}, {18}, {18, 19}, {19}};
     }
     else if (age == 3){
@@ -945,10 +945,10 @@ void PlateauCartes::initPlateauCarte(){
         //supression de la liste de cartes
         //* Remarque, on a deja suprimé les cartes non utilisées dans la fonction initCarteRandom
         // delete[] LISTE_CARTE_AGE_2;
-        std::cout<< "initialisation d'age 2 réussi!"<< std::endl; //! test
+        // std::cout<< "initialisation d'age 2 réussi!"<< std::endl; //! test
     }
     else if (age == 3){
-        std::cout<< "initialisation d'age 3!"<< std::endl; //! test
+        // std::cout<< "initialisation d'age 3!"<< std::endl; //! test
         //initialisation des cartes en jeu pour l'age 3
         Carte* LISTE_CARTE_AGE_3[NB_CARTE_AGE_3_TOT] = {
             //! LISTE DES CARTES DE L'AGE 3
@@ -1107,10 +1107,10 @@ void PlateauCartes::initPlateauCarte(){
 
 
         // delete[] LISTE_CARTE_AGE_3;
-        std::cout<< "initialisation d'age 3 réussi!"<< std::endl; //! test
+        // std::cout<< "initialisation d'age 3 réussi!"<< std::endl; //! test
     }
     else {throw ("Erreur dans init_carte_en_jeu : age invalide");}
-    std::cout << "Fin de initPlateauCarte" <<std::endl;
+    // std::cout << "Fin de initPlateauCarte" <<std::endl;
 
 }
 
@@ -1138,7 +1138,7 @@ void PlateauCartes::initMerveilleRandom(unsigned int nombre_merveille, unsigned 
     if (nombre_merveille > TAILLE_MERVEILLES){throw ("Erreur dans tirerMerveilleRandom : nombre de merveille invalide");}
     std::random_device rd; //sead aléatoire pour mélanger les listes de cartes
     std::mt19937 gen(rd());
-    std::cout << "AVANT SHUFFLE" << std::endl; //!test
+    // std::cout << "AVANT SHUFFLE" << std::endl; //!test
     std::shuffle(tableau_merveilles, tableau_merveilles + nombre_merveille +4, gen); //mélange d'une liste de cartes
     for (int i = 0; i < nombre_merveille; i++){
         merveilles[i] = tableau_merveilles[i]; //ajout des TAILLE_MERVEILLES premières merveilles de la liste mélangée
