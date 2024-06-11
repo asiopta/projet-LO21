@@ -125,18 +125,7 @@ void Joueur::addCapaciteJeton(const CapaciteScience& capacite){
 }
 
 void Joueur::construireJeton(JetonScience* jeton){
-    // switch (jeton)
-    // {
-    // case CapaciteScience::loi: symboles_science.autre = true; break;
-    // case CapaciteScience::agriculture:
-    //     gagnerArgent(6);
-    //     gagnerPtVictoire(4);
-    //     break;
-    // case CapaciteScience::philosophie:
-    //     gagnerPtVictoire(7);
-    //     break;
-    // default: addCapaciteJeton(jeton); break;
-    // }
+    if(jeton == nullptr) return;
     jeton->exec_capacite_science(this);
 
     //! + gerer le fait que le jeton n'est plus prenable
