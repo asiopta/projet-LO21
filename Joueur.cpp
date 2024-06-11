@@ -125,18 +125,7 @@ void Joueur::addCapaciteJeton(const CapaciteScience& capacite){
 }
 
 void Joueur::construireJeton(JetonScience* jeton){
-    // switch (jeton)
-    // {
-    // case CapaciteScience::loi: symboles_science.autre = true; break;
-    // case CapaciteScience::agriculture:
-    //     gagnerArgent(6);
-    //     gagnerPtVictoire(4);
-    //     break;
-    // case CapaciteScience::philosophie:
-    //     gagnerPtVictoire(7);
-    //     break;
-    // default: addCapaciteJeton(jeton); break;
-    // }
+    if(jeton == nullptr) return;
     jeton->exec_capacite_science(this);
 
     //! + gerer le fait que le jeton n'est plus prenable
@@ -219,7 +208,9 @@ JetonScience* Joueur::choisirJetonScience(JetonScience** liste_jetons, unsigned 
         std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et "<< taille_tableau << std::endl;
         std::cin >> choix;
     }
-    return liste_jetons[choix-1];
+    JetonScience* res = liste_jetons[choix-1];
+    liste_jetons[choix-1] = nullptr;
+    return res;
 }
 
 //Rappel : using Action = std::tuple<Carte*, std::string>; 
