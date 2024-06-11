@@ -64,12 +64,15 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
             Joueur* joueur_gagnant = controleur.determineGagnant();
             if (joueur_gagnant == controleur.getJoueur1()){
                 std::cout << "Le joueur 1 a gagné!" << endl;
+                return 1;
             }
             else if (joueur_gagnant == controleur.getJoueur2()){
                 std::cout << "Le joueur 2 a gagné!" << endl;
+                return 2;
             }
             else {
                 std::cout << "Egalité!" << endl;
+                return 0;
             }
         }
     }
