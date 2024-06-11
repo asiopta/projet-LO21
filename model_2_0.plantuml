@@ -4,10 +4,12 @@
 
 'Cette classe rassemble les elements commun à chaques cartes 
 abstract class Carte{
-    - materiaux_construction_primaires : *RassourcePrimaire[4]
-    - materiaux_construction_secondaires : *RessourceSecondaire[2]
+    - materiaux_construction_primaires : *RassourcePrimaire[5]
+    - materiaux_construction_secondaires : *RessourceSecondaire[3]
     - cout_construction : unsigned int
 
+    -nom : string
+    -age : unsigned int
     -position : unsigned int
     -accessible : bool
     -face_visible : bool
@@ -18,14 +20,26 @@ abstract class Carte{
     +void set_accessible();
     +void set_face_visible(); 
 
+    +string getNom() const;
     +unsigned int get_position() const;
     +unsigned int getPrix() const;
     +bool est_facevisible() const;
     +bool est_accessible() const;
     +RessourcePrimaire* getMateriauxPrimaires() const;
     +RessourceSecondaire* getMateriauxSecondaires() const;
+    +unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole,RessourcePrimaire* Resp) const;
+    +unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole,RessourceSecondaire* ResS) const;
+    +unsigned int getQuantRessPrimNess(RessourcePrimaire rp) const;
+    +unsigned int getQuantRessSecondNess(RessourceSecondaire rs) const;
 
-    +virtual std::string get_type() const = 0;
+    +virtual TypeCarte get_type() const = 0;
+    +virtual EffetGuilde get_effet_guilde() const;
+    +virtual unsigned int getPtVictoire() const;
+    +virtual SymboleScience getSymboleScience() const;
+    +virtual SymboleChainage getSymboleChainageEntre() const;
+    +virtual SymboleChainage getSymboleChainageSortie() const;
+    +virtual unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const;
+    +virtual unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const;
 }
 
 'Notes : J'ai compté pour les listes 4 et 2 en longueurs suffisent
@@ -46,9 +60,31 @@ abstract class Carte{
 class Merveille{
     - capacite : *Capacite[3]
     - pt_victoire : unsigned int
-    - production : *RessourceSecondaire[3]
+    - avance_militaire : unsigned int
+    - choix : bool
+    - production_secondaire : *RessourceSecondaire[3]
+    - production_primaire : *RessourcePrimaire[3]
 
-    + const exec_capacite()
+    + bool get_choix()const;
+    + unsigned int getPtVictoire()const override;
+    + unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;
+    + unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const override;
+    + void addCapacite(Capacite c); 
+    
+    + void set_choix(bool c);
+    + void exec_capacite(Joueur* joueur1, Joueur* joueur2, PlateauCartes& plateau_carte, PlateauMilitaire& plateau_militaire, PlateauScience& plateau_science) const;
+    + void exec_rejouer(Joueur* joueur1) const;
+    + void exec_detruire_carte_marron(Joueur* joueur1, Joueur* joueur2) const;
+    + void exec_detruire_carte_grise(Joueur* joueur1, Joueur* joueur2) const;
+    + void exec_jouer_carte_defausse(Joueur* joueur1, PlateauCartes& plateau_carte) const;
+    + void exec_gagner_monnaie_12(Joueur* joueur1) const;
+    + void exec_gagner_monnaie_3(Joueur* joueur1) const;
+    + void exec_gagner_monnaie_6(Joueur* joueur1) const;
+    + void exec_perdre_monnaie_3(Joueur* joueur1) const;
+    + void exec_avancee_militaire(Joueur* joueur1, PlateauMilitaire& plateau_militaire) const;
+    + void exec_choisir_jeton_science(Joueur* joueur1, PlateauScience& plateau_science) const;
+
+    + TypeCarte get_type() const override; 
 }
 'Les Merveille Grand Phare et Piree peuvent produire une ressource
 
@@ -56,11 +92,12 @@ class Merveille{
 
 'Cartes marrons 
 class CarteRessourcePrimaire{
-    - production : *RessourcePrimaire[2]
+    - production : *RessourcePrimaire[3]
 
     +RessourcePrimaire* get_production() const;
+    +unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;
     +void set_production(RessourcePrimaire r); 
-    +std::string get_type() const override;
+    +TypeCarte get_type() const override;
 }
 
 'Cartes gris
@@ -68,19 +105,21 @@ class CarteRessourceSecondaire{
     - production : RessourceSecondaire
 
     +RessourceSecondaire get_production() const;
-    +string get_type() const override;
+    +unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const override;
+    +TypeCarte get_type() const override;
     +void set_production(RessourceSecondaire r);
 }
 'Pas de liste car produit toujours 1 seul ressource
 
 'Cartes Jaunes
 class CarteCommerce{
-    - production_primaire : *RessourcePrimaire[2]
+    - production_primaire : *RessourcePrimaire[3]
     - production_secondaire : *RessourceSecondaire[2]
     - capacite : Capacite
-    - symbole_chainage : SymboleChainage
+    - symbole_chainage_entre : SymboleChainage
+    - symbole_chainage_sortie : SymboleChainage
     - choix : boolean 
-    - contrpartie : int 
+    - contrepartie : bool 
     - pt_victoire : unsigned int
 
     +RessourcePrimaire* get_production_primaire() const;
@@ -88,10 +127,12 @@ class CarteCommerce{
     +bool get_choix() const;
     +bool get_contrepatrie() const;
     +Capacite get_capacite() const;
-    +unsigned int get_pt_victoire() const;
-    +SymboleChainage get_symbole_chainage() const;
+    +unsigned int getPtVictoire() const;
+    +SymboleChainage getSymboleChainageEntre() const override;
+    +SymboleChainage getSymboleChainageSortie() const override;
+    +unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;
+    +unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const override;
 
-    +void set_symbole_chainage(SymboleChainage s);
     +void set_choix(bool c);
     +void set_contrepartie(bool c);
     +void set_pt_victoire(unsigned int n);
@@ -99,7 +140,8 @@ class CarteCommerce{
     +void set_production_primaire(RessourcePrimaire* pt);
     +void set_production_secondaire(RessourceSecondaire* pt);
 
-    +string get_type() const override;
+    +TypeCarte get_type() const override;
+    +void exec_capacite(Joueur& joueur1) const;
 }
 'Choix defini si la production doit etre choisi entre differentes ressources ou non
 'Contrepartie defini si il faut "acheter" la ressource produite ou non, on notera 0 si ce n'est pas le cas
@@ -110,20 +152,22 @@ class CarteCommerce{
 'Cartes Verts
 class CarteScience{
     - symbole_science : SymboleScience
-    - symbole_chainage : SymboleChainage
+    - symbole_chainage_entre : SymboleChainage
+    - symbole_chainage_sortie : SymboleChainage
     - pt_victoire : unsigned int
-    - capacite : Capacite::ajouter_symbole_science
+    - capacite : Capacite
 
-    +unsigned int get_pt_victoire()const;
-    +SymboleChainage get_symbole_chainage() const;
-    +SymboleScience get_symbole_science() const;
+    +unsigned int getPtVictoire()const override;
+    +SymboleChainage getSymboleChainageEntre() const override;
+    +SymboleChainage getSymboleChainageSortie() const override;
+    +SymboleScience getSymboleScience() const override;
     +Capacite get_capacite() const;
 
-    +void set_symbole_chainage(SymboleChainage s);
     +void set_pt_victoire(unsigned int n);
     +void set_symbole_science(SymboleScience s);
 
-    +get_type() const override;
+    +TypeCarte get_type() const override;
+    +void exec_capacite(Joueur* joueur1, PlateauScience* plateau_science) const;
 
 }
 'SymboleScience est une enumerations des symboles Science disponible dans le jeu
@@ -132,31 +176,33 @@ class CarteScience{
 'Cartes Rouges
 class CarteMilitaire{
     -unsigned int nb_symbole_militaire;
-    -Capacite capacite = avance_militaire;
-    -SymboleChainage symbole_chainage;
+    -Capacite capacite;
+    -SymboleChainage symbole_chainage_entre;
+    -SymboleChainage symbole_chainage_sortie;
 
 
-    +Capacite get_capacite() const;
     +unsigned int get_nb_symbole_militaire() const;
-    +SymboleChainage get_symbole_chainage() const;
+    +SymboleChainage getSymboleChainageEntre() const override;
+    +SymboleChainage getSymboleChainageSortie() const override;
 
     +void set_nb_symbole_militaire(unsigned int nb);
-    +void set_symbole_chainage(SymboleChainage s);
 
-    +string get_type() const override;
+    +void exec_capacite(Joueur* joueur_adverse, PlateauMilitaire& plateau_militaire);
+    +TypeCarte get_type() const override;
 }
 
 'Cartes Bleu
 class CartePrestige{
-    - symbole_chainage : SymboleChainage
+    - symbole_chainage_entre : SymboleChainage
+    - symbole_chainage_sortie : SymboleChainage
     - pt_victoire : unsigned int
 
-    +unsigned int get_pt_victoire()const;
-    +SymboleChainage get_symbole_chainage() const;
-    +void set_symbole_chainage(SymboleChainage s);
+    +unsigned int getPtVictoire()const override;
+    +SymboleChainage getSymboleChainageEntre() const override;
+    +SymboleChainage getSymboleChainageSortie() const override;
     +void set_pt_victoire(unsigned int n);
 
-    +string get_type() const override;
+    +TypeCarte get_type() const override;
 }
 
 'Cartes Violets
@@ -165,8 +211,8 @@ class CarteGuilde{
 
     +EffetGuilde get_effet_guilde();
     +void set_effet_guilde(EffetGuilde& effet);
-    +void applique_effet_guilde(Joueur& joueur1, Joueur& joueur2);
-    +string get_type() const override;
+    +void exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const;
+    +TypeCarte get_type() const override;
 
 }
 'EffetGuilde est un enumération defini après
