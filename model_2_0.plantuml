@@ -342,10 +342,10 @@ RessourceSecondaire "*" -- "*" Merveille
 'Il sont au nombre de 10 avec des effets uniques
 
 class JetonScience{
-    - capacite_science : CapaciteScience
+    - capacite : CapaciteScience
 
-    +const exec_capacite_science()
-    +CapaciteScience get_capacite_science() const
+    + void exec_capacite_science(Joueur* joueur) const;
+    + CapaciteScience get_capacite() const;
 }
 'CapaciteScience est une enumération des effets de chaques jetons, voir ci dessous
 
@@ -369,24 +369,28 @@ JetonScience "1" *-- "1" CapaciteScience
 class JetonMalus{
     -malus : unsigned int 
     -position : unsigned int < Dim_plateau_militaire
-    -joueur_cible : Joueur*
+    -joueur : Joueur*
 
     +unsigned int get_positon()const;
     +unsigned int get_malus()const;
-    +Joueur* get_joueur()const;
     +void exec_malus();
 
 }
 
 class PlateauMilitaire{
+    -avance_win : const int;
     -avance : unsigned int 
-    -liste_jetons_malus : &JetonMalus[4]
-    -joueur_derriere : &Joueur
+    -Dim_jetons_malus : const int;
+    -liste_jetons_malus : JetonMalus**;
+    -joueur_derriere : Joueur*;
     
 
     +void update_avance(unsigned int a, Joueur& joueur_cible);
     +void retirer_jeton_malus(JetonMalus& jeton);
-    +JetonMalus& jeton_malus_ici() const;
+    +JetonMalus* jeton_malus_ici() const;
+    +bool gagneMilitairement(Joueur* joueur) const; 
+    +Joueur* getJoueurDerriere() const;
+    +unsigned int getAvance() const;
 }
 
 PlateauMilitaire "1" *-- "4" JetonMalus
@@ -408,19 +412,36 @@ PlateauMilitaire "1" *-- "4" JetonMalus
 
 class PlateauCarte{
     - age : unsigned int {1, 2, 3}
-    - cartes_en_jeu : &Carte[20]
-    - nb_merveilles_constr : unsigned int
-    - defausses : &Cartes[60]
+    - cartes_en_jeu : *Carte[TAILLE_CARTE_EN_JEU]
+    - merveilles : *Merveille[TAILLE_MERVEILLES]
+    - defausses : *Cartes[TAILLE_DEFAUSSES]
+    - taille_defausse : unsigned int ; 
 
-    + set_age(unsigned int)
-    + const rend_accessible(&Carte)
-    + const rend_face_visible(&Carte)
-    + prendre(&Carte)
-    + prendre(&Merveille)
-    + defausser(&Carte)
-    + const get_cartes_visibles() -> &Carte[]
-    + const get_cartes_accessibles() -> &Carte[]
-    + const nb_merveilles_restantes() -> unsigned int 
+    + unsigned int getAge() const;
+    + Carte** getCartesEnJeu() const;
+    + Carte** getDefausse() const;
+    + unsigned int getTailleDefausse() const;
+    + Merveille** getMerveilles() const;
+    + Carte** getCartesAccessibles() const; 
+    + Carte** getCartesVisibles() const; 
+    + unsigned int getNbMerveilles() const; 
+    + unsigned int getNbCartesAccessibles() const;
+
+    + void addAge(); 
+    + void ajouterCarte(Carte* carte); 
+    + void prendreCarte(Carte* carte); 
+    + void defausserCarte(Carte* carte); 
+    + void prendreMerveille(Merveille* merveille); 
+    + void rendreAccessible(Carte* carte);
+
+    + void initPlateauCarte();
+    + void initCarteRandom(unsigned int nombre_carte,unsigned int taille_tableau, Carte** tableau_cartes); 
+    + bool estEnJeu(Carte* carte) const; 
+    + bool estAccessible(Carte* carte) const; 
+    + bool estVisible(Carte* carte) const; 
+
+    + void update_accessibilite();
+    + bool estVide() const; 
 }
 
 'set_age modifie l'age du plateau carte
@@ -434,19 +455,19 @@ class PlateauCarte{
 
 'Le plateau Scientifique permet de gerer les jetons scientifique
 class PlateauScience{
-    -const int Dim_jetons_in_game = 5;
-    -const int Dim_liste_position = 5;
-    -const int Dim_jetons_out_game = 5;
-    -JetonScience *jeton_in_game;
-    -unsigned int *liste_position;
-    -JetonScience *jeton_out_game;
+    -Dim_jetons_in_game : const int ;
+    -Dim_liste_position : const int ;
+    -Dim_jetons_out_game : const int ;
+    -jeton_in_game : JetonScience*;
+    -liste_position : unsigned int**;
+    -jeton_out_game : JetonScience**;
 
-    +JetonScience* tirer_jeton_out_game();
-    +JetonScience* tirer_jeton_in_game(JetonScience& jeton);
+    +JetonScience** tirer_jeton_out_game();
     +void retirer_jeton_out_game(JetonScience& jeton);
     +void retirer_jeton_in_game(JetonScience& jeton);
     +void ajouter_jeton_in_game(JetonScience& jeton);
     +void ajouter_jeton_out_game(JetonScience& jeton);
+    +JetonScience** getJetonInGame() const;
 
 }
 
@@ -475,6 +496,7 @@ Joueur "2" -- "1" PlateauMilitaire
 '-------------------------------GESTION DU PLATEAU DE JEU------------------------
 
 'comment gérer la class ressource ????
+'à revoir
 
 'Cette classe decrit l'etat du plateau de jeu à chaque instant
 class Joueur{
