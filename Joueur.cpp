@@ -208,7 +208,9 @@ JetonScience* Joueur::choisirJetonScience(JetonScience** liste_jetons, unsigned 
         std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et "<< taille_tableau << std::endl;
         std::cin >> choix;
     }
-    return liste_jetons[choix-1];
+    JetonScience* res = liste_jetons[choix-1];
+    liste_jetons[choix-1] = nullptr;
+    return res;
 }
 
 //Rappel : using Action = std::tuple<Carte*, std::string>; 
