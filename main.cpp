@@ -180,8 +180,11 @@ int main(){
     if (gagnant == 1){
         std::cout << "Le joueur 1 a gagné!" << endl;
     }
-    else{
+    else if (gagnant == 2){
         std::cout << "Le joueur 2 a gagné!" << endl;
+    }
+    else {
+        std::cout << "Match nul!" << endl;
     }
     delete jeu;
     return 0;
