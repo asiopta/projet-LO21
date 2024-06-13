@@ -150,7 +150,7 @@ Carte* Joueur::choisirCarte(Carte** liste_cartes, unsigned int taille_tableau){
     }
     int choix;
     std::cin >> choix;
-    while (choix <= 0 || choix > taille_tableau){
+    while ((choix <= 0 || choix > taille_tableau) || (choix != (int)choix)){
         std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << taille_tableau << std::endl;
         std::cin >> choix;
     }
@@ -173,7 +173,7 @@ Merveille* Joueur::choisirCarte(Merveille** liste_merveilles, unsigned int taill
     int choix;
     std::cin>> choix;
     choix--;
-    if(choix < 0 || choix > taille_tableau || liste_merveilles[choix]== nullptr){
+    if(choix < 0 || choix > taille_tableau || liste_merveilles[choix]== nullptr || choix != (int)choix){
         std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << taille_tableau << std::endl;
         return choisirCarte(liste_merveilles, taille_tableau);
     }
@@ -204,7 +204,7 @@ JetonScience* Joueur::choisirJetonScience(JetonScience** liste_jetons, unsigned 
     }
     int choix;
     std::cin >> choix;
-    while (choix <= 0 || choix > taille_tableau){
+    while (choix <= 0 || choix > taille_tableau || choix != (int)choix){
         std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et "<< taille_tableau << std::endl;
         std::cin >> choix;
     }
@@ -266,7 +266,7 @@ Action Joueur::choisir_action(Action* actions){
     }
     int choix;
     std::cin >> choix;
-    while (choix <= 0 || choix > count){
+    while (choix <= 0 || choix > count || choix != (int)choix){
         std::cout << "Choix invalide, veuillez choisir un nombre entre 1 et " << count << std::endl;
         std::cin >> choix;
     }
