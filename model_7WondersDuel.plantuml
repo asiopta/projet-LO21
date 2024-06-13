@@ -1,0 +1,675 @@
+@startuml Model 3
+
+'les differentes cartes : 
+
+'Cette classe rassemble les elements commun à chaques cartes 
+abstract class Carte{
+    - materiaux_construction_primaires : *RassourcePrimaire[5]
+    - materiaux_construction_secondaires : *RessourceSecondaire[3]
+    - cout_construction : unsigned int
+
+    -nom : string
+    -age : unsigned int
+    -position : unsigned int
+    -accessible : bool
+    -face_visible : bool
+    
+    +void set_position(unsigned int pos);
+    +void set_materiaux_construction_primaire(RessourcePrimaire r); 
+    +void set_materiaux_construction_secondaire(RessourceSecondaire r);
+    +void set_accessible();
+    +void set_face_visible(); 
+
+    +string getNom() const;
+    +unsigned int get_position() const;
+    +unsigned int getPrix() const;
+    +bool est_facevisible() const;
+    +bool est_accessible() const;
+    +RessourcePrimaire* getMateriauxPrimaires() const;
+    +RessourceSecondaire* getMateriauxSecondaires() const;
+    +unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole,RessourcePrimaire* Resp) const;
+    +unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole,RessourceSecondaire* ResS) const;
+    +unsigned int getQuantRessPrimNess(RessourcePrimaire rp) const;
+    +unsigned int getQuantRessSecondNess(RessourceSecondaire rs) const;
+
+    +virtual TypeCarte get_type() const = 0;
+    +virtual EffetGuilde get_effet_guilde() const;
+    +virtual unsigned int getPtVictoire() const;
+    +virtual SymboleScience getSymboleScience() const;
+    +virtual SymboleChainage getSymboleChainageEntre() const;
+    +virtual SymboleChainage getSymboleChainageSortie() const;
+    +virtual unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const;
+    +virtual unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const;
+}
+
+'Notes : J'ai compté pour les listes 4 et 2 en longueurs suffisent
+'Age est une enumeration
+
+'La methode gettype renvoie le type de la carte ("Science", "Militaire", "Commerce"...)
+
+'out met tous les arguments d'etat de la carte a None, (position, facevisible et accessible)
+
+
+
+
+
+'-----------------------------LES AUTRES CARTES--------------------'
+'Hérite tous de la classe carte carte
+
+'Une Merveille est techniquement une carte
+class Merveille{
+    - capacite : *Capacite[3]
+    - pt_victoire : unsigned int
+    - avance_militaire : unsigned int
+    - choix : bool
+    - production_secondaire : *RessourceSecondaire[3]
+    - production_primaire : *RessourcePrimaire[3]
+
+    + bool get_choix()const;
+    + unsigned int getPtVictoire()const override;
+    + unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;
+    + unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const override;
+    + void addCapacite(Capacite c); 
+    
+    + void set_choix(bool c);
+    + void exec_capacite(Joueur* joueur1, Joueur* joueur2, PlateauCartes& plateau_carte, PlateauMilitaire& plateau_militaire, PlateauScience& plateau_science) const;
+    + void exec_rejouer(Joueur* joueur1) const;
+    + void exec_detruire_carte_marron(Joueur* joueur1, Joueur* joueur2) const;
+    + void exec_detruire_carte_grise(Joueur* joueur1, Joueur* joueur2) const;
+    + void exec_jouer_carte_defausse(Joueur* joueur1, PlateauCartes& plateau_carte) const;
+    + void exec_gagner_monnaie_12(Joueur* joueur1) const;
+    + void exec_gagner_monnaie_3(Joueur* joueur1) const;
+    + void exec_gagner_monnaie_6(Joueur* joueur1) const;
+    + void exec_perdre_monnaie_3(Joueur* joueur1) const;
+    + void exec_avancee_militaire(Joueur* joueur1, PlateauMilitaire& plateau_militaire) const;
+    + void exec_choisir_jeton_science(Joueur* joueur1, PlateauScience& plateau_science) const;
+
+    + TypeCarte get_type() const override; 
+}
+'Les Merveille Grand Phare et Piree peuvent produire une ressource
+
+'Les autres types de cartes
+
+'Cartes marrons 
+class CarteRessourcePrimaire{
+    - production : *RessourcePrimaire[3]
+
+    +RessourcePrimaire* get_production() const;
+    +unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;
+    +void set_production(RessourcePrimaire r); 
+    +TypeCarte get_type() const override;
+}
+
+'Cartes gris
+class CarteRessourceSecondaire{
+    - production : RessourceSecondaire
+
+    +RessourceSecondaire get_production() const;
+    +unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const override;
+    +TypeCarte get_type() const override;
+    +void set_production(RessourceSecondaire r);
+}
+'Pas de liste car produit toujours 1 seul ressource
+
+'Cartes Jaunes
+class CarteCommerce{
+    - production_primaire : *RessourcePrimaire[3]
+    - production_secondaire : *RessourceSecondaire[2]
+    - capacite : Capacite
+    - symbole_chainage_entre : SymboleChainage
+    - symbole_chainage_sortie : SymboleChainage
+    - choix : boolean 
+    - contrepartie : bool 
+    - pt_victoire : unsigned int
+
+    +RessourcePrimaire* get_production_primaire() const;
+    +RessourceSecondaire* get_production_second() const;
+    +bool get_choix() const;
+    +bool get_contrepatrie() const;
+    +Capacite get_capacite() const;
+    +unsigned int getPtVictoire() const;
+    +SymboleChainage getSymboleChainageEntre() const override;
+    +SymboleChainage getSymboleChainageSortie() const override;
+    +unsigned int getQuantRessPrimProd(RessourcePrimaire rp) const override;
+    +unsigned int getQuantRessSecondProd(RessourceSecondaire rs) const override;
+
+    +void set_choix(bool c);
+    +void set_contrepartie(bool c);
+    +void set_pt_victoire(unsigned int n);
+    +void set_capacite(Capacite c);
+    +void set_production_primaire(RessourcePrimaire* pt);
+    +void set_production_secondaire(RessourceSecondaire* pt);
+
+    +TypeCarte get_type() const override;
+    +void exec_capacite(Joueur& joueur1) const;
+}
+'Choix defini si la production doit etre choisi entre differentes ressources ou non
+'Contrepartie defini si il faut "acheter" la ressource produite ou non, on notera 0 si ce n'est pas le cas
+
+'exec_capacite() regarde l'attribut "capacite", et execute la fonction correspondante
+'on rajoutera un méssage d'erreur si la capacite n'est pas possible
+
+'Cartes Verts
+class CarteScience{
+    - symbole_science : SymboleScience
+    - symbole_chainage_entre : SymboleChainage
+    - symbole_chainage_sortie : SymboleChainage
+    - pt_victoire : unsigned int
+    - capacite : Capacite
+
+    +unsigned int getPtVictoire()const override;
+    +SymboleChainage getSymboleChainageEntre() const override;
+    +SymboleChainage getSymboleChainageSortie() const override;
+    +SymboleScience getSymboleScience() const override;
+    +Capacite get_capacite() const;
+
+    +void set_pt_victoire(unsigned int n);
+    +void set_symbole_science(SymboleScience s);
+
+    +TypeCarte get_type() const override;
+    +void exec_capacite(Joueur* joueur1, PlateauScience* plateau_science) const;
+
+}
+'SymboleScience est une enumerations des symboles Science disponible dans le jeu
+'SymboleChainage est une enumerations des symboles Science disponible dans le jeu
+
+'Cartes Rouges
+class CarteMilitaire{
+    -unsigned int nb_symbole_militaire;
+    -Capacite capacite;
+    -SymboleChainage symbole_chainage_entre;
+    -SymboleChainage symbole_chainage_sortie;
+
+
+    +unsigned int get_nb_symbole_militaire() const;
+    +SymboleChainage getSymboleChainageEntre() const override;
+    +SymboleChainage getSymboleChainageSortie() const override;
+
+    +void set_nb_symbole_militaire(unsigned int nb);
+
+    +void exec_capacite(Joueur* joueur_adverse, PlateauMilitaire& plateau_militaire);
+    +TypeCarte get_type() const override;
+}
+
+'Cartes Bleu
+class CartePrestige{
+    - symbole_chainage_entre : SymboleChainage
+    - symbole_chainage_sortie : SymboleChainage
+    - pt_victoire : unsigned int
+
+    +unsigned int getPtVictoire()const override;
+    +SymboleChainage getSymboleChainageEntre() const override;
+    +SymboleChainage getSymboleChainageSortie() const override;
+    +void set_pt_victoire(unsigned int n);
+
+    +TypeCarte get_type() const override;
+}
+
+'Cartes Violets
+class CarteGuilde{
+    - effet_guilde : EffetGuilde
+
+    +EffetGuilde get_effet_guilde();
+    +void set_effet_guilde(EffetGuilde& effet);
+    +void exec_effet_guilde(Joueur& joueur1, Joueur& joueur2) const;
+    +TypeCarte get_type() const override;
+
+}
+'EffetGuilde est un enumération defini après
+
+'execEffetGuilde() effectue l'effet de guilde correspondant, a voir au niveau des arguments
+
+
+CarteMilitaire --|> Carte
+CarteCommerce --|> Carte
+CarteScience --|> Carte
+CartePrestige --|> Carte
+Carte <|-- CarteGuilde
+CarteRessourcePrimaire --|> Carte
+CarteRessourceSecondaire --|> Carte
+Merveille --|> Carte
+
+
+'-----------------------------------------ATTENTION !!!-----------------------------------------------------'
+'Tout elements se déclanchant qu'une seul fois, à la création de la carte est considéré comme une capacitée 
+'Il existe une enumération capacité, définie plus loin
+
+'---------------------------------------ENUMERATIONS LIE AUX CARTES-----------------------------------------'
+
+
+
+'Permet de ne pas payer une carte si elle comporte le meme symbole qu'une carte déja construite par le joueur
+enum SymboleChainage{
+    none
+    jarre 
+    toneau
+    masque 
+    temple 
+    soleil 
+    goute 
+    lune 
+    pilier 
+    cible 
+    casque 
+    feracheval 
+    epee 
+    tour 
+    lyre 
+    engrenage 
+    livre 
+    lampe 
+}
+
+SymboleChainage "*" -- "*" CartePrestige
+SymboleChainage "*" -- "*" CarteMilitaire
+SymboleChainage "*" -- "*" CarteScience
+SymboleChainage "*" -- "*" CarteCommerce
+
+'Symbole se trouvant sur les cartes sciences, 
+'2 symbole similaire entraine la prise d'une jeton science pour le joueur, 
+'6 symbole different entraine une victoire scientifique
+enum SymboleScience{
+    roue 
+    plume 
+    pilon 
+    balance 
+    globeterrestre 
+    filaplomb
+    bateau 
+}
+
+SymboleScience "*" -- "*" CarteScience
+
+'Enumerations contenant les differents effets de Guilde (cartes violettes)
+enum EffetGuilde{
+    guilde_armateurs
+    guilde_batisseurs
+    guilde_commerçants
+    guilde_magistrats
+    guilde_tacticiens
+    guilde_scientifiques
+    guilde_usuriers
+}
+'Se referer à la fiche dans le docs pour les effets de chaques guides
+EffetGuilde "*" - "*" CarteGuilde
+
+'Les differentes capacité retrouvables sur certaines cartes, notement sur les cartes Merveille, militaire et de commerce
+enum Capacite{
+    none
+    rejouer
+    detruire_carte_marron
+    detruire_carte_grise
+    jouer_carte_defausse
+    gagner_monnaie
+    avancee_militaire
+    choisir_jeton_science
+    ajouter_symbole_science
+}
+'Je pense que les noms sont suffisement explicites, mais n'hésitez pas à poser des question si ce n'est pas clair
+
+Capacite "*"  -- "*" CarteCommerce
+Capacite "0..1"  -- "*" CarteMilitaire
+Capacite "*"  -- "*" Merveille
+Capacite "0..1" -- "*" CarteScience
+
+
+'Les Ressources sont utilisé par les joureurs pour construir des batiments
+'Elles sont produites par certaines cartes
+enum RessourcePrimaire{
+    none
+    pierre
+    bois
+    brique
+}
+
+RessourcePrimaire  "*" -- "*" CarteRessourcePrimaire
+RessourcePrimaire  "*" -- "*" CarteCommerce
+
+
+enum RessourceSecondaire{
+    none
+    eau
+    parchemin
+}
+
+RessourceSecondaire "*" -- "*" CarteRessourceSecondaire
+RessourceSecondaire "*" -- "*" CarteCommerce
+RessourceSecondaire "*" -- "*" Merveille
+
+
+
+'-------------------------LES JETONS SCIENCES------------------------'
+'Il sont au nombre de 10 avec des effets uniques
+
+class JetonScience{
+    - capacite : CapaciteScience
+
+    + void exec_capacite_science(Joueur* joueur) const;
+    + CapaciteScience get_capacite() const;
+}
+'CapaciteScience est une enumération des effets de chaques jetons, voir ci dessous
+
+'Capacité déclanchées par les jetons sciences
+enum CapaciteScience{
+    none
+    agriculture
+    architecture
+    economie
+    loi
+    maconnerie
+    urbanisme
+    theologie
+    strategie
+    philosophie
+    mathematique
+}
+'Ce référer à la fiche pour les detailles de chaques capacitées
+JetonScience "1" *-- "1" CapaciteScience
+
+class JetonMalus{
+    -malus : unsigned int 
+    -position : unsigned int < Dim_plateau_militaire
+    -joueur : Joueur*
+
+    +unsigned int get_positon()const;
+    +unsigned int get_malus()const;
+    +void exec_malus();
+
+}
+
+class PlateauMilitaire{
+    -avance_win : const int;
+    -avance : unsigned int 
+    -Dim_jetons_malus : const int;
+    -liste_jetons_malus : JetonMalus**;
+    -joueur_derriere : Joueur*;
+    
+
+    +void update_avance(unsigned int a, Joueur& joueur_cible);
+    +void retirer_jeton_malus(JetonMalus& jeton);
+    +JetonMalus* jeton_malus_ici() const;
+    +bool gagneMilitairement(Joueur* joueur) const; 
+    +Joueur* getJoueurDerriere() const;
+    +unsigned int getAvance() const;
+}
+
+PlateauMilitaire "1" *-- "4" JetonMalus
+'Jdevant permet a la fois, en composant avec avance de savoir la position du jetons d'avancée miliaire
+'Permet egalement de savoir directement quelle joueur est le moins avancé militairement, 
+'ce qui permet de savoir quelles est le joueur qui doit commencer le nouvel age, ainsi que le joueur qui doit subir un malus
+
+'updateavance(unsigned int, Joueur) permet d'avancer 
+'le jeton d'un certain nombre de case en faveur du Joueur donnée en argument, (modifie avance et Jderiere si necessaire)
+
+'retirer_jeton permet de retirer le jeton d'une case alors le joueur le moins avancé militairement subit un malus, 
+'Utiliser la fonction appliquerCapacite de JetonMalus
+
+
+'    - merveille_j1 : &Merveille[4]
+'    - merveille_j2 : &Mervielle[4]
+' il y'a une redondance ici parceque les merveilles construites appartiennent à la classe Joueur
+'j'ai donc enlevé
+
+class PlateauCarte{
+    - age : unsigned int {1, 2, 3}
+    - cartes_en_jeu : *Carte[TAILLE_CARTE_EN_JEU]
+    - merveilles : *Merveille[TAILLE_MERVEILLES]
+    - defausses : *Cartes[TAILLE_DEFAUSSES]
+    - taille_defausse : unsigned int ; 
+
+    + unsigned int getAge() const;
+    + Carte** getCartesEnJeu() const;
+    + Carte** getDefausse() const;
+    + unsigned int getTailleDefausse() const;
+    + Merveille** getMerveilles() const;
+    + Carte** getCartesAccessibles() const; 
+    + Carte** getCartesVisibles() const; 
+    + unsigned int getNbMerveilles() const; 
+    + unsigned int getNbCartesAccessibles() const;
+
+    + void addAge(); 
+    + void ajouterCarte(Carte* carte); 
+    + void prendreCarte(Carte* carte); 
+    + void defausserCarte(Carte* carte); 
+    + void prendreMerveille(Merveille* merveille); 
+    + void rendreAccessible(Carte* carte);
+
+    + void initPlateauCarte();
+    + void initCarteRandom(unsigned int nombre_carte,unsigned int taille_tableau, Carte** tableau_cartes); 
+    + bool estEnJeu(Carte* carte) const; 
+    + bool estAccessible(Carte* carte) const; 
+    + bool estVisible(Carte* carte) const; 
+
+    + void update_accessibilite();
+    + bool estVide() const; 
+}
+
+'set_age modifie l'age du plateau carte
+'La methode rendaccessible(&Carte) permet de rendre FaceVisible et Accessible la carte Carte
+'La methode prendre(&Carte) permet de supprimer la carte de la liste carte en Jeu
+'La methode deffausser(&Carte) permet de mettre en defausse la carte et de la suprimmer de la liste des cartes en jeu
+'getcartevisible() renvoie la liste des cartes faces visibles
+'getcarteaccessible() renvoie la liste des cartes accessibles et donc face visible
+
+
+
+'Le plateau Scientifique permet de gerer les jetons scientifique
+class PlateauScience{
+    -Dim_jetons_in_game : const int ;
+    -Dim_liste_position : const int ;
+    -Dim_jetons_out_game : const int ;
+    -jeton_in_game : JetonScience*;
+    -liste_position : unsigned int**;
+    -jeton_out_game : JetonScience**;
+
+    +JetonScience** tirer_jeton_out_game();
+    +void retirer_jeton_out_game(JetonScience& jeton);
+    +void retirer_jeton_in_game(JetonScience& jeton);
+    +void ajouter_jeton_in_game(JetonScience& jeton);
+    +void ajouter_jeton_out_game(JetonScience& jeton);
+    +JetonScience** getJetonInGame() const;
+
+}
+
+PlateauScience  "1" *-- "5" JetonScience
+
+'JetonInGame represente les jetons visibles et recupérables par les joueurs
+'JetonsOutGame sont les jetons non tiré pour la partie, qui sont quand meme récuperables grace à des merveilles
+
+'tirerjeton() tire 3 jeton aléatoirement dans jetonOUtGame, utilisé par la capacitée choisirjeton
+'retirer jeton, retire le jeton ayant pour position Position de la liste jetonInGame
+
+
+'/////////////IMPORTANT\\\\\\\\\\\\\\\
+' Après réfléxion, je pense qu'il faut laisser les cartes et Merveilles crée dans les classes joueurs et non dans des plateaux appareant au joureurs 
+'Car pour l'interface graphique ca ne change rien, et ce sera plus simple pour acceder au differents cout, sans avoir a aller chercher les cartes crées dans des plateau séparé de joueurs
+
+
+'plateaumilitaire decrit l'avancé militaire d'un joueur vers le camps adverse, 
+'nbmerveilles renseigne le nombre de merveilles déjà construites, pour rappel, on ne peut construire que 7 merveille dans une partie
+Carte "*" --* "1" PlateauCarte
+Joueur "2" -- "1" PlateauCarte
+Joueur "2" -- "1" PlateauScience
+Joueur "2" -- "1" PlateauMilitaire
+
+
+'-------------------------------GESTION DU PLATEAU DE JEU------------------------
+
+'comment gérer la class ressource ????
+'à revoir
+
+'Cette classe decrit l'etat du plateau de jeu à chaque instant
+class Joueur{
+    - cartes_construite : *Carte[60]
+    - merveille_construite : *Merveille[5]
+    - merveille_non_construite : *Merveille[5]
+    - monnaie : unsigned int
+    - pt_victoire: unsigned int
+    - nb_jetons : unsigned int
+    - rejouer : bool
+    - ressources : Ressource
+    - capacites : CapaciteJeton
+    - symboles_science : SymbolesScience
+    - symboles_chainage : SymbolesChainage
+    - effets : Effets
+
+    + unsigned int getMonnaie() const;
+    + unsigned int getPtVictoire()const; 
+    + unsigned int getNbCartesConstruites() const;
+    + unsigned int getNbMerveillesConstruites()const;
+    + unsigned int getNbMerveillesNonConstruites()const;
+    + unsigned int getNbJetonsScience() const;
+    + SymbolesScience getSymbolesScience() const; 
+    + CapaciteJeton getCapacitesJetons() const; 
+    + Effets getEffetsGuilde() const; 
+    + SymbolesChainage getSymbolesChainage() const ; 
+    + unsigned int getNbCartesType(std::string type) const; 
+    + unsigned int getQuantiteDeRessourcePrimaire(const RessourcePrimaire& symbole) const; 
+    + unsigned int getQuantiteDeRessourceSecondaire(const RessourceSecondaire& symbole) const;
+    + Ressource* getRessources(); 
+    + bool getRejouer() const; 
+    + Carte** getCartesConstruites(); 
+    + Merveille** getMerveillesNonConstruites();
+    + bool isInMerveillesNonConstruites(Merveille* merveille);
+
+    + void setMonnaie(unsigned int argent); 
+    + void setPtVictoire(unsigned int p); 
+    + void setRessource(RessourcePrimaire rp, unsigned int quantite); 
+    + void setRessource(RessourceSecondaire rs, unsigned int quantite); 
+    + void addCapaciteJeton(const CapaciteScience& jeton); 
+    + void setMerveille(Merveille* merveille); 
+    + void setRejouerTrue(); 
+    + void setRejouerFalse(); 
+
+    + void construireJeton(JetonScience* jeton);  
+    + unsigned int getNbSymbolesScience()const; 
+    + bool gagneScientifiquement() const ;
+    + void addSymboleScience(const SymboleScience s, PlateauScience* plateau_science);
+    + void addSymboleBalance(); 
+    + void removeSymboleScience(SymboleScience& s); 
+    + void ajouterRessource(RessourcePrimaire rp, unsigned int quant); 
+    + void ajouterRessource(RessourceSecondaire rs, unsigned int quant); 
+    + void retirerRessource(RessourcePrimaire rp, unsigned int quant); 
+    + void retirerRessource(RessourceSecondaire rs, unsigned int quant); 
+    + void addEffetGuilde(EffetGuilde effet);
+    + void removeEffetGuilde(EffetGuilde effet);
+    + void setSymboleChainage(SymboleChainage s, bool var); 
+    + void addSymboleChainage(SymboleChainage s); 
+    + void removeSymboleChainage(SymboleChainage s); 
+    + bool possedeSymboleChainage(SymboleChainage s) const; 
+    + void gagnerArgent(int argent); 
+    + void gagnerPtVictoire(unsigned int p); 
+    + void retirerCarte(Carte* carte); 
+    + void updateRessourcesCarte(Carte* carte); 
+    + void updatePtVictoireCarte(Carte* carte); 
+    + void updateSymbolesChainageCarte(Carte* carte); 
+    + void updateSymbolesScienceCarte(Carte* carte, PlateauScience* plateau_science); 
+    + void updateEffetsGuilde(Carte* carte); 
+    + void addCarte(Carte* carte, PlateauScience* plateau_science); 
+    + unsigned int getCout(const Carte& carte, Joueur& adversaire); 
+    + virtual Carte* choisirCarte(Carte** liste_cartes, unsigned int taille_tableau);
+    + Merveille* choisirCarte(Merveille** liste_merveilles, unsigned int taille_tableau);
+    + virtual JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau);
+    + Action choisir_action(PlateauCartes* p); 
+    + virtual Action choisir_action(Action* actions); 
+}
+'60 car 20*3 = 60 le nombre de carte max qu'un joueur vera dans sa partie
+'La fonction Verifie que la carte est accessible sur le Plateau (probablement via une méthode implémenté dans Plateau),
+'Et effetue l'Action choisit par le joueur
+
+'Si l'action choisit est construir ou merveille, alors le fonction vérifira que la carte ou la merveille est construissable puis l'ajoutera aux carte construites
+'Si l'action chosit est de défausser la carte, la carte sera ajouté à la défausse du Plateau, et le joueur gagnera de la monnaie, 
+'Dans tout les cas, la carte sera suprimé des cartes accésibles du plateau
+
+'La méthode updatemonnaie permet d'ajouter ou retirer une quantité de monnaie donnée au joueur 
+
+'La méthode getProduction() renvoie la production du joueur, pour cela elle interoge les cartes situées dans Carte
+
+'La méthode getcout(Carte) renvoie le cout en monnaie, pour la construction de la carte Carte
+
+'La méthode estconstructible(Carte) prend une carte en arguement Carte, et le joueur, car on fait Joueur.estconstructible(Carte)
+'renvoie les cartes consturctible par le joueur, cad les cartes tel que Joueur.getcout(Carte) <= monnaie
+
+'La fonction construire(Carte), ajoute Carte à carteconstruite et retire Joueur.getcout(Carte) à Joueur.monnaie 
+
+'getptdevictoire() calcule le nombre de Pt de victoire du joueur, à executer en fin de partie
+
+'Choisir action Carte, demande au joueur de Choisir une carte ACCESSIBLE, une fois la carte choisit elle est soit defaussé, soit construite, soit elle construit une merveille
+Joueur "2" -- "*" Carte
+
+class IARandom{
+    + Action choisir_action(Action* actions) override ; 
+    + Carte* choisirCarte(Carte** liste_cartes, unsigned int taille_tableau) override;
+    + JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau) override;
+}
+
+IARandom --|> Joueur
+
+
+class Plateau{
+    -PlateauMilitaire* plateau_militaire;
+    -PlateauScience* plateau_science;
+    -PlateauCartes* plateau_cartes;
+
+    +Plateau(Joueur* joueur1, Joueur* joueur2);
+    +Plateau& operator=(const Plateau& plateau) = default;
+
+    +PlateauMilitaire* getPlateauMilitaire(){return plateau_militaire;};
+    +PlateauScience* getPlateauScience(){ return plateau_science;};
+    +PlateauCartes* getPlateauCartes(){ return plateau_cartes;};
+
+    +void init();
+    +bool isEtatFinal();
+}
+
+PlateauMilitaire "1" --* "1" Plateau
+PlateauCarte "1" --* "1" Plateau
+PlateauScience "1" --* "1" Plateau
+
+class Controleur {
+    -Joueur* joueur1;
+    -Joueur* joueur2;
+    -Plateau plateau;
+    -unsigned int tour = 1;
+
+    +Controleur();
+    +Controleur(std::string player);
+
+    +Controleur(const Controleur& c) = delete;
+	+Controleur& operator=(const Controleur& c) = delete;
+
+    +static Controleur& getInstance();
+    +static Controleur& getInstance(const std::string p);
+    +static void libererInstance();
+
+	+const Plateau& getPlateau() const { return plateau; }
+    +Plateau& getPlateau() { return plateau; }
+    +Joueur* getJoueur1() { return joueur1; };
+    +Joueur* getJoueur2() { return joueur2; };
+    +unsigned int getTotalCartesAccessibles();
+
+    +int getTour() { return tour;};
+    +void addTour();
+
+    +Joueur* quiJoue();
+    +Joueur* autreJoueur(Joueur* j);
+    +Joueur* determineGagnant();
+
+    +bool jeuEstFinie();
+    +unsigned int gagnant();
+    +bool gagne(Joueur* joueur);
+
+    +bool estConstructible(Carte* carte);
+    +void construireCarte(Carte* carte);
+    +void defausserCarte(Carte* carte);
+
+    +void playAction(Action& action);
+    +bool actionEstLegale(Action& action);
+
+    +Action* actionsLegales();
+    +~Controleur	();
+}
+
+Controleur "1" --* "1" Plateau
+Controleur "1" --* "2" Joueur
+@enduml
