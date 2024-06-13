@@ -318,9 +318,10 @@ public:
     
     virtual Carte* choisirCarte(Carte** liste_cartes, unsigned int taille_tableau);
     Merveille* choisirCarte(Merveille** liste_merveilles, unsigned int taille_tableau);
+    Merveille* choisirMerveille(Merveille** liste_merveille, unsigned int taille_tableau);
     virtual JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau);
-    Action choisir_action(PlateauCartes* p); 
-    virtual Action choisir_action(Action* actions); 
+    Action choisir_action(PlateauCartes* p);
+    virtual Action choisir_action(Action* actions);
     //* une fonction qui prend en entrée les Controleur::actionsLegales() et retourne l'action choisie par le joueur 
 
 /*
@@ -340,6 +341,8 @@ class IARandom: public Joueur{
 public:
     Action choisir_action(Action* actions) override ; 
     Carte* choisirCarte(Carte** liste_cartes, unsigned int taille_tableau) override;
+    Merveille* choisirMerveille(Merveille** liste_merveille, unsigned int taille_tableau);
+
     JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau) override;
 
 };

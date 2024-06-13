@@ -1102,6 +1102,19 @@ Carte* IARandom::choisirCarte(Carte** liste_cartes, unsigned int taille_tableau)
     return liste_cartes[randomIndex];
 }
 
+Merveille* IARandom::choisirMerveille(Merveille** liste_merveille, unsigned int taille_tableau){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, taille_tableau-1);
+
+    int randomIndex = dis(gen);
+    setMerveille(liste_merveille[randomIndex]);
+    liste_merveille[randomIndex] = nullptr;
+
+
+}
+
+
 
 JetonScience* IARandom::choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau){
     std::random_device rd;
