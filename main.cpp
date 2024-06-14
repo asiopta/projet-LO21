@@ -14,8 +14,8 @@ using namespace std;
 //!--------------------------------LA FONCTION RECURSIVE QUI GERE LE JEU------------------------------------------*/
 
 int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er joueur donnée en argument est le joueur qui joue
-    std::cout << "debut de SevenWondersDuel" << std::endl; //!teste
-    std::cout<< "C'est le tour du joueur " << controleur.getTour() <<"/ "<< controleur.quiJoue() <<std::endl;
+    // std::cout << "debut de SevenWondersDuel" << std::endl; //!teste
+    std::cout<< "C'est le tour du joueur " << controleur.getTour() <<std::endl;
     //** VERIFICATION DE LA VICTOIRE D'UN DES JOUEURS **//
     if (controleur.jeuEstFinie()) { //OK
         // std::cout<< "jeu est fini?"<< std:: endl; //! test
