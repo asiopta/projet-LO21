@@ -391,3 +391,49 @@ bool Plateau::isEtatFinal() {
         
 }
 
+void Controleur::showStatePlayer(Joueur* joueur){
+    std::cout <<"*---------------------------------------------*"<<std::endl;
+    std::cout <<"monnaie de joueur: "<< joueur->getMonnaie() <<std::endl;
+    std::cout <<"cartes construites par le joueur: "<< joueur->getMonnaie() <<std::endl;
+
+    for(int i=0; i<60; i++){
+        Carte* carte = joueur->getCartesConstruites()[i];
+        if(carte!= nullptr){
+            std::cout <<"(" << carte->get_type() << ") "<<carte->getNom() <<std::endl;
+        }
+    }
+    std::cout <<"*---------------------------------------------*"<<std::endl;
+
+}
+
+void Controleur::showStatePlateauMilitaire(){
+    std::cout<<"*-------------- Plateau Militaire------------*" << std::endl;
+    std::cout<< "avancee militaire: " << plateau.getPlateauMilitaire()->getAvance() << std::endl;
+    
+    plateau.getPlateauMilitaire()->getJoueurDerriere();
+    int der;
+    if(plateau.getPlateauMilitaire()->getJoueurDerriere() == joueur1){
+        der = 1;
+    }
+    else if(plateau.getPlateauMilitaire()->getJoueurDerriere() == joueur2){
+        der = 2;
+    }
+    else throw SetException("joueur inconnue!");
+    std::cout<< "joueur derriere: joueur" << der<<std::endl;
+
+}
+
+void Controleur::showStatePlateauScience(){
+    std::cout<<"*-------------- Plateau Science------------*" << std::endl;
+    std::cout<< "jetons disponibles: " << std::endl;
+
+    for(int i=0; i<5; i++){
+        JetonScience* jeton = plateau.getPlateauScience()->getJetonInGame()[i];
+        if(jeton!= nullptr){
+            std::cout<< jeton->get_capacite() << std::endl;
+        }
+    }
+
+
+}
+

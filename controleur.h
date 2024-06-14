@@ -116,6 +116,11 @@ public:
 
     Action* actionsLegales(); //review
         //renvoie une liste de ttes les actions légales que le joueurs, dont il est le tour de jouer, peut faire.
+
+    void showStatePlayer(Joueur* joueur);
+    void showStatePlateauMilitaire();
+    void showStatePlateauScience();
+
     ~Controleur	();
     
 

@@ -22,6 +22,16 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
         return controleur.gagnant(); //OK
     } //!condition d'arret de la fonction recursive SevenWondersDuel
 
+    //** affichage de l'etat de jeu **/
+    std::cout << "*-------- votre plateau joueur--------------*" << std::endl;
+    controleur.showStatePlayer(joueur_actif);
+
+    std::cout << "*-------- plateau de l'adversaire--------------*" << std::endl;
+    controleur.showStatePlayer(controleur.autreJoueur(joueur_actif));
+
+    controleur.showStatePlateauMilitaire();
+    controleur.showStatePlateauScience();
+
     
     //** CHOIX D'UNE ACTION POUR LE JOUEUR ACTIF **//
     // std::cout<< "action légales?" << std:: endl; //! test
