@@ -317,8 +317,7 @@ public:
     //void construireMerveille(Merveille& merveille, PlateauCartes& p); //à faire
     
     virtual Carte* choisirCarte(Carte** liste_cartes, unsigned int taille_tableau);
-    Merveille* choisirCarte(Merveille** liste_merveilles, unsigned int taille_tableau);
-    Merveille* choisirMerveille(Merveille** liste_merveille, unsigned int taille_tableau);
+    virtual Merveille* choisirCarte(Merveille** liste_merveilles, unsigned int taille_tableau);
     virtual JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau);
     Action choisir_action(PlateauCartes* p);
     virtual Action choisir_action(Action* actions);
@@ -341,6 +340,8 @@ class IARandom: public Joueur{
 public:
     Action choisir_action(Action* actions) override ; 
     Carte* choisirCarte(Carte** liste_cartes, unsigned int taille_tableau) override;
+    //Merveille* choisirCarte(Merveille** liste_merveilles, unsigned int taille_tableau) override;
+
     Merveille* choisirMerveille(Merveille** liste_merveille, unsigned int taille_tableau);
 
     JetonScience* choisirJetonScience(JetonScience** liste_jetons, unsigned int taille_tableau) override;

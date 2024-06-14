@@ -97,12 +97,11 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
 
 const unsigned int NB_CHOIX_MERVEILLE = 4;
 
-void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
+void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur, bool ia){
     if (joueur == 1){
         Joueur* joueur1 = jeu->getJoueur1();
         Merveille* choix = joueur1->choisirCarte(merveilles, 4); 
         joueur1->setMerveille(choix);
-        bool found = false;
         for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
             if (merveilles[i] == choix){
                 merveilles[i] = nullptr;
@@ -113,7 +112,11 @@ void choix_merveille(Controleur* jeu, Merveille** merveilles, int joueur){
 
     else{
         Joueur* joueur2 = jeu->getJoueur2();
-        Merveille* choix = joueur2->choisirCarte(merveilles, 4);
+        Merveille* choix;
+        if(ia){
+            choix = (dynamic_cast<IARandom*>(joueur2))->choisirMerveille(merveilles, 4);
+        }
+        else choix = joueur2->choisirCarte(merveilles, 4);
         joueur2->setMerveille(choix);
         for(int i = 0; i < NB_CHOIX_MERVEILLE; i++){
             if (merveilles[i] == choix){
@@ -129,7 +132,6 @@ int main(){
     //!INITIALISATION DU JEU
     try{
     std::cout << "Bienvenue dans Seven Wonders Duel!" << endl;
-    // Controleur* jeu =  new Controleur();
     std::cout << "Voulez vous jouer:" << endl;
     std::cout << "1/ PVP" << endl;
     std::cout << "2/ PVIA" << endl;
@@ -161,20 +163,19 @@ int main(){
         merveilles_etape_2[i] = merveille[i+NB_CHOIX_MERVEILLE];
     }
 
-    if (ia == false){
-        std::cout<<"A vous de choisir deux merveilles dans le premier lot !" <<endl;
-        //choix des merveilles pour le 1er lot de 4 merveilles
-        choix_merveille(jeu, merveilles_etape_1, 1);
-        choix_merveille(jeu, merveilles_etape_1, 2);
-        choix_merveille(jeu, merveilles_etape_1, 2);
-        choix_merveille(jeu, merveilles_etape_1, 1);
-        std::cout<<"A vous de choisir deux merveilles dans le deuxième lot !" <<endl;
-        //choix des merveilles pour le 2eme lot de 4 merveilles
-        choix_merveille(jeu, merveilles_etape_2, 2);
-        choix_merveille(jeu, merveilles_etape_2, 1);
-        choix_merveille(jeu, merveilles_etape_2, 1);
-        choix_merveille(jeu, merveilles_etape_2, 2);
-    }
+    std::cout<<"A vous de choisir deux merveilles dans le premier lot !" <<endl;
+    //choix des merveilles pour le 1er lot de 4 merveilles
+    choix_merveille(jeu, merveilles_etape_1, 1, ia);
+    choix_merveille(jeu, merveilles_etape_1, 2, ia);
+    choix_merveille(jeu, merveilles_etape_1, 2, ia);
+    choix_merveille(jeu, merveilles_etape_1, 1, ia);
+    std::cout<<"A vous de choisir deux merveilles dans le deuxième lot !" <<endl;
+    //choix des merveilles pour le 2eme lot de 4 merveilles
+    choix_merveille(jeu, merveilles_etape_2, 2, ia);
+    choix_merveille(jeu, merveilles_etape_2, 1, ia);
+    choix_merveille(jeu, merveilles_etape_2, 1, ia);
+    choix_merveille(jeu, merveilles_etape_2, 2, ia);
+    
     // else{
     //     Merveille* choix = nullptr;
     //     std::cout<<"A vous de choisir deux merveilles dans le premier lot !" <<endl;
