@@ -394,7 +394,7 @@ bool Plateau::isEtatFinal() {
 void Controleur::showStatePlayer(Joueur* joueur){
     std::cout <<"*---------------------------------------------*"<<std::endl;
     std::cout <<"monnaie de joueur: "<< joueur->getMonnaie() <<std::endl;
-    std::cout <<"cartes construites par le joueur: "<< joueur->getMonnaie() <<std::endl;
+    std::cout <<"cartes construites par le joueur: " <<std::endl;
 
     for(int i=0; i<60; i++){
         Carte* carte = joueur->getCartesConstruites()[i];
@@ -420,6 +420,8 @@ void Controleur::showStatePlateauMilitaire(){
     }
     else throw SetException("joueur inconnue!");
     std::cout<< "joueur derriere: joueur" << der<<std::endl;
+    std::cout <<"*---------------------------------------------*"<<std::endl;
+
 
 }
 
@@ -433,6 +435,7 @@ void Controleur::showStatePlateauScience(){
             std::cout<< jeton->get_capacite() << std::endl;
         }
     }
+    std::cout <<"*---------------------------------------------*"<<std::endl;
 
 
 }
