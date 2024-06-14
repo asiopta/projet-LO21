@@ -652,7 +652,7 @@ void Joueur::removeEffetGuilde(EffetGuilde effet) {
 //constructeurs
 Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false){
 
-    std::cout<< "Ici Joueur::Joueur()" <<std::endl; //! test
+    // std::cout<< "Ici Joueur::Joueur()" <<std::endl; //! test
 
     ressources = Ressource();
     capacites = CapaciteJeton();
@@ -662,14 +662,14 @@ Joueur::Joueur(): pt_victoire(0), monnaie(7),  nb_jetons(0), rejouer(false){
     for(int i=0; i<60; i++) cartes_construite[i] = nullptr;
     for(int i=0; i<5; i++) merveille_construite[i] = nullptr;
     for(int i=0; i<5; i++) merveille_non_construite[i] = nullptr;
-    std::cout<< "fin de Joueur::Joueur()" <<std::endl; //! test
+    // std::cout<< "fin de Joueur::Joueur()" <<std::endl; //! test
 }
 
 Joueur::Joueur(const Joueur& j): monnaie(j.monnaie), pt_victoire(j.pt_victoire), nb_jetons(j.nb_jetons),
 rejouer(j.rejouer), ressources(j.ressources), capacites(j.capacites), symboles_science(j.symboles_science),
 symboles_chainage(j.symboles_chainage), effets(j.effets)
 {
-    std:: cout<< "constructeur de recopie de Joueur."<< std::endl;
+    // std:: cout<< "constructeur de recopie de Joueur."<< std::endl;
     for(int i=0; i<60; i++) cartes_construite[i] = j.cartes_construite[i];
     for(int i=0; i<5; i++) merveille_construite[i] = j.merveille_construite[i];
     for(int i=0; i<5; i++) merveille_non_construite[i] = j.merveille_non_construite[i];
@@ -706,7 +706,7 @@ bool Joueur::operator==(const Joueur& j){
 
 //destructeur
 Joueur::~Joueur(){
-    std::cout << "destructeur de joueur" << std::endl;
+    // std::cout << "destructeur de joueur" << std::endl;
     for(int i=0; i< getNbCartesConstruites(); i++) free(cartes_construite[i]);
     for(int i=0; i< getNbMerveillesConstruites(); i++) free(merveille_construite[i]);
     for(int i=0; i< getNbMerveillesNonConstruites(); i++) free(merveille_non_construite[i]);

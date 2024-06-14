@@ -22,7 +22,7 @@ const int NB_CARTE_GUILDE_JEU = 3;
 /*-------------------------------------JetonScience-------------------------------------*/
 
 JetonScience::JetonScience() : capacite(CapaciteScience::none) {} //si vous n'arrivez pas à lire le none, verifier qu'il y est bien dans le enum de CapaciteScience
-JetonScience::JetonScience(CapaciteScience capacite) : capacite(capacite) {std::cout<<"ici JetonScience::JetonScience()"<<std::endl;} //rafrechir la memoire si vous ne voyez pas le enum CapaciteScience
+JetonScience::JetonScience(CapaciteScience capacite) : capacite(capacite) {} //rafrechir la memoire si vous ne voyez pas le enum CapaciteScience
 
 CapaciteScience JetonScience::get_capacite() const{return capacite;}
 
@@ -307,7 +307,7 @@ JetonScience** PlateauScience::tirer_jeton_out_game() {
     for (unsigned int i = 0; i < Dim_resultat; i++) {
         resultat[i] = valid_jetons[i];
 
-        std::cout << "tirer_jeton_out_game: jeton: " << resultat[i]->get_capacite() << std::endl; //!test
+        // std::cout << "tirer_jeton_out_game: jeton: " << resultat[i]->get_capacite() << std::endl; //!test
     }
 
     return resultat;
@@ -389,7 +389,7 @@ JetonMalus* PlateauMilitaire::jeton_malus_ici() const{
 
 bool PlateauMilitaire::gagneMilitairement(Joueur* joueur) const {
     if (avance >= avance_win && joueur != joueur_derriere){
-        std::cout<<"avance: "<<avance << "  joueur:" << (joueur != joueur_derriere) <<std::endl; //!test
+        // std::cout<<"avance: "<<avance << "  joueur:" << (joueur != joueur_derriere) <<std::endl; //!test
         return true;
     }
     else {
@@ -547,7 +547,7 @@ Carte** PlateauCartes::getCartesVisibles() const{
 }
 
 void PlateauCartes::update_accessibilite(){ //! fonction OK
-    // std::cout << "PlateauCartes::update_accessibilite : age :"<< age << std::endl; //! test
+    std::cout << "PlateauCartes::update_accessibilite : age :"<< age << std::endl; //! test
     std::vector<std::vector<unsigned int>> liste_adjacence;
     if (age == 1){
         liste_adjacence = {{2, 3}, {3, 4}, {5, 6}, {6, 7}, {7, 8}, {9, 10}, {10,11}, {11, 12}, {12, 13}, {14, 15}, {15, 16}, {16, 17}, {17, 18}, {18, 19}};
@@ -569,9 +569,13 @@ void PlateauCartes::update_accessibilite(){ //! fonction OK
                 compteur += 1;
             
             }
-            if (cartes_en_jeu[i] != nullptr && compteur == liste_adjacence[i].size()){rendreAccessible(cartes_en_jeu[i]); std::cout << "element "<< i << " rendu accessible" << std::endl;}
+            if (cartes_en_jeu[i] != nullptr && compteur == liste_adjacence[i].size()){
+                rendreAccessible(cartes_en_jeu[i]); 
+                std::cout << "element "<< i << " rendu accessible" << std::endl;
+            }
         }
     }
+
 }
 
 void PlateauCartes::prendreCarte(Carte* carte){ //! fonction OK

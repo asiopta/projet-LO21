@@ -234,7 +234,7 @@ unsigned int Carte::getQuantRessSecondNess(RessourceSecondaire rs) const{
 
 
 Carte::~Carte(){
-    std::cout << "Ici Carte::~Carte() : debut" << std::endl; //!test
+    // std::cout << "Ici Carte::~Carte() : debut" << std::endl; //!test
      delete[] materiaux_construction_primaires;
      delete[] materiaux_construction_secondaires;
 }
@@ -529,9 +529,9 @@ CarteMilitaire::CarteMilitaire(const CarteMilitaire& c)
 }
 
 void CarteMilitaire::exec_capacite(Joueur* joueur_adverse, PlateauMilitaire& plateau_militaire){ //!error
-    std::cout<< "exec_capacite_militaire: joueur_adverse = " << joueur_adverse << std::endl; //! test
+    // std::cout<< "exec_capacite_militaire: joueur_adverse = " << joueur_adverse << std::endl; //! test
     plateau_militaire.update_avance(nb_symbole_militaire,joueur_adverse);
-    std::cout<< "exec_capacite_militaire: joueur derriere = " << plateau_militaire.getJoueurDerriere();
+    // std::cout<< "exec_capacite_militaire: joueur derriere = " << plateau_militaire.getJoueurDerriere()<< std::endl;
 }
 
 
@@ -774,7 +774,7 @@ void Merveille::exec_detruire_carte_grise(Joueur* joueur1, Joueur* joueur2) cons
     int j = 0;
     for (int i = 0; i<joueur2->getNbCartesConstruites(); i++){
         if (joueur2_cartes_construite[i]->get_type() == TypeCarte::CarteRessourceSecondaire){
-            std::cout << "exec_detruire_carte_grise: carte_construite: " << joueur2_cartes_construite[i]->getNom() << " " << j <<std::endl; //!test
+            // std::cout << "exec_detruire_carte_grise: carte_construite: " << joueur2_cartes_construite[i]->getNom() << " " << j <<std::endl; //!test
             tableau_choix_possible[j] = joueur2_cartes_construite[i];
             j++;
         }
