@@ -812,7 +812,7 @@ void PlateauCartes::initPlateauCarte(){
                 i_counter++;
             }
         }
-        std::cout<< "age 1 initialisé correctement" << std::endl; //! test
+        // std::cout<< "age 1 initialisé correctement" << std::endl; //! test
         
         //* Remarque, on a deja suprimé les cartes non utilisées dans la fonction initCarteRandom
         // delete[] LISTE_MERVEILLES;
@@ -820,7 +820,7 @@ void PlateauCartes::initPlateauCarte(){
         //! on delet les element du tableau mais pas les tableau car il ne sont pas alloué dynamiquement 
     }
     else if (age == 2){
-        std::cout<< "initialisation d'age 2!"<< std::endl; //! test
+        // std::cout<< "initialisation d'age 2!"<< std::endl; //! test
         //initialisation des cartes en jeu pour l'age 2
         Carte* LISTE_CARTE_AGE_2[NB_CARTE_AGE_2_TOT] = {
             //! LISTE DE TOUTES LES CARTES DE L'AGE 2

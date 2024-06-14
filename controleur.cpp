@@ -130,9 +130,9 @@ bool Controleur::estConstructible(Carte* carte){
             Joueur* j = quiJoue();
             int diff = j->getMonnaie() - j->getCout(*carte, *autreJoueur(j));
             if(diff < 0) throw SetException(" erreur: joueur n'a pas assez d'argent et de ressources");
-            std::cout<< "argent joueur avant construire: "<< j->getMonnaie() << std::endl; //!test
+            // std::cout<< "argent joueur avant construire: "<< j->getMonnaie() << std::endl; //!test
             j->setMonnaie(diff);
-            std::cout<< "argent joueur apres construire: "<< j->getMonnaie() << std::endl; //!test
+            // std::cout<< "argent joueur apres construire: "<< j->getMonnaie() << std::endl; //!test
             //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
             j->addCarte(carte, plateau.getPlateauScience());
             plateau.getPlateauCartes()->prendreCarte(carte); //si c'est carteScience ou CarteRessource ou Prestige ou CarteGuilde c bon
@@ -176,13 +176,13 @@ void Controleur::defausserCarte(Carte* carte){
     if(plateau.getPlateauCartes()->estAccessible(carte)){
         //niveau argent joueur
         Joueur* j = quiJoue();
-        std::cout<< "argent joueur avant defausser: "<< j->getMonnaie() << std::endl; //!test
+        // std::cout<< "argent joueur avant defausser: "<< j->getMonnaie() << std::endl; //!test
         // std::cout<< "cout carte: "<< j->getCout(*carte, *autreJoueur(j))<< std::endl; //!test
         unsigned int cout_defauss = 2;
         cout_defauss += j->getNbCartesType("RessourcePrimaire");
         cout_defauss += j->getNbCartesType("RessourceSecondaire");
         j->gagnerArgent(cout_defauss);
-        std::cout<< "argent joueur apres defausser: "<< j->getMonnaie() << std::endl; //!test
+        // std::cout<< "argent joueur apres defausser: "<< j->getMonnaie() << std::endl; //!test
 
         //rajouter la carte aux cartes_construites de joueur et l'enlever du plateau
         if(carte->get_type() == TypeCarte::Merveille) throw SetException("erreur: impossible de défausser une merveille");

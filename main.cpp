@@ -23,6 +23,7 @@ int SevenWondersDuel(Controleur& controleur, Joueur* joueur_actif){ //le 1er jou
     } //!condition d'arret de la fonction recursive SevenWondersDuel
 
     //** affichage de l'etat de jeu **/
+    std::cout <<"*---------------------------------------------*"<<std::endl;
     std::cout << "*-------- votre plateau joueur--------------*" << std::endl;
     controleur.showStatePlayer(joueur_actif);
 
