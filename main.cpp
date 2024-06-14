@@ -197,10 +197,16 @@ int main(){
     std::cout << "Lancement de la boucle de jeu !!"<<endl;
     int gagnant  = SevenWondersDuel(*jeu, jeu->getJoueur1()); 
     if (gagnant == 1){
+        std::cout << "*----------------------------------------------*" << endl;
         std::cout << "Le joueur 1 a gagné!" << endl;
+        std::cout << "*----------------------------------------------*" << endl;
+
     }
     else if (gagnant == 2){
+        std::cout << "*----------------------------------------------*" << endl;
         std::cout << "Le joueur 2 a gagné!" << endl;
+        std::cout << "*----------------------------------------------*" << endl;
+
     }
     else {
         std::cout << "Match nul!" << endl;
