@@ -571,7 +571,7 @@ void PlateauCartes::update_accessibilite(){ //! fonction OK
             }
             if (cartes_en_jeu[i] != nullptr && compteur == liste_adjacence[i].size()){
                 rendreAccessible(cartes_en_jeu[i]); 
-                std::cout << "element "<< i << " rendu accessible" << std::endl;
+                // std::cout << "element "<< i << " rendu accessible" << std::endl;
             }
         }
     }
